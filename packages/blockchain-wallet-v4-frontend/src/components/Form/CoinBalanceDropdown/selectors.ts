@@ -5,7 +5,7 @@ import { getData as getBchAddressData } from 'components/Form/SelectBoxBchAddres
 import { getData as getBtcAddressData } from 'components/Form/SelectBoxBtcAddresses/selectors'
 import {
   getErc20Data as getErc20AddressData,
-  getEthData as getEthAddressData
+  getEthData as getEthAddressData,
 } from 'components/Form/SelectBoxEthAddresses/selectors'
 import { getData as getXlmAddressData } from 'components/Form/SelectBoxXlmAddresses/selectors'
 
@@ -22,7 +22,7 @@ export const getData = (state, ownProps: OwnProps) => {
         excludeImported: true,
         includeCustodial: includeCustodial,
         includeInterest: false,
-        includeAll: false
+        includeAll: false,
       })
       break
     case 'BTC':
@@ -31,51 +31,51 @@ export const getData = (state, ownProps: OwnProps) => {
         excludeImported: true,
         includeCustodial: includeCustodial,
         includeInterest: false,
-        includeAll: false
+        includeAll: false,
       })
       break
     case 'ETH':
       addressDataR = getEthAddressData(state, {
         excludeLockbox: true,
         includeCustodial: includeCustodial,
-        includeInterest: false
+        includeInterest: false,
       })
       break
     case 'PAX':
       addressDataR = getErc20AddressData(state, {
         coin: 'PAX',
         includeCustodial: includeCustodial,
-        includeInterest: false
+        includeInterest: false,
       })
       break
     case 'USDT':
       addressDataR = getErc20AddressData(state, {
         coin: 'USDT',
         includeCustodial: includeCustodial,
-        includeInterest: false
+        includeInterest: false,
       })
       break
     case 'WDGLD':
       addressDataR = getErc20AddressData(state, {
         coin: 'WDGLD',
         includeCustodial: includeCustodial,
-        includeInterest: false
+        includeInterest: false,
       })
       break
     case 'XLM':
       addressDataR = getXlmAddressData(state, {
         excludeLockbox: true,
         includeCustodial: includeCustodial,
-        includeInterest: false
+        includeInterest: false,
       })
       break
     default:
       addressDataR = Remote.Success({ data: [] })
   }
 
-  const transform = addressData => {
+  const transform = (addressData) => {
     return {
-      addressData
+      addressData,
     }
   }
 

@@ -4,6 +4,6 @@ export default ({ api, coinsSocket, ratesSocket }) => ({
   webSocket: webSocket({
     api,
     ratesSocket,
-    coinsSocket
-  })
+    coinsSocket,
+  }),
 })

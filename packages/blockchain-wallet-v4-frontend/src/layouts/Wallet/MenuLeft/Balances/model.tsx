@@ -18,7 +18,7 @@ export const CoinBalanceMain = styled.div`
   > div:last-child {
     margin-left: 10px;
     > div {
-      color: ${props => props.theme.blue900};
+      color: ${(props) => props.theme.blue900};
     }
   }
 `
@@ -40,7 +40,7 @@ const CoinNameText = styled(Text)`
   font-weight: 600;
   font-size: 12px;
   line-height: 150%;
-  color: ${props => props.theme.grey800};
+  color: ${(props) => props.theme.grey800};
 `
 
 export const BalancesWrapper = styled.div`
@@ -48,44 +48,25 @@ export const BalancesWrapper = styled.div`
   overflow: hidden;
   transition: max-height 0.3s;
   &.active {
-    max-height: ${props => React.Children.count(props.children) * 20}px;
+    max-height: ${(props) => React.Children.count(props.children) * 20}px;
   }
 `
 
 export const CoinBalanceWrapper = (props: OwnProps) => {
   return props.large ? (
     <CoinBalanceMain>
-      <CoinDisplay
-        coin={props.coin}
-        cursor='pointer'
-        mobileSize='14px'
-        size='18px'
-        weight={400}
-      >
+      <CoinDisplay coin={props.coin} cursor='pointer' mobileSize='14px' size='18px' weight={400}>
         {props.balance}
       </CoinDisplay>
-      <FiatDisplay
-        coin={props.coin}
-        cursor='pointer'
-        mobileSize='14px'
-        size='18px'
-        weight={400}
-      >
+      <FiatDisplay coin={props.coin} cursor='pointer' mobileSize='14px' size='18px' weight={400}>
         {props.balance}
       </FiatDisplay>
     </CoinBalanceMain>
   ) : (
     <LinkContainer to={`/${toLower(props.coin)}/transactions`}>
       <CoinBalanceSwitchable>
-        <CoinNameText>
-          {props.coinTicker ? props.coinTicker : props.coin}
-        </CoinNameText>
-        <SwitchableDisplay
-          size='12px'
-          weight={500}
-          coin={props.coin}
-          hideCoinTicker
-        >
+        <CoinNameText>{props.coinTicker ? props.coinTicker : props.coin}</CoinNameText>
+        <SwitchableDisplay size='12px' weight={500} coin={props.coin} hideCoinTicker>
           {props.balance}
         </SwitchableDisplay>
       </CoinBalanceSwitchable>
@@ -93,7 +74,7 @@ export const CoinBalanceWrapper = (props: OwnProps) => {
   )
 }
 
-export const LoadingBalance = props => {
+export const LoadingBalance = (props) => {
   return props.large ? (
     <BalanceSkeleton>
       <SkeletonRectangle width='170px' height='12px' />

@@ -6,43 +6,36 @@ import { Color } from 'blockchain-info-components'
 import { fiatToString } from 'blockchain-wallet-v4/src/exchange/currency'
 import { CoinType, FiatType } from 'blockchain-wallet-v4/src/types'
 
-export const getConfig = (
-  coin: CoinType,
-  currency: FiatType,
-  data,
-  decimals,
-  interval,
-  start
-) => ({
+export const getConfig = (coin: CoinType, currency: FiatType, data, decimals, interval, start) => ({
   chart: {
     height: 400,
     type: 'area',
     spacing: [25, 0, 0, 0],
     data: {
-      dateFormat: 'YYYY/mm/dd'
-    }
+      dateFormat: 'YYYY/mm/dd',
+    },
   },
   title: {
-    text: null
+    text: null,
   },
   yAxis: {
     visible: false,
     minPadding: 0.5,
     maxPadding: 0,
-    gridLineColor: 'transparent'
+    gridLineColor: 'transparent',
   },
   xAxis: {
     visible: false,
     minPadding: 0,
     maxPadding: 0,
     type: 'datetime',
-    gridLineColor: 'transparent'
+    gridLineColor: 'transparent',
   },
   plotOptions: {
     series: {
       pointStart: start,
       pointInterval: interval,
-      animation: false
+      animation: false,
     },
     area: {
       fillColor: {
@@ -50,45 +43,41 @@ export const getConfig = (
           x1: 0,
           y1: 0,
           x2: 0,
-          y2: 1
+          y2: 1,
         },
         stops: [
           [
             0,
-            ReactHighcharts.Highcharts.Color(
-              Color(coin.toLowerCase() as keyof DefaultTheme)
-            )
+            ReactHighcharts.Highcharts.Color(Color(coin.toLowerCase() as keyof DefaultTheme))
               .setOpacity(0.7)
-              .get('rgba')
+              .get('rgba'),
           ],
           [
             1,
-            ReactHighcharts.Highcharts.Color(
-              Color(coin.toLowerCase() as keyof DefaultTheme)
-            )
+            ReactHighcharts.Highcharts.Color(Color(coin.toLowerCase() as keyof DefaultTheme))
               .setOpacity(0.1)
-              .get('rgba')
-          ]
-        ]
+              .get('rgba'),
+          ],
+        ],
       },
       marker: {
-        radius: 0
+        radius: 0,
       },
       lineWidth: 2,
       color: Color(coin.toLowerCase() as keyof DefaultTheme),
       states: {
         hover: {
-          lineWidth: 2
-        }
+          lineWidth: 2,
+        },
       },
       threshold: null,
-      dataGrouping: { enabled: false }
+      dataGrouping: { enabled: false },
     },
     line: {
       marker: {
-        enabled: false
-      }
-    }
+        enabled: false,
+      },
+    },
   },
   tooltip: {
     borderColor: 'transparent',
@@ -99,32 +88,32 @@ export const getConfig = (
     shadow: false,
     padding: 4,
     style: {
-      color: Color('white')
+      color: Color('white'),
     },
     xDateFormat: '%b %d, %Y',
     useHTML: true,
-    pointFormatter: function() {
+    pointFormatter: function () {
       // @ts-ignore
       return fiatToString({ value: this.y, decimals, unit: currency })
-    }
+    },
   },
   credits: {
-    enabled: false
+    enabled: false,
   },
   legend: {
-    enabled: false
+    enabled: false,
   },
   series: [
     {
       name: 'Price',
-      data: data
-    }
-  ]
+      data: data,
+    },
+  ],
 })
 
 const getPrices = map(last)
 
-const getMinMax = data => {
+const getMinMax = (data) => {
   const lowToHigh = (a, b) => a - b
   const prices = getPrices(data)
   const sorted = sort(lowToHigh, prices)
@@ -133,7 +122,7 @@ const getMinMax = data => {
   return [min, max]
 }
 
-const getMinMaxIndex = data => {
+const getMinMaxIndex = (data) => {
   const prices = getPrices(data)
   const [min, max] = getMinMax(data)
   const minIndex = prices.indexOf(min)
@@ -153,7 +142,7 @@ const renderPoint = (chart, pointData, isPointGreaterThanCounterPoint) => {
       true
     )
     .attr({
-      zIndex: 5
+      zIndex: 5,
     })
     .add()
 }
@@ -167,11 +156,11 @@ export const renderMinMax = (
 
   const maxPoint = [
     chart.series[0].data[maxIndex],
-    fiatToString({ value: max, unit: currency, digits: decimals })
+    fiatToString({ value: max, unit: currency, digits: decimals }),
   ]
   const minPoint = [
     chart.series[0].data[minIndex],
-    fiatToString({ value: min, unit: currency, digits: decimals })
+    fiatToString({ value: min, unit: currency, digits: decimals }),
   ]
 
   renderPoint(chart, maxPoint, maxIndex > minIndex)

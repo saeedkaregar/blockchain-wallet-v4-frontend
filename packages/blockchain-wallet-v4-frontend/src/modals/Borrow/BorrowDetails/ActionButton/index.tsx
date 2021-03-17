@@ -17,23 +17,15 @@ const ButtonContainer = styled.div`
 
 const { isLastTxStatus } = model.components.borrow
 
-const ActionButton: React.FC<Props> = props => {
-  const lastFailedTx = isLastTxStatus(
-    ['FAILED'],
-    props.loan,
-    props.loanTransactions
-  )
+const ActionButton: React.FC<Props> = (props) => {
+  const lastFailedTx = isLastTxStatus(['FAILED'], props.loan, props.loanTransactions)
 
   switch (props.loan.status) {
     case 'PENDING_COLLATERAL_DEPOSIT':
     case 'PENDING_EXECUTION':
       return lastFailedTx ? (
         <ButtonContainer>
-          <Button
-            nature='light'
-            data-e2e='closeBorrowDetails'
-            onClick={() => props.handleClose()}
-          >
+          <Button nature='light' data-e2e='closeBorrowDetails' onClick={() => props.handleClose()}>
             <FormattedMessage id='buttons.close' defaultMessage='Close' />
           </Button>
           <Button
@@ -43,7 +35,7 @@ const ActionButton: React.FC<Props> = props => {
               props.borrowActions.setStep({
                 step: 'ADD_COLLATERAL',
                 offer: props.offer,
-                loan: props.loan
+                loan: props.loan,
               })
             }
           >
@@ -74,7 +66,7 @@ const ActionButton: React.FC<Props> = props => {
               props.borrowActions.setStep({
                 step: 'ADD_COLLATERAL',
                 offer: props.offer,
-                loan: props.loan
+                loan: props.loan,
               })
             }
           >
@@ -91,14 +83,11 @@ const ActionButton: React.FC<Props> = props => {
               props.borrowActions.setStep({
                 step: 'REPAY_LOAN',
                 offer: props.offer,
-                loan: props.loan
+                loan: props.loan,
               })
             }
           >
-            <FormattedMessage
-              id='modals.details.borrow.endborrow'
-              defaultMessage='End Borrowing'
-            />
+            <FormattedMessage id='modals.details.borrow.endborrow' defaultMessage='End Borrowing' />
           </Button>
         </ButtonContainer>
       ) : (
@@ -110,14 +99,11 @@ const ActionButton: React.FC<Props> = props => {
             props.borrowActions.setStep({
               step: 'REPAY_LOAN',
               offer: props.offer,
-              loan: props.loan
+              loan: props.loan,
             })
           }
         >
-          <FormattedMessage
-            id='modals.details.borrow.endborrow'
-            defaultMessage='End Borrowing'
-          />
+          <FormattedMessage id='modals.details.borrow.endborrow' defaultMessage='End Borrowing' />
         </Button>
       )
     case 'PENDING_CLOSE':
@@ -130,7 +116,7 @@ const ActionButton: React.FC<Props> = props => {
             props.borrowActions.setStep({
               step: 'REPAY_LOAN',
               offer: props.offer,
-              loan: props.loan
+              loan: props.loan,
             })
           }
         >

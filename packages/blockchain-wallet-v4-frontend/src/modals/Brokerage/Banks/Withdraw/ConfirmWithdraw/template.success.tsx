@@ -33,14 +33,12 @@ const ErrorContainer = styled(FlyoutWrapper)`
   margin-top: 0px;
 `
 
-const Success: React.FC<InjectedFormProps<
-  WithdrawCheckoutFormValuesType,
-  Props
-> &
-  Props> = props => {
+const Success: React.FC<InjectedFormProps<WithdrawCheckoutFormValuesType, Props> & Props> = (
+  props
+) => {
   return (
     <Form
-      onSubmit={e => {
+      onSubmit={(e) => {
         e.preventDefault()
 
         props.withdrawActions.handleCustodyWithdraw(
@@ -61,24 +59,16 @@ const Success: React.FC<InjectedFormProps<
               props.withdrawActions.setStep({
                 beneficiary: props.beneficiary,
                 fiatCurrency: props.fiatCurrency,
-                step: WithdrawStepEnum.ENTER_AMOUNT
+                step: WithdrawStepEnum.ENTER_AMOUNT,
               })
             }
           />
           <Text size='20px' weight={600} color='grey800'>
-            <FormattedMessage
-              id='copy.confirm_withdrawal'
-              defaultMessage='Confirm Withdrawal'
-            />
+            <FormattedMessage id='copy.confirm_withdrawal' defaultMessage='Confirm Withdrawal' />
           </Text>
         </Top>
         <AmountContainer>
-          <CoinDisplay
-            color='grey800'
-            size='32px'
-            weight={600}
-            coin={props.fiatCurrency}
-          >
+          <CoinDisplay color='grey800' size='32px' weight={600} coin={props.fiatCurrency}>
             {props.amount}
           </CoinDisplay>
           &nbsp;
@@ -96,7 +86,7 @@ const Success: React.FC<InjectedFormProps<
             id='modals.simplebuy.confirm.funds_wallet'
             defaultMessage='{coin} Wallet'
             values={{
-              coin: props.fiatCurrency
+              coin: props.fiatCurrency,
             }}
           />
         </Value>
@@ -105,9 +95,7 @@ const Success: React.FC<InjectedFormProps<
         <Title>
           <FormattedMessage id='copy.to' defaultMessage='To' />
         </Title>
-        <Value>
-          {props.beneficiary?.name || props.defaultMethod?.details.bankName}
-        </Value>
+        <Value>{props.beneficiary?.name || props.defaultMethod?.details.bankName}</Value>
       </Row>
       <Row>
         <Title>
@@ -144,8 +132,8 @@ const Success: React.FC<InjectedFormProps<
               values={{
                 value: fiatToString({
                   value: props.amount,
-                  unit: props.fiatCurrency
-                })
+                  unit: props.fiatCurrency,
+                }),
               }}
             />
           )}
@@ -155,7 +143,7 @@ const Success: React.FC<InjectedFormProps<
             props.withdrawActions.setStep({
               beneficiary: props.beneficiary,
               fiatCurrency: props.fiatCurrency,
-              step: WithdrawStepEnum.ENTER_AMOUNT
+              step: WithdrawStepEnum.ENTER_AMOUNT,
             })
           }
           data-e2e='cancelWithdrawCustody'
@@ -181,5 +169,5 @@ export type Props = OwnProps & SuccessStateType & { fees: NabuMoneyFloatType }
 
 export default reduxForm<WithdrawCheckoutFormValuesType, Props>({
   form: 'confirmCustodyWithdraw',
-  destroyOnUnmount: false
+  destroyOnUnmount: false,
 })(Success)

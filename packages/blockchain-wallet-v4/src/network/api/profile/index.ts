@@ -1,30 +1,22 @@
-export default ({
-  authorizedGet,
-  authorizedPost,
-  authorizedPut,
-  get,
-  nabuUrl,
-  post,
-  rootUrl
-}) => {
+export default ({ authorizedGet, authorizedPost, authorizedPut, get, nabuUrl, post, rootUrl }) => {
   const generateRetailToken = (guid, sharedKey) =>
     get({
       url: rootUrl,
       endPoint: '/wallet/signed-retail-token',
       data: {
         guid,
-        sharedKey
-      }
+        sharedKey,
+      },
     })
 
-  const createUser = retailToken => {
+  const createUser = (retailToken) => {
     return post({
       url: nabuUrl,
       endPoint: '/users',
       contentType: 'application/json',
       data: {
-        jwt: retailToken
-      }
+        jwt: retailToken,
+      },
     })
   }
 
@@ -37,8 +29,8 @@ export default ({
         linkId,
         email,
         address,
-        kycMerge: true
-      }
+        kycMerge: true,
+      },
     })
   }
 
@@ -46,7 +38,7 @@ export default ({
     return authorizedPut({
       url: nabuUrl,
       endPoint: '/users/link-account/finalise',
-      contentType: 'application/json'
+      contentType: 'application/json',
     })
   }
 
@@ -54,18 +46,18 @@ export default ({
     return authorizedPut({
       url: nabuUrl,
       endPoint: '/users/link-account/create/start',
-      contentType: 'application/json'
+      contentType: 'application/json',
     })
   }
 
-  const getPaymentsAccountExchange = currency => {
+  const getPaymentsAccountExchange = (currency) => {
     return authorizedPut({
       url: nabuUrl,
       endPoint: '/payments/accounts/linked',
       contentType: 'application/json',
       data: {
-        currency
-      }
+        currency,
+      },
     })
   }
 
@@ -73,18 +65,18 @@ export default ({
     return authorizedGet({
       url: nabuUrl,
       endPoint: '/users/user-campaigns',
-      contentType: 'application/json'
+      contentType: 'application/json',
     })
   }
 
-  const shareWalletDepositAddresses = addresses => {
+  const shareWalletDepositAddresses = (addresses) => {
     return authorizedPost({
       url: nabuUrl,
       endPoint: '/users/deposit/addresses',
       contentType: 'application/json',
       data: {
-        addresses
-      }
+        addresses,
+      },
     })
   }
 
@@ -94,14 +86,14 @@ export default ({
       endPoint: '/users/register-campaign',
       contentType: 'application/json',
       headers: {
-        'X-CAMPAIGN': campaignName
+        'X-CAMPAIGN': campaignName,
       },
       data: {
         data: {
-          ...campaignData
+          ...campaignData,
         },
-        newUser
-      }
+        newUser,
+      },
     })
 
   const recoverUser = (userId, lifetimeToken, retailToken) =>
@@ -110,9 +102,9 @@ export default ({
       endPoint: `/users/recover/${userId}`,
       contentType: 'application/json',
       headers: {
-        Authorization: `Bearer ${lifetimeToken}`
+        Authorization: `Bearer ${lifetimeToken}`,
       },
-      data: { jwt: retailToken }
+      data: { jwt: retailToken },
     })
 
   const generateSession = (userId, lifetimeToken, email, walletGuid) =>
@@ -126,39 +118,39 @@ export default ({
         'x-app-version': '6.11.1',
         'X-WALLET-GUID': walletGuid,
         'X-WALLET-EMAIL': email,
-        Authorization: `Bearer ${lifetimeToken}`
-      }
+        Authorization: `Bearer ${lifetimeToken}`,
+      },
     })
 
   const getUser = () =>
     authorizedGet({
       url: nabuUrl,
       contentType: 'application/json',
-      endPoint: '/users/current'
+      endPoint: '/users/current',
     })
 
-  const updateUser = userData =>
+  const updateUser = (userData) =>
     authorizedPut({
       url: nabuUrl,
       endPoint: '/users/current',
       contentType: 'application/json',
-      data: { ...userData }
+      data: { ...userData },
     })
 
-  const updateUserAddress = address =>
+  const updateUserAddress = (address) =>
     authorizedPut({
       url: nabuUrl,
       endPoint: '/users/current/address',
       contentType: 'application/json',
-      data: { address }
+      data: { address },
     })
 
-  const syncUserWithWallet = retailToken =>
+  const syncUserWithWallet = (retailToken) =>
     authorizedPut({
       url: nabuUrl,
       endPoint: '/users/current/walletInfo',
       contentType: 'application/json',
-      data: { jwt: retailToken }
+      data: { jwt: retailToken },
     })
 
   return {
@@ -176,6 +168,6 @@ export default ({
     syncUserWithWallet,
     updateUser,
     shareWalletDepositAddresses,
-    updateUserAddress
+    updateUserAddress,
   }
 }

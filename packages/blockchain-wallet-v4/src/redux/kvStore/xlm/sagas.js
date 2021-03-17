@@ -11,7 +11,7 @@ import { getMetadataXpriv } from '../root/selectors'
 import * as A from './actions'
 
 export default ({ api, networks } = {}) => {
-  const createXlm = function * ({ kv, password }) {
+  const createXlm = function* ({ kv, password }) {
     try {
       const mnemonicT = yield select(getMnemonic, password)
       const mnemonic = yield callTask(mnemonicT)
@@ -22,21 +22,19 @@ export default ({ api, networks } = {}) => {
           {
             publicKey: keypair.publicKey(),
             label: 'My Stellar Wallet',
-            archived: false
-          }
+            archived: false,
+          },
         ],
-        tx_notes: {}
+        tx_notes: {},
       }
       const newkv = set(KVStoreEntry.value, xlm, kv)
       yield put(A.createMetadataXlm(newkv))
     } catch (e) {
-      throw new Error(
-        '[NOT IMPLEMENTED] MISSING_SECOND_PASSWORD in core.createXlm saga'
-      )
+      throw new Error('[NOT IMPLEMENTED] MISSING_SECOND_PASSWORD in core.createXlm saga')
     }
   }
 
-  const fetchMetadataXlm = function * (secondPasswordSagaEnhancer) {
+  const fetchMetadataXlm = function* (secondPasswordSagaEnhancer) {
     try {
       const typeId = derivationMap[XLM]
       const mxpriv = yield select(getMetadataXpriv)
@@ -55,6 +53,6 @@ export default ({ api, networks } = {}) => {
 
   return {
     createXlm,
-    fetchMetadataXlm
+    fetchMetadataXlm,
   }
 }

@@ -11,7 +11,7 @@ import {
   DisplayContainer,
   DisplayIcon,
   DisplaySubTitle,
-  DisplayTitle
+  DisplayTitle,
 } from 'components/SimpleBuy'
 
 const DisplayTitleBank = styled(DisplayTitle)`
@@ -54,16 +54,10 @@ const BankTransfer = ({ icon, onClick, value }: Props) => (
         <DisplayIconBank>{icon}</DisplayIconBank>
         <Content>
           <DisplayTitleBank>
-            <FormattedMessage
-              id='copy.bank_account'
-              defaultMessage='Bank Account'
-            />
+            <FormattedMessage id='copy.bank_account' defaultMessage='Bank Account' />
           </DisplayTitleBank>
           <DisplaySubTitle>
-            <FormattedMessage
-              id='copy.instantly_available'
-              defaultMessage='Instantly Available'
-            />
+            <FormattedMessage id='copy.instantly_available' defaultMessage='Instantly Available' />
           </DisplaySubTitle>
           <Description>
             <FormattedMessage
@@ -76,10 +70,7 @@ const BankTransfer = ({ icon, onClick, value }: Props) => (
       </TopSection>
       <CartridgeContainer>
         <SuccessCartridge>
-          <FormattedMessage
-            id='copy.most_popular'
-            defaultMessage='Most Popular'
-          />
+          <FormattedMessage id='copy.most_popular' defaultMessage='Most Popular' />
         </SuccessCartridge>
       </CartridgeContainer>
     </MainContent>

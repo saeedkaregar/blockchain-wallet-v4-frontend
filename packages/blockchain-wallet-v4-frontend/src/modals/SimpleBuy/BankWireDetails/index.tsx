@@ -8,7 +8,7 @@ import {
   RemoteDataType,
   SBAccountType,
   SBOrderType,
-  SBPairType
+  SBPairType,
 } from 'blockchain-wallet-v4/src/types'
 import DataError from 'components/DataError'
 import { actions } from 'data'
@@ -28,21 +28,21 @@ class BankWireDetails extends PureComponent<Props> {
 
   render() {
     return this.props.data.cata({
-      Success: val => <Success {...val} {...this.props} />,
-      Failure: e => <DataError message={{ message: e }} />,
+      Success: (val) => <Success {...val} {...this.props} />,
+      Failure: (e) => <DataError message={{ message: e }} />,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state: RootState): LinkStatePropsType => ({
-  data: getData(state)
+  data: getData(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   analyticsActions: bindActionCreators(actions.analytics, dispatch),
-  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch)
+  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

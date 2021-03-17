@@ -8,7 +8,7 @@ import {
   SettingContainer,
   SettingDescription,
   SettingHeader,
-  SettingSummary
+  SettingSummary,
 } from 'components/Setting'
 import { selectors } from 'data'
 
@@ -44,8 +44,8 @@ const WalletId = (props: Props) => {
   )
 }
 
-const mapStateToProps = state => ({
-  guid: selectors.core.wallet.getGuid(state) as string
+const mapStateToProps = (state) => ({
+  guid: selectors.core.wallet.getGuid(state) as string,
 })
 
 const connector = connect(mapStateToProps)

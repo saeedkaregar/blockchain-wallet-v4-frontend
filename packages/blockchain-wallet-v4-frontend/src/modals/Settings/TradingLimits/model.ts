@@ -2,7 +2,7 @@ export enum TIER_TYPES {
   NONE = 0,
   SILVER = 1,
   GOLD = 2,
-  SILVER_PLUS = 3
+  SILVER_PLUS = 3,
 }
 
 export enum ITEMS {
@@ -12,7 +12,7 @@ export enum ITEMS {
   EARN_INTEREST = 'earn_interest',
   RECEIVE = 'receive',
   SEND = 'send',
-  SWAP = 'swap'
+  SWAP = 'swap',
 }
 
 export const TIERS = {
@@ -23,7 +23,7 @@ export const TIERS = {
     [ITEMS.CASH_ACCOUNT]: false,
     [ITEMS.BUY_WITH_A_CARD]: false,
     [ITEMS.DEPOSIT_AND_WITHDRAWAL]: false,
-    [ITEMS.EARN_INTEREST]: false
+    [ITEMS.EARN_INTEREST]: false,
   },
   [TIER_TYPES.SILVER]: {
     [ITEMS.SEND]: true,
@@ -32,7 +32,7 @@ export const TIERS = {
     [ITEMS.CASH_ACCOUNT]: false,
     [ITEMS.BUY_WITH_A_CARD]: false,
     [ITEMS.DEPOSIT_AND_WITHDRAWAL]: false,
-    [ITEMS.EARN_INTEREST]: false
+    [ITEMS.EARN_INTEREST]: false,
   },
   [TIER_TYPES.GOLD]: {
     [ITEMS.SEND]: true,
@@ -41,7 +41,7 @@ export const TIERS = {
     [ITEMS.CASH_ACCOUNT]: true,
     [ITEMS.BUY_WITH_A_CARD]: true,
     [ITEMS.DEPOSIT_AND_WITHDRAWAL]: true,
-    [ITEMS.EARN_INTEREST]: true
+    [ITEMS.EARN_INTEREST]: true,
   },
   [TIER_TYPES.SILVER_PLUS]: {
     [ITEMS.SEND]: true,
@@ -50,6 +50,6 @@ export const TIERS = {
     [ITEMS.CASH_ACCOUNT]: false,
     [ITEMS.BUY_WITH_A_CARD]: true,
     [ITEMS.DEPOSIT_AND_WITHDRAWAL]: false,
-    [ITEMS.EARN_INTEREST]: false
-  }
+    [ITEMS.EARN_INTEREST]: false,
+  },
 }

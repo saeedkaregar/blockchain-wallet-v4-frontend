@@ -11,7 +11,7 @@ import {
   length,
   sort,
   split,
-  tryCatch
+  tryCatch,
 } from 'ramda'
 import { over, view } from 'ramda-lens'
 
@@ -80,13 +80,13 @@ export const fromJS = (o, network) => {
     priv: o.priv,
     path: o.path,
     xpub: o.xpub,
-    address: o.address ? o.address : scriptToAddress(o.script, network)
+    address: o.address ? o.address : scriptToAddress(o.script, network),
   })
 }
 
 export const empty = new Coin({ value: 0 })
 
-export const inputBytes = input => {
+export const inputBytes = (input) => {
   // const coin = isCoin(input) ? input : new Coin(input)
   // return TX_INPUT_BASE + (isNil(coin.script) ? TX_INPUT_PUBKEYHASH : coin.script.length)
   return TX_INPUT_BASE + TX_INPUT_PUBKEYHASH
@@ -98,7 +98,7 @@ export const outputBytes = ifElse(
   compose(
     add(TX_OUTPUT_BASE),
     tryCatch(
-      compose(s => s.length, selectScript),
+      compose((s) => s.length, selectScript),
       always(TX_OUTPUT_PUBKEYHASH)
     )
   )

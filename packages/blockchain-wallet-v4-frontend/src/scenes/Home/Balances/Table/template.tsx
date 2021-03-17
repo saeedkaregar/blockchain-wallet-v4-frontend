@@ -27,7 +27,7 @@ const Coin = styled.div`
 const CoinName = styled(Text)`
   font-size: 20px;
   font-weight: 500;
-  color: ${props => props.theme.grey800};
+  color: ${(props) => props.theme.grey800};
 `
 const CoinIcon = styled(Icon)`
   font-size: 32px;
@@ -51,15 +51,11 @@ const Success = (props: Props & SuccessStateType) => {
         mapObjIndexed((coin: SupportedWalletCurrencyType, i) => {
           // @ts-ignore
           if (viewType === 'Hardware' && !coin.hasLockboxSupport) return
-          const link =
-            viewType === 'Hardware' ? '/lockbox' : coin.txListAppRoute
+          const link = viewType === 'Hardware' ? '/lockbox' : coin.txListAppRoute
           return (
             coin.method &&
             coin.invited && (
-              <HomeBalanceRow
-                key={i}
-                data-e2e={`${toLower(coin.coinCode)}BalanceTable`}
-              >
+              <HomeBalanceRow key={i} data-e2e={`${toLower(coin.coinCode)}BalanceTable`}>
                 <TxLink to={link}>
                   <div>
                     <Wrapper>
@@ -69,9 +65,7 @@ const Success = (props: Props & SuccessStateType) => {
                           name={coin.icons.circleFilled}
                           size={'32px'}
                         />
-                        <CoinName color={'grey700'}>
-                          {coin.displayName}
-                        </CoinName>
+                        <CoinName color={'grey700'}>{coin.displayName}</CoinName>
                       </Coin>
                       <Amount>
                         <CoinBalance {...props} coin={coin.coinCode} />

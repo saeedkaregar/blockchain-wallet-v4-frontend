@@ -2,10 +2,7 @@ import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import {
-  CoinType,
-  SupportedWalletCurrenciesType
-} from 'blockchain-wallet-v4/src/types'
+import { CoinType, SupportedWalletCurrenciesType } from 'blockchain-wallet-v4/src/types'
 import { actions, selectors } from 'data'
 import { ModalNamesType } from 'data/types'
 
@@ -20,7 +17,7 @@ class CoinIntroductionContainer extends React.PureComponent<Props> {
           modalActions.showModal(
             `@MODAL.REQUEST.${supportedCoins[coin].coinCode}` as ModalNamesType,
             {
-              origin: 'EmptyFeed'
+              origin: 'EmptyFeed',
             }
           )
         }
@@ -30,19 +27,16 @@ class CoinIntroductionContainer extends React.PureComponent<Props> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   supportedCoins: selectors.core.walletOptions
     .getSupportedCoins(state)
-    .getOrElse({} as SupportedWalletCurrenciesType)
+    .getOrElse({} as SupportedWalletCurrenciesType),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   modalActions: bindActionCreators(actions.modals, dispatch),
-  onboardingActions: bindActionCreators(
-    actions.components.onboarding,
-    dispatch
-  ),
-  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch)
+  onboardingActions: bindActionCreators(actions.components.onboarding, dispatch),
+  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

@@ -27,21 +27,14 @@ const BuyTradeButton = styled(Button)`
   }
 `
 
-const Footer = ({
-  coinName,
-  cryptoCurrency,
-  simpleBuyActions,
-  swapActions
-}: Props) => {
+const Footer = ({ coinName, cryptoCurrency, simpleBuyActions, swapActions }: Props) => {
   return (
     <Wrapper>
       <BuyTradeButton
         data-e2e='buyButton'
         height='48px'
         nature='primary'
-        onClick={() =>
-          simpleBuyActions.showModal('PriceChart', cryptoCurrency, 'BUY')
-        }
+        onClick={() => simpleBuyActions.showModal('PriceChart', cryptoCurrency, 'BUY')}
       >
         <FormattedMessage
           id='price.chart.buy.coin'

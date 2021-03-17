@@ -21,7 +21,7 @@ const mapStateToProps = (state, ownProps) => ({
           defaultMessage='Checking'
         />
       ),
-      value: 'checking'
+      value: 'checking',
     },
 
     {
@@ -31,9 +31,9 @@ const mapStateToProps = (state, ownProps) => ({
           defaultMessage='Savings'
         />
       ),
-      value: 'savings'
-    }
-  ]
+      value: 'savings',
+    },
+  ],
 })
 
 export default connect(mapStateToProps)(SelectBoxBankAccountType)

@@ -8,13 +8,13 @@ export default {
       rate: '1',
       symbol: '¢zł',
       decimal_digits: 0,
-      currency: 'PLN'
+      currency: 'PLN',
     },
     PLN: {
       rate: '100',
       symbol: 'zł',
       decimal_digits: 2,
-      currency: 'PLN'
-    }
-  }
+      currency: 'PLN',
+    },
+  },
 }

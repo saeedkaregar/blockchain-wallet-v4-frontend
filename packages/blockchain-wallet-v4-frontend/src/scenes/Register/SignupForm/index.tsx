@@ -4,14 +4,7 @@ import Bowser from 'bowser'
 import { Field } from 'redux-form'
 import styled from 'styled-components'
 
-import {
-  Banner,
-  Button,
-  HeartbeatLoader,
-  Link,
-  Text,
-  TextGroup
-} from 'blockchain-info-components'
+import { Banner, Button, HeartbeatLoader, Link, Text, TextGroup } from 'blockchain-info-components'
 import {
   CheckBox,
   Form,
@@ -19,14 +12,14 @@ import {
   FormItem,
   FormLabel,
   PasswordBox,
-  TextBox
+  TextBox,
 } from 'components/Form'
 import Terms from 'components/Terms'
 import {
   required,
   validEmail,
   validPasswordConfirmation,
-  validStrongPassword
+  validStrongPassword,
 } from 'services/forms'
 
 const browser = Bowser.getParser(window.navigator.userAgent)
@@ -37,7 +30,7 @@ const isSupportedBrowser = browser.satisfies({
   firefox: '>45',
   opera: '>20',
   safari: '>8',
-  vivaldi: '>2'
+  vivaldi: '>2',
 })
 
 const RegisterForm = styled(Form)`
@@ -63,7 +56,7 @@ const FieldWrapper = styled.div`
 
 const validatePasswordConfirmation = validPasswordConfirmation('password')
 
-const scrollToId = id => {
+const scrollToId = (id) => {
   const element = document.getElementById(id)
   if (element) {
     element.scrollIntoView({ behavior: 'smooth' })
@@ -74,14 +67,8 @@ const scrollToPassword = () => scrollToId('password')
 
 const scrollToSecondPassword = () => scrollToId('confirmationPassword')
 
-const SignupForm = ({
-  busy,
-  handleSubmit,
-  invalid,
-  password,
-  passwordLength
-}) => {
-  let passwordScore = window.zxcvbn ? window.zxcvbn(password).score : 0
+const SignupForm = ({ busy, handleSubmit, invalid, password, passwordLength }) => {
+  const passwordScore = window.zxcvbn ? window.zxcvbn(password).score : 0
   return (
     <RegisterForm override onSubmit={handleSubmit}>
       {!isSupportedBrowser && (
@@ -97,10 +84,7 @@ const SignupForm = ({
       <FormGroup>
         <FormItem>
           <FormLabel htmlFor='email'>
-            <FormattedMessage
-              id='scenes.register.youremail'
-              defaultMessage='Your Email'
-            />
+            <FormattedMessage id='scenes.register.youremail' defaultMessage='Your Email' />
           </FormLabel>
           <Field
             autoFocus
@@ -116,10 +100,7 @@ const SignupForm = ({
       <FormGroup>
         <FormItem>
           <FormLabel htmlFor='password' id='password'>
-            <FormattedMessage
-              defaultMessage='Password'
-              id='scenes.register.password'
-            />
+            <FormattedMessage defaultMessage='Password' id='scenes.register.password' />
           </FormLabel>
           <Field
             bgColor='grey000'
@@ -179,12 +160,7 @@ const SignupForm = ({
       </FormGroup>
       <FormGroup inline>
         <FieldWrapper>
-          <Field
-            name='secretPhase'
-            validate={[required]}
-            component={CheckBox}
-            hideErrors
-          />
+          <Field name='secretPhase' validate={[required]} component={CheckBox} hideErrors />
         </FieldWrapper>
         <FormLabel>
           <TextGroup inline>
@@ -228,7 +204,7 @@ const SignupForm = ({
         height='48px'
         nature='primary'
         style={{
-          borderRadius: '8px'
+          borderRadius: '8px',
         }}
         type='submit'
       >

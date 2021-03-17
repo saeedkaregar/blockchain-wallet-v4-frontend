@@ -4,11 +4,7 @@ import { bindActionCreators, Dispatch } from 'redux'
 
 import { Remote } from 'blockchain-wallet-v4/src'
 import { SBPaymentMethodType } from 'blockchain-wallet-v4/src/network/api/settingsComponent/types'
-import {
-  ExtractSuccess,
-  FiatType,
-  RemoteDataType
-} from 'blockchain-wallet-v4/src/types'
+import { ExtractSuccess, FiatType, RemoteDataType } from 'blockchain-wallet-v4/src/types'
 import { actions, selectors } from 'data'
 import { RootState } from 'data/rootReducer'
 import { BankDWStepType } from 'data/types'
@@ -18,7 +14,7 @@ import { getData } from './selectors'
 import Failure from './template.failure'
 import Success from './template.success'
 
-const EnterAmount = props => {
+const EnterAmount = (props) => {
   useEffect(() => {
     if (props.fiatCurrency && !Remote.Success.is(props.data)) {
       props.simpleBuyActions.fetchSBPaymentMethods(props.fiatCurrency)
@@ -30,12 +26,12 @@ const EnterAmount = props => {
 
   const onSubmit = () => {
     props.brokerageActions.setDWStep({
-      dwStep: BankDWStepType.CONFIRM
+      dwStep: BankDWStepType.CONFIRM,
     })
   }
 
   return props.data.cata({
-    Success: val => (
+    Success: (val) => (
       <Success
         {...val}
         {...props}
@@ -45,20 +41,20 @@ const EnterAmount = props => {
     ),
     Failure: () => <Failure {...props} />,
     Loading: () => <Loading />,
-    NotAsked: () => <Loading />
+    NotAsked: () => <Loading />,
   })
 }
 
 const mapStateToProps = (state: RootState): LinkStatePropsType => ({
   data: getData(state),
-  fiatCurrency: selectors.components.simpleBuy.getFiatCurrency(state) || 'USD'
+  fiatCurrency: selectors.components.simpleBuy.getFiatCurrency(state) || 'USD',
 })
 
 export const mapDispatchToProps = (dispatch: Dispatch) => ({
   analyticsActions: bindActionCreators(actions.analytics, dispatch),
   formActions: bindActionCreators(actions.form, dispatch),
   simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
-  brokerageActions: bindActionCreators(actions.components.brokerage, dispatch)
+  brokerageActions: bindActionCreators(actions.components.brokerage, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

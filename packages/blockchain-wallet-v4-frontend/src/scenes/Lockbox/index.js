@@ -44,11 +44,11 @@ class LockboxContainer extends React.PureComponent {
     this.setState({ run: true })
   }
 
-  handleTourCallbacks = data => {
+  handleTourCallbacks = (data) => {
     if ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND].includes(data.type)) {
       // advance current step
       this.setState({
-        stepIndex: data.index + (data.action === ACTIONS.PREV ? -1 : 1)
+        stepIndex: data.index + (data.action === ACTIONS.PREV ? -1 : 1),
       })
     } else if ([STATUS.FINISHED, STATUS.SKIPPED].includes(data.status)) {
       // end tour
@@ -71,16 +71,8 @@ class LockboxContainer extends React.PureComponent {
           {...this.props.Joyride}
         />
         <Switch>
-          <Route
-            path='/lockbox/dashboard/:deviceIndex'
-            component={LockboxDashboard}
-            exact
-          />
-          <Route
-            path='/lockbox/settings/:deviceIndex'
-            component={LockboxDashboard}
-            exact
-          />
+          <Route path='/lockbox/dashboard/:deviceIndex' component={LockboxDashboard} exact />
+          <Route path='/lockbox/settings/:deviceIndex' component={LockboxDashboard} exact />
           <Route path='/lockbox/onboard' component={LockboxOnboard} exact />
         </Switch>
       </Wrapper>
@@ -88,14 +80,12 @@ class LockboxContainer extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  showProductTour: selectors.components.lockbox.getProductTourVisibility(state)
+const mapStateToProps = (state) => ({
+  showProductTour: selectors.components.lockbox.getProductTourVisibility(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-  lockboxActions: bindActionCreators(actions.components.lockbox, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  lockboxActions: bindActionCreators(actions.components.lockbox, dispatch),
 })
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(LockboxContainer)
-)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LockboxContainer))

@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch: Dispatch): LinkDispatchPropsType => ({
   verifyIdentity: () => {
     dispatch(actions.components.identityVerification.resetVerificationStep())
     dispatch(actions.components.identityVerification.verifyIdentity(2, false))
-  }
+  },
 })
 
 const connector = connect(null, mapDispatchToProps)

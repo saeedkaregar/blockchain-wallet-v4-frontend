@@ -24,7 +24,7 @@ const CoinText = styled(Text)`
   display: flex;
 `
 const ItemIcon = styled(Icon)`
-  color: ${props => props.theme[props.color]} !important;
+  color: ${(props) => props.theme[props.color]} !important;
 `
 const SelectBoxCoin = styled(SelectBox)`
   .bc__control {
@@ -32,10 +32,10 @@ const SelectBoxCoin = styled(SelectBox)`
   }
   .bc__dropdown-indicator {
     padding-left: 0px;
-    color: ${props => props.theme.black};
+    color: ${(props) => props.theme.black};
   }
   .bc__single-value {
-    color: ${props => props.theme.black};
+    color: ${(props) => props.theme.black};
     transform: initial;
     position: relative;
     max-width: none;
@@ -43,17 +43,12 @@ const SelectBoxCoin = styled(SelectBox)`
   }
 `
 
-const renderItem = props => {
+const renderItem = (props) => {
   const { text, value, ...rest } = props
   const coinValue = value ? value.toLowerCase() : 'btc'
   return (
     <HeaderWrapper {...rest}>
-      <ItemIcon
-        name={coinValue + '-circle-filled'}
-        color={coinValue}
-        size='22px'
-        weight={400}
-      />
+      <ItemIcon name={coinValue + '-circle-filled'} color={coinValue} size='22px' weight={400} />
       <Text size='14px' weight={400} cursor='pointer' data-e2e=''>
         {text}
       </Text>
@@ -68,19 +63,8 @@ const renderDisplay = (props, children) => {
 
   return (
     <HeaderWrapper>
-      <Icon
-        name={coinValue + '-circle-filled'}
-        color={coinValue}
-        size='22px'
-        weight={400}
-      />
-      <CoinText
-        size='18px'
-        weight={500}
-        color='black'
-        cursor='pointer'
-        data-e2e={e2eTag}
-      >
+      <Icon name={coinValue + '-circle-filled'} color={coinValue} size='22px' weight={400} />
+      <CoinText size='18px' weight={500} color='black' cursor='pointer' data-e2e={e2eTag}>
         {children} ({value})
       </CoinText>
     </HeaderWrapper>
@@ -103,7 +87,7 @@ class SelectBoxCoinPriceChart extends React.PureComponent {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  coins: getCoins(state, ownProps)
+  coins: getCoins(state, ownProps),
 })
 
 export default connect(mapStateToProps)(SelectBoxCoinPriceChart)

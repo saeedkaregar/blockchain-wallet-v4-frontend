@@ -28,13 +28,10 @@ export const getAccounts = createDeepEqualSelector(
     coreSelectors.data.xlm.getAccounts, // non-custodial accounts
     coreSelectors.kvStore.xlm.getAccounts, // non-custodial metadata
     (state, { coin }) => getTradingBalance(coin, state), // custodial accounts
-    (state, ownProps) => ownProps // selector config
+    (state, ownProps) => ownProps, // selector config
   ],
   (xlmData, xlmMetadataR, sbBalanceR, ownProps) => {
-    const transform = (
-      xlmMetadata,
-      sbBalance: ExtractSuccess<typeof sbBalanceR>
-    ) => {
+    const transform = (xlmMetadata, sbBalance: ExtractSuccess<typeof sbBalanceR>) => {
       const { coin } = ownProps
       let accounts = []
 
@@ -42,11 +39,10 @@ export const getAccounts = createDeepEqualSelector(
       if (ownProps?.nonCustodialAccounts) {
         accounts = accounts.concat(
           xlmMetadata
-            .map(acc => {
+            .map((acc) => {
               const address = prop('publicKey', acc)
               const account = prop(address, xlmData)
-              const noAccount =
-                path(['error', 'message'], account) === 'Not Found'
+              const noAccount = path(['error', 'message'], account) === 'Not Found'
               const balance = convertStandardToBase(
                 coin,
                 account
@@ -62,7 +58,7 @@ export const getAccounts = createDeepEqualSelector(
                 address,
                 balance,
                 noAccount,
-                type: ADDRESS_TYPES.ACCOUNT
+                type: ADDRESS_TYPES.ACCOUNT,
               }
             })
             .filter(propEq('archived', false))

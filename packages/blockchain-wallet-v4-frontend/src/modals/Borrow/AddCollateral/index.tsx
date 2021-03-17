@@ -9,7 +9,7 @@ import {
   PaymentValue,
   RatesType,
   RemoteDataType,
-  SupportedWalletCurrenciesType
+  SupportedWalletCurrenciesType,
 } from 'blockchain-wallet-v4/src/types'
 import DataError from 'components/DataError'
 import { actions } from 'data'
@@ -63,15 +63,12 @@ class BorrowForm extends PureComponent<Props, State> {
   }
 
   copyAddress = () => {
-    var input = document.createElement('input')
+    const input = document.createElement('input')
     // TODO: Borrow make dynamic
-    input.setAttribute(
-      'value',
-      this.props.loan.collateral.depositAddresses['BTC']
-    )
+    input.setAttribute('value', this.props.loan.collateral.depositAddresses['BTC'])
     document.body.appendChild(input)
     input.select()
-    var result = document.execCommand('copy')
+    const result = document.execCommand('copy')
     document.body.removeChild(input)
     this.setState({ isAddrCopied: true })
     setTimeout(() => {
@@ -88,7 +85,7 @@ class BorrowForm extends PureComponent<Props, State> {
     const { data } = this.props
 
     return data.cata({
-      Success: val => (
+      Success: (val) => (
         <Success
           {...val}
           {...this.props}
@@ -100,17 +97,17 @@ class BorrowForm extends PureComponent<Props, State> {
       ),
       Failure: () => <DataError onClick={this.handleRefresh} />,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state): LinkStatePropsType => ({
-  data: getData(state)
+  data: getData(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch): LinkDispatchPropsType => ({
-  borrowActions: bindActionCreators(actions.components.borrow, dispatch)
+  borrowActions: bindActionCreators(actions.components.borrow, dispatch),
 })
 
 const enhance = compose(connect(mapStateToProps, mapDispatchToProps))

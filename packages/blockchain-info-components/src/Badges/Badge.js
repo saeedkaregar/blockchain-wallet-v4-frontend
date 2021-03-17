@@ -32,7 +32,7 @@ const Badge = ({ ...props }) => {
 
 Badge.propTypes = {
   size: PropTypes.string,
-  type: PropTypes.oneOf(['applestore', 'googleplay']).isRequired
+  type: PropTypes.oneOf(['applestore', 'googleplay']).isRequired,
 }
 
 export default Badge

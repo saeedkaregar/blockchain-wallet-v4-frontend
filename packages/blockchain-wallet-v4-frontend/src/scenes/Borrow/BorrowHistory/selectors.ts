@@ -1,12 +1,9 @@
 import { lift } from 'ramda'
 
-import {
-  ExtractSuccess,
-  SupportedWalletCurrenciesType
-} from 'blockchain-wallet-v4/src/types'
+import { ExtractSuccess, SupportedWalletCurrenciesType } from 'blockchain-wallet-v4/src/types'
 import { selectors } from 'data'
 
-export const getData = state => {
+export const getData = (state) => {
   const borrowHistoryR = selectors.components.borrow.getBorrowHistory(state)
   const offersR = selectors.components.borrow.getOffers(state)
   const ratesR = selectors.components.borrow.getRates(state)
@@ -24,14 +21,8 @@ export const getData = state => {
     offers,
     rates,
     supportedCoins,
-    userData
+    userData,
   })
 
-  return lift(transform)(
-    borrowHistoryR,
-    offersR,
-    ratesR,
-    supportedCoinsR,
-    userDataR
-  )
+  return lift(transform)(borrowHistoryR, offersR, ratesR, supportedCoinsR, userDataR)
 }

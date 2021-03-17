@@ -16,7 +16,7 @@ const SiftScienceIframe = styled.iframe`
 
 class SiftScience extends Component<Props> {
   componentDidMount() {
-    let receiveMessage = e => {
+    const receiveMessage = (e) => {
       if (!e.data.command) return
       if (e.data.from !== 'sift-science') return
       if (e.data.to !== 'exchange') return
@@ -44,18 +44,15 @@ class SiftScience extends Component<Props> {
 
     const walletOptions = this.props.walletOptions.data as WalletOptionsType
     const helperDomain = walletOptions.domains.walletHelper
-    const siftKey =
-      this.props.siftKey || walletOptions.platforms.web.sift.paymentKey
+    const siftKey = this.props.siftKey || walletOptions.platforms.web.sift.paymentKey
     // reverse sift-science
-    let url = `${helperDomain}/wallet-helper/ecneics-tfis/#/key/${siftKey}/user/${userId}/sessionId/${sessionId}`
-    return (
-      <SiftScienceIframe src={url} scrolling='no' id='sift-science-iframe' />
-    )
+    const url = `${helperDomain}/wallet-helper/ecneics-tfis/#/key/${siftKey}/user/${userId}/sessionId/${sessionId}`
+    return <SiftScienceIframe src={url} scrolling='no' id='sift-science-iframe' />
   }
 }
 
 const mapStateToProps = (state: RootState) => ({
-  walletOptions: state.walletOptionsPath
+  walletOptions: state.walletOptionsPath,
 })
 
 const connector = connect(mapStateToProps)

@@ -12,7 +12,7 @@ import {
   PaymentValue,
   RatesType,
   RemoteDataType,
-  SBBalancesType
+  SBBalancesType,
 } from 'blockchain-wallet-v4/src/types'
 import { errorHandler } from 'blockchain-wallet-v4/src/utils'
 import { actions, actionTypes, model, selectors } from 'data'
@@ -32,33 +32,22 @@ const { INTEREST_EVENTS } = model.analytics
 const DEPOSIT_FORM = 'interestDepositForm'
 const WITHDRAWAL_FORM = 'interestWithdrawalForm'
 
-export default ({
-  api,
-  coreSagas,
-  networks
-}: {
-  api: APIType
-  coreSagas: any
-  networks: any
-}) => {
+export default ({ api, coreSagas, networks }: { api: APIType; coreSagas: any; networks: any }) => {
   const { isTier2 } = profileSagas({ api, coreSagas, networks })
-  const {
-    buildAndPublishPayment,
-    createLimits,
-    createPayment,
-    getCustodialAccountForCoin
-  } = utils({
-    coreSagas,
-    networks
-  })
+  const { buildAndPublishPayment, createLimits, createPayment, getCustodialAccountForCoin } = utils(
+    {
+      coreSagas,
+      networks,
+    }
+  )
 
   const {
     getDefaultAccountForCoin,
     getNextReceiveAddressForCoin,
-    getOrUpdateProvisionalPaymentForCoin
+    getOrUpdateProvisionalPaymentForCoin,
   } = coinSagas({
     coreSagas,
-    networks
+    networks,
   })
 
   const getAccountIndexOrAccount = (coin: CoinType, account: AccountTypes) => {
@@ -68,13 +57,11 @@ export default ({
     return account.address
   }
 
-  const fetchInterestBalance = function * () {
+  const fetchInterestBalance = function* () {
     try {
       yield put(A.fetchInterestBalanceLoading())
       if (!(yield call(isTier2)))
-        return yield put(
-          A.fetchInterestBalanceSuccess(DEFAULT_INTEREST_BALANCES)
-        )
+        return yield put(A.fetchInterestBalanceSuccess(DEFAULT_INTEREST_BALANCES))
       const response: ReturnType<typeof api.getInterestAccountBalance> = yield call(
         api.getInterestAccountBalance
       )
@@ -85,7 +72,7 @@ export default ({
     }
   }
 
-  const fetchInterestEligible = function * () {
+  const fetchInterestEligible = function* () {
     try {
       yield put(A.fetchInterestEligibleLoading())
       const response: ReturnType<typeof api.getInterestEligible> = yield call(
@@ -98,7 +85,7 @@ export default ({
     }
   }
 
-  const fetchInterestInstruments = function * () {
+  const fetchInterestInstruments = function* () {
     try {
       yield put(A.fetchInterestInstrumentsLoading())
       const response: ReturnType<typeof api.getInterestInstruments> = yield call(
@@ -111,9 +98,9 @@ export default ({
     }
   }
 
-  const fetchInterestLimits = function * ({
+  const fetchInterestLimits = function* ({
     coin,
-    currency
+    currency,
   }: ReturnType<typeof A.fetchInterestLimits>) {
     try {
       yield put(A.fetchInterestLimitsLoading())
@@ -129,9 +116,7 @@ export default ({
     }
   }
 
-  const fetchInterestAccount = function * ({
-    coin
-  }: ReturnType<typeof A.fetchInterestAccount>) {
+  const fetchInterestAccount = function* ({ coin }: ReturnType<typeof A.fetchInterestAccount>) {
     try {
       yield put(A.fetchInterestAccountLoading())
       const paymentAccount: ReturnType<typeof api.getInterestAccount> = yield call(
@@ -145,7 +130,7 @@ export default ({
     }
   }
 
-  const fetchInterestRate = function * () {
+  const fetchInterestRate = function* () {
     try {
       yield put(A.fetchInterestRateLoading())
       const response: ReturnType<typeof api.getInterestSavingsRate> = yield call(
@@ -157,15 +142,13 @@ export default ({
       yield put(A.fetchInterestRateFailure(error))
     }
   }
-  const fetchInterestTransactions = function * ({
-    payload
+  const fetchInterestTransactions = function* ({
+    payload,
   }: ReturnType<typeof A.fetchInterestTransactions>) {
     const { coin, reset } = payload
 
     try {
-      const nextPage = !reset
-        ? yield select(S.getTransactionsNextPage)
-        : undefined
+      const nextPage = !reset ? yield select(S.getTransactionsNextPage) : undefined
       // check if invoked from continuous scroll
       if (!reset) {
         const txList = yield select(S.getInterestTransactions)
@@ -182,7 +165,7 @@ export default ({
     }
   }
 
-  const formChanged = function * (action: FormAction) {
+  const formChanged = function* (action: FormAction) {
     const form = action.meta.form
     if (form !== DEPOSIT_FORM) return
 
@@ -192,9 +175,9 @@ export default ({
       )
       const coin = S.getCoinType(yield select())
       const ratesR = S.getRates(yield select())
-      const userCurrency = (yield select(
-        selectors.core.settings.getCurrency
-      )).getOrFail('Failed to get user currency')
+      const userCurrency = (yield select(selectors.core.settings.getCurrency)).getOrFail(
+        'Failed to get user currency'
+      )
       const rates = ratesR.getOrElse({} as RatesType)
       const rate = rates[userCurrency].last
       const isDisplayed = S.getCoinDisplay(yield select())
@@ -206,14 +189,8 @@ export default ({
             : new BigNumber(action.payload).dividedBy(rate).toNumber()
           const paymentR = S.getPayment(yield select())
           if (paymentR) {
-            let payment = yield getOrUpdateProvisionalPaymentForCoin(
-              coin,
-              paymentR
-            )
-            const paymentAmount = generateProvisionalPaymentAmount(
-              payment.coin,
-              value
-            )
+            let payment = yield getOrUpdateProvisionalPaymentForCoin(coin, paymentR)
+            const paymentAmount = generateProvisionalPaymentAmount(payment.coin, value)
             payment = yield payment.amount(paymentAmount)
             yield put(A.setPaymentSuccess(payment.value()))
           }
@@ -221,13 +198,10 @@ export default ({
         case 'interestDepositAccount':
           let custodialBalances: SBBalancesType | undefined
           let depositPayment: PaymentValue
-          const isCustodialDeposit =
-            prop('type', formValues.interestDepositAccount) === 'CUSTODIAL'
+          const isCustodialDeposit = prop('type', formValues.interestDepositAccount) === 'CUSTODIAL'
 
           yield put(A.setPaymentLoading())
-          yield put(
-            actions.form.change(DEPOSIT_FORM, 'depositAmount', undefined)
-          )
+          yield put(actions.form.change(DEPOSIT_FORM, 'depositAmount', undefined))
           yield put(actions.form.focus(DEPOSIT_FORM, 'depositAmount'))
 
           if (isCustodialDeposit) {
@@ -238,10 +212,7 @@ export default ({
 
           depositPayment = yield call(createPayment, {
             ...formValues.interestDepositAccount,
-            address: getAccountIndexOrAccount(
-              coin,
-              formValues.interestDepositAccount
-            )
+            address: getAccountIndexOrAccount(coin, formValues.interestDepositAccount),
           })
 
           yield call(createLimits, depositPayment, custodialBalances)
@@ -252,8 +223,8 @@ export default ({
     }
   }
 
-  const initializeDepositForm = function * ({
-    payload
+  const initializeDepositForm = function* ({
+    payload,
   }: ReturnType<typeof A.initializeDepositForm>) {
     const { coin, currency } = payload
 
@@ -264,16 +235,13 @@ export default ({
       // wait until balances are loaded super important to have deep equal object on form
       yield take([
         actionTypes.components.simpleBuy.FETCH_SB_BALANCES_SUCCESS,
-        actionTypes.components.simpleBuy.FETCH_SB_BALANCES_FAILURE
+        actionTypes.components.simpleBuy.FETCH_SB_BALANCES_FAILURE,
       ])
     }
 
     yield put(A.setPaymentLoading())
     yield put(A.fetchInterestLimits(coin, currency))
-    yield take([
-      AT.FETCH_INTEREST_LIMITS_SUCCESS,
-      AT.FETCH_INTEREST_LIMITS_FAILURE
-    ])
+    yield take([AT.FETCH_INTEREST_LIMITS_SUCCESS, AT.FETCH_INTEREST_LIMITS_FAILURE])
 
     const defaultAccount = isFromBuySell
       ? yield call(getCustodialAccountForCoin, coin)
@@ -281,7 +249,7 @@ export default ({
 
     const payment: PaymentValue = yield call(createPayment, {
       ...defaultAccount,
-      address: getAccountIndexOrAccount(coin, defaultAccount)
+      address: getAccountIndexOrAccount(coin, defaultAccount),
     })
 
     const custodialBalances = isFromBuySell
@@ -295,14 +263,12 @@ export default ({
     let additionalParameters = {}
     if (isFromBuySell) {
       yield put(A.setCoinDisplay(true))
-      const afterTransactionR = yield select(
-        selectors.components.interest.getAfterTransaction
-      )
+      const afterTransactionR = yield select(selectors.components.interest.getAfterTransaction)
       const afterTransaction = afterTransactionR.getOrElse({
-        show: false
+        show: false,
       } as InterestAfterTransactionType)
       additionalParameters = {
-        depositAmount: afterTransaction.amount || 0
+        depositAmount: afterTransaction.amount || 0,
       }
 
       // update payment since initial one was with 0
@@ -310,10 +276,7 @@ export default ({
       const paymentR = S.getPayment(yield select())
       if (paymentR) {
         let payment = yield getOrUpdateProvisionalPaymentForCoin(coin, paymentR)
-        const paymentAmount = generateProvisionalPaymentAmount(
-          payment.coin,
-          value
-        )
+        const paymentAmount = generateProvisionalPaymentAmount(payment.coin, value)
         payment = yield payment.amount(paymentAmount)
         yield put(A.setPaymentSuccess(payment.value()))
       }
@@ -324,13 +287,13 @@ export default ({
         interestDepositAccount: defaultAccount,
         coin,
         currency,
-        ...additionalParameters
+        ...additionalParameters,
       })
     )
   }
 
-  const initializeWithdrawalForm = function * ({
-    payload
+  const initializeWithdrawalForm = function* ({
+    payload,
   }: ReturnType<typeof A.initializeWithdrawalForm>) {
     const { coin, walletCurrency } = payload
     try {
@@ -343,7 +306,7 @@ export default ({
         initialize(WITHDRAWAL_FORM, {
           interestWithdrawalAccount: defaultAccount,
           coin,
-          currency: walletCurrency
+          currency: walletCurrency,
         })
       )
       yield put(A.setWithdrawalMinimumsSuccess(response))
@@ -353,9 +316,7 @@ export default ({
     }
   }
 
-  const routeToTxHash = function * ({
-    payload
-  }: ReturnType<typeof A.routeToTxHash>) {
+  const routeToTxHash = function* ({ payload }: ReturnType<typeof A.routeToTxHash>) {
     const { coin, txHash } = payload
     coin === 'PAX'
       ? yield put(actions.router.push(`/usd-d/transactions`))
@@ -364,14 +325,13 @@ export default ({
     yield put(actions.form.change('walletTxSearch', 'search', txHash))
   }
 
-  const sendDeposit = function * () {
+  const sendDeposit = function* () {
     try {
       yield put(actions.form.startSubmit(DEPOSIT_FORM))
       const formValues: InterestDepositFormType = yield select(
         selectors.form.getFormValues(DEPOSIT_FORM)
       )
-      const isCustodialDeposit =
-        prop('type', formValues.interestDepositAccount) === 'CUSTODIAL'
+      const isCustodialDeposit = prop('type', formValues.interestDepositAccount) === 'CUSTODIAL'
       const coin = S.getCoinType(yield select())
       const paymentR = S.getPayment(yield select())
       const payment = yield getOrUpdateProvisionalPaymentForCoin(
@@ -385,15 +345,14 @@ export default ({
           throw Error('Deposit amount unknown')
         }
         // BTC/BCH amounts from payments are returned as objects
-        const amountString =
-          typeof amount === 'object' ? amount[0].toString() : amount.toString()
+        const amountString = typeof amount === 'object' ? amount[0].toString() : amount.toString()
 
         // custodial deposit
         yield call(api.initiateCustodialTransfer, {
           amount: amountString as string,
           currency: coin,
           destination: 'SAVINGS',
-          origin: 'SIMPLEBUY'
+          origin: 'SIMPLEBUY',
         })
       } else {
         // non-custodial deposit
@@ -401,12 +360,7 @@ export default ({
         const depositAddress = yield select(S.getDepositAddress)
 
         // build and publish payment to network
-        const transaction = yield call(
-          buildAndPublishPayment,
-          coin,
-          payment,
-          depositAddress
-        )
+        const transaction = yield call(buildAndPublishPayment, coin, payment, depositAddress)
         // notify backend of incoming non-custodial deposit
         yield put(
           actions.components.send.notifyNonCustodialToCustodialTransfer(
@@ -419,20 +373,14 @@ export default ({
       // notify UI of success
       yield put(actions.form.stopSubmit(DEPOSIT_FORM))
       yield put(A.setInterestStep('ACCOUNT_SUMMARY', { depositSuccess: true }))
-      yield put(
-        actions.analytics.logEvent(INTEREST_EVENTS.DEPOSIT.SEND_SUCCESS)
-      )
+      yield put(actions.analytics.logEvent(INTEREST_EVENTS.DEPOSIT.SEND_SUCCESS))
 
-      const afterTransactionR = yield select(
-        selectors.components.interest.getAfterTransaction
-      )
+      const afterTransactionR = yield select(selectors.components.interest.getAfterTransaction)
       const afterTransaction = afterTransactionR.getOrElse({
-        show: false
+        show: false,
       } as InterestAfterTransactionType)
       if (afterTransaction?.show) {
-        yield put(
-          actions.analytics.logEvent(INTEREST_EVENTS.DEPOSIT.SEND_ONE_CLICK)
-        )
+        yield put(actions.analytics.logEvent(INTEREST_EVENTS.DEPOSIT.SEND_ONE_CLICK))
         yield put(actions.components.interest.resetAfterTransaction())
       }
 
@@ -444,18 +392,14 @@ export default ({
       yield put(
         A.setInterestStep('ACCOUNT_SUMMARY', {
           depositSuccess: false,
-          error
+          error,
         })
       )
-      yield put(
-        actions.analytics.logEvent(INTEREST_EVENTS.DEPOSIT.SEND_FAILURE)
-      )
+      yield put(actions.analytics.logEvent(INTEREST_EVENTS.DEPOSIT.SEND_FAILURE))
     }
   }
 
-  const requestWithdrawal = function * ({
-    payload
-  }: ReturnType<typeof A.requestWithdrawal>) {
+  const requestWithdrawal = function* ({ payload }: ReturnType<typeof A.requestWithdrawal>) {
     const { coin, withdrawalAmount } = payload
     try {
       yield put(actions.form.startSubmit(WITHDRAWAL_FORM))
@@ -472,57 +416,42 @@ export default ({
           amount: withdrawalAmountBase,
           currency: coin,
           destination: 'SIMPLEBUY',
-          origin: 'SAVINGS'
+          origin: 'SAVINGS',
         })
       } else {
         const receiveAddress = yield call(getNextReceiveAddressForCoin, coin)
-        yield call(
-          api.initiateInterestWithdrawal,
-          withdrawalAmountBase,
-          coin,
-          receiveAddress
-        )
+        yield call(api.initiateInterestWithdrawal, withdrawalAmountBase, coin, receiveAddress)
       }
 
       // notify success
       yield put(actions.form.stopSubmit(WITHDRAWAL_FORM))
       yield put(A.setInterestStep('ACCOUNT_SUMMARY', { withdrawSuccess: true }))
-      yield put(
-        actions.analytics.logEvent(INTEREST_EVENTS.WITHDRAWAL.REQUEST_SUCCESS)
-      )
+      yield put(actions.analytics.logEvent(INTEREST_EVENTS.WITHDRAWAL.REQUEST_SUCCESS))
       yield delay(3000)
       yield put(A.fetchInterestBalance())
     } catch (e) {
       const error = errorHandler(e)
       yield put(actions.form.stopSubmit(WITHDRAWAL_FORM, { _error: error }))
-      yield put(
-        A.setInterestStep('ACCOUNT_SUMMARY', { withdrawSuccess: false, error })
-      )
-      yield put(
-        actions.analytics.logEvent(INTEREST_EVENTS.WITHDRAWAL.REQUEST_FAILURE)
-      )
+      yield put(A.setInterestStep('ACCOUNT_SUMMARY', { withdrawSuccess: false, error }))
+      yield put(actions.analytics.logEvent(INTEREST_EVENTS.WITHDRAWAL.REQUEST_FAILURE))
     }
   }
 
-  const showInterestModal = function * ({
-    payload
-  }: ReturnType<typeof A.showInterestModal>) {
+  const showInterestModal = function* ({ payload }: ReturnType<typeof A.showInterestModal>) {
     const { coin, step } = payload
     yield put(A.setInterestStep(step))
     yield put(
       actions.modals.showModal('INTEREST_MODAL', {
         origin: 'InterestPage',
-        coin
+        coin,
       })
     )
   }
 
-  const fetchAfterTransaction = function * () {
+  const fetchAfterTransaction = function* () {
     try {
       yield put(A.fetchAfterTransactionLoading())
-      const response: InterestAfterTransactionType = yield call(
-        api.getInterestCtaAfterTransaction
-      )
+      const response: InterestAfterTransactionType = yield call(api.getInterestCtaAfterTransaction)
       yield put(A.fetchAfterTransactionSuccess(response))
     } catch (e) {
       const error = errorHandler(e)
@@ -545,6 +474,6 @@ export default ({
     requestWithdrawal,
     routeToTxHash,
     sendDeposit,
-    showInterestModal
+    showInterestModal,
   }
 }

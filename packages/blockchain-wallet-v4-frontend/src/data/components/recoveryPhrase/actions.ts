@@ -11,6 +11,6 @@ export const setStep = (
 ): RecoveryPhraseActionTypes => ({
   type: AT.SET_STEP,
   payload: {
-    step
-  }
+    step,
+  },
 })

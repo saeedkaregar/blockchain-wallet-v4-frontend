@@ -23,5 +23,5 @@ export const derivationMap = {
   [LOCKBOX]: 9,
   [USER_CREDENTIALS]: 10,
   [XLM]: 11,
-  [WALLET_CREDENTIALS]: 12
+  [WALLET_CREDENTIALS]: 12,
 }

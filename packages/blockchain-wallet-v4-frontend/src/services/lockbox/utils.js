@@ -7,10 +7,7 @@ import { prop } from 'ramda'
 import { Observable } from 'rxjs'
 
 import { Types } from 'blockchain-wallet-v4/src'
-import {
-  createXpubFromChildAndParent,
-  getParentPath
-} from 'blockchain-wallet-v4/src/utils/btc'
+import { createXpubFromChildAndParent, getParentPath } from 'blockchain-wallet-v4/src/utils/btc'
 import { deriveAddressFromXpub } from 'blockchain-wallet-v4/src/utils/eth'
 
 import { LOG_LEVELS } from '../../data/logs/model'
@@ -21,7 +18,7 @@ const ethAccount = (xpub, label) => ({
   label: label,
   archived: false,
   correct: true,
-  addr: deriveAddressFromXpub(xpub)
+  addr: deriveAddressFromXpub(xpub),
 })
 
 const btcAccount = (xpub, label) => Types.HDAccount.js(label, null, xpub)
@@ -191,25 +188,21 @@ const createDeviceSocket = (transport, url) => {
  * @param {Transport} transport - Current device transport
  * @returns {Promise} full device information
  */
-const getDeviceInfo = transport => {
+const getDeviceInfo = (transport) => {
   return new Promise((resolve, reject) => {
     firmware.getDeviceFirmwareInfo(transport).then(
-      res => {
+      (res) => {
         const { seVersion } = res
         const { flags, mcuVersion, targetId } = res
         const parsedVersion =
-          seVersion.match(
-            /([0-9]+.[0-9])+(.[0-9]+)?((?!-osu)-([a-z]+)([0-9]+))?(-osu)?/
-          ) || []
+          seVersion.match(/([0-9]+.[0-9])+(.[0-9]+)?((?!-osu)-([a-z]+)([0-9]+))?(-osu)?/) || []
         const isOSU = typeof parsedVersion[5] !== 'undefined'
         const providerName = parsedVersion[4] || ''
         const providerId = constants.providers[providerName]
         const isBootloader = targetId === 0x01000001
         const majMin = parsedVersion[1]
         const patch = parsedVersion[2] || '.0'
-        const fullVersion = `${majMin}${patch}${
-          providerName ? `${parsedVersion[3]}` : ''
-        }`
+        const fullVersion = `${majMin}${patch}${providerName ? `${parsedVersion[3]}` : ''}`
         resolve({
           targetId,
           seVersion: majMin + patch,
@@ -219,10 +212,10 @@ const getDeviceInfo = transport => {
           providerName,
           providerId,
           flags,
-          fullVersion: providerName === 'bc' ? seVersion : fullVersion
+          fullVersion: providerName === 'bc' ? seVersion : fullVersion,
         })
       },
-      err => {
+      (err) => {
         reject(err)
       }
     )
@@ -234,8 +227,8 @@ const getDeviceInfo = transport => {
  * @param {Promise} promise - Current device transport
  * @returns {Promise} a catch function that returns human error
  */
-const mapSocketError = promise => {
-  return promise.catch(err => {
+const mapSocketError = (promise) => {
+  return promise.catch((err) => {
     switch (true) {
       case err.message.endsWith('6985'):
         return {
@@ -245,7 +238,7 @@ const mapSocketError = promise => {
               id='lockbox.service.messages.refused'
               defaultMessage='Device connection was refused.'
             />
-          )
+          ),
         }
       case err.message.endsWith('6982'):
         return {
@@ -255,7 +248,7 @@ const mapSocketError = promise => {
               id='lockbox.service.messages.locked'
               defaultMessage='Device locked and unable to communicate.'
             />
-          )
+          ),
         }
       case err.message.endsWith('6a84') || err.message.endsWith('6a85'):
         return {
@@ -265,7 +258,7 @@ const mapSocketError = promise => {
               id='lockbox.service.messages.storagespace'
               defaultMessage='Insufficient storage space on device. Remove other applications to free up space.'
             />
-          )
+          ),
         }
       case err.message.endsWith('6a80') || err.message.endsWith('6a81'):
         return {
@@ -275,7 +268,7 @@ const mapSocketError = promise => {
               id='lockbox.service.messages.appalreadyinstalled'
               defaultMessage='Application is already installed on device.'
             />
-          )
+          ),
         }
       case err.message.endsWith('6a83'):
         return {
@@ -285,7 +278,7 @@ const mapSocketError = promise => {
               id='lockbox.service.messages.btcrequired'
               defaultMessage='Unable to remove BTC app as it is required by others.'
             />
-          )
+          ),
         }
       case err.message.endsWith('s0ck3t'):
         return {
@@ -295,7 +288,7 @@ const mapSocketError = promise => {
               id='lockbox.service.messages.socket'
               defaultMessage='Socket connection failed.'
             />
-          )
+          ),
         }
       default:
         return {
@@ -305,7 +298,7 @@ const mapSocketError = promise => {
               id='lockbox.service.messages.unknown'
               defaultMessage='An unknown error has occurred.'
             />
-          )
+          ),
         }
     }
   })
@@ -326,17 +319,17 @@ const getScrambleKey = (app, deviceType) => {
  * @param {TransportU2F} btcApp - The BTC app connection
  * @returns {Object} the derived xPubs
  */
-const deriveDeviceInfo = async btcApp => {
-  let btcPath = "44'/0'/0'"
-  let bchPath = "44'/145'/0'"
-  let ethPath = "44'/60'/0'/0/0"
+const deriveDeviceInfo = async (btcApp) => {
+  const btcPath = "44'/0'/0'"
+  const bchPath = "44'/145'/0'"
+  const ethPath = "44'/60'/0'/0/0"
 
-  let btcChild = await btcApp.getWalletPublicKey(btcPath)
-  let bchChild = await btcApp.getWalletPublicKey(bchPath)
-  let ethChild = await btcApp.getWalletPublicKey(ethPath)
-  let btcParent = await btcApp.getWalletPublicKey(getParentPath(btcPath))
-  let bchParent = await btcApp.getWalletPublicKey(getParentPath(bchPath))
-  let ethParent = await btcApp.getWalletPublicKey(getParentPath(ethPath))
+  const btcChild = await btcApp.getWalletPublicKey(btcPath)
+  const bchChild = await btcApp.getWalletPublicKey(bchPath)
+  const ethChild = await btcApp.getWalletPublicKey(ethPath)
+  const btcParent = await btcApp.getWalletPublicKey(getParentPath(btcPath))
+  const bchParent = await btcApp.getWalletPublicKey(getParentPath(bchPath))
+  const ethParent = await btcApp.getWalletPublicKey(getParentPath(ethPath))
   const btc = createXpubFromChildAndParent(btcPath, btcChild, btcParent)
   const bch = createXpubFromChildAndParent(bchPath, bchChild, bchParent)
   const eth = createXpubFromChildAndParent(ethPath, ethChild, ethParent)
@@ -364,8 +357,8 @@ const generateAccountsMDEntry = (newDevice, deviceName) => {
       eth: {
         accounts: [ethAccount(eth, deviceName + ' - ETH Wallet')],
         last_tx: null,
-        last_tx_timestamp: null
-      }
+        last_tx_timestamp: null,
+      },
     }
   } catch (e) {
     throw new Error('mising_device_info')
@@ -384,10 +377,10 @@ export const generateXlmAccountMDEntry = (deviceName, publicKey) => ({
     {
       publicKey: publicKey,
       label: deviceName + ' - XLM Wallet',
-      archived: false
-    }
+      archived: false,
+    },
   ],
-  tx_notes: {}
+  tx_notes: {},
 })
 
 /**
@@ -421,7 +414,7 @@ const getXlmPublicKey = (deviceType, transport) => {
  * @param {String} hash - THe unformatted firmware hash
  * @returns {String} Returns the formatted hash
  */
-const formatFirmwareHash = hash => {
+const formatFirmwareHash = (hash) => {
   if (!hash) {
     return ''
   }
@@ -439,7 +432,7 @@ const formatFirmwareHash = hash => {
  * @param {String} raw - THe unformatted firmware version
  * @returns {String} Returns the formatted firmware name
  */
-const formatFirmwareDisplayName = raw => {
+const formatFirmwareDisplayName = (raw) => {
   return raw.endsWith('-osu') ? raw.replace('-osu', '') : raw
 }
 
@@ -455,5 +448,5 @@ export default {
   getScrambleKey,
   getXlmPublicKey,
   mapSocketError,
-  pollForAppConnection
+  pollForAppConnection,
 }

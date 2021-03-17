@@ -7,21 +7,14 @@ import styled from 'styled-components'
 
 import { Text, TooltipHost, TooltipIcon } from 'blockchain-info-components'
 import { SupportedWalletCurrencyType } from 'blockchain-wallet-v4/src/types'
-import {
-  CoinIcon,
-  Destination,
-  MenuIcon,
-  MenuItem,
-  Separator,
-  Wrapper
-} from 'components/MenuLeft'
+import { CoinIcon, Destination, MenuIcon, MenuItem, Separator, Wrapper } from 'components/MenuLeft'
 
 import { Props } from '.'
 
 const HelperTipContainer = styled.div`
   position: relative;
   > div span {
-    color: ${props => props.theme['grey400']};
+    color: ${(props) => props.theme['grey400']};
   }
 `
 const HelperTip = styled(TooltipHost)`
@@ -30,13 +23,13 @@ const HelperTip = styled(TooltipHost)`
   top: -8px;
 `
 export const NewCartridge = styled(Cartridge)`
-  color: ${props => props.theme.orange600} !important;
-  background-color: ${props => props.theme.white};
+  color: ${(props) => props.theme.orange600} !important;
+  background-color: ${(props) => props.theme.white};
   letter-spacing: 1px;
   margin-left: auto;
   margin-right: -4px;
   padding: 4px 4px;
-  border: 1px solid ${props => props.theme.grey000};
+  border: 1px solid ${(props) => props.theme.grey000};
   border-radius: 4px;
 `
 
@@ -44,14 +37,9 @@ type OwnProps = {
   exchangeUrl: string
 }
 
-const ExchangeNavItem = props => (
+const ExchangeNavItem = (props) => (
   <>
-    <MenuIcon
-      className='icon'
-      name='blockchain-logo'
-      style={{ marginLeft: '-2px' }}
-      size='21px'
-    />
+    <MenuIcon className='icon' name='blockchain-logo' style={{ marginLeft: '-2px' }} size='21px' />
     <Destination style={{ marginLeft: '2px' }}>
       <FormattedMessage
         id='layouts.wallet.menuleft.navigation.blockchain-exchange-1'
@@ -91,11 +79,7 @@ const Navigation = (props: OwnProps & Props) => {
             coin.invited &&
             coin.method &&
             coin.txListAppRoute && (
-              <LinkContainer
-                key={i}
-                to={coin.txListAppRoute}
-                activeClassName='active'
-              >
+              <LinkContainer key={i} to={coin.txListAppRoute} activeClassName='active'>
                 <MenuItem
                   data-e2e={`${toLower(coin.coinCode)}Link`}
                   colorCode={coin.colorCode}
@@ -151,12 +135,7 @@ const Navigation = (props: OwnProps & Props) => {
       {props.lockboxDevices?.length > 0 ? (
         <LinkContainer to='/lockbox' activeClassName='active'>
           <MenuItem data-e2e='lockboxLink'>
-            <MenuIcon
-              className='icon'
-              name='hardware'
-              style={{ paddingLeft: '2px' }}
-              size='24px'
-            />
+            <MenuIcon className='icon' name='hardware' style={{ paddingLeft: '2px' }} size='24px' />
             <Destination style={{ marginLeft: '-2px' }}>
               <FormattedMessage
                 id='layouts.wallet.menuleft.navigation.hardware'

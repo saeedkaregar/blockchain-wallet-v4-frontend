@@ -7,20 +7,20 @@ import SelectInput from './template.js'
 class SelectInputContainer extends React.PureComponent {
   state = {
     value: this.props.value,
-    search: ''
+    search: '',
   }
 
   /* eslint-disable react/no-did-update-set-state */
   componentDidUpdate(prevProps, prevState) {
     if (!equals(this.props.value, prevProps.value)) {
       this.setState({
-        value: this.props.value
+        value: this.props.value,
       })
     }
   }
   /* eslint-enable react/no-did-update-set-state */
 
-  handleChange = item => {
+  handleChange = (item) => {
     const value = prop('value', item)
 
     this.setState({ value })
@@ -28,16 +28,13 @@ class SelectInputContainer extends React.PureComponent {
   }
 
   transform = (elements, search) => {
-    let items = []
-    elements.map(element => {
+    const items = []
+    elements.map((element) => {
       if (!search && element.group !== '') {
         items.push({ text: element.group })
       }
-      element.items.map(item => {
-        if (
-          !search ||
-          (search && contains(toUpper(search), toUpper(item.text)))
-        ) {
+      element.items.map((item) => {
+        if (!search || (search && contains(toUpper(search), toUpper(item.text)))) {
           items.push({ text: item.text, value: item.value })
         }
       })
@@ -72,7 +69,7 @@ SelectInputContainer.propTypes = {
   elements: PropTypes.arrayOf(
     PropTypes.shape({
       group: PropTypes.string,
-      items: PropTypes.array
+      items: PropTypes.array,
     })
   ).isRequired,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
@@ -80,14 +77,10 @@ SelectInputContainer.propTypes = {
   opened: PropTypes.bool,
   disabled: PropTypes.bool,
   grouped: PropTypes.bool,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.object
-  ]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]).isRequired,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
-  onBlur: PropTypes.func
+  onBlur: PropTypes.func,
 }
 
 SelectInputContainer.defaultProps = {
@@ -96,7 +89,7 @@ SelectInputContainer.defaultProps = {
   searchEnabled: true,
   opened: false,
   grouped: false,
-  disabled: false
+  disabled: false,
 }
 
 export default SelectInputContainer

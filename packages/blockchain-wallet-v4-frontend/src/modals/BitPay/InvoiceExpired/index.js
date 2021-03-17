@@ -13,8 +13,8 @@ class BitPayInvoiceExpired extends React.PureComponent {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  modalActions: bindActionCreators(actions.modals, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  modalActions: bindActionCreators(actions.modals, dispatch),
 })
 
 const enhance = compose(

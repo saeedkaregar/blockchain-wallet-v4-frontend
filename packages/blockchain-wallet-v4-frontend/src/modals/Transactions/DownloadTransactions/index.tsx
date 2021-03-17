@@ -32,16 +32,8 @@ type LinkStatePropsType = {
 }
 type LinkDispatchPropsType = {
   clearTransactions: () => void
-  fetchTransactions: (
-    address: string,
-    startDate: string,
-    endDate: string
-  ) => void
-  initForm: (formDefaults: {
-    end: moment.Moment
-    from: 'all'
-    start: moment.Moment
-  }) => void
+  fetchTransactions: (address: string, startDate: string, endDate: string) => void
+  initForm: (formDefaults: { end: moment.Moment; from: 'all'; start: moment.Moment }) => void
 }
 type Props = OwnProps & LinkDispatchPropsType & LinkStatePropsType
 
@@ -53,11 +45,9 @@ class DownloadTransactionsModal extends Component<Props, StateProps> {
     initForm({
       from: 'all',
       // @ts-ignore
-      start: moment()
-        .startOf('day')
-        .subtract(7, 'day'),
+      start: moment().startOf('day').subtract(7, 'day'),
       // @ts-ignore
-      end: moment().endOf('day')
+      end: moment().endOf('day'),
     })
   }
 
@@ -103,58 +93,35 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
     .getCoinModel(state, ownProps.coin)
     .getOrElse({ coinTicker: 'ETH' }),
   formValues: selectors.form.getFormValues('transactionReport')(state),
-  ...getData(state, ownProps.coin)
+  ...getData(state, ownProps.coin),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch, { coin }: OwnProps) => {
-  const coinCode =
-    coin === 'PAX' || coin === 'USDT' || coin === 'WDGLD'
-      ? 'eth'
-      : toLower(coin)
+  const coinCode = coin === 'PAX' || coin === 'USDT' || coin === 'WDGLD' ? 'eth' : toLower(coin)
   return {
-    clearTransactions: () =>
-      dispatch(actions.core.data[coinCode].clearTransactionHistory()),
+    clearTransactions: () => dispatch(actions.core.data[coinCode].clearTransactionHistory()),
     fetchTransactions: (address, startDate, endDate) => {
       if (coin === 'PAX') {
         return dispatch(
-          actions.core.data.eth.fetchErc20TransactionHistory(
-            address,
-            startDate,
-            endDate,
-            'pax'
-          )
+          actions.core.data.eth.fetchErc20TransactionHistory(address, startDate, endDate, 'pax')
         )
       }
       if (coin === 'USDT') {
         return dispatch(
-          actions.core.data.eth.fetchErc20TransactionHistory(
-            address,
-            startDate,
-            endDate,
-            'usdt'
-          )
+          actions.core.data.eth.fetchErc20TransactionHistory(address, startDate, endDate, 'usdt')
         )
       }
       if (coin === 'WDGLD') {
         return dispatch(
-          actions.core.data.eth.fetchErc20TransactionHistory(
-            address,
-            startDate,
-            endDate,
-            'wdgld'
-          )
+          actions.core.data.eth.fetchErc20TransactionHistory(address, startDate, endDate, 'wdgld')
         )
       }
       return dispatch(
-        actions.core.data[coinCode].fetchTransactionHistory(
-          address,
-          startDate,
-          endDate
-        )
+        actions.core.data[coinCode].fetchTransactionHistory(address, startDate, endDate)
       )
     },
-    initForm: initialValues =>
-      dispatch(actions.form.initialize('transactionReport', initialValues))
+    initForm: (initialValues) =>
+      dispatch(actions.form.initialize('transactionReport', initialValues)),
   }
 }
 

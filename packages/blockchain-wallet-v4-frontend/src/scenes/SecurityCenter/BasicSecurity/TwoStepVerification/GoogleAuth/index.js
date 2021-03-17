@@ -39,16 +39,14 @@ class GoogleAuthContainer extends React.PureComponent {
   }
 
   onSubmit() {
-    this.props.securityCenterActions.verifyGoogleAuthenticator(
-      this.props.authCode
-    )
+    this.props.securityCenterActions.verifyGoogleAuthenticator(this.props.authCode)
   }
 
   render() {
     const { data, ...rest } = this.props
 
     return data.cata({
-      Success: value => (
+      Success: (value) => (
         <Success
           data={value}
           handleClick={this.handleClick}
@@ -56,25 +54,22 @@ class GoogleAuthContainer extends React.PureComponent {
           uiState={this.state}
         />
       ),
-      Failure: message => <Error {...rest} message={message} />,
+      Failure: (message) => <Error {...rest} message={message} />,
       Loading: () => <Loading {...rest} />,
-      NotAsked: () => <Loading {...rest} />
+      NotAsked: () => <Loading {...rest} />,
     })
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   authCode: formValueSelector('securityGoogleAuthenticator')(state, 'authCode'),
-  data: getData(state)
+  data: getData(state),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   modalActions: bindActionCreators(actions.modals, dispatch),
   settingsActions: bindActionCreators(actions.core.settings, dispatch),
-  securityCenterActions: bindActionCreators(
-    actions.modules.securityCenter,
-    dispatch
-  )
+  securityCenterActions: bindActionCreators(actions.modules.securityCenter, dispatch),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoogleAuthContainer)

@@ -11,10 +11,7 @@ import { model } from 'data'
 
 import ModalIcon from '../ModalIcon'
 
-const currencySymbolMap = mapObjIndexed(
-  (value, code) => value.units[code].symbol,
-  Currencies
-)
+const currencySymbolMap = mapObjIndexed((value, code) => value.units[code].symbol, Currencies)
 
 const { RESERVE_LEARN_MODAL } = model.components.sendXlm
 
@@ -26,14 +23,14 @@ const BannerTemplate = styled(Banner)`
   margin-bottom: 16px;
 `
 
-export const InfoBanner = props => {
+export const InfoBanner = (props) => {
   const effectiveBalance = prop('effectiveBalance', props)
   const reserve = prop('reserve', props)
   const fee = prop('fee', props)
   const reserveXlm = Exchange.convertXlmToXlm({
     value: reserve,
     fromUnit: 'STROOP',
-    toUnit: 'XLM'
+    toUnit: 'XLM',
   }).value
   const currency = prop('currency', props)
   const rates = prop('rates', props)
@@ -41,12 +38,12 @@ export const InfoBanner = props => {
     value: new BigNumber.sum(effectiveBalance, fee),
     fromUnit: 'STROOP',
     toCurrency: currency,
-    rates
+    rates,
   }).value
   const effectiveBalanceXlm = Exchange.convertXlmToXlm({
     value: new BigNumber.sum(effectiveBalance, fee),
     fromUnit: 'STROOP',
-    toUnit: 'XLM'
+    toUnit: 'XLM',
   }).value
   const modalProps = { currency, effectiveBalanceXlm, fee, rates, reserveXlm }
 
@@ -57,7 +54,7 @@ export const InfoBanner = props => {
         defaultMessage='Your available balance is {currencySymbol}{effectiveBalanceFiat} (minus fee). Learn about Stellar’s minimum balance.'
         values={{
           effectiveBalanceFiat,
-          currencySymbol: currencySymbolMap[currency]
+          currencySymbol: currencySymbolMap[currency],
         }}
       />
       <ModalIcon modal={RESERVE_LEARN_MODAL} {...modalProps} />

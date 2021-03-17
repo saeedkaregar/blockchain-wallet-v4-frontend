@@ -10,7 +10,7 @@ import {
   ModalFooter,
   ModalHeader,
   Text,
-  TextGroup
+  TextGroup,
 } from 'blockchain-info-components'
 import { media } from 'services/styles'
 
@@ -38,25 +38,15 @@ const ErrorDetails = styled.details`
   }
 `
 
-const ErrorBoundary = props => {
+const ErrorBoundary = (props) => {
   const { error, errorInfo, onSubmit, position, total } = props
 
   return (
-    <Modal
-      size='large'
-      style={{ zIndex: 999 }}
-      position={position}
-      total={total}
-    >
+    <Modal size='large' style={{ zIndex: 999 }} position={position} total={total}>
       <ModalHeader closeButton={false}>
         <TitleGroup inline>
           <Icon name='alert-filled' size='28px' color='blue900' />
-          <Text
-            weight={400}
-            size={'22px'}
-            color='blue900'
-            style={{ paddingLeft: '8px' }}
-          >
+          <Text weight={400} size={'22px'} color='blue900' style={{ paddingLeft: '8px' }}>
             <FormattedMessage
               id='modal.errorboundary.title'
               defaultMessage="Oops! Something's not right here"

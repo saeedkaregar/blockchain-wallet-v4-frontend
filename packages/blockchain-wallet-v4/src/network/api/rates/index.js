@@ -3,26 +3,26 @@ export default ({ get, nabuUrl, post }) => {
     post({
       url: nabuUrl,
       endPoint: `/markets/quotes/${pair}/convert?volume=${volume}&fix=${fix}&fiatCurrency=${fiatCurrency}`,
-      ignoreQueryParams: true
+      ignoreQueryParams: true,
     })
 
   const fetchAvailablePairs = () =>
     get({
       url: nabuUrl,
       endPoint: `/markets/quotes/pairs`,
-      ignoreQueryParams: true
+      ignoreQueryParams: true,
     })
 
-  const fetchBestRates = pairs =>
+  const fetchBestRates = (pairs) =>
     get({
       url: nabuUrl,
       endPoint: `/markets/bestrates?currencyPairs=${pairs.join(',')}`,
-      ignoreQueryParams: true
+      ignoreQueryParams: true,
     })
 
   return {
     fetchAdvice,
     fetchAvailablePairs,
-    fetchBestRates
+    fetchBestRates,
   }
 }

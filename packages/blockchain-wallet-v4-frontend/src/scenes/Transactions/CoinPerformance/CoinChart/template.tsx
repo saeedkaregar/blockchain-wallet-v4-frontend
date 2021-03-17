@@ -22,12 +22,12 @@ const Wrapper = styled.div`
   `}
 
   * {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-      Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+      Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
   }
   svg {
     .highcharts-background {
-      fill: ${props => props.theme.white} !important;
+      fill: ${(props) => props.theme.white} !important;
     }
   }
   .highcharts-tooltip span {
@@ -42,7 +42,7 @@ const Wrapper = styled.div`
   }
 `
 
-const Chart = props => {
+const Chart = (props) => {
   const { coin, currency, data, time } = props
   const decimals = coin === 'XLM' ? 4 : 2
   const start = calculateStart(coin, time)
@@ -53,7 +53,7 @@ const Chart = props => {
     config,
     start,
     interval,
-    decimals
+    decimals,
   })
 
   useEffect(() => {

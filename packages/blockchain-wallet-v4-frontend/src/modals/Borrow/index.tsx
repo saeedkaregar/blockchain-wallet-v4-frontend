@@ -106,11 +106,11 @@ class Borrow extends PureComponent<Props, State> {
 const mapStateToProps = (state: RootState) => ({
   loan: selectors.components.borrow.getLoan(state),
   offer: selectors.components.borrow.getOffer(state),
-  step: selectors.components.borrow.getStep(state)
+  step: selectors.components.borrow.getStep(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch): LinkDispatchPropsType => ({
-  borrowActions: bindActionCreators(actions.components.borrow, dispatch)
+  borrowActions: bindActionCreators(actions.components.borrow, dispatch),
 })
 
 const enhance = compose<any>(

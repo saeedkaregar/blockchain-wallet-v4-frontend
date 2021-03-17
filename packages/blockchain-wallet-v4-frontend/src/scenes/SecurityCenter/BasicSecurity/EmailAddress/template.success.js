@@ -14,7 +14,7 @@ import {
   SecurityDescription,
   SecurityHeader,
   SecurityIcon,
-  SecuritySummary
+  SecuritySummary,
 } from '../../components'
 import ChangeEmailSteps from './ChangeEmailSteps'
 
@@ -55,7 +55,7 @@ const EmailButton = styled(Button)`
   }
 `
 const IconAndHeaderContainer = styled.div`
-  opacity: ${props => (props.success ? 0.3 : 1)};
+  opacity: ${(props) => (props.success ? 0.3 : 1)};
   display: grid;
   grid-template-columns: 15% 85%;
   ${media.mobile`
@@ -80,7 +80,7 @@ const EmailSecuritySummary = styled(SecuritySummary)`
     display: inline;
   `};
 `
-const EmailAddress = props => {
+const EmailAddress = (props) => {
   const { data, invalid, uiState } = props
   const { email, verified } = data
   const isVerified = verified === 1
@@ -178,9 +178,7 @@ const EmailAddress = props => {
         </IconContainer>
         <EmailSecuritySummary>
           <SecurityHeader>{securityHeaderHelper()}</SecurityHeader>
-          <SecurityDescription>
-            {securityDescriptionHelper()}
-          </SecurityDescription>
+          <SecurityDescription>{securityDescriptionHelper()}</SecurityDescription>
         </EmailSecuritySummary>
       </IconAndHeaderContainer>
       <EmailSecurityComponent>

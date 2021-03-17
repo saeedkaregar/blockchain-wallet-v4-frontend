@@ -23,13 +23,7 @@ import trades from './trades'
 import wallet from './wallet'
 import xlm from './xlm'
 
-const api = ({
-  apiKey,
-  getAuthCredentials,
-  networks,
-  options,
-  reauthenticate
-}: any = {}) => {
+const api = ({ apiKey, getAuthCredentials, networks, options, reauthenticate }: any = {}) => {
   const http = httpService({ apiKey })
   const authorizedHttp = apiAuthorize(http, getAuthCredentials, reauthenticate)
   const apiUrl = options.domains.api
@@ -47,7 +41,7 @@ const api = ({
     ...borrow({
       nabuUrl,
       authorizedGet: authorizedHttp.get,
-      authorizedPost: authorizedHttp.post
+      authorizedPost: authorizedHttp.post,
     }),
     ...btc({ rootUrl, apiUrl, ...http }),
     ...coin({ apiUrl, ...http }),
@@ -55,7 +49,7 @@ const api = ({
       nabuUrl,
       authorizedGet: authorizedHttp.get,
       authorizedPost: authorizedHttp.post,
-      ...http
+      ...http,
     }),
     ...eth({ apiUrl, ...http }),
     ...kvStore({ apiUrl, networks, ...http }),
@@ -63,12 +57,12 @@ const api = ({
       nabuUrl,
       authorizedGet: authorizedHttp.get,
       authorizedPost: authorizedHttp.post,
-      ...http
+      ...http,
     }),
     ...interest({
       nabuUrl,
       authorizedGet: authorizedHttp.get,
-      authorizedPost: authorizedHttp.post
+      authorizedPost: authorizedHttp.post,
     }),
     ...lockbox({ ledgerUrl, ...http }),
     ...misc({ rootUrl, apiUrl, ...http }),
@@ -78,13 +72,13 @@ const api = ({
       authorizedGet: authorizedHttp.get,
       authorizedPost: authorizedHttp.post,
       authorizedPut: authorizedHttp.put,
-      ...http
+      ...http,
     }),
     ...settings({ rootUrl, ...http }),
     ...settingsComponent({
       nabuUrl,
       authorizedGet: authorizedHttp.get,
-      ...http
+      ...http,
     }),
     ...simpleBuy({
       everypayUrl,
@@ -93,18 +87,18 @@ const api = ({
       authorizedPost: authorizedHttp.post,
       authorizedPut: authorizedHttp.put,
       authorizedDelete: authorizedHttp.deleteRequest,
-      ...http
+      ...http,
     }),
     ...swap({
       nabuUrl,
       authorizedGet: authorizedHttp.get,
       authorizedPost: authorizedHttp.post,
-      ...http
+      ...http,
     }),
     ...rates({ nabuUrl, ...authorizedHttp }),
     ...trades({ nabuUrl, ...authorizedHttp }),
     ...wallet({ rootUrl, ...http }),
-    ...xlm({ apiUrl, horizonUrl, ...http })
+    ...xlm({ apiUrl, horizonUrl, ...http }),
   }
 }
 

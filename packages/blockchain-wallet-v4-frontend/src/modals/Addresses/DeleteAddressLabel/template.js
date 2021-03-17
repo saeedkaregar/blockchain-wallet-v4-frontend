@@ -11,7 +11,7 @@ import {
   ModalFooter,
   ModalHeader,
   Text,
-  TextGroup
+  TextGroup,
 } from 'blockchain-info-components'
 
 const TitleGroup = styled(TextGroup)`
@@ -21,7 +21,7 @@ const TitleGroup = styled(TextGroup)`
   align-items: center;
 `
 
-const DeleteAdresssLabel = props => {
+const DeleteAdresssLabel = (props) => {
   const { close, onDeleteConfirm } = props
 
   return (
@@ -30,10 +30,7 @@ const DeleteAdresssLabel = props => {
         <TitleGroup inline>
           <Icon name='alert-filled' size='32px' color='brand-yellow' />
           <Text weight={400} size={'22px'} style={{ paddingLeft: '8px' }}>
-            <FormattedMessage
-              id='modal.deleteaddresslabel.title'
-              defaultMessage='Remove Label?'
-            />
+            <FormattedMessage id='modal.deleteaddresslabel.title' defaultMessage='Remove Label?' />
           </Text>
         </TitleGroup>
       </ModalHeader>
@@ -48,12 +45,7 @@ const DeleteAdresssLabel = props => {
         </TextGroup>
       </ModalBody>
       <ModalFooter align='right'>
-        <Link
-          size='13px'
-          weight={400}
-          onClick={close}
-          data-e2e='cancelAddressDeleteLink'
-        >
+        <Link size='13px' weight={400} onClick={close} data-e2e='cancelAddressDeleteLink'>
           <FormattedMessage id='buttons.cancel' defaultMessage='Cancel' />
         </Link>
         <Button
@@ -65,10 +57,7 @@ const DeleteAdresssLabel = props => {
           style={{ marginLeft: '20px' }}
           data-e2e='deleteAddressConfirmButton'
         >
-          <FormattedMessage
-            id='modal.deleteaddresslabel.delete'
-            defaultMessage='Delete Label'
-          />
+          <FormattedMessage id='modal.deleteaddresslabel.delete' defaultMessage='Delete Label' />
         </Button>
       </ModalFooter>
     </Modal>

@@ -22,7 +22,7 @@ const Wrapper = styled.div`
 
 class BasicSecurityContainer extends React.PureComponent {
   state = {
-    changeEmail: pathOr(false, ['location', 'state', 'changeEmail'], this.props)
+    changeEmail: pathOr(false, ['location', 'state', 'changeEmail'], this.props),
   }
 
   render() {
@@ -36,16 +36,13 @@ class BasicSecurityContainer extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   authType: selectors.core.settings.getAuthType(state),
-  emailVerified: selectors.core.settings.getEmailVerified(state)
+  emailVerified: selectors.core.settings.getEmailVerified(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-  settingsActions: bindActionCreators(actions.modules.settings, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  settingsActions: bindActionCreators(actions.modules.settings, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BasicSecurityContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(BasicSecurityContainer)

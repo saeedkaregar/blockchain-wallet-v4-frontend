@@ -6,25 +6,25 @@ export const getConfig = (coin, currency, data, decimals) => ({
     height: 105,
     type: 'line',
     data: {
-      dateFormat: 'YYYY/mm/dd'
-    }
+      dateFormat: 'YYYY/mm/dd',
+    },
   },
   credits: {
-    enabled: false
+    enabled: false,
   },
   legend: {
-    enabled: false
+    enabled: false,
   },
   plotOptions: {
     line: {
       color: Color(coin.toLowerCase()),
-      lineWidth: 3
-    }
+      lineWidth: 3,
+    },
   },
   series: [
     {
-      data: data
-    }
+      data: data,
+    },
   ],
   tooltip: {
     borderColor: 'transparent',
@@ -35,30 +35,30 @@ export const getConfig = (coin, currency, data, decimals) => ({
     shadow: false,
     padding: 4,
     style: {
-      color: Color('white')
+      color: Color('white'),
     },
     xDateFormat: '%b %d, %Y',
     useHTML: true,
-    pointFormatter: function() {
+    pointFormatter: function () {
       return Currency.fiatToString({
         // @ts-ignore
         value: this.y,
         digits: decimals,
-        unit: currency
+        unit: currency,
       })
-    }
+    },
   },
   title: {
-    text: null
+    text: null,
   },
   yAxis: {
-    visible: false
+    visible: false,
   },
   xAxis: {
     visible: false,
     minPadding: 0,
     maxPadding: 0,
     type: 'datetime',
-    gridLineColor: 'transparent'
-  }
+    gridLineColor: 'transparent',
+  },
 })

@@ -4,10 +4,10 @@ import * as AT from './actionTypes'
 
 export const initialized = (currency: WalletFiatType) => ({
   type: AT.FIAT_TRANSACTIONS_INITIALIZED,
-  payload: { currency }
+  payload: { currency },
 })
 
 export const loadMore = (currency: WalletFiatType) => ({
   type: AT.FIAT_TRANSACTIONS_LOAD_MORE,
-  payload: { currency }
+  payload: { currency },
 })

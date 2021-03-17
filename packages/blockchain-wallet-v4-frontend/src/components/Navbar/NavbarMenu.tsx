@@ -10,14 +10,14 @@ const BaseMenu = styled.div`
   width: 100%;
 `
 
-const NavbarMenu = props => {
+const NavbarMenu = (props) => {
   const { children, ...rest } = props
 
   return <BaseMenu {...rest}>{children}</BaseMenu>
 }
 
 NavbarMenu.defaultProps = {
-  toggled: false
+  toggled: false,
 }
 
 export default NavbarMenu

@@ -19,51 +19,30 @@ const mapStateToProps = (state, ownProps) => ({
   theme: selectors.preferences.getTheme(state),
   themes: [
     {
-      text: (
-        <FormattedMessage
-          id='components.selectboxtheme.default'
-          defaultMessage='Default'
-        />
-      ),
-      value: 'default'
+      text: <FormattedMessage id='components.selectboxtheme.default' defaultMessage='Default' />,
+      value: 'default',
     },
     {
       text: (
-        <FormattedMessage
-          id='components.selectboxtheme.complement'
-          defaultMessage='Complement'
-        />
+        <FormattedMessage id='components.selectboxtheme.complement' defaultMessage='Complement' />
       ),
-      value: 'complement'
+      value: 'complement',
     },
     {
       text: (
-        <FormattedMessage
-          id='components.selectboxtheme.grayscale'
-          defaultMessage='Grayscale'
-        />
+        <FormattedMessage id='components.selectboxtheme.grayscale' defaultMessage='Grayscale' />
       ),
-      value: 'grayscale'
+      value: 'grayscale',
     },
     {
-      text: (
-        <FormattedMessage
-          id='components.selectboxtheme.invert'
-          defaultMessage='Invert'
-        />
-      ),
-      value: 'invert'
+      text: <FormattedMessage id='components.selectboxtheme.invert' defaultMessage='Invert' />,
+      value: 'invert',
     },
     {
-      text: (
-        <FormattedMessage
-          id='components.selectboxtheme.darkmode'
-          defaultMessage='DarkMode'
-        />
-      ),
-      value: 'darkmode'
-    }
-  ]
+      text: <FormattedMessage id='components.selectboxtheme.darkmode' defaultMessage='DarkMode' />,
+      value: 'darkmode',
+    },
+  ],
 })
 
 export default connect(mapStateToProps)(SelectBoxTheme)

@@ -11,7 +11,7 @@ import {
   RatesType,
   RemoteDataType,
   SupportedWalletCurrenciesType,
-  WithdrawalMinimumType
+  WithdrawalMinimumType,
 } from 'blockchain-wallet-v4/src/types'
 import DataError from 'components/DataError'
 import { actions } from 'data'
@@ -25,24 +25,19 @@ class WithdrawalFormContainer extends PureComponent<Props> {
     this.handleRefresh()
   }
 
-  handleDisplayToggle = isCoin => {
+  handleDisplayToggle = (isCoin) => {
     const { displayCoin } = this.props.data.getOrElse({
-      displayCoin: false
+      displayCoin: false,
     } as SuccessStateType)
     if (isCoin === displayCoin) return
-    this.props.formActions.clearFields(
-      'interestWithdrawalForm',
-      false,
-      false,
-      'withdrawalAmount'
-    )
+    this.props.formActions.clearFields('interestWithdrawalForm', false, false, 'withdrawalAmount')
     this.props.interestActions.setCoinDisplay(isCoin)
   }
 
   handleRefresh = () => {
     const { coin, data, interestActions } = this.props
     const { walletCurrency } = data.getOrElse({
-      walletCurrency: 'USD'
+      walletCurrency: 'USD',
     } as SuccessStateType)
     interestActions.initializeWithdrawalForm(coin, walletCurrency)
   }
@@ -50,27 +45,23 @@ class WithdrawalFormContainer extends PureComponent<Props> {
   render() {
     const { data } = this.props
     return data.cata({
-      Success: val => (
-        <WithdrawalForm
-          {...val}
-          {...this.props}
-          handleDisplayToggle={this.handleDisplayToggle}
-        />
+      Success: (val) => (
+        <WithdrawalForm {...val} {...this.props} handleDisplayToggle={this.handleDisplayToggle} />
       ),
       Failure: () => <DataError onClick={this.handleRefresh} />,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state): LinkStatePropsType => ({
-  data: getData(state)
+  data: getData(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch): LinkDispatchPropsType => ({
   formActions: bindActionCreators(actions.form, dispatch),
-  interestActions: bindActionCreators(actions.components.interest, dispatch)
+  interestActions: bindActionCreators(actions.components.interest, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

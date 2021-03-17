@@ -37,8 +37,8 @@ class SettingContainer extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  modalActions: bindActionCreators(actions.modals, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  modalActions: bindActionCreators(actions.modals, dispatch),
 })
 
 export default connect(null, mapDispatchToProps)(SettingContainer)

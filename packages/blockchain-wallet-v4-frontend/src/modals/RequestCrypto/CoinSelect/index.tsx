@@ -26,7 +26,7 @@ const SelectCoinWrapper = styled.div`
   width: 40%;
 `
 const NoAccountsText = styled.div`
-  border-top: ${props => `1px solid ${props.theme.grey000}`};
+  border-top: ${(props) => `1px solid ${props.theme.grey000}`};
   padding: 40px 40px 0;
   text-align: center;
 `
@@ -39,7 +39,7 @@ class RequestCoinSelect extends React.PureComponent<Props> {
       handleClose,
       requestableCoins,
       supportedCoins,
-      walletCurrency
+      walletCurrency,
     } = this.props
     return (
       <Wrapper>
@@ -63,12 +63,7 @@ class RequestCoinSelect extends React.PureComponent<Props> {
                 defaultMessage='Receive Crypto'
               />
             </Text>
-            <Text
-              size='16px'
-              color='grey600'
-              weight={500}
-              style={{ marginTop: '10px' }}
-            >
+            <Text size='16px' color='grey600' weight={500} style={{ marginTop: '10px' }}>
               <FormattedMessage
                 id='modals.requestcrypto.coinselect.subtitle'
                 defaultMessage='Select and share your address or QR code to receive crypto from anyone around the world.'
@@ -81,39 +76,30 @@ class RequestCoinSelect extends React.PureComponent<Props> {
                 name='selectedCoin'
                 props={{
                   additionalOptions: [{ text: 'All Wallets', value: 'ALL' }],
-                  limitTo: requestableCoins.map(coin => ({
+                  limitTo: requestableCoins.map((coin) => ({
                     text: coin,
-                    value: coin
-                  }))
+                    value: coin,
+                  })),
                 }}
                 type='request'
               />
             </SelectCoinWrapper>
           </div>
         </StickyHeaderFlyoutWrapper>
-        {accounts.map(account => (
+        {accounts.map((account) => (
           <CoinAccountListOption
             account={account}
             coinModel={supportedCoins[account.coin]}
             onClick={() => {
               formActions.change(REQUEST_FORM, 'selectedAccount', account)
-              formActions.change(
-                REQUEST_FORM,
-                'step',
-                RequestSteps.SHOW_ADDRESS
-              )
+              formActions.change(REQUEST_FORM, 'step', RequestSteps.SHOW_ADDRESS)
             }}
             walletCurrency={walletCurrency}
           />
         ))}
         {accounts.length === 0 && (
           <NoAccountsText>
-            <Text
-              size='16px'
-              color='grey900'
-              weight={500}
-              style={{ marginTop: '10px' }}
-            >
+            <Text size='16px' color='grey900' weight={500} style={{ marginTop: '10px' }}>
               <FormattedMessage
                 id='modals.requestcrypto.coinselect.noaccounts'
                 defaultMessage='Currently there are no receivable accounts for the selected crypto.'
@@ -127,7 +113,7 @@ class RequestCoinSelect extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  accounts: getData(state, ownProps)
+  accounts: getData(state, ownProps),
 })
 
 const connector = connect(mapStateToProps)

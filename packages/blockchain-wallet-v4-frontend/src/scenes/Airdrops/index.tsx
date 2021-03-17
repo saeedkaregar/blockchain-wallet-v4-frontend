@@ -6,16 +6,8 @@ import { bindActionCreators } from 'redux'
 import styled from 'styled-components'
 
 import { Icon, Text } from 'blockchain-info-components'
-import {
-  NabuApiErrorType,
-  RemoteDataType
-} from 'blockchain-wallet-v4/src/types'
-import {
-  IconBackground,
-  SceneHeader,
-  SceneHeaderText,
-  SceneSubHeaderText
-} from 'components/Layout'
+import { NabuApiErrorType, RemoteDataType } from 'blockchain-wallet-v4/src/types'
+import { IconBackground, SceneHeader, SceneHeaderText, SceneSubHeaderText } from 'components/Layout'
 import { actions, selectors } from 'data'
 import { RootState } from 'data/rootReducer'
 import { UserCampaignsType, UserDataType } from 'data/types'
@@ -46,13 +38,13 @@ class Airdrops extends React.PureComponent<Props> {
   render() {
     const { data, hasEmail } = this.props
     const userData = this.props.data.getOrElse({
-      kycState: 'NONE'
+      kycState: 'NONE',
     } as SuccessStateType)
     const AirdropCards = data.cata({
-      Success: val => <Success {...val} {...this.props} />,
+      Success: (val) => <Success {...val} {...this.props} />,
       Loading: () => <Loading />,
       NotAsked: () => <Loading />,
-      Failure: e =>
+      Failure: (e) =>
         e.type === 'INVALID_CREDENTIALS' ? (
           // @ts-ignore
           <Success
@@ -64,16 +56,15 @@ class Airdrops extends React.PureComponent<Props> {
           />
         ) : (
           <Text size='16px' weight={500}>
-            Oops. Something went wrong and we don't know why.{' '}
-            <b>Here's the error: {e.type}</b>
+            Oops. Something went wrong and we don't know why. <b>Here's the error: {e.type}</b>
           </Text>
-        )
+        ),
     })
     const PastAirdrops = data.cata({
-      Success: val => <PastAirdropsSuccess {...val} {...this.props} />,
+      Success: (val) => <PastAirdropsSuccess {...val} {...this.props} />,
       Loading: () => <Text weight={500}>Loading...</Text>,
       NotAsked: () => <Text weight={500}>Loading...</Text>,
-      Failure: e =>
+      Failure: (e) =>
         e.type === 'INVALID_CREDENTIALS' ? (
           <Text weight={500} size='12px'>
             <FormattedMessage
@@ -83,10 +74,9 @@ class Airdrops extends React.PureComponent<Props> {
           </Text>
         ) : (
           <Text size='16px' weight={500}>
-            Oops. Something went wrong and we don't know why.{' '}
-            <b>Here's the error: {e.type}</b>
+            Oops. Something went wrong and we don't know why. <b>Here's the error: {e.type}</b>
           </Text>
-        )
+        ),
     })
     if (!hasEmail) return <EmailRequired />
     return (
@@ -96,10 +86,7 @@ class Airdrops extends React.PureComponent<Props> {
             <Icon name='parachute' color='blue600' size='24px' />
           </IconBackground>
           <SceneHeaderText>
-            <FormattedMessage
-              id='scenes.airdrops.header'
-              defaultMessage='Airdrops'
-            />
+            <FormattedMessage id='scenes.airdrops.header' defaultMessage='Airdrops' />
           </SceneHeaderText>
         </SceneHeader>
         <SceneSubHeaderText>
@@ -130,23 +117,20 @@ class Airdrops extends React.PureComponent<Props> {
 const mapStateToProps = (state: RootState): LinkStatePropsType => ({
   data: lift((userData, campaignData) => ({
     ...userData,
-    ...campaignData
+    ...campaignData,
   }))(
     selectors.modules.profile.getUserData(state),
     selectors.modules.profile.getUserCampaigns(state)
   ),
-  hasEmail: selectors.core.settings
-    .getEmail(state)
-    .map(Boolean)
-    .getOrElse(false)
+  hasEmail: selectors.core.settings.getEmail(state).map(Boolean).getOrElse(false),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   identityVerificationActions: bindActionCreators(
     actions.components.identityVerification,
     dispatch
   ),
-  profileActions: bindActionCreators(actions.modules.profile, dispatch)
+  profileActions: bindActionCreators(actions.modules.profile, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

@@ -14,7 +14,7 @@ import { spacing } from 'services/styles'
 const AuthenticatorSummary = styled.div`
   width: 100%;
   padding: 0 20px;
-  opacity: ${props => (props.success ? 0.3 : 1)};
+  opacity: ${(props) => (props.success ? 0.3 : 1)};
   @media (min-width: 992px) {
     width: 110%;
   }
@@ -46,7 +46,7 @@ const QRInputWrapper = styled.div`
   }
 `
 
-const Google = props => {
+const Google = (props) => {
   const { data, handleSubmit, invalid, uiState } = props
 
   return (
@@ -90,9 +90,9 @@ const Google = props => {
 }
 
 Google.propTypes = {
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
 }
 
 export default reduxForm({
-  form: 'securityGoogleAuthenticator'
+  form: 'securityGoogleAuthenticator',
 })(Google)

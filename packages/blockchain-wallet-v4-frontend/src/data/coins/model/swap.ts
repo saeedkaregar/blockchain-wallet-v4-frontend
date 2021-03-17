@@ -11,12 +11,12 @@ export const SUPPORTED_COINS: Array<CoinType> = [
   'PAX',
   'USDT',
   'WDGLD',
-  'ALGO'
+  'ALGO',
 ]
 
 // used in the coin/account selector in Swap
 export const SWAP_ACCOUNTS_SELECTOR: CoinAccountSelectorType = {
   coins: SUPPORTED_COINS,
   tradingAccounts: true,
-  nonCustodialAccounts: true
+  nonCustodialAccounts: true,
 }

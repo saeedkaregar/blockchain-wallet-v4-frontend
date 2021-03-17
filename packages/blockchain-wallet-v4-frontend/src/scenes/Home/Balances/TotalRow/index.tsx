@@ -12,7 +12,7 @@ import Success from './template.success'
 class TotalRow extends PureComponent<Props> {
   render() {
     return this.props.data.cata({
-      Success: val => <Success {...val} {...this.props} />,
+      Success: (val) => <Success {...val} {...this.props} />,
       Failure: () => (
         <Text
           size='14px'
@@ -24,13 +24,13 @@ class TotalRow extends PureComponent<Props> {
         </Text>
       ),
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state: RootState, ownProps): LinkStatePropsType => ({
-  data: getData(state, ownProps)
+  data: getData(state, ownProps),
 })
 
 const connector = connect(mapStateToProps)

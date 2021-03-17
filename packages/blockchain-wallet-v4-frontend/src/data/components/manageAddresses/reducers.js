@@ -9,11 +9,7 @@ export default (state = {}, action) => {
 
   switch (type) {
     case AT.TOGGLE_USED_ADDRESSES: {
-      return assocPath(
-        [payload.walletIndex, 'usedAddressesVisible'],
-        payload.visible,
-        state
-      )
+      return assocPath([payload.walletIndex, 'usedAddressesVisible'], payload.visible, state)
     }
     case AT.FETCH_UNUSED_ADDRESSES_ERROR: {
       return assocPath(
@@ -23,11 +19,7 @@ export default (state = {}, action) => {
       )
     }
     case AT.FETCH_UNUSED_ADDRESSES_LOADING: {
-      return assocPath(
-        [payload.walletIndex, 'unusedAddresses'],
-        Remote.Loading,
-        state
-      )
+      return assocPath([payload.walletIndex, 'unusedAddresses'], Remote.Loading, state)
     }
     case AT.FETCH_UNUSED_ADDRESSES_SUCCESS: {
       return assocPath(
@@ -44,11 +36,7 @@ export default (state = {}, action) => {
       )
     }
     case AT.FETCH_USED_ADDRESSES_LOADING: {
-      return assocPath(
-        [payload.walletIndex, 'usedAddresses'],
-        Remote.Loading,
-        state
-      )
+      return assocPath([payload.walletIndex, 'usedAddresses'], Remote.Loading, state)
     }
     case AT.FETCH_USED_ADDRESSES_SUCCESS: {
       return assocPath(

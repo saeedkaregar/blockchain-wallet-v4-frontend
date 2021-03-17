@@ -15,7 +15,7 @@ class IPWhitelistContainer extends React.PureComponent {
   componentDidMount(prevProps) {
     if (!isEmpty(this.props.currentWhitelist)) {
       this.props.formActions.initialize('settingIPWhitelist', {
-        IPWhitelist: this.props.currentWhitelist
+        IPWhitelist: this.props.currentWhitelist,
       })
     }
   }
@@ -27,7 +27,7 @@ class IPWhitelistContainer extends React.PureComponent {
 
   handleToggle = () => {
     this.setState({
-      updateToggled: !this.state.updateToggled
+      updateToggled: !this.state.updateToggled,
     })
   }
 
@@ -47,21 +47,18 @@ class IPWhitelistContainer extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentWhitelist: selectors.core.settings.getIpLock(state).getOrElse(''),
-  IPWhitelist: formValueSelector('settingIPWhitelist')(state, 'IPWhitelist')
+  IPWhitelist: formValueSelector('settingIPWhitelist')(state, 'IPWhitelist'),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   settingsActions: bindActionCreators(actions.modules.settings, dispatch),
-  formActions: bindActionCreators(actions.form, dispatch)
+  formActions: bindActionCreators(actions.form, dispatch),
 })
 
 IPWhitelistContainer.propTypes = {
-  currentWhitelist: PropTypes.string
+  currentWhitelist: PropTypes.string,
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(IPWhitelistContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(IPWhitelistContainer)

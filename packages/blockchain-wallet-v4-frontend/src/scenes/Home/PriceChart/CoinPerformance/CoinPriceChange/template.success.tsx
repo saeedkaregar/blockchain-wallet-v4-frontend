@@ -12,13 +12,10 @@ const Wrapper = styled.div`
   margin-top: 8px;
 `
 
-const Success: React.FC<Props> = props => {
+const Success: React.FC<Props> = (props) => {
   return (
     <Wrapper>
-      <PriceChange {...props}>
-        {' '}
-        {getPriceChartTime(props.priceChart.time)}
-      </PriceChange>
+      <PriceChange {...props}> {getPriceChartTime(props.priceChart.time)}</PriceChange>
     </Wrapper>
   )
 }

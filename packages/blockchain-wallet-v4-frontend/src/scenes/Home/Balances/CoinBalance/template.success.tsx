@@ -5,10 +5,7 @@ import { WalletCurrencyType } from 'blockchain-wallet-v4/src/types'
 import CoinDisplay from 'components/Display/CoinDisplay'
 import FiatDisplay from 'components/Display/FiatDisplay'
 
-const Success = (props: {
-  balance: number | string
-  coin: WalletCurrencyType
-}) => {
+const Success = (props: { balance: number | string; coin: WalletCurrencyType }) => {
   const { balance, coin } = props
 
   return (
@@ -41,7 +38,7 @@ const Success = (props: {
 }
 
 Success.propTypes = {
-  balance: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired
+  balance: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 }
 
 export default Success

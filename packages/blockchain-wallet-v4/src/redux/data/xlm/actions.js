@@ -2,96 +2,96 @@ import * as AT from './actionTypes'
 
 // UTILS
 export const createTestAccounts = () => ({
-  type: AT.CREATE_TEST_ACCOUNTS
+  type: AT.CREATE_TEST_ACCOUNTS,
 })
 
 // LEDGER DETAILS
 export const fetchLedgerDetails = () => ({ type: AT.FETCH_LEDGER_DETAILS })
 export const setLedgerDetailsLoading = () => ({
-  type: AT.SET_LEDGER_DETAILS_LOADING
+  type: AT.SET_LEDGER_DETAILS_LOADING,
 })
-export const setLedgerDetailsSuccess = ledger => ({
+export const setLedgerDetailsSuccess = (ledger) => ({
   type: AT.SET_LEDGER_DETAILS_SUCCESS,
-  payload: { ledger }
+  payload: { ledger },
 })
-export const setLedgerDetailsFailure = e => ({
+export const setLedgerDetailsFailure = (e) => ({
   type: AT.SET_LEDGER_DETAILS_FAILURE,
-  payload: { e }
+  payload: { e },
 })
 
 // ACCOUNT DATA
 export const fetchData = () => ({ type: AT.FETCH_DATA })
 export const fetchAccountSuccess = (id, account) => ({
   type: AT.FETCH_ACCOUNT_SUCCESS,
-  payload: { id, account }
+  payload: { id, account },
 })
 export const fetchAccountFailure = (id, error) => ({
   type: AT.FETCH_ACCOUNT_FAILURE,
-  payload: { id, error }
+  payload: { id, error },
 })
-export const fetchAccountLoading = id => ({
+export const fetchAccountLoading = (id) => ({
   type: AT.FETCH_ACCOUNT_LOADING,
-  payload: { id }
+  payload: { id },
 })
-export const fetchDataSuccess = accounts => ({
+export const fetchDataSuccess = (accounts) => ({
   type: AT.FETCH_DATA_SUCCESS,
-  payload: { accounts }
+  payload: { accounts },
 })
 
 // RATES
 export const fetchRates = () => ({ type: AT.FETCH_RATES })
 export const setRatesLoading = () => ({ type: AT.SET_RATES_LOADING })
-export const setRatesSuccess = rates => ({
+export const setRatesSuccess = (rates) => ({
   type: AT.SET_RATES_SUCCESS,
-  payload: { rates }
+  payload: { rates },
 })
-export const setRatesFailure = e => ({
+export const setRatesFailure = (e) => ({
   type: AT.SET_RATES_FAILURE,
-  payload: { e }
+  payload: { e },
 })
 
 // TRANSACTIONS
 export const fetchTransactions = (accountId, reset) => ({
   type: AT.FETCH_TRANSACTIONS,
-  payload: { accountId, reset }
+  payload: { accountId, reset },
 })
-export const fetchTransactionsLoading = reset => ({
+export const fetchTransactionsLoading = (reset) => ({
   type: AT.FETCH_TRANSACTIONS_LOADING,
-  payload: { reset }
+  payload: { reset },
 })
 export const fetchTransactionsSuccess = (txs, reset) => ({
   type: AT.FETCH_TRANSACTIONS_SUCCESS,
-  payload: { txs, reset }
+  payload: { txs, reset },
 })
-export const fetchTransactionsFailure = error => ({
+export const fetchTransactionsFailure = (error) => ({
   type: AT.FETCH_TRANSACTIONS_FAILURE,
-  payload: { error }
+  payload: { error },
 })
-export const transactionsAtBound = atBound => ({
+export const transactionsAtBound = (atBound) => ({
   type: AT.TRANSACTIONS_AT_BOUND,
-  payload: { atBound }
+  payload: { atBound },
 })
-export const addNewTransactions = txs => ({
+export const addNewTransactions = (txs) => ({
   type: AT.ADD_NEW_TRANSACTIONS,
-  payload: { txs }
+  payload: { txs },
 })
 
 // TRANSACTION HISTORY
 export const fetchTransactionHistory = (address, start, end) => ({
   type: AT.FETCH_TRANSACTION_HISTORY,
-  payload: { address, start, end }
+  payload: { address, start, end },
 })
 export const fetchTransactionHistoryLoading = () => ({
-  type: AT.FETCH_TRANSACTION_HISTORY_LOADING
+  type: AT.FETCH_TRANSACTION_HISTORY_LOADING,
 })
-export const fetchTransactionHistorySuccess = data => ({
+export const fetchTransactionHistorySuccess = (data) => ({
   type: AT.FETCH_TRANSACTION_HISTORY_SUCCESS,
-  payload: data
+  payload: data,
 })
-export const fetchTransactionHistoryFailure = error => ({
+export const fetchTransactionHistoryFailure = (error) => ({
   type: AT.FETCH_TRANSACTION_HISTORY_FAILURE,
-  payload: error
+  payload: error,
 })
 export const clearTransactionHistory = () => ({
-  type: AT.CLEAR_TRANSACTION_HISTORY
+  type: AT.CLEAR_TRANSACTION_HISTORY,
 })

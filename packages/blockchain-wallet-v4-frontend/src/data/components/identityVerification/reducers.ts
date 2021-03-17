@@ -2,10 +2,7 @@ import Remote from 'blockchain-wallet-v4/src/remote/remote'
 
 import * as AT from './actionTypes'
 import { EMAIL_STEPS } from './model'
-import {
-  IdentityVerificationActionTypes,
-  IdentityVerificationState
-} from './types'
+import { IdentityVerificationActionTypes, IdentityVerificationState } from './types'
 
 const INITIAL_STATE: IdentityVerificationState = {
   addressRefetchVisible: false,
@@ -17,7 +14,7 @@ const INITIAL_STATE: IdentityVerificationState = {
   flowConfig: Remote.NotAsked,
   preIdvData: Remote.NotAsked,
   states: Remote.NotAsked,
-  steps: Remote.NotAsked
+  steps: Remote.NotAsked,
 }
 
 export function identityVerificationReducer(
@@ -28,127 +25,127 @@ export function identityVerificationReducer(
     case AT.SET_VERIFICATION_STEP: {
       return {
         ...state,
-        verificationStep: action.payload.step
+        verificationStep: action.payload.step,
       }
     }
     case AT.RESET_VERIFICATION_STEP: {
       return {
         ...state,
-        verificationStep: null
+        verificationStep: null,
       }
     }
     case AT.SET_SMS_STEP: {
       return {
         ...state,
-        smsStep: Remote.Success(action.payload.step)
+        smsStep: Remote.Success(action.payload.step),
       }
     }
     case AT.SET_EMAIL_STEP: {
       return {
         ...state,
-        emailStep: action.payload.step
+        emailStep: action.payload.step,
       }
     }
     case AT.SET_SUPPORTED_COUNTRIES_LOADING: {
       return {
         ...state,
-        supportedCountries: Remote.Loading
+        supportedCountries: Remote.Loading,
       }
     }
     case AT.SET_SUPPORTED_COUNTRIES_SUCCESS: {
       return {
         ...state,
-        supportedCountries: Remote.Success(action.payload.countries)
+        supportedCountries: Remote.Success(action.payload.countries),
       }
     }
     case AT.SET_SUPPORTED_COUNTRIES_FAILURE: {
       return {
         ...state,
-        supportedCountries: Remote.Failure(action.payload.e)
+        supportedCountries: Remote.Failure(action.payload.e),
       }
     }
     case AT.SET_SUPPORTED_DOCUMENTS_LOADING: {
       return {
         ...state,
-        supportedDocuments: Remote.Loading
+        supportedDocuments: Remote.Loading,
       }
     }
     case AT.SET_SUPPORTED_DOCUMENTS_SUCCESS: {
       return {
         ...state,
-        supportedDocuments: Remote.Success(action.payload.documentTypes)
+        supportedDocuments: Remote.Success(action.payload.documentTypes),
       }
     }
     case AT.SET_SUPPORTED_DOCUMENTS_FAILURE: {
       return {
         ...state,
-        supportedDocuments: Remote.Failure(action.payload.e)
+        supportedDocuments: Remote.Failure(action.payload.e),
       }
     }
     case AT.SET_STATES_LOADING: {
       return {
         ...state,
-        states: Remote.Loading
+        states: Remote.Loading,
       }
     }
     case AT.SET_STATES_SUCCESS: {
       return {
         ...state,
-        states: Remote.Success(action.payload.states)
+        states: Remote.Success(action.payload.states),
       }
     }
     case AT.SET_STATES_FAILURE: {
       return {
         ...state,
-        states: Remote.Failure(action.payload.e)
+        states: Remote.Failure(action.payload.e),
       }
     }
     case AT.SET_KYC_FLOW_LOADING: {
       return {
         ...state,
-        flowConfig: Remote.Loading
+        flowConfig: Remote.Loading,
       }
     }
     case AT.SET_KYC_FLOW_SUCCESS: {
       return {
         ...state,
-        flowConfig: Remote.Success(action.payload.flowConfig)
+        flowConfig: Remote.Success(action.payload.flowConfig),
       }
     }
     case AT.SET_KYC_FLOW_FAILURE: {
       return {
         ...state,
-        flowConfig: Remote.Failure(action.payload.e)
+        flowConfig: Remote.Failure(action.payload.e),
       }
     }
     case AT.SET_PRE_IDV_DATA_SUCCESS: {
       return {
         ...state,
-        preIdvData: Remote.Success(action.payload.preIdvData)
+        preIdvData: Remote.Success(action.payload.preIdvData),
       }
     }
     case AT.SET_PRE_IDV_DATA_FAILURE: {
       return {
         ...state,
-        preIdvData: Remote.Failure(action.payload.e)
+        preIdvData: Remote.Failure(action.payload.e),
       }
     }
     case AT.SET_STEPS_LOADING: {
       return {
         ...state,
-        steps: Remote.Loading
+        steps: Remote.Loading,
       }
     }
     case AT.SET_STEPS_FAILURE: {
       return {
         ...state,
-        steps: Remote.Failure(action.payload.e)
+        steps: Remote.Failure(action.payload.e),
       }
     }
     case AT.SET_STEPS_SUCCESS: {
       return {
         ...state,
-        steps: Remote.Success(action.payload.steps)
+        steps: Remote.Success(action.payload.steps),
       }
     }
     default:

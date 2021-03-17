@@ -5,12 +5,7 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import styled from 'styled-components'
 
-import {
-  BlockchainLoader,
-  Button,
-  Image,
-  Text
-} from 'blockchain-info-components'
+import { BlockchainLoader, Button, Image, Text } from 'blockchain-info-components'
 import { Remote } from 'blockchain-wallet-v4/src'
 import { actions, selectors } from 'data'
 import * as Lockbox from 'services/lockbox'
@@ -50,9 +45,9 @@ const BtcRequiredText = styled(Text)`
   text-align: center;
 `
 
-const getKeyByValue = value => {
+const getKeyByValue = (value) => {
   return Object.keys(Lockbox.constants.supportedApps).find(
-    key => Lockbox.constants.supportedApps[key] === value
+    (key) => Lockbox.constants.supportedApps[key] === value
   )
 }
 
@@ -66,7 +61,7 @@ class LockboxAppManagerContainer extends React.PureComponent {
   componentDidUpdate(prevProps) {
     if (this.props.appChangeStatus !== prevProps.appChangeStatus) {
       this.props.appChangeStatus.cata({
-        Success: val => {
+        Success: (val) => {
           // install/uninstall APIs use different keys for appName
           const AppName = Lockbox.constants.supportedApps[val.appName]
             ? Lockbox.constants.supportedApps[val.appName]
@@ -78,14 +73,14 @@ class LockboxAppManagerContainer extends React.PureComponent {
             this.setState({ [AppName]: { status: null } })
           }, SUCCESS_STATUS_TIMEOUT)
         },
-        Failure: val => {
+        Failure: (val) => {
           // install/uninstall APIs use different keys for appName
           const AppName = Lockbox.constants.supportedApps[val.appName]
             ? Lockbox.constants.supportedApps[val.appName]
             : val.appName
           this.props.lockboxActions.resetAppChangeStatus()
           this.setState({
-            [AppName]: { status: 'Error', error: val.error }
+            [AppName]: { status: 'Error', error: val.error },
           })
           // clears the status text after 10 seconds
           setTimeout(() => {
@@ -93,7 +88,7 @@ class LockboxAppManagerContainer extends React.PureComponent {
           }, FAIL_STATUS_TIMEOUT)
         },
         Loading: () => {},
-        NotAsked: () => {}
+        NotAsked: () => {},
       })
     }
   }
@@ -107,19 +102,19 @@ class LockboxAppManagerContainer extends React.PureComponent {
       [appName]: {
         status: 'Updating',
         changeType: 'Installing',
-        appName
-      }
+        appName,
+      },
     })
     this.props.lockboxActions.installApplication(coin)
   }
 
-  onAppUninstall = appName => {
+  onAppUninstall = (appName) => {
     this.setState({
       [appName]: {
         status: 'Updating',
         changeType: 'Uninstalling',
-        appName
-      }
+        appName,
+      },
     })
     this.props.lockboxActions.uninstallApplication(appName)
   }
@@ -128,8 +123,8 @@ class LockboxAppManagerContainer extends React.PureComponent {
     const { appChangeStatus, appVersionInfos, connection } = this.props
     const disableButtons = !Remote.NotAsked.is(appChangeStatus)
     const appListView = appVersionInfos.cata({
-      Success: apps => {
-        const appList = apps.map(app => {
+      Success: (apps) => {
+        const appList = apps.map((app) => {
           const appName = app.name
           const coin = getKeyByValue(appName)
           return (
@@ -194,7 +189,7 @@ class LockboxAppManagerContainer extends React.PureComponent {
         <Wrapper>
           <Loader style={{ margin: '32px' }} width='75px' height='75px' />
         </Wrapper>
-      )
+      ),
     })
 
     return (
@@ -227,22 +222,17 @@ LockboxAppManagerContainer.propTypes = {
   deviceIndex: PropTypes.string,
   mainButtonText: PropTypes.element.isRequired,
   newDevice: PropTypes.bool,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   appChangeStatus: selectors.components.lockbox.getAppChangeStatus(state),
-  appVersionInfos: selectors.components.lockbox.getLatestApplicationVersions(
-    state
-  ),
-  connection: selectors.components.lockbox.getCurrentConnection(state)
+  appVersionInfos: selectors.components.lockbox.getLatestApplicationVersions(state),
+  connection: selectors.components.lockbox.getCurrentConnection(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-  lockboxActions: bindActionCreators(actions.components.lockbox, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  lockboxActions: bindActionCreators(actions.components.lockbox, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LockboxAppManagerContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(LockboxAppManagerContainer)

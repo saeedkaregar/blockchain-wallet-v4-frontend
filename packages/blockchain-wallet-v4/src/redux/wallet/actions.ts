@@ -1,75 +1,75 @@
 import * as T from './actionTypes'
 
 // setters
-export const setWrapper = payload => ({
+export const setWrapper = (payload) => ({
   type: T.SET_WRAPPER,
-  payload: payload
+  payload: payload,
 })
 // ignored by the sync middleware and used by websocket middleware
-export const refreshWrapper = payload => ({
+export const refreshWrapper = (payload) => ({
   type: T.REFRESH_WRAPPER,
-  payload: payload
+  payload: payload,
 })
-export const setMainPassword = password => ({
+export const setMainPassword = (password) => ({
   type: T.SET_MAIN_PASSWORD,
-  payload: password
+  payload: password,
 })
-export const setPayloadChecksum = checksum => ({
+export const setPayloadChecksum = (checksum) => ({
   type: T.SET_PAYLOAD_CHECKSUM,
-  payload: checksum
+  payload: checksum,
 })
 export const setLegacyAddressLabel = (address, label) => ({
   type: T.SET_LEGACY_ADDRESS_LABEL,
-  payload: { address, label }
+  payload: { address, label },
 })
 export const setAddressArchived = (address, archived) => ({
   type: T.SET_ADDRESS_ARCHIVED,
-  payload: { address, archived }
+  payload: { address, archived },
 })
 export const setHdAddressLabel = (accountIdx, addressIdx, label) => ({
   type: T.SET_HD_ADDRESS_LABEL,
-  payload: { accountIdx, addressIdx, label }
+  payload: { accountIdx, addressIdx, label },
 })
-export const createLegacyAddress = address => ({
+export const createLegacyAddress = (address) => ({
   type: T.CREATE_LEGACY_ADDRESS,
-  payload: address
+  payload: address,
 })
 export const setAccountLabel = (accountIdx, label) => ({
   type: T.SET_ACCOUNT_LABEL,
-  payload: { accountIdx, label }
+  payload: { accountIdx, label },
 })
 export const setAccountArchived = (accountIdx, archived) => ({
   type: T.SET_ACCOUNT_ARCHIVED,
-  payload: { accountIdx, archived }
+  payload: { accountIdx, archived },
 })
-export const setDefaultAccountIdx = index => ({
+export const setDefaultAccountIdx = (index) => ({
   type: T.SET_DEFAULT_ACCOUNT,
-  payload: { index }
+  payload: { index },
 })
 export const setTransactionNote = (txHash, txNote) => ({
   type: T.SET_TRANSACTION_NOTE,
-  payload: { txHash, txNote }
+  payload: { txHash, txNote },
 })
-export const setSyncPubKeys = syncPubKeys => ({
+export const setSyncPubKeys = (syncPubKeys) => ({
   type: T.SET_SYNC_PUB_KEYS,
-  payload: { syncPubKeys }
+  payload: { syncPubKeys },
 })
 
 // deletes
 export const deleteWrapper = () => ({ type: T.DELETE_WRAPPER })
-export const deleteLegacyAddress = address => ({
+export const deleteLegacyAddress = (address) => ({
   type: T.DELETE_LEGACY_ADDRESS,
-  payload: address
+  payload: address,
 })
 export const deleteHdAddressLabel = (accountIdx, addressIdx) => ({
   type: T.DELETE_HD_ADDRESS_LABEL,
-  payload: { accountIdx, addressIdx }
+  payload: { accountIdx, addressIdx },
 })
 
 // autologout time
-export const setAutoLogout = time => ({
+export const setAutoLogout = (time) => ({
   type: T.SET_AUTOLOGOUT,
-  payload: { time }
+  payload: { time },
 })
 
 // mnemonic verified

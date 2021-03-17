@@ -18,14 +18,14 @@ class FirstStep extends React.Component {
       description,
       amount,
       lockboxIndex,
-      payPro
+      payPro,
     })
   }
 
   render() {
     const { actions, amount, data, excludeHDWallets, payPro, to } = this.props
     return data.cata({
-      Success: value => (
+      Success: (value) => (
         <Success
           {...value}
           autofilled={!!(amount && to)}
@@ -36,23 +36,21 @@ class FirstStep extends React.Component {
           payPro={payPro}
         />
       ),
-      Failure: message => (
-        <DataError onClick={this.handleRefresh} message={message} />
-      ),
+      Failure: (message) => <DataError onClick={this.handleRefresh} message={message} />,
       NotAsked: () => <Loading />,
-      Loading: () => <Loading />
+      Loading: () => <Loading />,
     })
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: getData(state),
-  btcData: getBtcData(state)
+  btcData: getBtcData(state),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(actions.components.sendBtc, dispatch),
-  formActions: bindActionCreators(actions.form, dispatch)
+  formActions: bindActionCreators(actions.form, dispatch),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FirstStep)

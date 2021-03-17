@@ -18,22 +18,21 @@ const { FORM: XLM_FORM } = model.components.sendXlm
 
 class QRCodeCaptureContainer extends React.PureComponent {
   state = {
-    toggled: false
+    toggled: false,
   }
 
-  getScanHandlerKey = () =>
-    `handleScan${replace(/^./, toUpper, this.props.scanType)}`
+  getScanHandlerKey = () => `handleScan${replace(/^./, toUpper, this.props.scanType)}`
 
   handleToggle = () => {
     this.setState({ toggled: !this.state.toggled })
   }
 
-  createNewValue = data => {
+  createNewValue = (data) => {
     return {
       value: {
         value: data,
-        label: data
-      }
+        label: data,
+      },
     }
   }
 
@@ -56,7 +55,7 @@ class QRCodeCaptureContainer extends React.PureComponent {
     return {
       address,
       isBitPay,
-      options
+      options,
     }
   }
 
@@ -70,30 +69,19 @@ class QRCodeCaptureContainer extends React.PureComponent {
         value: amount,
         fromUnit: 'BTC',
         toCurrency: currency,
-        rates: btcRates
+        rates: btcRates,
       }).value
 
-      this.props.formActions.change(
-        BTC_FORM,
-        'to',
-        this.createNewValue(coinInfo.address)
-      )
+      this.props.formActions.change(BTC_FORM, 'to', this.createNewValue(coinInfo.address))
       this.props.formActions.change(BTC_FORM, 'description', message)
       this.props.formActions.change(BTC_FORM, 'amount', {
         coin: amount,
-        fiat
+        fiat,
       })
     } catch (e) {
       try {
-        if (
-          utils.btc.isValidBtcAddress(data, this.props.network) ||
-          coinInfo.isBitPay
-        ) {
-          this.props.formActions.change(
-            BTC_FORM,
-            'to',
-            this.createNewValue(data)
-          )
+        if (utils.btc.isValidBtcAddress(data, this.props.network) || coinInfo.isBitPay) {
+          this.props.formActions.change(BTC_FORM, 'to', this.createNewValue(data))
           return
         }
 
@@ -109,34 +97,19 @@ class QRCodeCaptureContainer extends React.PureComponent {
     try {
       coinInfo = this.getAddressOrBitPayInvoice('bitcoincash', data)
       const { amount, message } = coinInfo.options
-      this.props.formActions.change(
-        BCH_FORM,
-        'to',
-        this.createNewValue(coinInfo.address)
-      )
+      this.props.formActions.change(BCH_FORM, 'to', this.createNewValue(coinInfo.address))
       this.props.formActions.change(BCH_FORM, 'amount', amount)
       this.props.formActions.change(BCH_FORM, 'description', message)
       this.setState({ bchAddressToggled: false })
     } catch (e) {
       try {
         if (utils.bch.isCashAddr(data)) {
-          this.props.formActions.change(
-            BCH_FORM,
-            'to',
-            this.createNewValue(data)
-          )
+          this.props.formActions.change(BCH_FORM, 'to', this.createNewValue(data))
           return
         }
         // try legacy addr
-        if (
-          utils.btc.isValidBtcAddress(data, this.props.network) ||
-          coinInfo.isBitPay
-        ) {
-          this.props.formActions.change(
-            BCH_FORM,
-            'to',
-            this.createNewValue(data)
-          )
+        if (utils.btc.isValidBtcAddress(data, this.props.network) || coinInfo.isBitPay) {
+          this.props.formActions.change(BCH_FORM, 'to', this.createNewValue(data))
           return
         }
         // throw error
@@ -159,11 +132,7 @@ class QRCodeCaptureContainer extends React.PureComponent {
   handleScanXlmAddress(data) {
     const { address } = utils.xlm.decodeXlmURI(data)
     if (utils.xlm.isValidAddress(address)) {
-      this.props.formActions.change(
-        XLM_FORM,
-        'to',
-        this.createNewValue(address)
-      )
+      this.props.formActions.change(XLM_FORM, 'to', this.createNewValue(address))
     } else {
       this.props.alertActions.displayError(C.XLM_ADDRESS_INVALID)
     }
@@ -182,43 +151,25 @@ class QRCodeCaptureContainer extends React.PureComponent {
     try {
       const { address } = bip21.decode(data)
       if (utils.btc.isValidBtcAddress(address, this.props.network)) {
-        this.props.formActions.change(
-          this.props.form || 'importBtcAddress',
-          'addrOrPriv',
-          address
-        )
-        this.props.formActions.touch(
-          this.props.form || 'importBtcAddress',
-          'addrOrPriv'
-        )
+        this.props.formActions.change(this.props.form || 'importBtcAddress', 'addrOrPriv', address)
+        this.props.formActions.touch(this.props.form || 'importBtcAddress', 'addrOrPriv')
       } else {
-        this.props.alertActions.displayError(
-          C.BTC_ADDRESS_AND_PRIVATE_KEY_INVALID
-        )
+        this.props.alertActions.displayError(C.BTC_ADDRESS_AND_PRIVATE_KEY_INVALID)
       }
     } catch (e) {
       if (
         utils.btc.isValidBtcPrivateKey(data, this.props.network) ||
         utils.btc.isValidBtcAddress(data, this.props.network)
       ) {
-        this.props.formActions.change(
-          this.props.form || 'importBtcAddress',
-          'addrOrPriv',
-          data
-        )
-        this.props.formActions.touch(
-          this.props.form || 'importBtcAddress',
-          'addrOrPriv'
-        )
+        this.props.formActions.change(this.props.form || 'importBtcAddress', 'addrOrPriv', data)
+        this.props.formActions.touch(this.props.form || 'importBtcAddress', 'addrOrPriv')
       } else {
-        this.props.alertActions.displayError(
-          C.BTC_ADDRESS_AND_PRIVATE_KEY_INVALID
-        )
+        this.props.alertActions.displayError(C.BTC_ADDRESS_AND_PRIVATE_KEY_INVALID)
       }
     }
   }
 
-  handleScan = data => {
+  handleScan = (data) => {
     if (!isNil(data) && !isEmpty(data)) {
       const handlerName = this.getScanHandlerKey()
       this[handlerName](data)
@@ -226,7 +177,7 @@ class QRCodeCaptureContainer extends React.PureComponent {
     }
   }
 
-  handleError = error => {
+  handleError = (error) => {
     if (!isNil(error) && !isEmpty(error)) {
       if (error.name === 'NotAllowedError') {
         this.props.alertActions.displayError(C.QR_SCANNER_NOT_ALLOWED)
@@ -252,17 +203,15 @@ class QRCodeCaptureContainer extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currency: selectors.core.settings.getCurrency(state).getOrElse('USD'),
-  btcRates: selectors.core.data.btc
-    .getRates(state)
-    .getOrFail('Could not find btc rates')
+  btcRates: selectors.core.data.btc.getRates(state).getOrFail('Could not find btc rates'),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   alertActions: bindActionCreators(actions.alerts, dispatch),
   modalActions: bindActionCreators(actions.modals, dispatch),
-  formActions: bindActionCreators(actions.form, dispatch)
+  formActions: bindActionCreators(actions.form, dispatch),
 })
 
 QRCodeCaptureContainer.defaultProps = {
@@ -272,11 +221,8 @@ QRCodeCaptureContainer.defaultProps = {
     'bchAddress',
     'xlmAddress',
     'btcPriv',
-    'btcPrivOrAddress'
-  ])
+    'btcPrivOrAddress',
+  ]),
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(QRCodeCaptureContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(QRCodeCaptureContainer)

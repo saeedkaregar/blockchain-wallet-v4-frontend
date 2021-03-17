@@ -1,12 +1,4 @@
-import {
-  assoc,
-  assocPath,
-  dissocPath,
-  lensProp,
-  prop,
-  propOr,
-  set
-} from 'ramda'
+import { assoc, assocPath, dissocPath, lensProp, prop, propOr, set } from 'ramda'
 
 import { Remote } from 'blockchain-wallet-v4/src'
 import * as socketActionTypes from 'data/middleware/webSocket/rates/actionTypes'
@@ -17,15 +9,15 @@ import { FIX_TYPES, MAX_ERROR, MIN_ERROR } from './model'
 const INITIAL_STATE = {
   availablePairs: Remote.NotAsked,
   pairs: {},
-  bestRates: Remote.NotAsked
+  bestRates: Remote.NotAsked,
 }
 const INITIAL_PAIR = {
   config: {
     fix: FIX_TYPES.BASE,
     volume: 0,
-    fiatCurrency: 'USD'
+    fiatCurrency: 'USD',
   },
-  quote: Remote.NotAsked
+  quote: Remote.NotAsked,
 }
 const getPair = propOr(INITIAL_PAIR)
 const quoteLens = lensProp('quote')
@@ -35,7 +27,7 @@ const setPairProp = (lens, fn, pair, state) => {
   const pairValue = set(lens, fn, getPair(pair, state.pairs))
   return assocPath(['pairs', pair], pairValue, state)
 }
-const getError = error => {
+const getError = (error) => {
   const description = prop('description', error)
   if (description === MIN_ERROR) return MIN_ERROR
   if (new RegExp(MAX_ERROR).test(description)) return MAX_ERROR
@@ -56,21 +48,11 @@ export default (state = INITIAL_STATE, action) => {
     case AT.UPDATE_PAIR_CONFIG:
       return setPairProp(configLens, payload.config, payload.pair, state)
     case AT.SET_PAIR_QUOTE:
-      return setPairProp(
-        quoteLens,
-        Remote.Success(payload.quote),
-        payload.pair,
-        state
-      )
+      return setPairProp(quoteLens, Remote.Success(payload.quote), payload.pair, state)
     case AT.SUBSCRIBE_TO_ADVICE:
       return setPairProp(quoteLens, Remote.Loading, payload.pair, state)
     case socketActionTypes.ADVICE_SUBSCRIBE_ERROR:
-      return setPairProp(
-        quoteLens,
-        Remote.Failure(getError(payload.error)),
-        payload.pair,
-        state
-      )
+      return setPairProp(quoteLens, Remote.Failure(getError(payload.error)), payload.pair, state)
     case AT.UPDATE_BEST_RATES: {
       return set(bestRatesLens, Remote.Success(payload.rates), state)
     }

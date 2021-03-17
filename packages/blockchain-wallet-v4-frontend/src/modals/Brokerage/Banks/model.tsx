@@ -7,13 +7,9 @@ import {
   BankDetails,
   BeneficiaryType,
   FiatType,
-  NabuMoneyFloatType
+  NabuMoneyFloatType,
 } from 'blockchain-wallet-v4/src/types'
-import {
-  GreyCartridge,
-  OrangeCartridge,
-  SuccessCartridge
-} from 'components/Cartridge'
+import { GreyCartridge, OrangeCartridge, SuccessCartridge } from 'components/Cartridge'
 import CoinDisplay from 'components/Display/CoinDisplay'
 import { Col, Title, Value } from 'components/Flyout'
 import {
@@ -21,7 +17,7 @@ import {
   DisplayContainer,
   DisplayIcon,
   DisplayPaymentIcon,
-  MultiRowContainer
+  MultiRowContainer,
 } from 'components/SimpleBuy'
 import { ActiveToggle } from 'services/ActiveToggleService'
 import { formatTextAmount } from 'services/forms'
@@ -30,7 +26,7 @@ const RightArrowIcon = styled(Icon)<{
   disabled?: boolean
 }>`
   transform: rotate(180deg);
-  ${props =>
+  ${(props) =>
     props.disabled &&
     css`
       cursor: not-allowed;
@@ -39,13 +35,13 @@ const RightArrowIcon = styled(Icon)<{
 
 const StyledTitle = styled(Title)`
   text-transform: capitalize;
-  color: ${p => p.theme.grey600};
+  color: ${(p) => p.theme.grey600};
   font-weight: 500;
   font-size: 14px;
 `
 
 const StyledValue = styled(Value)`
-  color: ${p => p.theme.grey900};
+  color: ${(p) => p.theme.grey900};
   font-weight: 600;
   font-size: 16px;
 `
@@ -83,9 +79,7 @@ const Bank = ({ bankDetails, icon, isActive, onClick, text }: BankProps) => (
     <MultiRowContainer>
       <StyledValue asTitle>{text}</StyledValue>
       <StyledTitle asValue>
-        {`${bankDetails.bankAccountType.toLowerCase()} account ${
-          bankDetails.accountNumber
-        }`}
+        {`${bankDetails.bankAccountType.toLowerCase()} account ${bankDetails.accountNumber}`}
       </StyledTitle>
       <CartridgeContainer>
         <SuccessCartridge>
@@ -110,7 +104,7 @@ const BankWire = ({
   isActive = false,
   minAmount,
   onClick,
-  type = 'WITHDRAWAL'
+  type = 'WITHDRAWAL',
 }: BankWireProps) => (
   <DisplayContainer onClick={onClick}>
     <Col>
@@ -143,23 +137,14 @@ const BankWire = ({
               </StyledGreyCartridge>
             )}
             <OrangeCartridge>
-              <FormattedMessage
-                id='modals.brokerage.wire_fee'
-                defaultMessage='Wire Fee'
-              />
+              <FormattedMessage id='modals.brokerage.wire_fee' defaultMessage='Wire Fee' />
             </OrangeCartridge>
           </CartridgeContainer>
         )}
       </Content>
     </Col>
     {type === 'DEPOSIT' ? (
-      <RightArrowIcon
-        cursor
-        disabled={false}
-        name='arrow-back'
-        size='20px'
-        color='grey600'
-      />
+      <RightArrowIcon cursor disabled={false} name='arrow-back' size='20px' color='grey600' />
     ) : (
       <ActiveToggle isActive={isActive} />
     )}

@@ -134,8 +134,4 @@ interface UpdateModalOptions {
   type: typeof AT.UPDATE_MODAL
 }
 
-export type ModalActionTypes =
-  | CloseAllModals
-  | CloseModal
-  | ShowModal
-  | UpdateModalOptions
+export type ModalActionTypes = CloseAllModals | CloseModal | ShowModal | UpdateModalOptions

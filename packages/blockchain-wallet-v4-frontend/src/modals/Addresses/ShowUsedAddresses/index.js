@@ -33,18 +33,12 @@ class ShowUsedAddressesContainer extends React.PureComponent {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   modalActions: bindActionCreators(actions.modals, dispatch),
   actions: bindActionCreators(actions.components.manageAddresses, dispatch),
-  componentActions: bindActionCreators(
-    actions.components.manageAddresses,
-    dispatch
-  )
+  componentActions: bindActionCreators(actions.components.manageAddresses, dispatch),
 })
 
-const enhance = compose(
-  modalEnhancer('ShowUsedAddresses'),
-  connect(undefined, mapDispatchToProps)
-)
+const enhance = compose(modalEnhancer('ShowUsedAddresses'), connect(undefined, mapDispatchToProps))
 
 export default enhance(ShowUsedAddressesContainer)

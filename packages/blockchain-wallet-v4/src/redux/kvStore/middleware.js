@@ -7,10 +7,7 @@ import * as A from './actions'
 import * as T from './actionTypes'
 import * as C from './config'
 
-const kvStoreMiddleware = ({
-  api,
-  isAuthenticated
-} = {}) => store => next => action => {
+const kvStoreMiddleware = ({ api, isAuthenticated } = {}) => (store) => (next) => (action) => {
   const prevKVStore = store.getState()[kvStorePath]
   const wasAuth = isAuthenticated(store.getState())
   const result = next(action)
@@ -32,7 +29,7 @@ const kvStoreMiddleware = ({
         T.lockbox.FETCH_METADATA_LOCKBOX_SUCCESS,
         T.userCredentials.FETCH_METADATA_USER_CREDENTIALS_SUCCESS,
         T.xlm.FETCH_METADATA_XLM_SUCCESS,
-        T.walletCredentials.FETCH_METADATA_WALLET_CREDENTIALS_SUCCESS
+        T.walletCredentials.FETCH_METADATA_WALLET_CREDENTIALS_SUCCESS,
       ]) &&
       any(identity, values(changes)):
       const actionCreators = {
@@ -41,19 +38,15 @@ const kvStoreMiddleware = ({
         [C.BCH]: A.bch.fetchMetadataBchSuccess,
         [C.BTC]: A.btc.fetchMetadataBtcSuccess,
         [C.LOCKBOX]: A.lockbox.fetchMetadataLockboxSuccess,
-        [C.USER_CREDENTIALS]:
-          A.userCredentials.fetchMetadataUserCredentialsSuccess,
+        [C.USER_CREDENTIALS]: A.userCredentials.fetchMetadataUserCredentialsSuccess,
         [C.XLM]: A.xlm.fetchMetadataXlmSuccess,
-        [C.WALLET_CREDENTIALS]:
-          A.walletCredentials.fetchMetadataWalletCredentialsSuccess
+        [C.WALLET_CREDENTIALS]: A.walletCredentials.fetchMetadataWalletCredentialsSuccess,
       }
 
       const saveTasks = (value, key) => {
         const nextKV = nextKVStore[key].getOrElse(false)
         return value && nextKV
-          ? api
-              .updateKVStore(nextKV)
-              .map(k => store.dispatch(actionCreators[key](k)))
+          ? api.updateKVStore(nextKV).map((k) => store.dispatch(actionCreators[key](k)))
           : Task.of(nextKV)
       }
       const taskObject = mapObjIndexed(saveTasks, changes)

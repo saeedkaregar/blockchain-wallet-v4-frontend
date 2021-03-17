@@ -14,7 +14,7 @@ const ContentWrapper = styled.div`
 `
 const IconWrapper = styled.div<{ color: keyof DefaultTheme }>`
   display: flex;
-  background: ${props => props.theme[props.color]};
+  background: ${(props) => props.theme[props.color]};
   height: 40px;
   width: 40px;
   justify-content: center;
@@ -35,28 +35,15 @@ const VerifyEmail = ({ email, resendEmail, skipVerification }: Props) => {
           <IconWrapper color='blue600'>
             <Icon color='white' name='email' size='24px' />
           </IconWrapper>
-          <Text
-            size='20px'
-            weight={600}
-            color='black'
-            style={{ marginTop: '8px' }}
-          >
-            <FormattedMessage
-              id='scenes.verifyemail.title'
-              defaultMessage='Verify Your Email'
-            />
+          <Text size='20px' weight={600} color='black' style={{ marginTop: '8px' }}>
+            <FormattedMessage id='scenes.verifyemail.title' defaultMessage='Verify Your Email' />
           </Text>
-          <Text
-            color='grey900'
-            style={{ marginTop: '8px' }}
-            size='16px'
-            weight={500}
-          >
+          <Text color='grey900' style={{ marginTop: '8px' }} size='16px' weight={500}>
             <FormattedHTMLMessage
               id='scenes.verifyemail.description'
               defaultMessage='We sent a verification email to: <b>{email}</b>. Please click the link in the email to continue.'
               values={{
-                email
+                email,
               }}
             />
           </Text>

@@ -8,16 +8,14 @@ const elements = [
     items: [
       {
         value: 'id',
-        text: 'Id'
+        text: 'Id',
       },
       {
         value: 'text',
-        text: 'Text'
-      }
-    ]
-  }
+        text: 'Text',
+      },
+    ],
+  },
 ]
 
-export const SelectBoxMemo = props => (
-  <SelectBox elements={elements} {...props} />
-)
+export const SelectBoxMemo = (props) => <SelectBox elements={elements} {...props} />

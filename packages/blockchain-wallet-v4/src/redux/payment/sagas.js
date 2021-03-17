@@ -7,5 +7,5 @@ export default ({ api }) => ({
   btc: btc({ api }),
   bch: bch({ api }),
   eth: eth({ api }),
-  xlm: xlm({ api })
+  xlm: xlm({ api }),
 })

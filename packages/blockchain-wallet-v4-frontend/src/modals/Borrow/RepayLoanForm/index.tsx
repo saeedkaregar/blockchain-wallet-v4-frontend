@@ -9,7 +9,7 @@ import {
   PaymentValue,
   RatesType,
   RemoteDataType,
-  SupportedWalletCurrenciesType
+  SupportedWalletCurrenciesType,
 } from 'blockchain-wallet-v4/src/types'
 import DataError from 'components/DataError'
 import { actions } from 'data'
@@ -37,24 +37,20 @@ class RepayLoan extends PureComponent<Props> {
 
   render() {
     return this.props.data.cata({
-      Success: val => (
-        <Success {...val} {...this.props} onSubmit={this.handleSubmit} />
-      ),
-      Failure: e => (
-        <DataError message={{ message: e }} onClick={this.handleRefresh} />
-      ),
+      Success: (val) => <Success {...val} {...this.props} onSubmit={this.handleSubmit} />,
+      Failure: (e) => <DataError message={{ message: e }} onClick={this.handleRefresh} />,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state: RootState): LinkStatePropsType => ({
-  data: getData(state)
+  data: getData(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  borrowActions: bindActionCreators(actions.components.borrow, dispatch)
+  borrowActions: bindActionCreators(actions.components.borrow, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

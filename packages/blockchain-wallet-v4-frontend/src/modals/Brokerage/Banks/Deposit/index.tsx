@@ -125,19 +125,16 @@ class Deposit extends PureComponent<Props> {
 
 const mapStateToProps = (state: RootState) => ({
   step: selectors.components.brokerage.getDWStep(state),
-  fiatCurrency: selectors.components.brokerage.getFiatCurrency(state)
+  fiatCurrency: selectors.components.brokerage.getFiatCurrency(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  brokerageActions: bindActionCreators(actions.components.brokerage, dispatch)
+  brokerageActions: bindActionCreators(actions.components.brokerage, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)
 
-const enhance = compose(
-  ModalEnhancer('BANK_DEPOSIT_MODAL', { transition: duration }),
-  connector
-)
+const enhance = compose(ModalEnhancer('BANK_DEPOSIT_MODAL', { transition: duration }), connector)
 
 type OwnProps = ModalPropsType
 type LinkStatePropsType = {
@@ -147,9 +144,7 @@ export type FailurePropsType = {
   handleClose: () => void
 }
 
-export type Props = OwnProps &
-  LinkStatePropsType &
-  ConnectedProps<typeof connector>
+export type Props = OwnProps & LinkStatePropsType & ConnectedProps<typeof connector>
 
 type State = { direction: 'left' | 'right'; show: boolean }
 

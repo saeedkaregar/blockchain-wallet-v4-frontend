@@ -22,5 +22,5 @@ export {
   SecurityHeader,
   SecurityIcon,
   SecuritySummary,
-  SecurityTip
+  SecurityTip,
 }

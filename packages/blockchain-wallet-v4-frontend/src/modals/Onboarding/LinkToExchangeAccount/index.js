@@ -39,9 +39,7 @@ class LinkToExchangeAccountContainer extends React.PureComponent {
           onAccountLinkComplete={this.onAccountLinkComplete}
         />
       ),
-      Failure: error => (
-        <LinkToExchangeAccountError {...this.props} error={error} />
-      ),
+      Failure: (error) => <LinkToExchangeAccountError {...this.props} error={error} />,
       Loading: () => <LinkToExchangeAccountLoading {...this.props} />,
       NotAsked: () => (
         <LinkToExchangeAccountNotAsked
@@ -49,36 +47,30 @@ class LinkToExchangeAccountContainer extends React.PureComponent {
           onConnectStart={this.onConnectStart}
           onResendEmail={this.onResendEmail}
         />
-      )
+      ),
     })
   }
 }
 
-const mapStateToProps = state => ({
-  deeplinkToExchange: selectors.modules.profile.getLinkToExchangeAccountDeeplink(
-    state
-  ),
+const mapStateToProps = (state) => ({
+  deeplinkToExchange: selectors.modules.profile.getLinkToExchangeAccountDeeplink(state),
   email: selectors.core.settings.getEmail(state).getOrElse(false),
-  isEmailVerified: selectors.core.settings
-    .getEmailVerified(state)
-    .getOrElse(true),
-  linkToExchangeStatus: selectors.modules.profile.getLinkToExchangeAccountStatus(
-    state
-  )
+  isEmailVerified: selectors.core.settings.getEmailVerified(state).getOrElse(true),
+  linkToExchangeStatus: selectors.modules.profile.getLinkToExchangeAccountStatus(state),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(
     {
       ...actions.components.identityVerification,
       ...actions.preferences,
       ...actions.modals,
       ...actions.modules.profile,
-      ...actions.modules.securityCenter
+      ...actions.modules.securityCenter,
     },
     dispatch
   ),
-  router: bindActionCreators(actions.router, dispatch)
+  router: bindActionCreators(actions.router, dispatch),
 })
 
 const enhance = compose(

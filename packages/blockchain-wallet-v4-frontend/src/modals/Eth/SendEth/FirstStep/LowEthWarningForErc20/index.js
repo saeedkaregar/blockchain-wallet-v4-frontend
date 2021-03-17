@@ -3,14 +3,9 @@ import { FormattedMessage } from 'react-intl'
 
 import { Link, Text } from 'blockchain-info-components'
 
-import {
-  WarningHeader,
-  WarningLeftColumn,
-  WarningRightColumn,
-  WarningWrapper
-} from '../Components'
+import { WarningHeader, WarningLeftColumn, WarningRightColumn, WarningWrapper } from '../Components'
 
-const LowEthWarningForErc20 = props => {
+const LowEthWarningForErc20 = (props) => {
   const { coin } = props
 
   const supportArticle =
@@ -38,10 +33,7 @@ const LowEthWarningForErc20 = props => {
       </WarningLeftColumn>
       <WarningRightColumn>
         <Link size='13px' weight={500} href={supportArticle} target='_blank'>
-          <FormattedMessage
-            id='buttons.learn_more'
-            defaultMessage='Learn More'
-          />
+          <FormattedMessage id='buttons.learn_more' defaultMessage='Learn More' />
         </Link>
       </WarningRightColumn>
     </WarningWrapper>

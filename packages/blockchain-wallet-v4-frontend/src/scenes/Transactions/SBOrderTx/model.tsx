@@ -5,10 +5,7 @@ import { Text } from 'blockchain-info-components'
 import { BankTransferAccountType } from 'blockchain-wallet-v4/src/network/api/simpleBuy/types'
 import { getCoinFromPair, getOrderType } from 'data/components/simpleBuy/model'
 
-import {
-  IconTx as SharedIconTx,
-  Timestamp as SharedTimestamp
-} from '../components'
+import { IconTx as SharedIconTx, Timestamp as SharedTimestamp } from '../components'
 import { Props } from '.'
 
 export const IconTx = (props: Props) => {
@@ -17,10 +14,7 @@ export const IconTx = (props: Props) => {
   return <SharedIconTx type={orderType} coin={coin} />
 }
 
-export const getOrigin = (
-  props: Props,
-  bankAccounts: Array<BankTransferAccountType>
-) => {
+export const getOrigin = (props: Props, bankAccounts: Array<BankTransferAccountType>) => {
   switch (props.order.paymentType) {
     case 'FUNDS':
       return props.order.inputCurrency + ' Wallet'
@@ -31,9 +25,7 @@ export const getOrigin = (
       return 'Bank Transfer'
     case 'LINK_BANK':
     case 'BANK_TRANSFER':
-      const bankAccount = bankAccounts.find(
-        acct => acct.id === props.order.paymentMethodId
-      )
+      const bankAccount = bankAccounts.find((acct) => acct.id === props.order.paymentMethodId)
       if (bankAccount) {
         const { details } = bankAccount
         return `${details.bankName} ${details.bankAccountType?.toLowerCase()} ${

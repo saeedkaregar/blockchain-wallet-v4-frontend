@@ -1,18 +1,13 @@
 import { lift } from 'ramda'
 
-import {
-  ExtractSuccess,
-  SupportedWalletCurrenciesType
-} from 'blockchain-wallet-v4/src/types'
+import { ExtractSuccess, SupportedWalletCurrenciesType } from 'blockchain-wallet-v4/src/types'
 import { selectors } from 'data'
 import { RootState } from 'data/rootReducer'
 
 export const getData = (state: RootState) => {
   const supportedCoinsR = selectors.core.walletOptions.getSupportedCoins(state)
   const interestRateR = selectors.components.interest.getInterestRate(state)
-  const afterTransactionR = selectors.components.interest.getAfterTransaction(
-    state
-  )
+  const afterTransactionR = selectors.components.interest.getAfterTransaction(state)
 
   return lift(
     (
@@ -22,7 +17,7 @@ export const getData = (state: RootState) => {
     ) => ({
       supportedCoins,
       interestRate,
-      afterTransaction
+      afterTransaction,
     })
   )(supportedCoinsR, interestRateR, afterTransactionR)
 }

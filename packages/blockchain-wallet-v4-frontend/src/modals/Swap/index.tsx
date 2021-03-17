@@ -53,7 +53,7 @@ class Swap extends PureComponent<Props, State> {
 
   render() {
     return this.props.data.cata({
-      Success: val => (
+      Success: (val) => (
         <Flyout
           {...this.props}
           in={this.state.show}
@@ -62,81 +62,49 @@ class Swap extends PureComponent<Props, State> {
         >
           {this.props.step === 'INIT_SWAP' && (
             <FlyoutChild>
-              <InitSwapForm
-                {...this.props}
-                handleClose={this.handleClose}
-                {...val}
-              />
+              <InitSwapForm {...this.props} handleClose={this.handleClose} {...val} />
             </FlyoutChild>
           )}
           {this.props.step === 'COIN_SELECTION' && (
             <FlyoutChild>
-              <CoinSelection
-                {...this.props}
-                handleClose={this.handleClose}
-                {...val}
-              />
+              <CoinSelection {...this.props} handleClose={this.handleClose} {...val} />
             </FlyoutChild>
           )}
           {this.props.step === 'NO_HOLDINGS' && (
             <FlyoutChild>
-              <NoHoldings
-                {...this.props}
-                handleClose={this.handleClose}
-                {...val}
-              />
+              <NoHoldings {...this.props} handleClose={this.handleClose} {...val} />
             </FlyoutChild>
           )}
           {this.props.step === 'ENTER_AMOUNT' && (
             <FlyoutChild>
-              <EnterAmount
-                {...this.props}
-                handleClose={this.handleClose}
-                {...val}
-              />
+              <EnterAmount {...this.props} handleClose={this.handleClose} {...val} />
             </FlyoutChild>
           )}
           {this.props.step === 'UPGRADE_PROMPT' && (
             <FlyoutChild>
-              <UpgradePrompt
-                {...this.props}
-                handleClose={this.handleClose}
-                {...val}
-              />
+              <UpgradePrompt {...this.props} handleClose={this.handleClose} {...val} />
             </FlyoutChild>
           )}
           {this.props.step === 'PREVIEW_SWAP' && (
             <FlyoutChild>
-              <PreviewSwap
-                {...this.props}
-                handleClose={this.handleClose}
-                {...val}
-              />
+              <PreviewSwap {...this.props} handleClose={this.handleClose} {...val} />
             </FlyoutChild>
           )}
           {this.props.step === 'ORDER_DETAILS' && (
             <FlyoutChild>
-              <OrderDetails
-                {...this.props}
-                handleClose={this.handleClose}
-                {...val}
-              />
+              <OrderDetails {...this.props} handleClose={this.handleClose} {...val} />
             </FlyoutChild>
           )}
           {this.props.step === 'SUCCESSFUL_SWAP' && (
             <FlyoutChild>
-              <SuccessfulSwap
-                {...this.props}
-                handleClose={this.handleClose}
-                {...val}
-              />
+              <SuccessfulSwap {...this.props} handleClose={this.handleClose} {...val} />
             </FlyoutChild>
           )}
         </Flyout>
       ),
       Failure: () => null,
       Loading: () => null,
-      NotAsked: () => null
+      NotAsked: () => null,
     })
   }
 }
@@ -175,24 +143,18 @@ const mapStateToProps = (
   order: selectors.components.swap.getOrder(state),
   step: selectors.components.swap.getStep(state),
   side: selectors.components.swap.getSide(state),
-  data: getData(state)
+  data: getData(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   formActions: bindActionCreators(actions.form, dispatch),
-  idvActions: bindActionCreators(
-    actions.components.identityVerification,
-    dispatch
-  ),
-  swapActions: bindActionCreators(actions.components.swap, dispatch)
+  idvActions: bindActionCreators(actions.components.identityVerification, dispatch),
+  swapActions: bindActionCreators(actions.components.swap, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)
 
-const enhance = compose(
-  ModalEnhancer('SWAP_MODAL', { transition: duration }),
-  connector
-)
+const enhance = compose(ModalEnhancer('SWAP_MODAL', { transition: duration }), connector)
 
 type OwnProps = {}
 export type SuccessStateType = ExtractSuccess<ReturnType<typeof getData>>

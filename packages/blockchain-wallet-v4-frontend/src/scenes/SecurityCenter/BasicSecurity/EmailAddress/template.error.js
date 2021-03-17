@@ -8,10 +8,10 @@ import {
   SecurityContainer,
   SecurityDescription,
   SecurityHeader,
-  SecuritySummary
+  SecuritySummary,
 } from '../../components'
 
-const EmailAddress = props => {
+const EmailAddress = (props) => {
   const { message } = props
 
   return (

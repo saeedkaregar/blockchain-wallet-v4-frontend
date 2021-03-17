@@ -23,17 +23,14 @@ class AddBtcWalletContainer extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  wallet: formValueSelector('addBtcWallet')(state, 'wallet')
+const mapStateToProps = (state) => ({
+  wallet: formValueSelector('addBtcWallet')(state, 'wallet'),
 })
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions.modules.settings, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions.modules.settings, dispatch),
 })
 
-const enhance = compose(
-  modalEnhancer('AddBtcWallet'),
-  connect(mapStateToProps, mapDispatchToProps)
-)
+const enhance = compose(modalEnhancer('AddBtcWallet'), connect(mapStateToProps, mapDispatchToProps))
 
 export default enhance(AddBtcWalletContainer)

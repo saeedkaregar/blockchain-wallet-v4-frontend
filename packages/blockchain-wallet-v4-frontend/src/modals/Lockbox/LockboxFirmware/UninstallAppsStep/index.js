@@ -12,15 +12,12 @@ class UninstallAppsContainer extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  step: selectors.components.lockbox.getFirmwareUpdateStep(state)
+const mapStateToProps = (state) => ({
+  step: selectors.components.lockbox.getFirmwareUpdateStep(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-  lockboxActions: bindActionCreators(actions.components.lockbox, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  lockboxActions: bindActionCreators(actions.components.lockbox, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UninstallAppsContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(UninstallAppsContainer)

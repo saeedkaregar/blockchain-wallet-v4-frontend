@@ -9,15 +9,15 @@ import { getMetadataXpriv } from '../root/selectors'
 import * as A from './actions'
 
 export default ({ api, networks }) => {
-  const createLockbox = function * (kv) {
+  const createLockbox = function* (kv) {
     const newLockboxEntry = {
-      devices: []
+      devices: [],
     }
     const newkv = set(KVStoreEntry.value, newLockboxEntry, kv)
     yield put(A.createMetadataLockbox(newkv))
   }
 
-  const fetchMetadataLockbox = function * () {
+  const fetchMetadataLockbox = function* () {
     try {
       const typeId = derivationMap[LOCKBOX]
       const mxpriv = yield select(getMetadataXpriv)
@@ -37,6 +37,6 @@ export default ({ api, networks }) => {
 
   return {
     createLockbox,
-    fetchMetadataLockbox
+    fetchMetadataLockbox,
   }
 }

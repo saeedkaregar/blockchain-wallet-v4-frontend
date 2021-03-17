@@ -18,7 +18,7 @@ import throttle from './throttle.js'
 const publicRuntimeConfig = {
   headerSearchURL: 'https://blockchain.com/search?search=',
   walletLoginURL: 'https://login.blockchain.com/#/login',
-  walletSignupURL: 'https://login.blockchain.com/#/signup'
+  walletSignupURL: 'https://login.blockchain.com/#/signup',
 }
 const SEARCH_URL = publicRuntimeConfig.headerSearchURL
 const HIDE_HEADER_MIN_WIDTH = 768
@@ -28,7 +28,7 @@ const lightTheme = {
   main: 'white',
   secondary: `${Color('whiteFade100')}`,
   placeholder: `${Color('whiteFade800')}`,
-  headerScroll: `${Color('bigStone')}`
+  headerScroll: `${Color('bigStone')}`,
 }
 const COOKIES = new Cookies()
 const LOCALE = COOKIES.get('clang') || 'en'
@@ -37,7 +37,7 @@ const darkTheme = {
   main: `${Color('marketing-secondary')}`,
   secondary: `${Color('greyFade200')}`,
   placeholder: `${Color('greyFade800')}`,
-  headerScroll: 'white'
+  headerScroll: 'white',
 }
 
 const GlobalStyles = createGlobalStyle`
@@ -62,12 +62,11 @@ const GlobalStyles = createGlobalStyle`
 `
 
 const GlobalNav = styled.div.attrs({
-  className: 'flex-container'
+  className: 'flex-container',
 })`
   ${Normalize8}
-  background-color: ${props =>
-    props.backgroundColor ? props.backgroundColor : 'transparent'};
-  position: ${props => props.position};
+  background-color: ${(props) => (props.backgroundColor ? props.backgroundColor : 'transparent')};
+  position: ${(props) => props.position};
   z-index: 100;
 
   &.hidden {
@@ -83,16 +82,16 @@ const GlobalNav = styled.div.attrs({
   }
 
   &.scrollup {
-    background-color: ${props => (props.navColor ? props.navColor : 'white')};
+    background-color: ${(props) => (props.navColor ? props.navColor : 'white')};
   }
 
   @media only screen and (max-width: 48rem) {
-    position: ${props => props.position};
+    position: ${(props) => props.position};
   }
 `
 
 const NavWrapper = styled.div.attrs({
-  className: 'flex-container'
+  className: 'flex-container',
 })`
   height: 4rem;
   flex-direction: row;
@@ -134,7 +133,7 @@ const NavInner = styled.div`
       font-weight: 500;
       line-height: 2.5rem;
       cursor: pointer;
-      color: ${props => (props.textColor ? props.textColor : 'white')};
+      color: ${(props) => (props.textColor ? props.textColor : 'white')};
       z-index: 10;
 
       &::-webkit-search-cancel-button {
@@ -142,19 +141,18 @@ const NavInner = styled.div`
       }
 
       &::placeholder {
-        color: ${props =>
-          props.placeholderColor ? props.placeholderColor : 'white'};
+        color: ${(props) => (props.placeholderColor ? props.placeholderColor : 'white')};
       }
     }
 
     .search-icon {
-      fill: ${props => (props.textColor ? props.textColor : 'white')};
+      fill: ${(props) => (props.textColor ? props.textColor : 'white')};
     }
 
     > input[type='search']:focus {
       width: 100%;
       border-bottom: 2px solid white;
-      border-bottom: ${props =>
+      border-bottom: ${(props) =>
         props.textColor ? '2px solid ' + props.textColor : '2px solid white'};
 
       cursor: text;
@@ -208,9 +206,7 @@ const DropdownWrap = styled.div`
 
 const productsList = [
   {
-    title: (
-      <FormattedMessage id='header.products.wallet' defaultMessage='Wallet' />
-    ),
+    title: <FormattedMessage id='header.products.wallet' defaultMessage='Wallet' />,
     desc: (
       <FormattedMessage
         id='header.products.wallet-desc'
@@ -219,7 +215,7 @@ const productsList = [
     ),
     link: '/wallet',
     locale: LOCALE,
-    event: 'header_wallet'
+    event: 'header_wallet',
   },
   {
     title: (
@@ -228,128 +224,76 @@ const productsList = [
         defaultMessage='Blockchain Markets'
       />
     ),
-    desc: (
-      <FormattedMessage
-        id='header.products.bps-desc'
-        defaultMessage='Institutional Portal'
-      />
-    ),
+    desc: <FormattedMessage id='header.products.bps-desc' defaultMessage='Institutional Portal' />,
     link: '/markets',
     locale: LOCALE,
-    event: 'header_principal'
+    event: 'header_principal',
   },
   {
-    title: (
-      <FormattedMessage id='header.products.lockbox' defaultMessage='Lockbox' />
-    ),
-    desc: (
-      <FormattedMessage
-        id='header.data.lockbox-desc'
-        defaultMessage='Hardware Wallet'
-      />
-    ),
+    title: <FormattedMessage id='header.products.lockbox' defaultMessage='Lockbox' />,
+    desc: <FormattedMessage id='header.data.lockbox-desc' defaultMessage='Hardware Wallet' />,
     link: '/lockbox',
     locale: LOCALE,
-    event: 'header_lockbox'
+    event: 'header_lockbox',
   },
   {
-    title: (
-      <FormattedMessage
-        id='header.products.developers'
-        defaultMessage='Developers'
-      />
-    ),
-    desc: (
-      <FormattedMessage
-        id='header.products.developers-desc'
-        defaultMessage='Access our API'
-      />
-    ),
+    title: <FormattedMessage id='header.products.developers' defaultMessage='Developers' />,
+    desc: <FormattedMessage id='header.products.developers-desc' defaultMessage='Access our API' />,
     link: '/api',
     locale: LOCALE,
-    event: 'header_developers'
-  }
+    event: 'header_developers',
+  },
 ]
 
 const dataList = [
   {
     title: <FormattedMessage id='header.data.prices' defaultMessage='Prices' />,
-    desc: (
-      <FormattedMessage
-        id='header.data.prices-desc'
-        defaultMessage='Quotes, News, and More'
-      />
-    ),
+    desc: <FormattedMessage id='header.data.prices-desc' defaultMessage='Quotes, News, and More' />,
     link: '/prices',
     locale: LOCALE,
-    event: 'header_prices'
+    event: 'header_prices',
   },
   {
     title: <FormattedMessage id='header.data.charts' defaultMessage='Charts' />,
     desc: (
-      <FormattedMessage
-        id='header.data.charts-desc'
-        defaultMessage='Stats and Network Activity'
-      />
+      <FormattedMessage id='header.data.charts-desc' defaultMessage='Stats and Network Activity' />
     ),
     link: '/charts',
     locale: LOCALE,
-    event: 'header_charts'
+    event: 'header_charts',
   },
   {
-    title: (
-      <FormattedMessage
-        id='header.data.explorer'
-        defaultMessage='Bitcoin Explorer'
-      />
-    ),
+    title: <FormattedMessage id='header.data.explorer' defaultMessage='Bitcoin Explorer' />,
     desc: (
-      <FormattedMessage
-        id='header.data.explorer-desc'
-        defaultMessage='Search BTC Blockchain'
-      />
+      <FormattedMessage id='header.data.explorer-desc' defaultMessage='Search BTC Blockchain' />
     ),
     link: '/explorer',
     locale: LOCALE,
-    event: 'header_explorer'
+    event: 'header_explorer',
   },
   {
     title: (
-      <FormattedMessage
-        id='header.data.explorer-bch'
-        defaultMessage='Bitcoin Cash Explorer'
-      />
+      <FormattedMessage id='header.data.explorer-bch' defaultMessage='Bitcoin Cash Explorer' />
     ),
     desc: (
-      <FormattedMessage
-        id='header.data.explorer-bch-desc'
-        defaultMessage='Search BCH Blockchain'
-      />
+      <FormattedMessage id='header.data.explorer-bch-desc' defaultMessage='Search BCH Blockchain' />
     ),
     link: '/explorer?currency=BCH',
     locale: LOCALE,
-    event: 'header_explorer_bch'
+    event: 'header_explorer_bch',
   },
   {
-    title: (
-      <FormattedMessage
-        id='header.data.explorer-eth'
-        defaultMessage='Ethereum Explorer'
-      />
-    ),
+    title: <FormattedMessage id='header.data.explorer-eth' defaultMessage='Ethereum Explorer' />,
     desc: (
-      <FormattedMessage
-        id='header.data.explorer-eth-desc'
-        defaultMessage='Search ETH Blockchain'
-      />
+      <FormattedMessage id='header.data.explorer-eth-desc' defaultMessage='Search ETH Blockchain' />
     ),
     link: '/explorer?currency=ETH',
     locale: LOCALE,
-    event: 'header_explorer_eth'
-  }
+    event: 'header_explorer_eth',
+  },
 ]
 
-const ListWrap = items => (
+const ListWrap = (items) => (
   <DropdownWrap>
     <ul>
       {items.map((item, index) => {
@@ -368,26 +312,19 @@ const ListWrap = items => (
 
 const dropdownMap = {
   products: {
-    linkText: (
-      <FormattedMessage
-        id='header.dropdown.products'
-        defaultMessage='Products'
-      />
-    ),
+    linkText: <FormattedMessage id='header.dropdown.products' defaultMessage='Products' />,
     component: ListWrap(productsList),
     onActive: () => {
       trackEvent('header_products')
-    }
+    },
   },
   markets: {
-    linkText: (
-      <FormattedMessage id='header.dropdown.data' defaultMessage='Data' />
-    ),
+    linkText: <FormattedMessage id='header.dropdown.data' defaultMessage='Data' />,
     component: ListWrap(dataList),
     onActive: () => {
       trackEvent('header_data')
-    }
-  }
+    },
+  },
 }
 
 const MobileMenuContainer = styled.div`
@@ -433,7 +370,7 @@ const MobileMenuItem = styled.div`
   }
 `
 
-const MobileMenu = props => {
+const MobileMenu = (props) => {
   if (!props.active) {
     return null
   }
@@ -455,10 +392,7 @@ const MobileMenu = props => {
           >
             <FormattedMessage id='header.login' defaultMessage='Login' />
           </Button>
-          <Button
-            href={publicRuntimeConfig.walletSignupURL}
-            event='header_signup'
-          >
+          <Button href={publicRuntimeConfig.walletSignupURL} event='header_signup'>
             <FormattedMessage id='header.signup' defaultMessage='Sign Up' />
           </Button>
         </ButtonGroup>
@@ -481,7 +415,7 @@ const Spacer = styled.div`
 
 class Header extends PureComponent {
   static defaultProps = {
-    searchURL: SEARCH_URL
+    searchURL: SEARCH_URL,
   }
 
   constructor(props) {
@@ -493,7 +427,7 @@ class Header extends PureComponent {
     menuActive: false,
     search: false,
     showNav: true,
-    searchText: ''
+    searchText: '',
   }
 
   componentDidMount() {
@@ -512,10 +446,10 @@ class Header extends PureComponent {
 
   getScrollTop() {
     if (window && document) {
-      let supportScrollY = window.scrollY !== undefined
-      let supportPageOffset = window.pageYOffset !== undefined
-      let isCSS1Compat = (document.compatMode || '') === 'CSS1Compat'
-      let scrollTop = supportScrollY
+      const supportScrollY = window.scrollY !== undefined
+      const supportPageOffset = window.pageYOffset !== undefined
+      const isCSS1Compat = (document.compatMode || '') === 'CSS1Compat'
+      const scrollTop = supportScrollY
         ? window.scrollY
         : supportPageOffset
         ? window.pageYOffset
@@ -528,21 +462,21 @@ class Header extends PureComponent {
     return undefined
   }
 
-  handleResize = throttle(e => {
+  handleResize = throttle((e) => {
     if (window.innerWidth > 768) {
       this.setState({ menuActive: false })
     }
   }, 200)
 
-  handleScroll = throttle(e => {
-    let scrollTop = this.getScrollTop()
+  handleScroll = throttle((e) => {
+    const scrollTop = this.getScrollTop()
     if (scrollTop === undefined) {
       return
     }
 
-    let windowHeight = window.innerHeight
-    let docHeight = document.body.scrollHeight
-    let windowWidth = window.innerWidth
+    const windowHeight = window.innerHeight
+    const docHeight = document.body.scrollHeight
+    const windowWidth = window.innerWidth
 
     if (
       windowWidth >= HIDE_HEADER_MIN_WIDTH &&
@@ -561,7 +495,7 @@ class Header extends PureComponent {
     this.previousScroll = scrollTop
   }, 200)
 
-  handleMenuClick = active => {
+  handleMenuClick = (active) => {
     this.setState({ menuActive: active })
   }
 
@@ -574,13 +508,13 @@ class Header extends PureComponent {
     this.setState({ search: false })
   }
 
-  handleSearchChange = e => {
+  handleSearchChange = (e) => {
     this.setState({ searchText: e.target.value })
   }
 
-  handleSearchKey = e => {
+  handleSearchKey = (e) => {
     if (e.keyCode === 13) {
-      let searchText = this.state.searchText.trim()
+      const searchText = this.state.searchText.trim()
       if (searchText.length) {
         this.setState({ searchText: '' }, () => {
           trackEvent('header_search-query')
@@ -590,19 +524,19 @@ class Header extends PureComponent {
     }
   }
 
-  handleSearch = text => {
+  handleSearch = (text) => {
     document.location = this.props.searchURL + encodeURIComponent(text)
   }
 
   render() {
-    let themeObj = this.props.theme === 'light' ? darkTheme : lightTheme
-    let searchActive = this.state.search ? 'search-active' : ''
-    let navVisibility = this.state.showNav ? 'visible' : 'hidden'
-    let navScrollUp = this.state.scrollUp ? 'scrollup' : ''
-    let navClasses = [navVisibility, navScrollUp].join(' ')
-    let position = this.props.position || 'fixed'
-    let dropdownTop = this.props.dropdownTop || 0
-    let backgroundColor = Color('marketing-primary')
+    const themeObj = this.props.theme === 'light' ? darkTheme : lightTheme
+    const searchActive = this.state.search ? 'search-active' : ''
+    const navVisibility = this.state.showNav ? 'visible' : 'hidden'
+    const navScrollUp = this.state.scrollUp ? 'scrollup' : ''
+    const navClasses = [navVisibility, navScrollUp].join(' ')
+    const position = this.props.position || 'fixed'
+    const dropdownTop = this.props.dropdownTop || 0
+    const backgroundColor = Color('marketing-primary')
 
     return (
       <ThemeProvider theme={themeObj}>
@@ -651,10 +585,7 @@ class Header extends PureComponent {
                       href={publicRuntimeConfig.walletLoginURL}
                       event='header_login'
                     >
-                      <FormattedMessage
-                        id='header.login'
-                        defaultMessage='Login'
-                      />
+                      <FormattedMessage id='header.login' defaultMessage='Login' />
                     </Button>
                     <Button
                       bgColor={themeObj.secondary}
@@ -662,10 +593,7 @@ class Header extends PureComponent {
                       href={publicRuntimeConfig.walletSignupURL}
                       event='header_signup'
                     >
-                      <FormattedMessage
-                        id='header.signup'
-                        defaultMessage='Sign Up'
-                      />
+                      <FormattedMessage id='header.signup' defaultMessage='Sign Up' />
                     </Button>
                   </ButtonGroup>
                 </NavInner>

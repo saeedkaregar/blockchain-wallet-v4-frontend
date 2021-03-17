@@ -18,10 +18,10 @@ class HeaderContainer extends React.PureComponent<Props> {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(actions.components.layoutWallet, dispatch),
   modalActions: bindActionCreators(actions.modals, dispatch),
-  refreshActions: bindActionCreators(actions.components.refresh, dispatch)
+  refreshActions: bindActionCreators(actions.components.refresh, dispatch),
 })
 
 const connector = connect(null, mapDispatchToProps)

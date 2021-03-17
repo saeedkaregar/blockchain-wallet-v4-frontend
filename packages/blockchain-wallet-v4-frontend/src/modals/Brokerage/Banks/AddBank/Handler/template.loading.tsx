@@ -41,8 +41,7 @@ const Loading: React.FC<Props> = () => {
       <Image name='blockchain-logo-circle' width='106px' />
       <HeadingText color='grey900'>Updating Your Wallet...</HeadingText>
       <BodyText color='grey600'>
-        This could take up to 30 secconds. Please do not go back or close the
-        app.
+        This could take up to 30 secconds. Please do not go back or close the app.
       </BodyText>
     </Wrapper>
   )

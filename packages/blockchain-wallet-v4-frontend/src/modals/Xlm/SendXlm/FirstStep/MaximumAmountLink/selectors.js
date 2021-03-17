@@ -8,12 +8,10 @@ export const getData = (state, props) => {
   const feeXlm = Exchange.convertXlmToXlm({
     value: fee,
     fromUnit: 'STROOP',
-    toUnit: 'XLM'
+    toUnit: 'XLM',
   }).value
   const effectiveBalanceXlm = prop('effectiveBalanceXlm', props)
   return {
-    effectiveBalance: new BigNumber(effectiveBalanceXlm)
-      .minus(feeXlm)
-      .toString()
+    effectiveBalance: new BigNumber(effectiveBalanceXlm).minus(feeXlm).toString(),
   }
 }

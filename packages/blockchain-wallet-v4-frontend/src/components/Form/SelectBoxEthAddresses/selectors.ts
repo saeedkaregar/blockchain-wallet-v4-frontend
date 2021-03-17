@@ -6,7 +6,7 @@ import { ADDRESS_TYPES } from 'blockchain-wallet-v4/src/redux/payment/btc/utils'
 import {
   Erc20CoinType,
   InterestAccountBalanceType,
-  SupportedWalletCurrenciesType
+  SupportedWalletCurrenciesType,
 } from 'blockchain-wallet-v4/src/types'
 import { selectors } from 'data'
 
@@ -27,35 +27,35 @@ export const getEthData = (
     includeExchangeAddress,
     includeCustodial,
     includeInterest,
-    forceCustodialFirst
+    forceCustodialFirst,
   } = ownProps
 
-  const displayEthFixed = data => {
+  const displayEthFixed = (data) => {
     const etherAmount = Exchange.convertEtherToEther(data)
     return Exchange.displayEtherToEther({
       value: Number(etherAmount.value).toFixed(8),
       fromUnit: 'ETH',
-      toUnit: 'ETH'
+      toUnit: 'ETH',
     })
   }
-  const buildDisplay = wallet => {
+  const buildDisplay = (wallet) => {
     if (has('balance', wallet)) {
-      let ethDisplay = displayEthFixed({
+      const ethDisplay = displayEthFixed({
         value: wallet.balance,
         fromUnit: 'WEI',
-        toUnit: 'ETH'
+        toUnit: 'ETH',
       })
       return wallet.label + ` (${ethDisplay})`
     }
     return wallet.label
   }
-  const buildCustodialDisplay = x => {
+  const buildCustodialDisplay = (x) => {
     return (
       `ETH Trading Wallet` +
       ` (${Exchange.displayEtherToEther({
         value: x ? x.available : 0,
         fromUnit: 'WEI',
-        toUnit: 'ETH'
+        toUnit: 'ETH',
       })})`
     )
   }
@@ -65,52 +65,45 @@ export const getEthData = (
       ` (${Exchange.displayEtherToEther({
         value: x ? x.balance : 0,
         fromUnit: 'WEI',
-        toUnit: 'ETH'
+        toUnit: 'ETH',
       })})`
     )
   }
   // @ts-ignore
-  const excluded = filter(x => !exclude.includes(x.label))
-  const toDropdown = map(x => ({ label: buildDisplay(x), value: x }))
+  const excluded = filter((x) => !exclude.includes(x.label))
+  const toDropdown = map((x) => ({ label: buildDisplay(x), value: x }))
   const toGroup = curry((label, options) => [{ label, options, value: '' }])
-  const toExchange = x => [{ label: `Exchange ETH Address`, value: x }]
-  const toCustodialDropdown = currencyDetails => [
+  const toExchange = (x) => [{ label: `Exchange ETH Address`, value: x }]
+  const toCustodialDropdown = (currencyDetails) => [
     {
       label: buildCustodialDisplay(currencyDetails),
       value: {
         ...currencyDetails,
         type: ADDRESS_TYPES.CUSTODIAL,
-        label: 'ETH Trading Wallet'
-      }
-    }
+        label: 'ETH Trading Wallet',
+      },
+    },
   ]
 
-  const toInterestDropdown = x => [
+  const toInterestDropdown = (x) => [
     {
       label: buildInterestDisplay(x),
       value: {
         ...x,
         type: ADDRESS_TYPES.INTEREST,
-        label: 'ETH Interest Wallet'
-      }
-    }
+        label: 'ETH Interest Wallet',
+      },
+    },
   ]
 
-  const exchangeAddress = selectors.components.send.getPaymentsAccountExchange(
-    'ETH',
-    state
-  )
+  const exchangeAddress = selectors.components.send.getPaymentsAccountExchange('ETH', state)
   const hasExchangeAddress = Remote.Success.is(exchangeAddress)
 
-  const accountAddress = selectors.components.send.getPaymentsTradingAccountAddress(
-    'ETH',
-    state
-  )
+  const accountAddress = selectors.components.send.getPaymentsTradingAccountAddress('ETH', state)
   const hasAccountAddress = Remote.Success.is(accountAddress)
 
   const showCustodial = includeCustodial && !forceCustodialFirst
-  const showCustodialWithAddress =
-    includeCustodial && forceCustodialFirst && hasAccountAddress
+  const showCustodialWithAddress = includeCustodial && forceCustodialFirst && hasAccountAddress
 
   const getAddressesData = () => {
     return sequence(Remote.of, [
@@ -125,9 +118,9 @@ export const getEthData = (
       showCustodial || showCustodialWithAddress
         ? selectors.components.simpleBuy
             .getSBBalances(state)
-            .map(x => ({
+            .map((x) => ({
               ...x.ETH,
-              address: accountAddress ? accountAddress.data : null
+              address: accountAddress ? accountAddress.data : null,
             }))
             .map(toCustodialDropdown)
             .map(toGroup('Custodial Wallet'))
@@ -135,7 +128,7 @@ export const getEthData = (
       includeInterest
         ? selectors.components.interest
             .getInterestAccountBalance(state)
-            .map(x => x.ETH)
+            .map((x) => x.ETH)
             .map(toInterestDropdown)
             .map(toGroup('Interest Wallet'))
         : Remote.of([]),
@@ -145,11 +138,9 @@ export const getEthData = (
             .getLockboxEthBalances(state)
             .map(excluded)
             .map(toDropdown)
-            .map(toGroup('Lockbox'))
+            .map(toGroup('Lockbox')),
     ]).map(([b1, b2, b3, b4, b5]) => {
-      const orderArray = forceCustodialFirst
-        ? [b3, b1, b2, b4, b5]
-        : [b1, b2, b3, b4, b5]
+      const orderArray = forceCustodialFirst ? [b3, b1, b2, b4, b5] : [b1, b2, b3, b4, b5]
       // @ts-ignore
       const data = reduce(concat, [], orderArray)
       return { data }
@@ -176,21 +167,19 @@ export const getErc20Data = (
     includeExchangeAddress,
     includeCustodial,
     includeInterest,
-    forceCustodialFirst
+    forceCustodialFirst,
   } = ownProps
   const supportedCoinsR = selectors.core.walletOptions.getSupportedCoins(state)
-  const supportedCoins = supportedCoinsR.getOrElse(
-    {} as SupportedWalletCurrenciesType
-  )
+  const supportedCoins = supportedCoinsR.getOrElse({} as SupportedWalletCurrenciesType)
 
-  const displayErc20Fixed = data => {
+  const displayErc20Fixed = (data) => {
     // TODO: ERC20 make more generic
     if (coin === 'PAX') {
       const paxAmount = Exchange.convertPaxToPax(data)
       return Exchange.displayPaxToPax({
         value: Number(paxAmount.value).toFixed(8),
         fromUnit: 'PAX',
-        toUnit: 'PAX'
+        toUnit: 'PAX',
       })
     }
     if (coin === 'USDT') {
@@ -198,7 +187,7 @@ export const getErc20Data = (
       return Exchange.displayUsdtToUsdt({
         value: Number(usdtAmount.value).toFixed(8),
         fromUnit: 'USDT',
-        toUnit: 'USDT'
+        toUnit: 'USDT',
       })
     }
     if (coin === 'WDGLD') {
@@ -206,105 +195,83 @@ export const getErc20Data = (
       return Exchange.displayWdgldToWdgld({
         value: Number(wdgldAmount.value).toFixed(8),
         fromUnit: 'WDGLD',
-        toUnit: 'WDGLD'
+        toUnit: 'WDGLD',
       })
     }
     return {}
   }
-  const buildCustodialDisplay = (
-    x,
-    coin: Erc20CoinType,
-    displayName: string
-  ) => {
+  const buildCustodialDisplay = (x, coin: Erc20CoinType, displayName: string) => {
     return (
       `${displayName} Trading Wallet` +
       ` (${displayErc20Fixed({
         value: x ? x.available : 0,
         fromUnit: 'WEI',
-        toUnit: coin
+        toUnit: coin,
       })})`
     )
   }
 
-  const buildInterestDisplay = (
-    coin: Erc20CoinType,
-    displayName: string,
-    x
-  ) => {
+  const buildInterestDisplay = (coin: Erc20CoinType, displayName: string, x) => {
     return (
       `${displayName} Interest Wallet` +
       ` (${Exchange.displayEtherToEther({
         value: x ? x.balance : 0,
         fromUnit: 'WEI',
-        toUnit: coin
+        toUnit: coin,
       })})`
     )
   }
 
   // @ts-ignore
-  const excluded = filter(x => !exclude.includes(x.label))
-  const buildDisplay = wallet => {
-    let erc20BalanceDisplay = displayErc20Fixed({
+  const excluded = filter((x) => !exclude.includes(x.label))
+  const buildDisplay = (wallet) => {
+    const erc20BalanceDisplay = displayErc20Fixed({
       value: wallet.balance,
       fromUnit: 'WEI',
-      toUnit: coin
+      toUnit: coin,
     })
     return wallet.label + ` (${erc20BalanceDisplay})`
   }
-  const toDropdown = map(x => ({
+  const toDropdown = map((x) => ({
     label: buildDisplay(x),
-    value: x
+    value: x,
   }))
   const toGroup = curry((label, options) => [{ label, options }])
-  const toExchange = x => [
+  const toExchange = (x) => [
     {
-      label:
-        coin === 'PAX'
-          ? 'Exhange USD Digital Address'
-          : `Exchange ${coin} Address`,
-      value: x
-    }
+      label: coin === 'PAX' ? 'Exhange USD Digital Address' : `Exchange ${coin} Address`,
+      value: x,
+    },
   ]
-  const toCustodialDropdown = currencyDetails => [
+  const toCustodialDropdown = (currencyDetails) => [
     {
-      label: buildCustodialDisplay(
-        currencyDetails,
-        coin,
-        supportedCoins[coin].displayName
-      ),
+      label: buildCustodialDisplay(currencyDetails, coin, supportedCoins[coin].displayName),
       value: {
         ...currencyDetails,
         type: ADDRESS_TYPES.CUSTODIAL,
-        label: `${supportedCoins[coin].coinTicker} Trading Wallet`
-      }
-    }
+        label: `${supportedCoins[coin].coinTicker} Trading Wallet`,
+      },
+    },
   ]
 
-  const toInterestDropdown = x => [
+  const toInterestDropdown = (x) => [
     {
       label: buildInterestDisplay(x, coin, supportedCoins[coin].displayName),
       value: {
         ...x,
         type: ADDRESS_TYPES.INTEREST,
-        label: `${supportedCoins[coin].coinTicker} Interest Wallet`
-      }
-    }
+        label: `${supportedCoins[coin].coinTicker} Interest Wallet`,
+      },
+    },
   ]
 
-  const exchangeAddress = selectors.components.send.getPaymentsAccountExchange(
-    coin,
-    state
-  )
+  const exchangeAddress = selectors.components.send.getPaymentsAccountExchange(coin, state)
   const hasExchangeAddress = Remote.Success.is(exchangeAddress)
 
-  const accountAddress = selectors.components.send.getPaymentsTradingAccountAddress(
-    coin,
-    state
-  )
+  const accountAddress = selectors.components.send.getPaymentsTradingAccountAddress(coin, state)
   const hasAccountAddress = Remote.Success.is(accountAddress)
   const showCustodial = includeCustodial && !forceCustodialFirst
-  const showCustodialWithAddress =
-    includeCustodial && forceCustodialFirst && hasAccountAddress
+  const showCustodialWithAddress = includeCustodial && forceCustodialFirst && hasAccountAddress
 
   const getAddressesData = () => {
     return sequence(Remote.of, [
@@ -320,9 +287,9 @@ export const getErc20Data = (
       showCustodial || showCustodialWithAddress
         ? selectors.components.simpleBuy
             .getSBBalances(state)
-            .map(x => ({
+            .map((x) => ({
               ...x[coin],
-              address: accountAddress ? accountAddress.data : null
+              address: accountAddress ? accountAddress.data : null,
             }))
             .map(toCustodialDropdown)
             .map(toGroup('Custodial Wallet'))
@@ -330,14 +297,12 @@ export const getErc20Data = (
       includeInterest
         ? selectors.components.interest
             .getInterestAccountBalance(state)
-            .map(x => x[coin])
+            .map((x) => x[coin])
             .map(toInterestDropdown)
             .map(toGroup('Interest Wallet'))
-        : Remote.of([])
+        : Remote.of([]),
     ]).map(([b1, b2, b3, b4]) => {
-      const orderArray = forceCustodialFirst
-        ? [b2, b1, b3, b4]
-        : [b1, b2, b3, b4]
+      const orderArray = forceCustodialFirst ? [b2, b1, b3, b4] : [b1, b2, b3, b4]
       // @ts-ignore
       const data = reduce(concat, [], orderArray)
       return { data }

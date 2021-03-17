@@ -6,7 +6,7 @@ import { Icon, Image, Text } from 'blockchain-info-components'
 import {
   BankTransferAccountType,
   BeneficiaryType,
-  NabuMoneyFloatType
+  NabuMoneyFloatType,
 } from 'blockchain-wallet-v4/src/types'
 import { AddNewButton } from 'components/Brokerage'
 import { FlyoutWrapper } from 'components/Flyout'
@@ -39,7 +39,7 @@ const TopText = styled(Text)`
 `
 
 const AccountsListWrapper = styled.div`
-  border-top: 1px solid ${props => props.theme.grey000};
+  border-top: 1px solid ${(props) => props.theme.grey000};
 `
 
 const getLinkedBankIcon = (bankName: string): ReactElement => (
@@ -60,21 +60,18 @@ const BankList = (props: Props) => {
             role='button'
             onClick={() =>
               props.brokerageActions.setDWStep({
-                dwStep: BankDWStepType.ENTER_AMOUNT
+                dwStep: BankDWStepType.ENTER_AMOUNT,
               })
             }
           />
           <div>
-            <FormattedMessage
-              id='scenes.settings.linked_banks'
-              defaultMessage='Linked Banks'
-            />
+            <FormattedMessage id='scenes.settings.linked_banks' defaultMessage='Linked Banks' />
           </div>
         </TopText>
       </Header>
 
       <AccountsListWrapper>
-        {props.bankTransferAccounts.map(account => (
+        {props.bankTransferAccounts.map((account) => (
           <Bank
             key={account.id}
             bankDetails={account.details}
@@ -84,18 +81,18 @@ const BankList = (props: Props) => {
             onClick={() => {
               props.brokerageActions.setBankDetails({ account })
               props.brokerageActions.setDWStep({
-                dwStep: BankDWStepType.ENTER_AMOUNT
+                dwStep: BankDWStepType.ENTER_AMOUNT,
               })
             }}
           />
         ))}
-        {props.beneficiaries.map(beneficiary => (
+        {props.beneficiaries.map((beneficiary) => (
           <BankWire
             beneficiary={beneficiary}
             minAmount={props.minAmount}
             onClick={() => {
               props.brokerageActions.setDWStep({
-                dwStep: BankDWStepType.WIRE_INSTRUCTIONS
+                dwStep: BankDWStepType.WIRE_INSTRUCTIONS,
               })
             }}
             type={'DEPOSIT'}
@@ -107,7 +104,7 @@ const BankList = (props: Props) => {
             // Setting addNew determines where the ach deposit method will link to
             props.brokerageActions.setDWStep({
               dwStep: BankDWStepType.DEPOSIT_METHODS,
-              addNew: true
+              addNew: true,
             })
           }}
         >

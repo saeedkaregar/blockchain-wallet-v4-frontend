@@ -43,17 +43,17 @@ class MobileNumberVerifyContainer extends React.PureComponent {
 }
 
 MobileNumberVerifyContainer.propTypes = {
-  mobileNumber: PropTypes.string.isRequired
+  mobileNumber: PropTypes.string.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   code: formValueSelector('mobileNumberVerify')(state, 'code'),
-  smsVerified: selectors.core.settings.getSmsVerified(state).getOrElse()
+  smsVerified: selectors.core.settings.getSmsVerified(state).getOrElse(),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   modalActions: bindActionCreators(actions.modals, dispatch),
-  settingsActions: bindActionCreators(actions.modules.settings, dispatch)
+  settingsActions: bindActionCreators(actions.modules.settings, dispatch),
 })
 
 const enhance = compose(

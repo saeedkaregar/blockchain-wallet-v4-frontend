@@ -11,7 +11,7 @@ import Settings from './template'
 class SettingsContainer extends React.PureComponent {
   componentDidMount() {
     this.props.formActions.initialize('settingLanguage', {
-      language: this.props.language
+      language: this.props.language,
     })
   }
 
@@ -32,14 +32,14 @@ class SettingsContainer extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  newLanguage: formValueSelector('settingLanguage')(state, 'language')
+const mapStateToProps = (state) => ({
+  newLanguage: formValueSelector('settingLanguage')(state, 'language'),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   settingsActions: bindActionCreators(actions.modules.settings, dispatch),
   preferencesActions: bindActionCreators(actions.preferences, dispatch),
-  formActions: bindActionCreators(actions.form, dispatch)
+  formActions: bindActionCreators(actions.form, dispatch),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsContainer)

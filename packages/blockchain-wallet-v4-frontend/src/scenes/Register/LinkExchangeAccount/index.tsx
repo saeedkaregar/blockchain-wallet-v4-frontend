@@ -44,7 +44,7 @@ const ListItem = styled.li`
 
   ::before {
     content: '–';
-    color: ${p => p.theme.whiteFade600};
+    color: ${(p) => p.theme.whiteFade600};
     padding-right: 0.5rem;
   }
 `
@@ -54,16 +54,10 @@ const LinkExchangeAccount = () => {
     <InfoWrapper>
       <Image height='2rem' name='refresh' />
       <Title>
-        <FormattedMessage
-          id='scenes.linkaccount.authorize2'
-          defaultMessage='Connect Your Wallet'
-        />
+        <FormattedMessage id='scenes.linkaccount.authorize2' defaultMessage='Connect Your Wallet' />
       </Title>
       <Text weight={500} color='whiteFade600' lineHeight='150%'>
-        <FormattedMessage
-          id='scenes.linkaccount.subtitle'
-          defaultMessage='To The Exchange'
-        />
+        <FormattedMessage id='scenes.linkaccount.subtitle' defaultMessage='To The Exchange' />
       </Text>
 
       <ListHeader color='white'>
@@ -108,10 +102,7 @@ const LinkExchangeAccount = () => {
       <List>
         <ListItem>
           <Text weight={500} color='whiteFade600' lineHeight='150%'>
-            <FormattedMessage
-              id='scenes.linkaccount.trade'
-              defaultMessage='Trade on your behalf'
-            />
+            <FormattedMessage id='scenes.linkaccount.trade' defaultMessage='Trade on your behalf' />
           </Text>
         </ListItem>
         <ListItem>

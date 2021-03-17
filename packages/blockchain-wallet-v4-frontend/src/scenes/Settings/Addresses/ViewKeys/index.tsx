@@ -30,7 +30,7 @@ const KeyIcon = styled(Icon)`
 `
 const ViewKeys = ({
   showQrCode,
-  toggleQrCode
+  toggleQrCode,
 }: {
   showQrCode: boolean
   toggleQrCode: () => void
@@ -45,10 +45,7 @@ const ViewKeys = ({
     </Header>
 
     <Warning color='error' size='14px' weight={600}>
-      <FormattedMessage
-        id='scenes.settings.addresses.viewkeys.warning'
-        defaultMessage='Warning'
-      />
+      <FormattedMessage id='scenes.settings.addresses.viewkeys.warning' defaultMessage='Warning' />
     </Warning>
 
     <Body color='grey600' size='14px' weight={500}>

@@ -35,24 +35,18 @@ SignMessageContainer.propTypes = {
   position: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
   closeAll: PropTypes.func.isRequired,
-  step: PropTypes.number.isRequired
+  step: PropTypes.number.isRequired,
 }
 
-const mapStateToProps = state => ({
-  step: selectors.components.signMessage.getStep(state)
+const mapStateToProps = (state) => ({
+  step: selectors.components.signMessage.getStep(state),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   formActions: bindActionCreators(actions.form, dispatch),
-  signMessageActions: bindActionCreators(
-    actions.components.signMessage,
-    dispatch
-  )
+  signMessageActions: bindActionCreators(actions.components.signMessage, dispatch),
 })
 
-const enhance = compose(
-  modalEnhancer('SignMessage'),
-  connect(mapStateToProps, mapDispatchToProps)
-)
+const enhance = compose(modalEnhancer('SignMessage'), connect(mapStateToProps, mapDispatchToProps))
 
 export default enhance(SignMessageContainer)

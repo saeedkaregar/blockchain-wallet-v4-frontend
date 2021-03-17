@@ -17,7 +17,7 @@ const TX_PER_PAGE = 10
 export default ({ api }: { api: APIType }) => {
   const { fetchCustodialOrdersAndTransactions } = custodialSagas({ api })
 
-  const fetchRates = function * () {
+  const fetchRates = function* () {
     try {
       yield put(A.fetchRatesLoading())
       const data = yield call(api.getCoinTicker, 'ALGO')
@@ -27,16 +27,14 @@ export default ({ api }: { api: APIType }) => {
     }
   }
 
-  const watchTransactions = function * () {
+  const watchTransactions = function* () {
     while (true) {
       const action = yield take(AT.FETCH_ALGO_TRANSACTIONS)
       yield call(fetchTransactions, action)
     }
   }
 
-  const fetchTransactions = function * (
-    action: ReturnType<typeof A.fetchTransactions>
-  ) {
+  const fetchTransactions = function* (action: ReturnType<typeof A.fetchTransactions>) {
     try {
       const { payload } = action
       const { reset } = payload
@@ -46,7 +44,7 @@ export default ({ api }: { api: APIType }) => {
       if (Remote.Loading.is(last(pages))) return
       if (transactionsAtBound && !reset) return
       yield put(A.fetchTransactionsLoading(reset))
-      let txs: Array<any> = []
+      const txs: Array<any> = []
       const txPage: Array<any> = txs
       const nextSBTransactionsURL = selectors.data.custodial.getNextSBTransactionsURL(
         yield select(),
@@ -72,6 +70,6 @@ export default ({ api }: { api: APIType }) => {
   return {
     fetchRates,
     fetchTransactions,
-    watchTransactions
+    watchTransactions,
   }
 }

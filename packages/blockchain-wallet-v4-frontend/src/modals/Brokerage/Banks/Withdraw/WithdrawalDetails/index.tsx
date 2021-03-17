@@ -5,10 +5,7 @@ import styled from 'styled-components'
 import { Button, Icon, Text } from 'blockchain-info-components'
 import { IcoMoonType } from 'blockchain-info-components/src/Icons/Icomoon'
 import { fiatToString } from 'blockchain-wallet-v4/src/exchange/currency'
-import {
-  WalletFiatType,
-  WithdrawResponseType
-} from 'blockchain-wallet-v4/src/types'
+import { WalletFiatType, WithdrawResponseType } from 'blockchain-wallet-v4/src/types'
 
 const Wrapper = styled.div`
   height: 100%;
@@ -39,7 +36,7 @@ const SuccessIcon = styled(Icon)`
   position: absolute;
   top: -16px;
   right: -22px;
-  background: ${props => props.theme.white};
+  background: ${(props) => props.theme.white};
 `
 
 class WithdrawalDetails extends PureComponent<Props> {
@@ -55,16 +52,12 @@ class WithdrawalDetails extends PureComponent<Props> {
               color='fiat'
               name={this.props.fiatCurrency.toLowerCase() as keyof IcoMoonType}
             />
-            <SuccessIcon
-              name='checkmark-circle-filled'
-              color='fiat'
-              size='28px'
-            />
+            <SuccessIcon name='checkmark-circle-filled' color='fiat' size='28px' />
           </IconContainer>
           <Title weight={600} size='20px'>
             {fiatToString({
               value: this.props.withdrawal.amount.value,
-              unit: this.props.withdrawal.amount.symbol
+              unit: this.props.withdrawal.amount.symbol,
             })}{' '}
             {this.props.withdrawal.amount.symbol}
           </Title>
@@ -73,7 +66,7 @@ class WithdrawalDetails extends PureComponent<Props> {
               id='modals.withdraw.success'
               defaultMessage='Success! We are withdrawing the cash from your {currency} Wallet now. The funds should be in your bank in 1-3 business days.'
               values={{
-                currency: this.props.fiatCurrency
+                currency: this.props.fiatCurrency,
               }}
             />
           </SubTitle>

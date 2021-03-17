@@ -5,7 +5,7 @@ export const USER_ACTIVATION_STATES = {
   NONE: 'NONE',
   CREATED: 'CREATED',
   ACTIVE: 'ACTIVE',
-  BLOCKED: 'BLOCKED'
+  BLOCKED: 'BLOCKED',
 }
 
 export const KYC_STATES = {
@@ -14,7 +14,7 @@ export const KYC_STATES = {
   UNDER_REVIEW: 'UNDER_REVIEW',
   REJECTED: 'REJECTED',
   VERIFIED: 'VERIFIED',
-  EXPIRED: 'EXPIRED'
+  EXPIRED: 'EXPIRED',
 }
 
 export const TIERS_STATES = {
@@ -23,22 +23,22 @@ export const TIERS_STATES = {
   UNDER_REVIEW: 'under_review',
   REJECTED: 'rejected',
   VERIFIED: 'verified',
-  EXPIRED: 'expired'
+  EXPIRED: 'expired',
 }
 
 export const DOC_RESUBMISSION_REASONS = {
   GENERAL: 0,
-  EXPIRED: 1
+  EXPIRED: 1,
 }
 
 export const ERROR_TYPES = {
-  BAD_2FA: 'BAD_2FA'
+  BAD_2FA: 'BAD_2FA',
 }
 
 export const TIERS = {
   0: 0,
   1: 1,
-  2: 2
+  2: 2,
 }
 
 export const INITIAL_TIERS = [
@@ -47,14 +47,14 @@ export const INITIAL_TIERS = [
     index: 1,
     name: 'Tier 1',
     state: 'none',
-    limits: { type: 'CRYPTO', currency: 'USD', daily: null, annual: 1000.0 }
+    limits: { type: 'CRYPTO', currency: 'USD', daily: null, annual: 1000.0 },
   },
   {
     index: 2,
     name: 'Tier 2',
     state: 'none',
-    limits: { type: 'CRYPTO', currency: 'USD', daily: 25000.0, annual: null }
-  }
+    limits: { type: 'CRYPTO', currency: 'USD', daily: 25000.0, annual: null },
+  },
 ]
 
 export const AddressPropType = PropTypes.shape({
@@ -63,26 +63,20 @@ export const AddressPropType = PropTypes.shape({
   line2: PropTypes.string,
   state: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
-  postCode: PropTypes.string.isRequired
+  postCode: PropTypes.string.isRequired,
 })
 
 export const CountryPropType = PropTypes.shape({
   code: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   regions: PropTypes.arrayOf(PropTypes.string),
-  scopes: PropTypes.arrayOf(PropTypes.string)
+  scopes: PropTypes.arrayOf(PropTypes.string),
 })
 
-export const getLastAttemptedTier = findLast(
-  complement(propEq('state', TIERS_STATES.NONE))
-)
+export const getLastAttemptedTier = findLast(complement(propEq('state', TIERS_STATES.NONE)))
 
-export const getLastUnrejectedTier = findLast(
-  complement(propEq('state', TIERS_STATES.REJECTED))
-)
+export const getLastUnrejectedTier = findLast(complement(propEq('state', TIERS_STATES.REJECTED)))
 
-export const getLastVerifiedTier = findLast(
-  propEq('state', TIERS_STATES.VERIFIED)
-)
+export const getLastVerifiedTier = findLast(propEq('state', TIERS_STATES.VERIFIED))
 
 export const WITHDRAW_LOCK_DEFAULT_DAYS = 3

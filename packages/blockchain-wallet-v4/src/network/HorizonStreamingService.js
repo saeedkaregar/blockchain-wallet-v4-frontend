@@ -16,12 +16,12 @@ export default class HorizonStreamingService {
     const closeStream = txBuilder.stream({
       reconnectTimeout: RECONNECT_TIMEOUT,
       onmessage: this.onMessage.bind(null, accountId),
-      onerror: this.onError.bind(null, accountId)
+      onerror: this.onError.bind(null, accountId),
     })
     this.streams = assoc(accountId, closeStream, this.streams)
   }
 
-  _unsubscribeFromAccount = accountId => {
+  _unsubscribeFromAccount = (accountId) => {
     const closeStream = prop(accountId, this.streams)
     if (closeStream) {
       closeStream()
@@ -34,16 +34,13 @@ export default class HorizonStreamingService {
     this.onError = onError
   }
 
-  addStreams = accounts => {
+  addStreams = (accounts) => {
     const accountIds = keys(accounts)
     const currentAccountIds = keys(this.streams)
     const addedAccounts = difference(accountIds, currentAccountIds)
     if (isEmpty(addedAccounts)) return
 
-    forEach(
-      id => this._subscribeToAccount(id, accounts[id].txCursor),
-      addedAccounts
-    )
+    forEach((id) => this._subscribeToAccount(id, accounts[id].txCursor), addedAccounts)
   }
 
   close() {

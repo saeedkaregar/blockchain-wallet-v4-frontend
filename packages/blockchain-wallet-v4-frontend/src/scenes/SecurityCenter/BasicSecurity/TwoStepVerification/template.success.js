@@ -17,7 +17,7 @@ import {
   SecurityHeader,
   SecurityIcon,
   SecuritySummary,
-  SecurityTip
+  SecurityTip,
 } from '../../components'
 import Choices from './Choices'
 import GoogleAuth from './GoogleAuth'
@@ -43,7 +43,7 @@ const SecurityTwoStepContainer = styled(SecurityContainer)`
   `};
 `
 const IconAndHeaderContainer = styled.div`
-  opacity: ${props => (props.success ? 0.3 : 1)};
+  opacity: ${(props) => (props.success ? 0.3 : 1)};
   @media (min-width: 480px) {
     display: grid;
     grid-template-columns: 15% 85%;
@@ -62,7 +62,7 @@ const DisableContainer = styled.div`
   }
   a.link {
     cursor: pointer;
-    color: ${props => props.theme.blue600};
+    color: ${(props) => props.theme.blue600};
   }
 `
 const DisableLinkContainer = styled.div`
@@ -75,11 +75,11 @@ const DisableLinkText = styled(Text)`
   margin-bottom: 30px;
   margin-top: 10px;
   a {
-    color: ${props => props.theme.blue600};
+    color: ${(props) => props.theme.blue600};
     cursor: pointer;
     padding-left: 3px;
   }
-  ${props => (props.pulse ? pulseAnimation : null)};
+  ${(props) => (props.pulse ? pulseAnimation : null)};
 `
 const TwoStepButton = styled(Button)`
   width: 100px;
@@ -108,16 +108,8 @@ const TipText = styled(Text)`
   }
 `
 
-const TwoStepVerification = props => {
-  const {
-    data,
-    editing,
-    handleClick,
-    handleGoBack,
-    twoStepChoice,
-    uiState,
-    ...rest
-  } = props
+const TwoStepVerification = (props) => {
+  const { data, editing, handleClick, handleGoBack, twoStepChoice, uiState, ...rest } = props
   const { authType, smsNumber, smsVerified } = data
   const twoFAEnabled = authType > 0
 
@@ -153,21 +145,12 @@ const TwoStepVerification = props => {
           <React.Fragment>
             <div />
             <DisableLinkContainer style={spacing('pl-25')}>
-              <DisableLinkText
-                size='14px'
-                weight={400}
-                flexRow='true'
-                pulse={props.pulse}
-              >
+              <DisableLinkText size='14px' weight={400} flexRow='true' pulse={props.pulse}>
                 <FormattedMessage
                   id='scenes.security.2fa.disablefirst'
                   defaultMessage='To change your two-step verification method, disable your current one first. {link}'
                   values={{
-                    link: (
-                      <a onClick={props.handleTwoFactorChange}>
-                        Disable {props.authName}
-                      </a>
-                    )
+                    link: <a onClick={props.handleTwoFactorChange}>Disable {props.authName}</a>,
                   }}
                 />
               </DisableLinkText>
@@ -186,21 +169,16 @@ const TwoStepVerification = props => {
                   defaultMessage='Two-factor authentication is set up with {authName} for number {number}.'
                   values={{
                     authName: <span className='heavy'>{props.authName}</span>,
-                    number: <span className='heavy'>{smsNumber}</span>
+                    number: <span className='heavy'>{smsNumber}</span>,
                   }}
                 />
               </Text>
-              <DisableLinkText
-                size='14px'
-                weight={400}
-                flexRow='true'
-                pulse={props.pulse}
-              >
+              <DisableLinkText size='14px' weight={400} flexRow='true' pulse={props.pulse}>
                 <FormattedMessage
                   id='scenes.security.2fa.sms.disablefirst'
                   defaultMessage='To change your two-step verification method,{link} SMS codes first.'
                   values={{
-                    link: <a onClick={props.handleTwoFactorChange}>disable</a>
+                    link: <a onClick={props.handleTwoFactorChange}>disable</a>,
                   }}
                 />
               </DisableLinkText>
@@ -284,8 +262,7 @@ const TwoStepVerification = props => {
     )
   }
 
-  const renderChoices = () =>
-    !uiState.verifyToggled ? null : renderVerificationChoice()
+  const renderChoices = () => (!uiState.verifyToggled ? null : renderVerificationChoice())
 
   return (
     <Fragment>
@@ -310,10 +287,7 @@ const TwoStepVerification = props => {
                 />
               </TwoStepButton>
             ) : (
-              <TwoStepButton
-                nature='primary'
-                onClick={props.handleDisableClick}
-              >
+              <TwoStepButton nature='primary' onClick={props.handleDisableClick}>
                 <FormattedMessage
                   id='scenes.securitysettings.basicsecurity.twostepverification.settings.disable'
                   defaultMessage='Disable'
@@ -341,10 +315,7 @@ const TwoStepVerification = props => {
             >
               <span>&nbsp;iOS&nbsp;</span>
             </Link>
-            <FormattedMessage
-              id='scenes.securitycenter.2fa.tip.two'
-              defaultMessage=' and '
-            />
+            <FormattedMessage id='scenes.securitycenter.2fa.tip.two' defaultMessage=' and ' />
             <Link
               href='https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en'
               target='_blank'
@@ -353,10 +324,7 @@ const TwoStepVerification = props => {
             >
               <span>&nbsp;Android</span>
             </Link>
-            <FormattedMessage
-              id='scenes.securitycenter.2fa.tip.three'
-              defaultMessage=').'
-            />
+            <FormattedMessage id='scenes.securitycenter.2fa.tip.three' defaultMessage=').' />
           </TipText>
         </SecurityTip>
       ) : null}
@@ -367,9 +335,9 @@ const TwoStepVerification = props => {
 TwoStepVerification.propTypes = {
   authType: PropTypes.number,
   twoStepChoice: PropTypes.string,
-  smsVerified: PropTypes.number
+  smsVerified: PropTypes.number,
 }
 
 export default reduxForm({
-  form: 'twoStepVerification'
+  form: 'twoStepVerification',
 })(TwoStepVerification)

@@ -23,27 +23,27 @@ export const getData = (
     includeExchangeAddress,
     includeCustodial,
     includeInterest,
-    forceCustodialFirst
+    forceCustodialFirst,
   } = ownProps
 
-  const buildDisplay = wallet => {
+  const buildDisplay = (wallet) => {
     if (has('balance', wallet)) {
-      let xlmDisplay = Exchange.displayXlmToXlm({
+      const xlmDisplay = Exchange.displayXlmToXlm({
         value: wallet.balance,
         fromUnit: 'STROOP',
-        toUnit: 'XLM'
+        toUnit: 'XLM',
       })
       return wallet.label + ` (${xlmDisplay})`
     }
     return wallet.label
   }
-  const buildCustodialDisplay = x => {
+  const buildCustodialDisplay = (x) => {
     return (
       `XLM Trading Wallet` +
       ` (${Exchange.displayXlmToXlm({
         value: x ? x.available : 0,
         fromUnit: 'STROOP',
-        toUnit: 'XLM'
+        toUnit: 'XLM',
       })})`
     )
   }
@@ -53,50 +53,43 @@ export const getData = (
       ` (${Exchange.displayXlmToXlm({
         value: x ? x.balance : 0,
         fromUnit: 'STROOP',
-        toUnit: 'XLM'
+        toUnit: 'XLM',
       })})`
     )
   }
   // @ts-ignore
-  const excluded = filter(x => !exclude.includes(x.label))
-  const toDropdown = map(x => ({ label: buildDisplay(x), value: x }))
+  const excluded = filter((x) => !exclude.includes(x.label))
+  const toDropdown = map((x) => ({ label: buildDisplay(x), value: x }))
   const toGroup = curry((label, options) => [{ label, options }])
-  const toExchange = x => [{ label: `Exchange XLM Address`, value: x }]
-  const toCustodialDropdown = currencyDetails => [
+  const toExchange = (x) => [{ label: `Exchange XLM Address`, value: x }]
+  const toCustodialDropdown = (currencyDetails) => [
     {
       label: buildCustodialDisplay(currencyDetails),
       value: {
         ...currencyDetails,
         type: ADDRESS_TYPES.CUSTODIAL,
-        label: 'XLM Trading Wallet'
-      }
-    }
+        label: 'XLM Trading Wallet',
+      },
+    },
   ]
-  const toInterestDropdown = x => [
+  const toInterestDropdown = (x) => [
     {
       label: buildInterestDisplay(x),
       value: {
         ...x,
         type: ADDRESS_TYPES.INTEREST,
-        label: 'XLM Interest Wallet'
-      }
-    }
+        label: 'XLM Interest Wallet',
+      },
+    },
   ]
 
-  const exchangeAddress = selectors.components.send.getPaymentsAccountExchange(
-    'XLM',
-    state
-  )
+  const exchangeAddress = selectors.components.send.getPaymentsAccountExchange('XLM', state)
   const hasExchangeAddress = Remote.Success.is(exchangeAddress)
 
-  const accountAddress = selectors.components.send.getPaymentsTradingAccountAddress(
-    'XLM',
-    state
-  )
+  const accountAddress = selectors.components.send.getPaymentsTradingAccountAddress('XLM', state)
   const hasAccountAddress = Remote.Success.is(accountAddress)
   const showCustodial = includeCustodial && !forceCustodialFirst
-  const showCustodialWithAddress =
-    includeCustodial && forceCustodialFirst && hasAccountAddress
+  const showCustodialWithAddress = includeCustodial && forceCustodialFirst && hasAccountAddress
 
   return sequence(Remote.of, [
     includeExchangeAddress && hasExchangeAddress
@@ -117,9 +110,9 @@ export const getData = (
     showCustodial || showCustodialWithAddress
       ? selectors.components.simpleBuy
           .getSBBalances(state)
-          .map(x => ({
+          .map((x) => ({
             ...x.XLM,
-            address: accountAddress ? accountAddress.data : null
+            address: accountAddress ? accountAddress.data : null,
           }))
           .map(toCustodialDropdown)
           .map(toGroup('Custodial Wallet'))
@@ -127,10 +120,10 @@ export const getData = (
     includeInterest
       ? selectors.components.interest
           .getInterestAccountBalance(state)
-          .map(x => x.XLM)
+          .map((x) => x.XLM)
           .map(toInterestDropdown)
           .map(toGroup('Interest Wallet'))
-      : Remote.of([])
+      : Remote.of([]),
   ]).map(([b1, b2, b3, b4]) => {
     const orderArray = forceCustodialFirst ? [b2, b1, b3, b4] : [b1, b2, b3, b4]
     // @ts-ignore

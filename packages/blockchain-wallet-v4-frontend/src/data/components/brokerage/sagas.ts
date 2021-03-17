@@ -9,7 +9,7 @@ import {
   AddBankStepType,
   BankDWStepType,
   BrokerageModalOriginType,
-  SBCheckoutFormValuesType
+  SBCheckoutFormValuesType,
 } from 'data/types'
 
 import profileSagas from '../../modules/profile/sagas'
@@ -17,31 +17,18 @@ import * as A from './actions'
 import * as AT from './actionTypes'
 import { DEFAULT_METHODS } from './model'
 
-export default ({
-  api,
-  coreSagas,
-  networks
-}: {
-  api: APIType
-  coreSagas: any
-  networks: any
-}) => {
+export default ({ api, coreSagas, networks }: { api: APIType; coreSagas: any; networks: any }) => {
   const { isTier2 } = profileSagas({
     api,
     coreSagas,
-    networks
+    networks,
   })
-  const deleteSavedBank = function * ({
-    bankId
-  }: ReturnType<typeof A.deleteSavedBank>) {
+  const deleteSavedBank = function* ({ bankId }: ReturnType<typeof A.deleteSavedBank>) {
     try {
       yield put(actions.form.startSubmit('linkedBanks'))
       yield call(api.deleteSavedAccount, bankId, 'banktransfer')
       yield put(A.fetchBankTransferAccounts())
-      yield take([
-        AT.FETCH_BANK_TRANSFER_ACCOUNTS_SUCCESS,
-        AT.FETCH_BANK_TRANSFER_UPDATE_ERROR
-      ])
+      yield take([AT.FETCH_BANK_TRANSFER_ACCOUNTS_SUCCESS, AT.FETCH_BANK_TRANSFER_UPDATE_ERROR])
       yield put(actions.form.stopSubmit('linkedBanks'))
       yield put(actions.alerts.displaySuccess('Bank removed.'))
       yield put(actions.modals.closeModal('BANK_DETAILS_MODAL'))
@@ -53,7 +40,7 @@ export default ({
     }
   }
 
-  const transferAccountState = function * (id: string) {
+  const transferAccountState = function* (id: string) {
     const data = yield call(api.getBankTransferAccountDetails, id)
     if (data.state === 'ACTIVE') {
       return data
@@ -64,16 +51,16 @@ export default ({
     }
   }
 
-  const conditionalRetry = function * (id: string) {
+  const conditionalRetry = function* (id: string) {
     const data = yield retry(60, 1000, transferAccountState, id)
     return data
   }
-  const fetchBankTransferUpdate = function * ({
-    accounts
+  const fetchBankTransferUpdate = function* ({
+    accounts,
   }: ReturnType<typeof A.fetchBankTransferUpdate>) {
     try {
       const fastLink = yield select(selectors.components.brokerage.getFastLink)
-      for (let a of accounts) {
+      for (const a of accounts) {
         const status: ReturnType<typeof api.updateBankAccountLink> = yield call(
           api.updateBankAccountLink,
           a.providerAccountId,
@@ -88,7 +75,7 @@ export default ({
         yield put(
           actions.components.brokerage.setAddBankStep({
             addBankStep: AddBankStepType.ADD_BANK_STATUS,
-            bankStatus: bankData.state
+            bankStatus: bankData.state,
           })
         )
 
@@ -103,30 +90,23 @@ export default ({
           // auto-fill the bank account on the enter amount screen
           yield put(
             actions.components.brokerage.setBankDetails({
-              account: bankData
+              account: bankData,
             })
           )
           if (values?.amount) {
-            yield put(
-              actions.components.simpleBuy.createSBOrder(
-                'BANK_TRANSFER',
-                status.id
-              )
-            )
+            yield put(actions.components.simpleBuy.createSBOrder('BANK_TRANSFER', status.id))
           } else {
-            const sbMethodsR = selectors.components.simpleBuy.getSBPaymentMethods(
-              yield select()
-            )
+            const sbMethodsR = selectors.components.simpleBuy.getSBPaymentMethods(yield select())
             const sbMethods = sbMethodsR.getOrElse(DEFAULT_METHODS)
             if (Remote.Success.is(sbMethodsR) && sbMethods.methods.length) {
               const bankTransferMethod = sbMethods.methods.filter(
-                method => method.type === 'BANK_TRANSFER'
+                (method) => method.type === 'BANK_TRANSFER'
               )[0]
               yield put(
                 actions.components.simpleBuy.handleSBMethodChange({
                   ...bankData,
                   limits: bankTransferMethod.limits,
-                  type: 'BANK_TRANSFER'
+                  type: 'BANK_TRANSFER',
                 })
               )
             }
@@ -136,7 +116,7 @@ export default ({
             'BANK_LINK_FAILED',
             bankData.state,
             a.providerName,
-            a.providerId
+            a.providerId,
           ])
         }
       }
@@ -144,13 +124,13 @@ export default ({
       yield put(
         actions.components.brokerage.setAddBankStep({
           addBankStep: AddBankStepType.ADD_BANK_STATUS,
-          bankStatus: 'DEFAULT_ERROR'
+          bankStatus: 'DEFAULT_ERROR',
         })
       )
     }
   }
 
-  const fetchFastLink = function * () {
+  const fetchFastLink = function* () {
     try {
       const fastLink = yield call(api.createBankAccountLink, 'USD')
       yield put(A.setFastLink(fastLink))
@@ -160,7 +140,7 @@ export default ({
     }
   }
 
-  const fetchBankTransferAccounts = function * () {
+  const fetchBankTransferAccounts = function* () {
     try {
       const accounts = yield call(api.getBankTransferAccounts)
       yield put(A.fetchBankTransferAccountsSuccess(accounts))
@@ -168,7 +148,7 @@ export default ({
       // Set the default account whenever you fetch the entire saved accounts
       // list. It's convenient.
       if (accounts.length > 0) {
-        const account = accounts.find(a => a.state === 'ACTIVE')
+        const account = accounts.find((a) => a.state === 'ACTIVE')
         yield put(A.setBankDetails({ account }))
       }
     } catch (e) {
@@ -177,8 +157,8 @@ export default ({
     }
   }
 
-  const handleDepositFiatClick = function * ({
-    payload
+  const handleDepositFiatClick = function* ({
+    payload,
   }: ReturnType<typeof A.handleDepositFiatClick>) {
     yield put(
       actions.components.brokerage.showModal(
@@ -188,7 +168,7 @@ export default ({
     )
     yield put(
       actions.components.brokerage.setDWStep({
-        dwStep: BankDWStepType.LOADING
+        dwStep: BankDWStepType.LOADING,
       })
     )
     try {
@@ -198,7 +178,7 @@ export default ({
     } catch (e) {
       return yield put(
         actions.components.brokerage.setDWStep({
-          dwStep: BankDWStepType.INELIGIBLE
+          dwStep: BankDWStepType.INELIGIBLE,
         })
       )
     }
@@ -208,7 +188,7 @@ export default ({
     if (bankTransferAccounts?.data?.length) {
       yield put(
         actions.components.brokerage.setBankDetails({
-          account: bankTransferAccounts.data[0]
+          account: bankTransferAccounts.data[0],
         })
       )
       yield put(
@@ -220,7 +200,7 @@ export default ({
       yield put(actions.form.destroy('brokerageTx'))
       yield put(
         actions.components.brokerage.setDWStep({
-          dwStep: BankDWStepType.ENTER_AMOUNT
+          dwStep: BankDWStepType.ENTER_AMOUNT,
         })
       )
     } else {
@@ -232,18 +212,18 @@ export default ({
       )
       yield put(
         actions.components.brokerage.setDWStep({
-          dwStep: BankDWStepType.DEPOSIT_METHODS
+          dwStep: BankDWStepType.DEPOSIT_METHODS,
         })
       )
     }
   }
 
-  const showModal = function * ({ payload }: ReturnType<typeof A.showModal>) {
+  const showModal = function* ({ payload }: ReturnType<typeof A.showModal>) {
     const { modalType, origin } = payload
     yield put(actions.modals.showModal(modalType, { origin }))
   }
 
-  const createFiatDeposit = function * () {
+  const createFiatDeposit = function* () {
     const { amount, currency } = yield select(getFormValues('brokerageTx'))
     const { id } = yield select(selectors.components.brokerage.getAccount)
     try {
@@ -251,7 +231,7 @@ export default ({
       if (data && data.paymentId) {
         yield put(
           actions.components.brokerage.setDWStep({
-            dwStep: BankDWStepType.DEPOSIT_STATUS
+            dwStep: BankDWStepType.DEPOSIT_STATUS,
           })
         )
         // refresh the fiat list so the newest tx shows up right away
@@ -262,13 +242,13 @@ export default ({
       yield put(actions.form.stopSubmit('brokerageTx', { _error: error }))
       yield put(
         actions.components.brokerage.setDWStep({
-          dwStep: BankDWStepType.ENTER_AMOUNT
+          dwStep: BankDWStepType.ENTER_AMOUNT,
         })
       )
     }
   }
 
-  const handleMethodChange = function * (action) {
+  const handleMethodChange = function* (action) {
     const { method } = action
     const isUserTier2 = yield call(isTier2)
 
@@ -298,13 +278,13 @@ export default ({
       case 'BANK_ACCOUNT':
         return yield put(
           actions.components.brokerage.setDWStep({
-            dwStep: BankDWStepType.WIRE_INSTRUCTIONS
+            dwStep: BankDWStepType.WIRE_INSTRUCTIONS,
           })
         )
       case 'BANK_TRANSFER':
         return yield put(
           actions.components.brokerage.setDWStep({
-            dwStep: BankDWStepType.ENTER_AMOUNT
+            dwStep: BankDWStepType.ENTER_AMOUNT,
           })
         )
     }
@@ -318,6 +298,6 @@ export default ({
     fetchFastLink,
     handleDepositFiatClick,
     handleMethodChange,
-    showModal
+    showModal,
   }
 }

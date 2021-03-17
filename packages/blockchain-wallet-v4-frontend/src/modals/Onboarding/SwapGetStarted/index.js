@@ -14,7 +14,7 @@ const Header = styled.div`
   justify-content: center;
   align-items: center;
   height: 204px;
-  background: ${props => props.theme.blue900} url(/img/swap-modal-bg.svg);
+  background: ${(props) => props.theme.blue900} url(/img/swap-modal-bg.svg);
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;
@@ -56,7 +56,7 @@ const LaterButton = styled(FooterButton)`
 const CenteredText = styled(Text)`
   padding: 0 36px;
   text-align: center;
-  text-shadow: 0px 0px 1px ${props => props.theme.blue900};
+  text-shadow: 0px 0px 1px ${(props) => props.theme.blue900};
 `
 
 class SwapGetStarted extends React.PureComponent {
@@ -67,12 +67,7 @@ class SwapGetStarted extends React.PureComponent {
   render() {
     const { actions, close, position, total } = this.props
     return (
-      <Modal
-        size='small'
-        position={position}
-        total={total}
-        dataE2e='infoModalSwapGetStarted'
-      >
+      <Modal size='small' position={position} total={total} dataE2e='infoModalSwapGetStarted'>
         <Header>
           <CenteredText color='white' size='20px' weight={500}>
             <FormattedMessage
@@ -96,10 +91,7 @@ class SwapGetStarted extends React.PureComponent {
             fullwidth
             onClick={actions.swapGetStartedSubmitClicked}
           >
-            <FormattedMessage
-              defaultMessage='Get Started'
-              id='modals.swapgetstarted.getstarted'
-            />
+            <FormattedMessage defaultMessage='Get Started' id='modals.swapgetstarted.getstarted' />
           </FooterButton>
           <LaterButton
             data-e2e='modalCloseButton'
@@ -119,14 +111,11 @@ class SwapGetStarted extends React.PureComponent {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(actions.components.onboarding, dispatch),
-  preferencesActions: bindActionCreators(actions.preferences, dispatch)
+  preferencesActions: bindActionCreators(actions.preferences, dispatch),
 })
 
-const enhance = compose(
-  connect(undefined, mapDispatchToProps),
-  modalEnhancer('SwapGetStarted')
-)
+const enhance = compose(connect(undefined, mapDispatchToProps), modalEnhancer('SwapGetStarted'))
 
 export default enhance(SwapGetStarted)

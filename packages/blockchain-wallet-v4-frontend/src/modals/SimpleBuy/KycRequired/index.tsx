@@ -19,7 +19,7 @@ class KycRequired extends PureComponent<Props> {
 }
 
 const mapStateToProps = (state: RootState) => ({
-  order: selectors.components.simpleBuy.getSBOrder(state)
+  order: selectors.components.simpleBuy.getSBOrder(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch): LinkDispatchPropsType => ({
@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch: Dispatch): LinkDispatchPropsType => ({
   identityVerificationActions: bindActionCreators(
     actions.components.identityVerification,
     dispatch
-  )
+  ),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

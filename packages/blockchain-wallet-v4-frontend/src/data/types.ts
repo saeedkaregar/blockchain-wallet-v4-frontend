@@ -4,10 +4,7 @@ import { ModuleActionTypes } from './modules/types'
 
 // All ActionTypes should go here
 // export type AppActionTypes = ComponentsActionTypes | ModuleActionTypes | etc
-export type AppActionTypes =
-  | ComponentsActionTypes
-  | ModuleActionTypes
-  | ModalActionTypes
+export type AppActionTypes = ComponentsActionTypes | ModuleActionTypes | ModalActionTypes
 
 export * from './components/types'
 export * from './custodial/types'

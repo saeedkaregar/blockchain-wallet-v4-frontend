@@ -26,15 +26,15 @@ class AnalyticsTracker extends React.PureComponent {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  analyticsActions: bindActionCreators(actions.analytics, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  analyticsActions: bindActionCreators(actions.analytics, dispatch),
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   domains: selectors.core.walletOptions.getDomains(state).getOrElse({
-    walletHelper: 'https://wallet-helper.blockchain.com'
+    walletHelper: 'https://wallet-helper.blockchain.com',
   }),
-  siteId: selectors.core.walletOptions.getAnalyticsSiteId(state).getOrElse(3) // prod siteId is 3
+  siteId: selectors.core.walletOptions.getAnalyticsSiteId(state).getOrElse(3), // prod siteId is 3
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AnalyticsTracker)

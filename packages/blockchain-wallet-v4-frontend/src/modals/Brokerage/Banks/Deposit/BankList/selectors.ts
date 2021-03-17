@@ -8,9 +8,7 @@ import { OwnProps } from '.'
 
 export const getData = (state: RootState, ownProps: OwnProps) => {
   const balancesR = selectors.components.simpleBuy.getSBBalances(state)
-  const bankTransferAccountsR = selectors.components.brokerage.getBankTransferAccounts(
-    state
-  )
+  const bankTransferAccountsR = selectors.components.brokerage.getBankTransferAccounts(state)
   const account = selectors.components.brokerage.getAccount(state)
   const beneficiariesR = selectors.custodial.getBeneficiaries(state)
 
@@ -28,11 +26,9 @@ export const getData = (state: RootState, ownProps: OwnProps) => {
     ) => ({
       balances,
       bankTransferAccounts,
-      beneficiaries: beneficiaries.filter(
-        value => value.currency === ownProps.fiatCurrency
-      ),
+      beneficiaries: beneficiaries.filter((value) => value.currency === ownProps.fiatCurrency),
       minAmount,
-      account
+      account,
     })
   )(balancesR, bankTransferAccountsR, beneficiariesR, minAmountR)
 }

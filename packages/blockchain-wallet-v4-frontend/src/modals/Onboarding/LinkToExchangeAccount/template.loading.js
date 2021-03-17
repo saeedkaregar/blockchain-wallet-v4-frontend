@@ -9,11 +9,11 @@ import {
   Modal,
   ModalBody,
   ModalHeader,
-  Text
+  Text,
 } from 'blockchain-info-components'
 
 const ModalStyled = styled(Modal)`
-  background: ${props =>
+  background: ${(props) =>
     `linear-gradient(321.54deg, ${props.theme.purple} -15.42%, ${props.theme.black} 54.12%)`};
 `
 const ModalHeaderStyled = styled(ModalHeader)`
@@ -69,11 +69,7 @@ const LinkToExchangeAccountLoading = ({ close, deeplinkToExchange }) => {
                 />
               </Text>
               <OpenNowButton nature='purple' height='56px' fullwidth>
-                <Link
-                  href={deeplinkToExchange}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
+                <Link href={deeplinkToExchange} target='_blank' rel='noopener noreferrer'>
                   <Text color='white' size='16px' weight={500}>
                     <FormattedMessage
                       id='modals.onboarding.linktoexchangeaccount.loading.openhere-1'

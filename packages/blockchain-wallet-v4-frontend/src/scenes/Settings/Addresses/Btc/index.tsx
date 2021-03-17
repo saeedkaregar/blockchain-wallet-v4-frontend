@@ -18,8 +18,8 @@ class BtcAddressesContainer extends React.PureComponent<Props> {
   }
 }
 
-const mapStateToProps = state => ({
-  data: getData(state)
+const mapStateToProps = (state) => ({
+  data: getData(state),
 })
 
 const connector = connect(mapStateToProps)

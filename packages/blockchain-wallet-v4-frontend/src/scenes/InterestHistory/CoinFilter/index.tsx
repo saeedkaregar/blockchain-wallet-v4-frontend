@@ -22,12 +22,9 @@ const SelectCoinWrapper = styled.div`
 `
 
 class CoinFilter extends React.PureComponent<InjectedFormProps & Props> {
-  onChange = coin => {
+  onChange = (coin) => {
     const { interestActions } = this.props
-    interestActions.fetchInterestTransactions(
-      true,
-      coin === 'ALL' ? undefined : coin
-    )
+    interestActions.fetchInterestTransactions(true, coin === 'ALL' ? undefined : coin)
   }
 
   render() {
@@ -35,10 +32,7 @@ class CoinFilter extends React.PureComponent<InjectedFormProps & Props> {
     return txPages ? (
       <SelectCoinWrapper>
         <FilterText>
-          <FormattedMessage
-            id='scenes.interest.history.filter'
-            defaultMessage='Filter by:'
-          />
+          <FormattedMessage id='scenes.interest.history.filter' defaultMessage='Filter by:' />
         </FilterText>
         <Field
           component={SelectBoxCoin}
@@ -46,7 +40,7 @@ class CoinFilter extends React.PureComponent<InjectedFormProps & Props> {
           name='coin'
           onChange={this.onChange}
           props={{
-            additionalOptions: [{ text: 'All Coins', value: 'ALL' }] as any
+            additionalOptions: [{ text: 'All Coins', value: 'ALL' }] as any,
           }}
           type='request'
         />
@@ -57,7 +51,7 @@ class CoinFilter extends React.PureComponent<InjectedFormProps & Props> {
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   formActions: bindActionCreators(actions.form, dispatch),
-  interestActions: bindActionCreators(actions.components.interest, dispatch)
+  interestActions: bindActionCreators(actions.components.interest, dispatch),
 })
 
 const connector = connect(null, mapDispatchToProps)
@@ -66,7 +60,7 @@ type Props = ConnectedProps<typeof connector> & OwnProps & SuccessStateType
 const enhance = compose<any>(
   reduxForm({
     form: 'interestHistoryCoin',
-    initialValues: { coin: 'ALL' }
+    initialValues: { coin: 'ALL' },
   }),
   connector
 )

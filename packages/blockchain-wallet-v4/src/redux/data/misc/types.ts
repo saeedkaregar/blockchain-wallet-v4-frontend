@@ -40,10 +40,7 @@ export type MiscStateType = {
   pairing_code: RemoteDataType<any, any>
   price_change: {
     [key in PriceChangeTimeRangeType]: {
-      [key in CoinType | WalletFiatType]: RemoteDataType<
-        string,
-        PriceChangeType
-      >
+      [key in CoinType | WalletFiatType]: RemoteDataType<string, PriceChangeType>
     }
   }
   price_index_series: RemoteDataType<any, any>

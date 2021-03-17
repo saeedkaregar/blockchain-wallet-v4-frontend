@@ -33,35 +33,15 @@ const FontFace = (name, otf, ttf, weight) => `
 `
 
 const InterThin = FontFace('Inter', InterThinOtf, InterThinTtf, '100')
-const InterExtraLight = FontFace(
-  'Inter',
-  InterExtraLightOtf,
-  InterExtraLightTtf,
-  '200'
-)
+const InterExtraLight = FontFace('Inter', InterExtraLightOtf, InterExtraLightTtf, '200')
 const InterLight = FontFace('Inter', InterLightOtf, InterLightTtf, '300')
 const InterRegular = FontFace('Inter', InterRegularOtf, InterRegularTtf, '400')
 const InterMedium = FontFace('Inter', InterMediumOtf, InterMediumTtf, '500')
-const InterSemiBold = FontFace(
-  'Inter',
-  InterSemiBoldOtf,
-  InterSemiBoldTtf,
-  '600'
-)
-const InterExtraBold = FontFace(
-  'Inter',
-  InterExtraBoldOtf,
-  InterExtraBoldTtf,
-  '800'
-)
+const InterSemiBold = FontFace('Inter', InterSemiBoldOtf, InterSemiBoldTtf, '600')
+const InterExtraBold = FontFace('Inter', InterExtraBoldOtf, InterExtraBoldTtf, '800')
 const InterBold = FontFace('Inter', InterBoldOtf, InterBoldTtf, '700')
 const InterBlack = FontFace('Inter', InterBlackOtf, InterBlackTtf, '900')
-const InterBlackItalic = FontFace(
-  'Inter',
-  InterBlackItalicOtf,
-  InterBlackItalicTtf,
-  '900'
-)
+const InterBlackItalic = FontFace('Inter', InterBlackItalicOtf, InterBlackItalicTtf, '900')
 
 export const FontGlobalStyles = createGlobalStyle`
   ${InterThin}

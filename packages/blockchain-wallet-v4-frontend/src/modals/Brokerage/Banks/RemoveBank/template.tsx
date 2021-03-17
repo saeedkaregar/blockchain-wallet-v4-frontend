@@ -45,7 +45,7 @@ type Props = OwnProps &
     redirectBack: boolean
   }
 
-const Template: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
+const Template: React.FC<InjectedFormProps<{}, Props> & Props> = (props) => {
   return (
     <Wrapper>
       <RemoveBankFlyout>
@@ -81,18 +81,8 @@ const Template: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
           </CloseContainer>
         )}
         <CustomForm onSubmit={props.handleSubmit}>
-          <Icon
-            name='alert-filled'
-            color='orange400'
-            size='52px'
-            style={{ display: 'block' }}
-          />
-          <Text
-            color='grey800'
-            size='24px'
-            weight={600}
-            style={{ marginTop: '32px' }}
-          >
+          <Icon name='alert-filled' color='orange400' size='52px' style={{ display: 'block' }} />
+          <Text color='grey800' size='24px' weight={600} style={{ marginTop: '32px' }}>
             <FormattedMessage
               id='modals.simplebuy.cancelorder.areyousure'
               defaultMessage='Are you sure?'
@@ -108,7 +98,7 @@ const Template: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
               id='modals.brokerage.remove_bank.description'
               defaultMessage="You're about to remove your {bankAccount}"
               values={{
-                bankAccount: `${props.account.details?.bankName} ${props.account.details?.accountNumber}`
+                bankAccount: `${props.account.details?.bankName} ${props.account.details?.accountNumber}`,
               }}
             />
           </Text>

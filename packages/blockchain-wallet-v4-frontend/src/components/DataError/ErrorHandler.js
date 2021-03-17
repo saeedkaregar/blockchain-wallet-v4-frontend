@@ -7,17 +7,14 @@ import { Button, Link, Text, TextGroup } from 'blockchain-info-components'
 import { FETCH_FEES_FAILURE } from 'blockchain-wallet-v4/src/redux/payment/model'
 import { checkForVulnerableAddressError } from 'services/misc'
 
-import {
-  BROKERAGE_INELIGIBLE,
-  IneligibleErrorMessage
-} from '../../modals/Brokerage/components'
+import { BROKERAGE_INELIGIBLE, IneligibleErrorMessage } from '../../modals/Brokerage/components'
 
 const MessageText = styled(Text)`
   width: 80%;
   margin-bottom: 20px;
 `
 
-const ErrorHandler = props => {
+const ErrorHandler = (props) => {
   const { message, onClick } = props
   const e2e = props['data-e2e']
   const errorMessage = prop('message', message) || prop('description', message)
@@ -60,22 +57,13 @@ const ErrorHandler = props => {
     return (
       <TextGroup inline>
         <Text size='18px' weight={400}>
-          <FormattedMessage
-            id='components.dataerror.body'
-            defaultMessage='Please '
-          />
+          <FormattedMessage id='components.dataerror.body' defaultMessage='Please ' />
         </Text>
         <Link size='18px' data-e2e={e2e ? `${e2e}Link` : ''} onClick={onClick}>
-          <FormattedMessage
-            id='components.dataerror.click'
-            defaultMessage='click here'
-          />
+          <FormattedMessage id='components.dataerror.click' defaultMessage='click here' />
         </Link>
         <Text size='18px' weight={400}>
-          <FormattedMessage
-            id='components.dataerror.refresh'
-            defaultMessage=' to refresh.'
-          />
+          <FormattedMessage id='components.dataerror.refresh' defaultMessage=' to refresh.' />
         </Text>
       </TextGroup>
     )

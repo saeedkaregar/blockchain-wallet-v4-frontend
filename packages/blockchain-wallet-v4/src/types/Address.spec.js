@@ -24,7 +24,7 @@ describe('Address', () => {
 
   describe('setLabel', () => {
     it('should set the label of an address object', () => {
-      let withNewLabel = Address.setLabel('new_label', address)
+      const withNewLabel = Address.setLabel('new_label', address)
       expect(address.label).toEqual(void 0)
       expect(withNewLabel.label).toEqual('new_label')
     })

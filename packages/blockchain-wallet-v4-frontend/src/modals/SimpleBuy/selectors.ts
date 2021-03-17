@@ -6,9 +6,9 @@ import { selectors } from 'data'
 
 export const getData = createDeepEqualSelector(
   [selectors.modules.profile.getUserData],
-  userDataR => {
+  (userDataR) => {
     return lift((userData: ExtractSuccess<typeof userDataR>) => ({
-      userData
+      userData,
     }))(userDataR)
   }
 )

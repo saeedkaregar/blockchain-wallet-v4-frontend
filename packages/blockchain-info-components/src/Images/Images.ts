@@ -299,7 +299,7 @@ const Images = {
   'world-alert2': worldAlert2,
   'world-alert3': worldAlert3,
   'yodlee-connect': yodleeConnect,
-  yubikey: yubikey
+  yubikey: yubikey,
 }
 
 export type ImageType = typeof Images

@@ -23,12 +23,12 @@ class TwoStepYubicoContainer extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  code: formValueSelector('twoStepYubico')(state, 'code')
+const mapStateToProps = (state) => ({
+  code: formValueSelector('twoStepYubico')(state, 'code'),
 })
 
-const mapDispatchToProps = dispatch => ({
-  settingsActions: bindActionCreators(actions.modules.settings, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  settingsActions: bindActionCreators(actions.modules.settings, dispatch),
 })
 
 const enhance = compose(

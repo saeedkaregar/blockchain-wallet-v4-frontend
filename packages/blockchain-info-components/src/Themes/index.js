@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components'
 
 import { Palette } from '../Colors/index.ts'
 
-const Themes = props => {
+const Themes = (props) => {
   const { children, theme } = props
   const colors = Palette(theme)
 
@@ -12,10 +12,10 @@ const Themes = props => {
 }
 
 Themes.propTypes = {
-  theme: PropTypes.string
+  theme: PropTypes.string,
 }
 
 Themes.defaultProps = {
-  theme: 'default'
+  theme: 'default',
 }
 export { Themes }

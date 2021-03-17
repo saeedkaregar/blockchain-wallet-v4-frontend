@@ -17,7 +17,7 @@ class EmailAddressContainer extends React.PureComponent {
       updateToggled: false,
       verifyToggled: false,
       successToggled: false,
-      isEditing: false
+      isEditing: false,
     }
 
     this.handleResend = this.handleResend.bind(this)
@@ -40,7 +40,7 @@ class EmailAddressContainer extends React.PureComponent {
     if (next.verified && !prev.verified) {
       this.setState({
         successToggled: false,
-        verifyToggled: false
+        verifyToggled: false,
       })
     }
   }
@@ -58,21 +58,21 @@ class EmailAddressContainer extends React.PureComponent {
   handleChangeEmailView() {
     const { email } = this.props.data.getOrElse({})
     this.setState({
-      isEditing: !this.state.isEditing
+      isEditing: !this.state.isEditing,
     })
     this.props.formActions.change('securityEmailAddress', 'changeEmail', email)
   }
 
   handleEmailChangeCancel() {
     this.setState({
-      isEditing: !this.state.isEditing
+      isEditing: !this.state.isEditing,
     })
   }
 
   handleEmailChangeSubmit() {
     this.props.securityCenterActions.updateEmail(this.props.updatedEmail)
     this.setState({
-      isEditing: !this.state.isEditing
+      isEditing: !this.state.isEditing,
     })
   }
 
@@ -80,7 +80,7 @@ class EmailAddressContainer extends React.PureComponent {
     const { data, ...rest } = this.props
 
     return data.cata({
-      Success: value => (
+      Success: (value) => (
         <Success
           {...rest}
           uiState={this.state}
@@ -92,29 +92,23 @@ class EmailAddressContainer extends React.PureComponent {
           handleEmailChangeSubmit={this.handleEmailChangeSubmit}
         />
       ),
-      Failure: message => <Error {...rest} message={message} />,
+      Failure: (message) => <Error {...rest} message={message} />,
       Loading: () => <Loading {...rest} />,
-      NotAsked: () => <Loading {...rest} />
+      NotAsked: () => <Loading {...rest} />,
     })
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: getData(state),
   code: formValueSelector('securityEmailAddress')(state, 'emailCode'),
-  updatedEmail: formValueSelector('securityEmailAddress')(state, 'changeEmail')
+  updatedEmail: formValueSelector('securityEmailAddress')(state, 'changeEmail'),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   settingsActions: bindActionCreators(actions.modules.settings, dispatch),
   formActions: bindActionCreators(actions.form, dispatch),
-  securityCenterActions: bindActionCreators(
-    actions.modules.securityCenter,
-    dispatch
-  )
+  securityCenterActions: bindActionCreators(actions.modules.securityCenter, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EmailAddressContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(EmailAddressContainer)

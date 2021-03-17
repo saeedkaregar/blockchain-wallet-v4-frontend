@@ -27,7 +27,7 @@ const Title = styled(Text)`
   font-size: 20px;
   b {
     font-weight: 500;
-    color: ${props => props.theme.success};
+    color: ${(props) => props.theme.success};
   }
 `
 const Message = styled(Text)`
@@ -40,7 +40,7 @@ const BottomImage = styled(Image)`
 `
 const FooterButton = styled(Button).attrs({
   nature: 'primary',
-  fullwidth: true
+  fullwidth: true,
 })`
   height: auto;
   font-size: 17px;
@@ -55,14 +55,7 @@ class KycTierUpgrade extends React.PureComponent {
   }
 
   render() {
-    const {
-      amountLeft,
-      nextTier,
-      nextTierAmount,
-      position,
-      total,
-      upgrade
-    } = this.props
+    const { amountLeft, nextTier, nextTierAmount, position, total, upgrade } = this.props
 
     return (
       <Modal size='small' position={position} total={total}>
@@ -72,7 +65,7 @@ class KycTierUpgrade extends React.PureComponent {
               defaultMessage='Heads up! You have <b>{amount}</b> left to Swap'
               id='modals.swap_upgrade.heads_up'
               values={{
-                amount: amountLeft
+                amount: amountLeft,
               }}
             />
           </Title>
@@ -82,20 +75,12 @@ class KycTierUpgrade extends React.PureComponent {
               id='modals.swap_upgrade.amount_after_upgrade'
               values={{
                 nextLevel: headers[path([nextTier, 'level'], TIERS)],
-                amount: nextTierAmount
+                amount: nextTierAmount,
               }}
             />
           </Message>
-          <FooterButton
-            nature='primary'
-            size='20px'
-            fullwidth
-            onClick={upgrade}
-          >
-            <FormattedMessage
-              defaultMessage='Upgrade Now'
-              id='modals.swap_upgrade.upgrade_now'
-            />
+          <FooterButton nature='primary' size='20px' fullwidth onClick={upgrade}>
+            <FormattedMessage defaultMessage='Upgrade Now' id='modals.swap_upgrade.upgrade_now' />
           </FooterButton>
           <BottomImage name='identity-verification' />
         </Body>
@@ -109,12 +94,9 @@ const mapDispatchToProps = (dispatch, { nextTier }) => ({
   upgrade: () => {
     dispatch(actions.modals.closeModal())
     dispatch(actions.components.identityVerification.verifyIdentity(nextTier))
-  }
+  },
 })
 
-export const ConnectedSwapUpgrade = connect(
-  getData,
-  mapDispatchToProps
-)(KycTierUpgrade)
+export const ConnectedSwapUpgrade = connect(getData, mapDispatchToProps)(KycTierUpgrade)
 
 export default modalEnhancer('KycTierUpgrade')(ConnectedSwapUpgrade)

@@ -22,17 +22,14 @@ export const getData = (state: RootState, { side }: OwnProps) => {
   coinsForSide = uniq(pairs.map(sideF))
 
   // This will only work if the coin is disabled for to and from
-  const accountsForSide = coinsForSide.reduce(
-    (prevValue, curValue: CoinType) => {
-      if (!prevValue[curValue]) {
-        return {
-          ...prevValue,
-          [curValue]: accounts[curValue]
-        }
+  const accountsForSide = coinsForSide.reduce((prevValue, curValue: CoinType) => {
+    if (!prevValue[curValue]) {
+      return {
+        ...prevValue,
+        [curValue]: accounts[curValue],
       }
-    },
-    {}
-  ) as { [key in CoinType]: Array<SwapAccountType> }
+    }
+  }, {}) as { [key in CoinType]: Array<SwapAccountType> }
 
   return { accounts: accountsForSide }
 }

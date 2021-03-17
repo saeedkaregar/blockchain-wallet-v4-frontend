@@ -41,17 +41,13 @@ describe('kvStore userCredentials reducers', () => {
   })
 
   it('should handle FETCH_METADATA_USER_CREDENTIALS_SUCCESS', () => {
-    const action = actions.fetchMetadataUserCredentialsSuccess(
-      userCredentialsMetadata
-    )
+    const action = actions.fetchMetadataUserCredentialsSuccess(userCredentialsMetadata)
     const expectedState = userCredentialsMetadataSuccess
     expect(reducer(undefined, action)).toEqual(expectedState)
   })
 
   it('should handle CREATE_METADATA_USER_CREDENTIALS', () => {
-    const action = actions.createMetadataUserCredentials(
-      userCredentialsMetadata
-    )
+    const action = actions.createMetadataUserCredentials(userCredentialsMetadata)
     const expectedState = userCredentialsMetadataSuccess
     expect(reducer(undefined, action)).toEqual(expectedState)
   })
@@ -67,8 +63,6 @@ describe('kvStore userCredentials reducers', () => {
         KVStoreEntry.createEmpty(typeId)
       )
     )
-    expect(reducer(userCredentialsMetadataSuccess, action)).toEqual(
-      expectedState
-    )
+    expect(reducer(userCredentialsMetadataSuccess, action)).toEqual(expectedState)
   })
 })

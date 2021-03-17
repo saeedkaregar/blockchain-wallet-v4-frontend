@@ -3,8 +3,8 @@ import { injectIntl } from 'react-intl'
 
 import { LinkEvent } from '../Events'
 
-const Link = props => {
-  let { children, href, locale, ...rest } = props
+const Link = (props) => {
+  const { children, href, locale, ...rest } = props
   let parsedURL = null
   let to = href
   let doReplace = false
@@ -22,9 +22,9 @@ const Link = props => {
     to = '/' + locale + (href.startsWith('/') ? href : '/' + href)
   }
 
-  let newProps = {
+  const newProps = {
     ...rest,
-    href: to
+    href: to,
   }
   if (props.event) {
     return <LinkEvent {...newProps}>{children}</LinkEvent>

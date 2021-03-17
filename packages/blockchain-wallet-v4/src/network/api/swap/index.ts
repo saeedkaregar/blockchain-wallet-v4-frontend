@@ -6,7 +6,7 @@ import {
   SwapOrderStateType,
   SwapOrderType,
   SwapQuoteType,
-  SwapUserLimitsType
+  SwapUserLimitsType,
 } from './types'
 
 export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
@@ -17,14 +17,14 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
       removeDefaultPostData: true,
       contentType: 'application/json',
       data: {
-        action: 'CANCEL'
-      }
+        action: 'CANCEL',
+      },
     })
 
   const checkCustodialEligiblity = (): EligibilityResponseType =>
     authorizedGet({
       url: nabuUrl,
-      endPoint: '/eligible/product/swap'
+      endPoint: '/eligible/product/swap',
     })
 
   const createSwapOrder = (
@@ -46,8 +46,8 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
         quoteId,
         volume,
         destinationAddress,
-        refundAddress
-      }
+        refundAddress,
+      },
     })
 
   const getSwapLimits = (currency: FiatType): SwapUserLimitsType =>
@@ -55,7 +55,7 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
       url: nabuUrl,
       endPoint: `/trades/limits?currency=${currency}&minor=true`,
       contentType: 'application/json',
-      ignoreQueryParams: true
+      ignoreQueryParams: true,
     })
 
   const getSwapPairs = (): Array<string> =>
@@ -63,7 +63,7 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
       url: nabuUrl,
       endPoint: `/custodial/trades/pairs`,
       contentType: 'application/json',
-      ignoreQueryParams: true
+      ignoreQueryParams: true,
     })
 
   const getSwapQuote = (
@@ -78,8 +78,8 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
       data: {
         direction,
         pair,
-        product
-      }
+        product,
+      },
     })
 
   const getSwapTrades = (
@@ -98,8 +98,8 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
         offset,
         before,
         after,
-        states
-      }
+        states,
+      },
     })
 
   const getUnifiedSwapTrades = (
@@ -117,21 +117,18 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
         limit,
         before,
         after,
-        states: v2states
-      }
+        states: v2states,
+      },
     })
 
-  const updateSwapOrder = (
-    id: string,
-    action: 'DEPOSIT_SENT' | 'CANCEL'
-  ): SwapQuoteType =>
+  const updateSwapOrder = (id: string, action: 'DEPOSIT_SENT' | 'CANCEL'): SwapQuoteType =>
     authorizedPost({
       url: nabuUrl,
       endPoint: `/custodial/trades/${id}`,
       contentType: 'application/json',
       data: {
-        action
-      }
+        action,
+      },
     })
 
   return {
@@ -143,6 +140,6 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
     getSwapQuote,
     getSwapTrades,
     getUnifiedSwapTrades,
-    updateSwapOrder
+    updateSwapOrder,
   }
 }

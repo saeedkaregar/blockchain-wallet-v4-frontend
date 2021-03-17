@@ -34,13 +34,13 @@ const BareRow = styled.div`
 `
 
 const Row = styled(BareRow)`
-  border-bottom: 1px solid ${p => p.theme.grey000};
+  border-bottom: 1px solid ${(p) => p.theme.grey000};
 `
 const ActionsRow = styled(BareRow)`
   margin-top: 80px;
 `
 
-const Success = props => {
+const Success = (props) => {
   const [submitting, setSubmitting] = useState<boolean>(false)
 
   return (
@@ -55,7 +55,7 @@ const Success = props => {
             color='grey600'
             onClick={() =>
               props.brokerageActions.setStep({
-                step: BankDWStepType.ENTER_AMOUNT
+                step: BankDWStepType.ENTER_AMOUNT,
               })
             }
           />
@@ -70,7 +70,7 @@ const Success = props => {
           <Text color='grey800' size='32px' weight={600}>
             {fiatToString({
               value: props.formValues?.amount,
-              unit: props.defaultMethod?.currency as FiatType
+              unit: props.defaultMethod?.currency as FiatType,
             })}
           </Text>
         </Row>
@@ -99,11 +99,7 @@ const Success = props => {
               defaultMessage='Funds Will Arrive'
             />
           </Text>
-          <LineItemText>
-            {moment()
-              .add(3, 'days')
-              .format('dddd, MMM Do, YYYY')}
-          </LineItemText>
+          <LineItemText>{moment().add(3, 'days').format('dddd, MMM Do, YYYY')}</LineItemText>
         </Row>
         <Row>
           <Text color='grey600' size='14px' weight={500} lineHeight='21px'>
@@ -114,7 +110,7 @@ const Success = props => {
             {fiatToString({
               value: 0,
               unit: props.defaultMethod?.currency || ('USD' as FiatType),
-              digits: 0
+              digits: 0,
             })}
           </LineItemText>
         </Row>
@@ -126,7 +122,7 @@ const Success = props => {
             {fiatToString({
               value: props.formValues?.amount,
               unit: props.defaultMethod?.currency || ('USD' as FiatType),
-              digits: 0
+              digits: 0,
             })}
           </LineItemText>
         </Row>
@@ -155,8 +151,8 @@ const Success = props => {
                 amount: fiatToString({
                   value: props.formValues?.amount,
                   unit: props.defaultMethod?.currency || ('USD' as FiatType),
-                  digits: 0
-                })
+                  digits: 0,
+                }),
               }}
             />
           )}

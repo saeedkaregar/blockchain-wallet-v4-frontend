@@ -7,10 +7,10 @@ const { getEmail } = selectors.core.settings
 const {
   getKycFlowConfig,
   getPreIdvData: getSiftData,
-  getSupportedDocuments
+  getSupportedDocuments,
 } = selectors.components.identityVerification
 
-export const getData = state => {
+export const getData = (state) => {
   const getEmailR = getEmail(state)
   const getSupportedDocumentsR = getSupportedDocuments(state)
   const getKycFlowConfigR = getKycFlowConfig(state)
@@ -26,23 +26,21 @@ export const getData = state => {
       docTypes,
       email,
       flowConfig,
-      needsDocResubmit
+      needsDocResubmit,
     }
   })(getEmailR, getSupportedDocumentsR, getKycFlowConfigR)
 }
 
-export const getPreIdvData = state => {
+export const getPreIdvData = (state) => {
   const getPreIdvDataR = getSiftData(state)
-  const getSiftKeyR = selectors.core.walletOptions.getSiftKey(
-    state
-  ) as RemoteDataType<any, string>
+  const getSiftKeyR = selectors.core.walletOptions.getSiftKey(state) as RemoteDataType<any, string>
 
   const siftKey = getSiftKeyR.getOrElse('')
 
   return lift((preIdvData: ExtractSuccess<typeof getPreIdvDataR>) => {
     return {
       ...preIdvData,
-      siftKey
+      siftKey,
     }
   })(getPreIdvDataR)
 }

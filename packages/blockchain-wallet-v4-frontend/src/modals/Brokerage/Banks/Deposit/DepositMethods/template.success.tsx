@@ -3,16 +3,9 @@ import { FormattedMessage } from 'react-intl'
 import styled from 'styled-components'
 
 import { Icon, Image, Text } from 'blockchain-info-components'
-import {
-  SBPaymentMethodsType,
-  SBPaymentMethodType
-} from 'blockchain-wallet-v4/src/types'
+import { SBPaymentMethodsType, SBPaymentMethodType } from 'blockchain-wallet-v4/src/types'
 import { FlyoutWrapper } from 'components/Flyout'
-import {
-  AddBankStepType,
-  BankDWStepType,
-  BrokerageModalOriginType
-} from 'data/types'
+import { AddBankStepType, BankDWStepType, BrokerageModalOriginType } from 'data/types'
 
 // TODO: move to somewhere more generic
 import BankWire from '../../../../SimpleBuy/PaymentMethods/Methods/BankWire'
@@ -37,14 +30,14 @@ const TopText = styled(Text)`
 `
 
 const MethodList = styled.section`
-  border-top: 1px solid ${props => props.theme.grey000};
+  border-top: 1px solid ${(props) => props.theme.grey000};
 `
 
 const IconContainer = styled.div`
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: ${props => props.theme.blue000};
+  background-color: ${(props) => props.theme.blue000};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -70,34 +63,15 @@ const getType = (value: SBPaymentMethodType) => {
     case 'BANK_TRANSFER':
     case 'LINK_BANK':
     default:
-      return (
-        <FormattedMessage
-          id='modals.simplebuy.banklink'
-          defaultMessage='Link a Bank'
-        />
-      )
+      return <FormattedMessage id='modals.simplebuy.banklink' defaultMessage='Link a Bank' />
     case 'BANK_ACCOUNT':
-      return (
-        <FormattedMessage
-          id='modals.simplebuy.bankwire'
-          defaultMessage='Wire Transfer'
-        />
-      )
+      return <FormattedMessage id='modals.simplebuy.bankwire' defaultMessage='Wire Transfer' />
   }
 }
 
-const Success = ({
-  addNew,
-  brokerageActions,
-  close,
-  paymentMethods
-}: Props) => {
-  const bankTransfer = paymentMethods.methods.find(
-    method => method.type === 'BANK_TRANSFER'
-  )
-  const bankWire = paymentMethods.methods.find(
-    method => method.type === 'BANK_ACCOUNT'
-  )
+const Success = ({ addNew, brokerageActions, close, paymentMethods }: Props) => {
+  const bankTransfer = paymentMethods.methods.find((method) => method.type === 'BANK_TRANSFER')
+  const bankWire = paymentMethods.methods.find((method) => method.type === 'BANK_ACCOUNT')
 
   return (
     <Wrapper>
@@ -132,19 +106,16 @@ const Success = ({
                  modal else I want to go to the enter amount screen
               */
               if (addNew) {
-                brokerageActions.showModal(
-                  BrokerageModalOriginType.ADD_BANK,
-                  'ADD_BANK_MODAL'
-                )
+                brokerageActions.showModal(BrokerageModalOriginType.ADD_BANK, 'ADD_BANK_MODAL')
                 brokerageActions.setAddBankStep({
-                  addBankStep: AddBankStepType.ADD_BANK
+                  addBankStep: AddBankStepType.ADD_BANK,
                 })
                 brokerageActions.setDWStep({
-                  dwStep: BankDWStepType.ENTER_AMOUNT
+                  dwStep: BankDWStepType.ENTER_AMOUNT,
                 })
               } else {
                 brokerageActions.setDWStep({
-                  dwStep: BankDWStepType.ENTER_AMOUNT
+                  dwStep: BankDWStepType.ENTER_AMOUNT,
                 })
               }
             }}
@@ -158,7 +129,7 @@ const Success = ({
             icon={getIcon(bankWire)}
             onClick={() =>
               brokerageActions.setDWStep({
-                dwStep: BankDWStepType.WIRE_INSTRUCTIONS
+                dwStep: BankDWStepType.WIRE_INSTRUCTIONS,
               })
             }
             text={getType(bankWire)}

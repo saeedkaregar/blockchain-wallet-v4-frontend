@@ -39,7 +39,7 @@ class TradingLimits extends PureComponent<Props, State> {
 
   render() {
     return this.props.data.cata({
-      Success: val => (
+      Success: (val) => (
         <Flyout
           {...this.props}
           onClose={this.handleClose}
@@ -54,31 +54,27 @@ class TradingLimits extends PureComponent<Props, State> {
       ),
       NotAsked: () => <Loading />,
       Loading: () => <Loading />,
-      Failure: () => null
+      Failure: () => null,
     })
   }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   fetchUser: () => dispatch(actions.modules.profile.fetchUser()),
-  fetchProductsEligibility: () =>
-    dispatch(actions.components.settings.fetchProductsEligibility()),
+  fetchProductsEligibility: () => dispatch(actions.components.settings.fetchProductsEligibility()),
   identityVerificationActions: bindActionCreators(
     actions.components.identityVerification,
     dispatch
-  )
+  ),
 })
 
 const mapStateToProps = (state: RootState): LinkStatePropsType => ({
-  data: getData(state)
+  data: getData(state),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)
 
-const enhance = compose(
-  ModalEnhancer('TRADING_LIMITS', { transition: duration }),
-  connector
-)
+const enhance = compose(ModalEnhancer('TRADING_LIMITS', { transition: duration }), connector)
 
 export type LinkDispatchPropsType = {
   identityVerificationActions: typeof actions.components.identityVerification
@@ -95,9 +91,7 @@ export type SuccessStateType = {
   userTiers: UserTierType
 }
 
-export type Props = OwnProps &
-  LinkStatePropsType &
-  ConnectedProps<typeof connector>
+export type Props = OwnProps & LinkStatePropsType & ConnectedProps<typeof connector>
 type State = { direction: 'left' | 'right'; show: boolean }
 
 export default enhance(TradingLimits)

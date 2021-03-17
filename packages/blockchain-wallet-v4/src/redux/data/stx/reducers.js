@@ -3,7 +3,7 @@ import { assoc } from 'ramda'
 import * as AT from './actionTypes'
 
 const INITIAL_STATE = {
-  address: null
+  address: null,
 }
 
 export default (state = INITIAL_STATE, action) => {

@@ -11,9 +11,7 @@ const { WALLET_TX_SEARCH } = model.form
 const Wrapper = styled.section`
   box-sizing: border-box;
 `
-class ManageAddressesContainer extends React.PureComponent<
-  InjectedFormProps<{}, {}>
-> {
+class ManageAddressesContainer extends React.PureComponent<InjectedFormProps<{}, {}>> {
   render() {
     // @ts-ignore
     const walletIndex = this.props.match.params.index
@@ -27,5 +25,5 @@ class ManageAddressesContainer extends React.PureComponent<
 }
 
 export default reduxForm<{}, {}>({
-  form: WALLET_TX_SEARCH
+  form: WALLET_TX_SEARCH,
 })(ManageAddressesContainer)

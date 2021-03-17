@@ -6,12 +6,9 @@ import { model, selectors } from 'data'
 
 const isSubmitting = selectors.form.isSubmitting(model.components.sendBch.FORM)
 
-const isBchLegacyAddress = curry(payment => {
+const isBchLegacyAddress = curry((payment) => {
   const target = payment.to[0]
-  return (
-    target.type === ADDRESS_TYPES.ADDRESS &&
-    !utils.bch.isCashAddr(target.address)
-  )
+  return target.type === ADDRESS_TYPES.ADDRESS && !utils.bch.isCashAddr(target.address)
 })
 
 const bchToLabel = curry((payment, state) => {
@@ -40,9 +37,7 @@ const bchFromLabel = curry((payment, state) => {
     case ADDRESS_TYPES.CUSTODIAL:
       return payment.from
     case ADDRESS_TYPES.LEGACY:
-      const formValues = selectors.form.getFormValues(
-        model.components.sendBch.FORM
-      )(state)
+      const formValues = selectors.form.getFormValues(model.components.sendBch.FORM)(state)
       const { from } = formValues
       if (from === 'allImportedAddresses') {
         return 'All Imported Bitcoin Cash Addresses'
@@ -63,10 +58,10 @@ const bchFromLabel = curry((payment, state) => {
   }
 })
 
-export const getData = state => {
+export const getData = (state) => {
   const paymentR = selectors.components.sendBch.getPayment(state)
 
-  const transform = payment => {
+  const transform = (payment) => {
     const fromLabel = bchFromLabel(payment, state)
     const toLabel = bchToLabel(payment, state)
     const isLegacy = isBchLegacyAddress(payment, state)
@@ -78,10 +73,8 @@ export const getData = state => {
       toAddress: toLabel,
       amount: payment.amount[0],
       fee: payment.selection ? payment.selection.fee : 0,
-      total: payment.selection
-        ? payment.selection.fee + payment.amount[0]
-        : payment.amount[0],
-      isLegacy: isLegacy
+      total: payment.selection ? payment.selection.fee + payment.amount[0] : payment.amount[0],
+      isLegacy: isLegacy,
     }
   }
 

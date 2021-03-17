@@ -23,14 +23,11 @@ class ConfirmContainer extends React.PureComponent {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   modalActions: bindActionCreators(actions.modals, dispatch),
-  actions: bindActionCreators(actions.wallet, dispatch)
+  actions: bindActionCreators(actions.wallet, dispatch),
 })
 
-const enhance = compose(
-  modalEnhancer('Confirm'),
-  connect(null, mapDispatchToProps)
-)
+const enhance = compose(modalEnhancer('Confirm'), connect(null, mapDispatchToProps))
 
 export default enhance(ConfirmContainer)

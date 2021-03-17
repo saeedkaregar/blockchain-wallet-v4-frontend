@@ -116,7 +116,7 @@ const IcoMoon = {
   'wallet-filled': '\\e929',
   wdgld: '\\e95e',
   xlm: '\\e930',
-  'xlm-circle-filled': '\\e91f'
+  'xlm-circle-filled': '\\e91f',
 }
 export type IcoMoonType = typeof IcoMoon
 export default IcoMoon

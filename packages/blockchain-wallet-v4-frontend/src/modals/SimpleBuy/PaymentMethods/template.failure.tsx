@@ -20,10 +20,12 @@ const Title = styled(Text)`
   margin: 40px 0px 24px 0px;
 `
 
-const Failure: React.FC<LinkDispatchPropsType & {
-  fiatCurrency: LinkStatePropsType['fiatCurrency']
-  pair: OwnProps['pair']
-}> = props => {
+const Failure: React.FC<
+  LinkDispatchPropsType & {
+    fiatCurrency: LinkStatePropsType['fiatCurrency']
+    pair: OwnProps['pair']
+  }
+> = (props) => {
   return (
     <Wrapper>
       <div>
@@ -50,7 +52,7 @@ const Failure: React.FC<LinkDispatchPropsType & {
               step: 'ENTER_AMOUNT',
               cryptoCurrency: 'BTC',
               fiatCurrency: props.fiatCurrency || 'USD',
-              pair: props.pair
+              pair: props.pair,
             })
           }
         >

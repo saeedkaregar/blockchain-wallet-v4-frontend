@@ -5,7 +5,7 @@ import { SkeletonRectangle } from 'blockchain-info-components'
 import {
   AccountTypes,
   RemoteDataType,
-  SupportedWalletCurrenciesType
+  SupportedWalletCurrenciesType,
 } from 'blockchain-wallet-v4/src/types'
 
 import { getData } from './selectors'
@@ -15,25 +15,23 @@ class SelectBoxBtcAddresses extends React.PureComponent<Props> {
   render() {
     const { data, ...rest } = this.props
     return data.cata({
-      Success: value => {
-        return (
-          <SelectBoxBtc options={value.data} elements={value.data} {...rest} />
-        )
+      Success: (value) => {
+        return <SelectBoxBtc options={value.data} elements={value.data} {...rest} />
       },
-      Failure: message => <div>{message}</div>,
+      Failure: (message) => <div>{message}</div>,
       Loading: () => <SkeletonRectangle height='48px' width='100%' />,
-      NotAsked: () => <SkeletonRectangle height='48px' width='100%' />
+      NotAsked: () => <SkeletonRectangle height='48px' width='100%' />,
     })
   }
 }
 
 // @ts-ignore
 SelectBoxBtcAddresses.defaultProps = {
-  includeAll: true
+  includeAll: true,
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  data: getData(state, ownProps)
+  data: getData(state, ownProps),
 })
 
 const connector = connect(mapStateToProps)

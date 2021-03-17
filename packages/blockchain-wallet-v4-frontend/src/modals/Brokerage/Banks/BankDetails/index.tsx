@@ -42,13 +42,10 @@ class BankDetails extends PureComponent<Props, {}> {
 
   handleSubmit = () => {
     if (this.props.account) {
-      this.props.brokerageActions.showModal(
-        BrokerageModalOriginType.BANK,
-        'REMOVE_BANK_MODAL'
-      )
+      this.props.brokerageActions.showModal(BrokerageModalOriginType.BANK, 'REMOVE_BANK_MODAL')
       this.props.brokerageActions.setBankDetails({
         account: this.props.account,
-        redirectBackToStep: true
+        redirectBackToStep: true,
       })
     }
   }
@@ -79,23 +76,18 @@ class BankDetails extends PureComponent<Props, {}> {
 }
 
 const mapStateToProps = (state: RootState): LinkStatePropsType => ({
-  account: selectors.components.brokerage.getAccount(state)
+  account: selectors.components.brokerage.getAccount(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch): LinkDispatchPropsType => ({
-  brokerageActions: bindActionCreators(actions.components.brokerage, dispatch)
+  brokerageActions: bindActionCreators(actions.components.brokerage, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)
 
-const enhance = compose(
-  ModalEnhancer('BANK_DETAILS_MODAL', { transition: duration }),
-  connector
-)
+const enhance = compose(ModalEnhancer('BANK_DETAILS_MODAL', { transition: duration }), connector)
 
-export type Props = OwnProps &
-  LinkStatePropsType &
-  ConnectedProps<typeof connector>
+export type Props = OwnProps & LinkStatePropsType & ConnectedProps<typeof connector>
 
 type State = { direction: 'left' | 'right'; show: boolean }
 

@@ -4,7 +4,7 @@ import * as AT from './actionTypes'
 import { CustodialActionTypes, CustodialState } from './types'
 
 const INITIAL_STATE: CustodialState = {
-  beneficiaries: Remote.NotAsked
+  beneficiaries: Remote.NotAsked,
 }
 
 export function custodialReducer(
@@ -15,18 +15,18 @@ export function custodialReducer(
     case AT.FETCH_CUSTODIAL_BENEFICIARIES_FAILURE: {
       return {
         ...state,
-        beneficiaries: Remote.Failure(action.payload.error)
+        beneficiaries: Remote.Failure(action.payload.error),
       }
     }
     case AT.FETCH_CUSTODIAL_BENEFICIARIES_LOADING:
       return {
         ...state,
-        beneficiaries: Remote.Loading
+        beneficiaries: Remote.Loading,
       }
     case AT.FETCH_CUSTODIAL_BENEFICIARIES_SUCCESS:
       return {
         ...state,
-        beneficiaries: Remote.Success(action.payload.beneficiaries)
+        beneficiaries: Remote.Success(action.payload.beneficiaries),
       }
     default:
       return state

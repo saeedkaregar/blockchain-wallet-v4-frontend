@@ -16,7 +16,7 @@ export const getData = createDeepEqualSelector(
     selectors.core.wallet.isMnemonicVerified,
     selectors.core.walletOptions.getBtcNetwork,
     selectors.form.getFormValues(model.components.sendBtc.FORM),
-    selectors.core.walletOptions.getCoinAvailability
+    selectors.core.walletOptions.getCoinAvailability,
   ],
   (
     feePerByteToggled,
@@ -32,19 +32,15 @@ export const getData = createDeepEqualSelector(
     const btcAccountsLength = length(btcAccountsR.getOrElse([]))
     const btcAddressesLength = length(btcAddressesR.getOrElse([]))
     const networkType = networkTypeR.getOrElse('bitcoin')
-    const excludeLockbox = !prop(
-      'lockbox',
-      coinAvailabilityR('BTC').getOrElse({})
-    )
+    const excludeLockbox = !prop('lockbox', coinAvailabilityR('BTC').getOrElse({}))
     const enableToggle =
-      btcAccountsLength + btcAddressesLength > 1 ||
-      !isEmpty(lockboxDevicesR.getOrElse([]))
+      btcAccountsLength + btcAddressesLength > 1 || !isEmpty(lockboxDevicesR.getOrElse([]))
     const amount = prop('amount', formValues)
     const feePerByte = prop('feePerByte', formValues)
     const destination = prop('to', formValues)
     const from = prop('from', formValues)
 
-    const transform = payment => {
+    const transform = (payment) => {
       const regularFeePerByte = path(['fees', 'regular'], payment)
       const priorityFeePerByte = path(['fees', 'priority'], payment)
       const minFeePerByte = path(['fees', 'limits', 'min'], payment)
@@ -62,7 +58,7 @@ export const getData = createDeepEqualSelector(
                   defaultMessage='Regular'
                 />
               ),
-              value: regularFeePerByte
+              value: regularFeePerByte,
             },
             {
               text: (
@@ -71,10 +67,10 @@ export const getData = createDeepEqualSelector(
                   defaultMessage='Priority'
                 />
               ),
-              value: priorityFeePerByte
-            }
-          ]
-        }
+              value: priorityFeePerByte,
+            },
+          ],
+        },
       ]
       const network = Bitcoin.networks[networkType]
 
@@ -94,7 +90,7 @@ export const getData = createDeepEqualSelector(
         network,
         priorityFeePerByte,
         regularFeePerByte,
-        totalFee
+        totalFee,
       }
     }
 

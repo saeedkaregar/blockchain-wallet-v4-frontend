@@ -8,7 +8,7 @@ class ComponentDropdown extends React.PureComponent {
     super(props)
 
     this.state = {
-      toggled: props.opened
+      toggled: props.opened,
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleCallback = this.handleCallback.bind(this)
@@ -27,9 +27,7 @@ class ComponentDropdown extends React.PureComponent {
     const { toggleOnCallback } = this.props
     this.setState({
       toggled: toggleOnCallback ? false : toggled,
-      selectedComponent: this.props.forceSelected
-        ? this.props.selectedComponent
-        : item
+      selectedComponent: this.props.forceSelected ? this.props.selectedComponent : item,
     })
     if (this.props.callback) {
       this.props.callback(item)
@@ -56,7 +54,7 @@ ComponentDropdown.defaultProps = {
   toggleOnCallback: true,
   uppercase: false,
   opened: false,
-  down: false
+  down: false,
 }
 
 export default onClickOutside(ComponentDropdown)

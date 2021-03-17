@@ -4,11 +4,7 @@ import { forEach, keysIn, map, prop, range, sortBy, split, take } from 'ramda'
 import { compose } from 'redux'
 import { SubmissionError } from 'redux-form'
 
-import {
-  LinkDispatchPropsType,
-  LinkStatePropsType,
-  OwnPropsType
-} from '../index'
+import { LinkDispatchPropsType, LinkStatePropsType, OwnPropsType } from '../index'
 import ConfirmWordsForm from './template'
 
 export type Props = OwnPropsType & LinkDispatchPropsType & LinkStatePropsType
@@ -19,7 +15,7 @@ class ConfirmWords extends PureComponent<Props> {
   componentDidMount() {
     // @ts-ignore
     const randomize = sortBy(prop(0))
-    const pair = map(x => [Math.random(), x])
+    const pair = map((x) => [Math.random(), x])
     const indexes = compose(
       take(5),
       // @ts-ignore
@@ -31,10 +27,10 @@ class ConfirmWords extends PureComponent<Props> {
     this.setState({ indexes })
     /* eslint-enable */
   }
-  handleSubmit = values => {
+  handleSubmit = (values) => {
     const errors = {}
     compose(
-      forEach(word => {
+      forEach((word) => {
         // @ts-ignore
         if (values[word] !== this.props.recoveryPhrase[split('w', word)[1]]) {
           // @ts-ignore
@@ -59,13 +55,7 @@ class ConfirmWords extends PureComponent<Props> {
 
   render() {
     const { ...rest } = this.props
-    return (
-      <ConfirmWordsForm
-        {...rest}
-        indexes={this.state.indexes}
-        onSubmit={this.handleSubmit}
-      />
-    )
+    return <ConfirmWordsForm {...rest} indexes={this.state.indexes} onSubmit={this.handleSubmit} />
   }
 }
 

@@ -10,13 +10,10 @@ import {
   InsufficientFundsMessage,
   InvalidAmountMessage,
   WrongIdMemoFormat,
-  WrongTextMemoFormat
+  WrongTextMemoFormat,
 } from './validationMessages'
 
-const currencySymbolMap = mapObjIndexed(
-  (value, code) => value.units[code].symbol,
-  Currencies
-)
+const currencySymbolMap = mapObjIndexed((value, code) => value.units[code].symbol, Currencies)
 
 export const ACCOUNT_CREATION_ERROR = 'Not enough funds to create new account'
 export const NO_FUNDS_ERROR = 'Wallet amount at base reserve'
@@ -31,7 +28,7 @@ export const invalidAmount = (value, allValues, props) => {
   const valueStroop = Exchange.convertXlmToXlm({
     value: valueXlm,
     fromUnit: 'XLM',
-    toUnit: 'STROOP'
+    toUnit: 'STROOP',
   }).value
   return valueStroop > 0 ? undefined : <InvalidAmountMessage />
 }
@@ -43,14 +40,11 @@ export const accountCreationAmount = (errors, allValues, props) => {
   const reserveXlm = Exchange.convertXlmToXlm({
     value: reserveStroop,
     fromUnit: 'STROOP',
-    toUnit: 'XLM'
+    toUnit: 'XLM',
   }).value
   const destinationAccountExists = prop('destinationAccountExists', props)
 
-  if (
-    !destinationAccountExists &&
-    new BigNumber(valueXlm).isLessThan(reserveXlm)
-  )
+  if (!destinationAccountExists && new BigNumber(valueXlm).isLessThan(reserveXlm))
     errors._error = { message: ACCOUNT_CREATION_ERROR, reserveXlm }
 
   return errors
@@ -61,7 +55,7 @@ export const balanceReserveAmount = (errors, allValues, props) => {
   const valueStroop = Exchange.convertXlmToXlm({
     value: valueXlm,
     fromUnit: 'XLM',
-    toUnit: 'STROOP'
+    toUnit: 'STROOP',
   }).value
   const effectiveBalance = prop('effectiveBalance', props)
   const reserve = prop('reserve', props)
@@ -69,12 +63,12 @@ export const balanceReserveAmount = (errors, allValues, props) => {
   const reserveXlm = Exchange.convertXlmToXlm({
     value: reserve,
     fromUnit: 'STROOP',
-    toUnit: 'XLM'
+    toUnit: 'XLM',
   }).value
   const effectiveBalanceXlm = Exchange.convertXlmToXlm({
     value: new BigNumber.sum(effectiveBalance, fee),
     fromUnit: 'STROOP',
-    toUnit: 'XLM'
+    toUnit: 'XLM',
   }).value
   const currency = prop('currency', props)
   const rates = prop('rates', props)
@@ -82,7 +76,7 @@ export const balanceReserveAmount = (errors, allValues, props) => {
     value: effectiveBalanceXlm,
     fromUnit: 'XLM',
     toCurrency: currency,
-    rates: prop('rates', props)
+    rates: prop('rates', props),
   }).value
   if (effectiveBalance < 0)
     errors._error = {
@@ -93,7 +87,7 @@ export const balanceReserveAmount = (errors, allValues, props) => {
       effectiveBalanceFiat,
       currencySymbol: currencySymbolMap[currency],
       fee,
-      rates
+      rates,
     }
   else if (utils.xlm.overflowsEffectiveBalance(valueStroop, effectiveBalance))
     errors._error = {
@@ -104,18 +98,12 @@ export const balanceReserveAmount = (errors, allValues, props) => {
       effectiveBalanceFiat,
       currencySymbol: currencySymbolMap[currency],
       fee,
-      rates
+      rates,
     }
   return errors
 }
 
-export const shouldError = ({
-  initialRender,
-  nextProps,
-  props,
-  structure,
-  values
-}) => {
+export const shouldError = ({ initialRender, nextProps, props, structure, values }) => {
   if (initialRender) {
     return true
   }
@@ -126,13 +114,7 @@ export const shouldError = ({
   )
 }
 
-export const shouldWarn = ({
-  initialRender,
-  nextProps,
-  props,
-  structure,
-  values
-}) => {
+export const shouldWarn = ({ initialRender, nextProps, props, structure, values }) => {
   if (initialRender) {
     return true
   }

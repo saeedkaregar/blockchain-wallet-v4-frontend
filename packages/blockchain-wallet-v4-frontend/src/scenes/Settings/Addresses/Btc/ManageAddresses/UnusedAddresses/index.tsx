@@ -12,7 +12,7 @@ import {
   FlatLoader,
   IconButton,
   Link,
-  Text
+  Text,
 } from 'blockchain-info-components'
 import { Types } from 'blockchain-wallet-v4/src'
 import { actions, selectors } from 'data'
@@ -46,17 +46,17 @@ class UnusedAddressesContainer extends React.PureComponent<Props> {
       search,
       unusedAddresses,
       walletActions,
-      walletIndex
+      walletIndex,
     } = this.props
-    const onEditLabel = i => {
+    const onEditLabel = (i) => {
       componentActions.editAddressLabel(account.index, walletIndex, i)
     }
-    const onDeleteLabel = i => {
+    const onDeleteLabel = (i) => {
       modalsActions.showModal('DeleteAddressLabel', {
         origin: 'SettingsPage',
         accountIdx: account.index,
         walletIdx: walletIndex,
-        addressIdx: i
+        addressIdx: i,
       })
     }
     const onEditBtcAccountLabel = () => {
@@ -66,7 +66,7 @@ class UnusedAddressesContainer extends React.PureComponent<Props> {
     const onShowXPub = () => {
       modalsActions.showModal('ShowXPub', {
         xpub: account.xpub,
-        origin: 'SettingsPage'
+        origin: 'SettingsPage',
       })
     }
 
@@ -96,7 +96,7 @@ class UnusedAddressesContainer extends React.PureComponent<Props> {
       onEditBtcAccountLabel,
       onShowXPub,
       onMakeDefault,
-      onSetArchived
+      onSetArchived,
     }
 
     return (
@@ -105,15 +105,11 @@ class UnusedAddressesContainer extends React.PureComponent<Props> {
           style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
           }}
         >
           <WalletLabelCell>
-            <Text
-              weight={500}
-              style={{ marginRight: 10 }}
-              data-e2e='btcWalletName'
-            >
+            <Text weight={500} style={{ marginRight: 10 }} data-e2e='btcWalletName'>
               {account.label}
             </Text>
             {isDefault && (
@@ -130,11 +126,7 @@ class UnusedAddressesContainer extends React.PureComponent<Props> {
             forceSelected
             color={'grey700'}
             selectedComponent={
-              <Link
-                weight={500}
-                size='13px'
-                data-e2e='btcWalletMoreOptionsDropdown'
-              >
+              <Link weight={500} size='13px' data-e2e='btcWalletMoreOptionsDropdown'>
                 <FormattedMessage
                   id='scenes.settings.addresses.btc.manageaddresses.unusedaddresses.moreoptions'
                   defaultMessage='More Options'
@@ -165,28 +157,20 @@ class UnusedAddressesContainer extends React.PureComponent<Props> {
                 </ClickableText>
               ),
               !isDefault && (
-                <ClickableText
-                  size='small'
-                  onClick={onSetArchived}
-                  data-e2e='btcArchiveWalletLink'
-                >
+                <ClickableText size='small' onClick={onSetArchived} data-e2e='btcArchiveWalletLink'>
                   <FormattedMessage
                     id='scenes.settings.manage_addresses.archive'
                     defaultMessage='Archive'
                   />
                 </ClickableText>
               ),
-              <ClickableText
-                size='small'
-                onClick={onShowXPub}
-                data-e2e='btcShowWalletXpubLink'
-              >
+              <ClickableText size='small' onClick={onShowXPub} data-e2e='btcShowWalletXpubLink'>
                 <FormattedMessage
                   id='scenes.settings.manage_addresses.show_xpub'
                   defaultMessage='Show xPub'
                 />
-              </ClickableText>
-            ].filter(x => x)}
+              </ClickableText>,
+            ].filter((x) => x)}
           />
         </div>
         <Text weight={500} size='14px' style={{ marginTop: 25 }}>
@@ -195,11 +179,7 @@ class UnusedAddressesContainer extends React.PureComponent<Props> {
             defaultMessage='Unused Addresses'
           />
         </Text>
-        <Text
-          weight={400}
-          size='small'
-          style={{ marginTop: 10, marginBottom: 15 }}
-        >
+        <Text weight={400} size='small' style={{ marginTop: 10, marginBottom: 15 }}>
           <FormattedMessage
             id='scenes.settings.addresses.btc.manageaddresses.unusedaddresses.message'
             defaultMessage='Your Blockchain Wallet contains an unlimited collection of bitcoin addresses that you can use to receive funds from anybody, globally. Your wallet will automatically manage your bitcoin addresses for you. The addresses below are the subset of addresses that are labeled.'
@@ -208,18 +188,14 @@ class UnusedAddressesContainer extends React.PureComponent<Props> {
         {!unusedAddresses
           ? null
           : unusedAddresses.cata({
-              Success: unusedAddresses => (
+              Success: (unusedAddresses) => (
                 <UnusedAddresses {...props} unusedAddresses={unusedAddresses} />
               ),
               Failure: () => <div />,
               Loading: () => (
-                <FlatLoader
-                  style={{ margin: '25px auto' }}
-                  width='100px'
-                  height='12px'
-                />
+                <FlatLoader style={{ margin: '25px auto' }} width='100px' height='12px' />
               ),
-              NotAsked: () => <div />
+              NotAsked: () => <div />,
             })}
         <IconButton
           style={{ marginTop: 15 }}
@@ -238,9 +214,7 @@ class UnusedAddressesContainer extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const account = Types.Wallet.selectHDAccounts(state.walletPath.wallet).get(
-    ownProps.walletIndex
-  )
+  const account = Types.Wallet.selectHDAccounts(state.walletPath.wallet).get(ownProps.walletIndex)
   const isDefault =
     parseInt(ownProps.walletIndex) ===
     Types.HDWallet.selectDefaultAccountIdx(
@@ -250,25 +224,19 @@ const mapStateToProps = (state, ownProps) => {
     state,
     ownProps.walletIndex
   )
-  const currentReceiveIndex = selectors.core.data.btc.getReceiveIndex(
-    account.xpub,
-    state
-  )
+  const currentReceiveIndex = selectors.core.data.btc.getReceiveIndex(account.xpub, state)
   const search = formValueSelector('manageAddresses')(state, 'search')
 
   return { account, isDefault, currentReceiveIndex, unusedAddresses, search }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   alertActions: bindActionCreators(actions.alerts, dispatch),
-  componentActions: bindActionCreators(
-    actions.components.manageAddresses,
-    dispatch
-  ),
+  componentActions: bindActionCreators(actions.components.manageAddresses, dispatch),
   coreActions: bindActionCreators(actions.core.wallet, dispatch),
   modalsActions: bindActionCreators(actions.modals, dispatch),
   routerActions: bindActionCreators(actions.router, dispatch),
-  walletActions: bindActionCreators(actions.wallet, dispatch)
+  walletActions: bindActionCreators(actions.wallet, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

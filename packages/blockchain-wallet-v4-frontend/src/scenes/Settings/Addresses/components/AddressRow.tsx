@@ -8,7 +8,7 @@ import {
   Link,
   TableCell,
   TableRow,
-  Text
+  Text,
 } from 'blockchain-info-components'
 import { CoinType, ImportedAddrType } from 'blockchain-wallet-v4/src/types'
 import SwitchableDisplay from 'components/Display/SwitchableDisplay'
@@ -31,11 +31,7 @@ const AddressCell = styled(Text)`
 `
 
 const MoreOptions = () => (
-  <Link
-    weight={500}
-    size='13px'
-    data-e2e='importedAddressesMoreOptionsDropdown'
-  >
+  <Link weight={500} size='13px' data-e2e='importedAddressesMoreOptionsDropdown'>
     <FormattedMessage id='buttons.manage' defaultMessage='Manage' />
   </Link>
 )
@@ -45,7 +41,7 @@ const AddressRow = ({
   archived,
   coin,
   dataE2e,
-  renderOptions
+  renderOptions,
 }: {
   address: ImportedAddrType
   archived?: boolean
@@ -59,9 +55,7 @@ const AddressRow = ({
         <AddressCell
           weight={500}
           size='13px'
-          data-e2e={`${
-            archived ? 'archived' : 'unarchived'
-          }ImportedAddressName`}
+          data-e2e={`${archived ? 'archived' : 'unarchived'}ImportedAddressName`}
         >
           {address.addr}
         </AddressCell>
@@ -86,10 +80,7 @@ const AddressRow = ({
           {address.label ? address.label : ''}
         </Text>
       </TableCell>
-      <TableCell
-        width='10%'
-        style={{ display: 'flex', justifyContent: 'flex-end' }}
-      >
+      <TableCell width='10%' style={{ display: 'flex', justifyContent: 'flex-end' }}>
         {renderOptions && (
           <div>
             <ComponentDropdown

@@ -16,7 +16,7 @@ const ButtonContainer = styled.div`
   margin-top: 30px;
 `
 
-const CompleteStep = props => {
+const CompleteStep = (props) => {
   const { onInstallApps, status } = props
 
   return (
@@ -64,7 +64,7 @@ const CompleteStep = props => {
             name='lockbox-success'
             srcset={{
               'lockbox-success2': '2x',
-              'lockbox-success3': '3x'
+              'lockbox-success3': '3x',
             }}
           />
         </React.Fragment>

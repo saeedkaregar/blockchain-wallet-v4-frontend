@@ -55,7 +55,7 @@ const CheckIcon = styled.div`
   align-items: center;
   padding: 2px;
   border-radius: 50%;
-  background: ${props => props.theme.white};
+  background: ${(props) => props.theme.white};
 `
 const DescriptionText = styled(Text)`
   text-align: center;
@@ -63,7 +63,7 @@ const DescriptionText = styled(Text)`
 
 type Props = OwnProps & SuccessStateType
 
-const Success = props => {
+const Success = (props) => {
   const coin = props.fiatCurrency || 'USD'
   const amount = props.formValues?.amount || 0
   const unit = (props.defaultMethod?.currency as FiatType) || 'USD'
@@ -93,11 +93,7 @@ const Success = props => {
               />
             </FiatIcon>
             <CheckIcon>
-              <Icon
-                name='checkmark-circle-filled'
-                color='green400'
-                size='32px'
-              />
+              <Icon name='checkmark-circle-filled' color='green400' size='32px' />
             </CheckIcon>
           </IconContainer>
         </CenterWrapper>
@@ -111,8 +107,8 @@ const Success = props => {
                 amount: fiatToString({
                   value: amount,
                   unit,
-                  digits: 0
-                })
+                  digits: 0,
+                }),
               }}
             />
           </Text>
@@ -124,18 +120,13 @@ const Success = props => {
                 amount: fiatToString({
                   value: amount,
                   unit,
-                  digits: 0
+                  digits: 0,
                 }),
-                currency: props.supportedCoins[coin].coinCode
+                currency: props.supportedCoins[coin].coinCode,
               }}
             />
           </DescriptionText>
-          <DescriptionText
-            color='grey600'
-            size='14px'
-            weight={600}
-            style={{ marginTop: '16px' }}
-          >
+          <DescriptionText color='grey600' size='14px' weight={600} style={{ marginTop: '16px' }}>
             <FormattedMessage
               id='modals.brokerage.deposit_success.funds_available'
               defaultMessage='Your funds will be available to withdraw once the bank transfer is complete in 3-5 business days.'

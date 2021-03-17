@@ -5,9 +5,7 @@ import { RootState } from 'data/rootReducer'
 
 export const getData = (state: RootState) => {
   const limits = selectors.components.borrow.getLimits(state)
-  const loanTransactionsR = selectors.components.borrow.getLoanTransactions(
-    state
-  )
+  const loanTransactionsR = selectors.components.borrow.getLoanTransactions(state)
   const paymentR = selectors.components.borrow.getPayment(state)
   const ratesR = selectors.components.borrow.getRates(state)
   const supportedCoinsR = selectors.core.walletOptions.getSupportedCoins(state)
@@ -17,7 +15,7 @@ export const getData = (state: RootState) => {
     payment,
     rates,
     limits,
-    supportedCoins
+    supportedCoins,
   })
 
   return lift(transform)(loanTransactionsR, paymentR, ratesR, supportedCoinsR)

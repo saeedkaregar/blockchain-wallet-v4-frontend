@@ -7,7 +7,7 @@ import { actions } from 'data'
 import { getData } from './selectors'
 import EthAddresses from './template'
 
-const isValid = item => !isNil(item) && !isEmpty(item)
+const isValid = (item) => !isNil(item) && !isEmpty(item)
 
 type StateType = {
   hasCheckedSecondPassword: boolean
@@ -43,7 +43,7 @@ type PropsType = LinkStatePropsType & LinkDispatchPropsType & OwnProps
 class EthContainer extends Component<PropsType, StateType> {
   state = {
     hasCheckedSecondPassword: false,
-    showQrCode: false
+    showQrCode: false,
   }
 
   componentDidMount() {
@@ -59,24 +59,22 @@ class EthContainer extends Component<PropsType, StateType> {
 
   toggleQrCode = () => {
     if (this.state.hasCheckedSecondPassword) {
-      this.setState(prevState => ({
-        showQrCode: !prevState.showQrCode
+      this.setState((prevState) => ({
+        showQrCode: !prevState.showQrCode,
       }))
     } else {
       this.props.showEthPrivateKey(this.props.isLegacy)
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         hasCheckedSecondPassword: true,
-        showQrCode: !prevState.showQrCode
+        showQrCode: !prevState.showQrCode,
       }))
     }
   }
 
   checkQrCode = ({ addressInfo, isLegacy, legacyAddressInfo }) =>
     isLegacy
-      ? isValid(prop('priv', legacyAddressInfo)) &&
-        isValid(prop('priv', addressInfo))
-      : isValid(prop('priv', legacyAddressInfo)) ||
-        isValid(prop('priv', addressInfo))
+      ? isValid(prop('priv', legacyAddressInfo)) && isValid(prop('priv', addressInfo))
+      : isValid(prop('priv', legacyAddressInfo)) || isValid(prop('priv', addressInfo))
 
   render() {
     const { addressInfo, coin, isLegacy, legacyAddressInfo } = this.props
@@ -98,15 +96,12 @@ class EthContainer extends Component<PropsType, StateType> {
 
 const mapStateToProps = (state, ownProps) => getData(state, ownProps)
 
-const mapDispatchToProps = dispatch => ({
-  fetchLegacyBalance: () =>
-    dispatch(actions.core.data.eth.fetchLegacyBalance()),
+const mapDispatchToProps = (dispatch) => ({
+  fetchLegacyBalance: () => dispatch(actions.core.data.eth.fetchLegacyBalance()),
   clearShownEthLegacyPrivateKey: () =>
     dispatch(actions.modules.settings.clearShownEthLegacyPrivateKey()),
-  clearShownEthPrivateKey: () =>
-    dispatch(actions.modules.settings.clearShownEthPrivateKey()),
-  showEthPrivateKey: isLegacy =>
-    dispatch(actions.modules.settings.showEthPrivateKey(isLegacy))
+  clearShownEthPrivateKey: () => dispatch(actions.modules.settings.clearShownEthPrivateKey()),
+  showEthPrivateKey: (isLegacy) => dispatch(actions.modules.settings.showEthPrivateKey(isLegacy)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EthContainer)

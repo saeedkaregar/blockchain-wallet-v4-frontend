@@ -17,7 +17,7 @@ describe('goals actions', () => {
   it('deleteGoal should return proper action', () => {
     expect(A.deleteGoal(123)).toEqual({
       type: AT.DELETE_GOAL,
-      payload: { id: 123 }
+      payload: { id: 123 },
     })
   })
 
@@ -27,8 +27,8 @@ describe('goals actions', () => {
       payload: {
         key: '1a',
         name: 'initial',
-        data: {}
-      }
+        data: {},
+      },
     })
   })
 
@@ -43,7 +43,7 @@ describe('goals actions', () => {
   it('saveGoal should save goal with random id', () => {
     expect(A.saveGoal('fakeGoal', {})).toEqual({
       type: AT.SAVE_GOAL,
-      payload: { id: '4h96hsvbcj', name: 'fakeGoal', data: {} }
+      payload: { id: '4h96hsvbcj', name: 'fakeGoal', data: {} },
     })
   })
 })

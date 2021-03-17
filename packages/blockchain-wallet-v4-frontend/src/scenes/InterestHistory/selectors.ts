@@ -3,11 +3,11 @@ import { lift } from 'ramda'
 import {
   ExtractSuccess,
   FiatType,
-  SupportedWalletCurrenciesType
+  SupportedWalletCurrenciesType,
 } from 'blockchain-wallet-v4/src/types'
 import { selectors } from 'data'
 
-export const getData = state => {
+export const getData = (state) => {
   const ratesR = selectors.components.interest.getRates(state)
   const txPages = selectors.components.interest.getInterestTransactions(state)
   const supportedCoinsR = selectors.core.walletOptions.getSupportedCoins(state)
@@ -21,7 +21,7 @@ export const getData = state => {
     rates,
     supportedCoins,
     txPages,
-    walletCurrency
+    walletCurrency,
   })
   return lift(transform)(ratesR, supportedCoinsR, walletCurrencyR)
 }

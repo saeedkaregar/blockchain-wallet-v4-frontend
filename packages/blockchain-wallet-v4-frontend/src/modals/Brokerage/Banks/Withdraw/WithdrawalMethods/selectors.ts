@@ -3,14 +3,10 @@ import { lift } from 'ramda'
 import { ExtractSuccess, FiatType } from 'blockchain-wallet-v4/src/types'
 import { selectors } from 'data'
 
-export const getData = state => {
+export const getData = (state) => {
   const balancesR = selectors.components.simpleBuy.getSBBalances(state)
-  const bankTransferAccountsR = selectors.components.brokerage.getBankTransferAccounts(
-    state
-  )
-  const paymentMethodsR = selectors.components.simpleBuy.getSBPaymentMethods(
-    state
-  )
+  const bankTransferAccountsR = selectors.components.brokerage.getBankTransferAccounts(state)
+  const paymentMethodsR = selectors.components.simpleBuy.getSBPaymentMethods(state)
   // TODO: Remove this when ach deposits withdrawals gets rolled out hundo P
   const invitationsR = selectors.core.settings.getInvitations(state)
   const isInvited = invitationsR.data.achDepositWithdrawal
@@ -31,17 +27,11 @@ export const getData = state => {
       paymentMethods:
         (!isInvited && {
           ...paymentMethods,
-          methods: paymentMethods.methods.filter(m => m.type === 'BANK_ACCOUNT')
+          methods: paymentMethods.methods.filter((m) => m.type === 'BANK_ACCOUNT'),
         }) ||
         paymentMethods,
       userData,
-      walletCurrency
+      walletCurrency,
     })
-  )(
-    balancesR,
-    bankTransferAccountsR,
-    paymentMethodsR,
-    userDataR,
-    walletCurrencyR
-  )
+  )(balancesR, bankTransferAccountsR, paymentMethodsR, userDataR, walletCurrencyR)
 }

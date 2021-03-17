@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 const Content = styled(Text)`
   font-size: 32px;
   font-weight: 600;
-  color: ${props => props.theme.grey800};
+  color: ${(props) => props.theme.grey800};
 `
 
 export class Amount extends Component<Props> {
@@ -28,7 +28,7 @@ export class Amount extends Component<Props> {
     return (
       <Wrapper>
         {this.props.data.cata({
-          Success: val => (
+          Success: (val) => (
             <Text weight={600} size='32px'>
               {fiatToString({
                 unit: 'USD',
@@ -47,11 +47,11 @@ export class Amount extends Component<Props> {
                         )
                       )
                     )
-                  : 0
+                  : 0,
               })}
             </Text>
           ),
-          Failure: e => {
+          Failure: (e) => {
             return (
               <Content>
                 {typeof e === 'object'
@@ -65,7 +65,7 @@ export class Amount extends Component<Props> {
             )
           },
           NotAsked: () => <Content>...</Content>,
-          Loading: () => <Content>...</Content>
+          Loading: () => <Content>...</Content>,
         })}
       </Wrapper>
     )
@@ -73,7 +73,7 @@ export class Amount extends Component<Props> {
 }
 
 const mapStateToProps = (state: RootState) => ({
-  data: getBalance(state)
+  data: getBalance(state),
 })
 
 const connector = connect(mapStateToProps)

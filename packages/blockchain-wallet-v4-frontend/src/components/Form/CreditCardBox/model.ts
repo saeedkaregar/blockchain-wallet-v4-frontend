@@ -16,7 +16,7 @@ export const CARD_TYPES = [
     minCardNumberLength: DEFAULT_CARD_MIN,
     securityCodeName: 'CID',
     startPattern: /^3[47]/,
-    type: 'AMEX'
+    type: 'AMEX',
   },
   {
     cvcLength: DEFAULT_CVC_LENGTH,
@@ -26,7 +26,7 @@ export const CARD_TYPES = [
     minCardNumberLength: DEFAULT_CARD_MIN,
     securityCodeName: DEFAULT_SECURITY_CODE_NAME,
     startPattern: /^5019/,
-    type: 'DANKORT'
+    type: 'DANKORT',
   },
   {
     cvcLength: DEFAULT_CVC_LENGTH,
@@ -36,7 +36,7 @@ export const CARD_TYPES = [
     minCardNumberLength: DEFAULT_CARD_MIN,
     securityCodeName: DEFAULT_SECURITY_CODE_NAME,
     startPattern: /^(384100|384140|384160|606282|637095|637568|60(?!11))/,
-    type: 'HIPERCARD'
+    type: 'HIPERCARD',
   },
   {
     cvcLength: DEFAULT_CVC_LENGTH,
@@ -46,7 +46,7 @@ export const CARD_TYPES = [
     minCardNumberLength: DEFAULT_CARD_MIN,
     securityCodeName: DEFAULT_SECURITY_CODE_NAME,
     startPattern: /^(36|38|30[0-5])/,
-    type: 'DINERSCLUB'
+    type: 'DINERSCLUB',
   },
   {
     cvcLength: DEFAULT_CVC_LENGTH,
@@ -56,7 +56,7 @@ export const CARD_TYPES = [
     minCardNumberLength: DEFAULT_CARD_MIN,
     securityCodeName: 'CVD',
     startPattern: /^(6011|65|64[4-9]|622)/,
-    type: 'DISCOVER'
+    type: 'DISCOVER',
   },
   {
     cvcLength: DEFAULT_CVC_LENGTH,
@@ -66,7 +66,7 @@ export const CARD_TYPES = [
     minCardNumberLength: DEFAULT_CARD_MIN,
     securityCodeName: 'CAV',
     startPattern: /^35/,
-    type: 'JCB'
+    type: 'JCB',
   },
   {
     cvcLength: DEFAULT_CVC_LENGTH,
@@ -76,7 +76,7 @@ export const CARD_TYPES = [
     minCardNumberLength: DEFAULT_CARD_MIN,
     securityCodeName: DEFAULT_SECURITY_CODE_NAME,
     startPattern: /^(6706|6771|6709)/,
-    type: 'LASER'
+    type: 'LASER',
   },
   {
     cvcLength: DEFAULT_CVC_LENGTH,
@@ -86,7 +86,7 @@ export const CARD_TYPES = [
     minCardNumberLength: DEFAULT_CARD_MIN,
     securityCodeName: DEFAULT_SECURITY_CODE_NAME,
     startPattern: /^(5018|5020|5038|6304|6703|6708|6759|676[1-3])/,
-    type: 'MAESTRO'
+    type: 'MAESTRO',
   },
   {
     cvcLength: DEFAULT_CVC_LENGTH,
@@ -97,7 +97,7 @@ export const CARD_TYPES = [
     minCardNumberLength: DEFAULT_CARD_MIN,
     securityCodeName: 'CVC',
     startPattern: /^(5[1-5]|677189)|^(222[1-9]|2[3-6]\d{2}|27[0-1]\d|2720)/,
-    type: 'MASTERCARD'
+    type: 'MASTERCARD',
   },
   {
     cvcLength: DEFAULT_CVC_LENGTH,
@@ -108,7 +108,7 @@ export const CARD_TYPES = [
     minCardNumberLength: DEFAULT_CARD_MIN,
     securityCodeName: DEFAULT_SECURITY_CODE_NAME,
     startPattern: /^62/,
-    type: 'UNIONPAY'
+    type: 'UNIONPAY',
   },
   {
     cvcLength: DEFAULT_CVC_LENGTH,
@@ -119,7 +119,7 @@ export const CARD_TYPES = [
     minCardNumberLength: DEFAULT_CARD_MIN,
     securityCodeName: 'CVV',
     startPattern: /^4(026|17500|405|508|844|91[37])/,
-    type: 'VISAELECTRON'
+    type: 'VISAELECTRON',
   },
   {
     cvcLength: DEFAULT_CVC_LENGTH,
@@ -129,7 +129,7 @@ export const CARD_TYPES = [
     minCardNumberLength: DEFAULT_CARD_MIN,
     securityCodeName: 'CVE',
     startPattern: /^(4011(78|79)|43(1274|8935)|45(1416|7393|763(1|2))|50(4175|6699|67[0-7][0-9]|9000)|627780|63(6297|6368)|650(03([^4])|04([0-9])|05(0|1)|4(0[5-9]|3[0-9]|8[5-9]|9[0-9])|5([0-2][0-9]|3[0-8])|9([2-6][0-9]|7[0-8])|541|700|720|901)|651652|655000|655021)/,
-    type: 'ELO'
+    type: 'ELO',
   },
   {
     cvcLength: DEFAULT_CVC_LENGTH,
@@ -140,8 +140,8 @@ export const CARD_TYPES = [
     minCardNumberLength: DEFAULT_CARD_MIN,
     securityCodeName: 'CVV',
     startPattern: /^4/,
-    type: 'VISA'
-  }
+    type: 'VISA',
+  },
 ]
 
 export type CardNameType =
@@ -159,5 +159,5 @@ export type CardNameType =
   | 'ELO'
   | 'VISA'
 
-export const getCardTypeByValue = value =>
-  CARD_TYPES.find(cardType => cardType.startPattern.test(value))
+export const getCardTypeByValue = (value) =>
+  CARD_TYPES.find((cardType) => cardType.startPattern.test(value))

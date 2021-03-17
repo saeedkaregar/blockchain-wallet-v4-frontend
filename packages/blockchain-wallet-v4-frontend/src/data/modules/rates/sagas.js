@@ -8,52 +8,41 @@ import { configEquals, splitPair } from './model'
 import * as S from './selectors'
 
 export default ({ api }) => {
-  const subscribeToAdvice = function * ({ payload }) {
+  const subscribeToAdvice = function* ({ payload }) {
     const { fiatCurrency, fix, pair, volume } = payload
 
     yield put(A.updatePairConfig(pair, volume, fix, fiatCurrency))
-    yield put(
-      actions.middleware.webSocket.rates.openAdviceChannel(
-        pair,
-        volume,
-        fix,
-        fiatCurrency
-      )
-    )
+    yield put(actions.middleware.webSocket.rates.openAdviceChannel(pair, volume, fix, fiatCurrency))
   }
 
-  const unsubscribeFromAdvice = function * ({ payload }) {
+  const unsubscribeFromAdvice = function* ({ payload }) {
     const { pair } = payload
 
     yield put(actions.middleware.webSocket.rates.closeAdviceChannel(pair))
   }
 
-  const subscribeToRates = function * ({ payload }) {
+  const subscribeToRates = function* ({ payload }) {
     const { pairs } = payload
 
     yield put(actions.middleware.webSocket.rates.closeRatesChannel())
     yield put(actions.middleware.webSocket.rates.openRatesChannel(pairs))
   }
 
-  const unsubscribeFromRates = function * () {
+  const unsubscribeFromRates = function* () {
     yield put(actions.middleware.webSocket.rates.closeRatesChannel())
   }
 
-  const fetchAvailablePairs = function * () {
+  const fetchAvailablePairs = function* () {
     try {
       yield put(A.availablePairsLoading())
       const { pairs } = yield call(api.fetchAvailablePairs)
-      const getCoinAvailability = yield select(
-        selectors.core.walletOptions.getCoinAvailability
-      )
+      const getCoinAvailability = yield select(selectors.core.walletOptions.getCoinAvailability)
       const getExchangeTypeAvailability = (type, coin) =>
-        getCoinAvailability(coin)
-          .map(prop(type))
-          .getOrElse(false)
+        getCoinAvailability(coin).map(prop(type)).getOrElse(false)
 
       const walletAvailablePairs = pairs.filter(
         compose(
-          coins =>
+          (coins) =>
             and(
               getExchangeTypeAvailability('exchangeTo', last(coins)),
               getExchangeTypeAvailability('exchangeFrom', head(coins))
@@ -67,7 +56,7 @@ export default ({ api }) => {
     }
   }
 
-  const updateAdvice = function * ({ payload: { quote } }) {
+  const updateAdvice = function* ({ payload: { quote } }) {
     const { fiatCurrency, fix, pair, volume } = quote
     const currentConfig = yield select(S.getPairConfig(pair))
     if (configEquals(currentConfig, { fix, volume, fiatCurrency })) {
@@ -82,6 +71,6 @@ export default ({ api }) => {
     fetchAvailablePairs,
     updateAdvice,
     subscribeToRates,
-    unsubscribeFromRates
+    unsubscribeFromRates,
   }
 }

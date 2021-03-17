@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   isDestinationExchange: Remote.NotAsked,
   payment: Remote.NotAsked,
   feeToggled: false,
-  showNoAccountForm: false
+  showNoAccountForm: false,
 }
 
 export function sendXlmReducer(state = INITIAL_STATE, action) {

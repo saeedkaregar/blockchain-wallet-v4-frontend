@@ -70,24 +70,19 @@ class Banks extends PureComponent<Props> {
 }
 
 const mapStateToProps = (state: RootState) => ({
-  step: selectors.components.brokerage.getAddBankStep(state)
+  step: selectors.components.brokerage.getAddBankStep(state),
 })
 
 const connector = connect(mapStateToProps)
 
-const enhance = compose(
-  ModalEnhancer('ADD_BANK_MODAL', { transition: duration }),
-  connector
-)
+const enhance = compose(ModalEnhancer('ADD_BANK_MODAL', { transition: duration }), connector)
 
 type OwnProps = ModalPropsType
 type LinkStatePropsType = {
   step: AddBankStepType
 }
 
-export type Props = OwnProps &
-  LinkStatePropsType &
-  ConnectedProps<typeof connector>
+export type Props = OwnProps & LinkStatePropsType & ConnectedProps<typeof connector>
 
 type State = { direction: 'left' | 'right'; show: boolean }
 

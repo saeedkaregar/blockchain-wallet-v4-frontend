@@ -21,7 +21,7 @@ const Title = styled(Text)`
   margin: 40px 0px 24px 0px;
 `
 
-const Failure: React.FC<Props> = props => {
+const Failure: React.FC<Props> = (props) => {
   return (
     <Wrapper>
       <div>
@@ -45,7 +45,7 @@ const Failure: React.FC<Props> = props => {
           size='16px'
           onClick={() =>
             props.brokerageActions.setDWStep({
-              dwStep: BankDWStepType.DEPOSIT_METHODS
+              dwStep: BankDWStepType.DEPOSIT_METHODS,
             })
           }
         >

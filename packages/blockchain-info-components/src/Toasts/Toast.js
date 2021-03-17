@@ -10,7 +10,7 @@ const duration = 200
 const Wrapper = styled.div`
   width: 100%;
   margin-top: 5px;
-  background-color: ${props => props.theme.white};
+  background-color: ${(props) => props.theme.white};
 
   @media (min-width: 768px) {
     width: 450px;
@@ -27,8 +27,8 @@ const Container = styled.div`
   min-height: 65px;
   padding: 15px 10px;
   box-sizing: border-box;
-  background: ${props => props.theme.white};
-  border-left: 6px solid ${props => props.theme[props.color]};
+  background: ${(props) => props.theme.white};
+  border-left: 6px solid ${(props) => props.theme[props.color]};
   border-radius: 8px;
   box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.2);
 `
@@ -62,7 +62,7 @@ const selectColor = (type, coin) => {
   }
 }
 
-const Toast = props => {
+const Toast = (props) => {
   const { children, coin, nature, onClose, persist, timeout } = props
   const color = selectColor(nature, coin)
 
@@ -79,9 +79,7 @@ const Toast = props => {
     <Wrapper>
       <Container color={color}>
         <Content>
-          {coin && (
-            <CustomIcon name={coin.icons.circleFilled} color={coin.colorCode} />
-          )}
+          {coin && <CustomIcon name={coin.icons.circleFilled} color={coin.colorCode} />}
           {children}
         </Content>
         <CloseIcon
@@ -101,11 +99,11 @@ const Toast = props => {
 Toast.propTypes = {
   nature: PropTypes.oneOf(['success', 'error', 'info']),
   onClose: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 }
 
 Toast.defaultProps = {
-  nature: 'info'
+  nature: 'info',
 }
 
 export default Toast

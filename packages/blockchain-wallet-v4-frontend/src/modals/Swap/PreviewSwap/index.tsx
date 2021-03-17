@@ -4,17 +4,8 @@ import { connect, ConnectedProps } from 'react-redux'
 import { bindActionCreators, compose, Dispatch } from 'redux'
 import { Form, InjectedFormProps, reduxForm } from 'redux-form'
 
-import {
-  Button,
-  HeartbeatLoader,
-  Icon,
-  SkeletonRectangle,
-  Text
-} from 'blockchain-info-components'
-import {
-  coinToString,
-  formatCoin
-} from 'blockchain-wallet-v4/src/exchange/currency'
+import { Button, HeartbeatLoader, Icon, SkeletonRectangle, Text } from 'blockchain-info-components'
+import { coinToString, formatCoin } from 'blockchain-wallet-v4/src/exchange/currency'
 import { PaymentValue } from 'blockchain-wallet-v4/src/types'
 import { ErrorCartridge } from 'components/Cartridge'
 import { FlyoutWrapper, Row, Title, Value } from 'components/Flyout'
@@ -29,7 +20,7 @@ import { Border, FreeCartridge, TopText } from '../components'
 class PreviewSwap extends PureComponent<InjectedFormProps<{}, Props> & Props> {
   state = {}
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault()
     this.props.swapActions.createOrder()
   }
@@ -43,10 +34,7 @@ class PreviewSwap extends PureComponent<InjectedFormProps<{}, Props> & Props> {
   }
 
   render() {
-    if (
-      !this.props.initSwapFormValues?.BASE ||
-      !this.props.initSwapFormValues?.COUNTER
-    ) {
+    if (!this.props.initSwapFormValues?.BASE || !this.props.initSwapFormValues?.COUNTER) {
       this.props.swapActions.setStep({ step: 'INIT_SWAP' })
       return null
     }
@@ -69,20 +57,12 @@ class PreviewSwap extends PureComponent<InjectedFormProps<{}, Props> & Props> {
               color='grey600'
               onClick={() =>
                 swapActions.setStep({
-                  step: 'ENTER_AMOUNT'
+                  step: 'ENTER_AMOUNT',
                 })
               }
             />{' '}
-            <Text
-              size='20px'
-              color='grey900'
-              weight={600}
-              style={{ marginLeft: '24px' }}
-            >
-              <FormattedMessage
-                id='copy.confirm_swap'
-                defaultMessage='Confirm Swap'
-              />
+            <Text size='20px' color='grey900' weight={600} style={{ marginLeft: '24px' }}>
+              <FormattedMessage id='copy.confirm_swap' defaultMessage='Confirm Swap' />
             </Text>
           </TopText>
         </FlyoutWrapper>
@@ -93,7 +73,7 @@ class PreviewSwap extends PureComponent<InjectedFormProps<{}, Props> & Props> {
           <Value data-e2e='swapOutgoingValue'>
             {coinToString({
               value: this.props.swapAmountFormValues?.cryptoAmount,
-              unit: { symbol: baseCoinTicker }
+              unit: { symbol: baseCoinTicker },
             })}
           </Value>
         </Row>
@@ -103,45 +83,38 @@ class PreviewSwap extends PureComponent<InjectedFormProps<{}, Props> & Props> {
           </Title>
           <Value data-e2e='swapIncomingValue'>
             {this.props.incomingAmountR.cata({
-              Success: value => (
+              Success: (value) => (
                 <>
                   {coinToString({
                     value: value.amt,
-                    unit: { symbol: counterCoinTicker }
+                    unit: { symbol: counterCoinTicker },
                   })}
                 </>
               ),
-              Failure: e => e,
+              Failure: (e) => e,
               Loading: () => <SkeletonRectangle height='18px' width='70px' />,
-              NotAsked: () => <SkeletonRectangle height='18px' width='70px' />
+              NotAsked: () => <SkeletonRectangle height='18px' width='70px' />,
             })}
           </Value>
         </Row>
         <Row>
           <Title>
-            <FormattedMessage
-              id='modals.simplebuy.confirm.rate'
-              defaultMessage='Exchange Rate'
-            />
+            <FormattedMessage id='modals.simplebuy.confirm.rate' defaultMessage='Exchange Rate' />
           </Title>
           <Value data-e2e='swapExchangeRate'>
             {this.props.quoteR.cata({
-              Success: val => (
+              Success: (val) => (
                 <>
-                  1 {baseCoinTicker} = {formatCoin(val.rate)}{' '}
-                  {counterCoinTicker}
+                  1 {baseCoinTicker} = {formatCoin(val.rate)} {counterCoinTicker}
                 </>
               ),
               Failure: () => (
                 <Text size='14px' color='red600'>
-                  <FormattedMessage
-                    id='copy.oops'
-                    defaultMessage='Oops. Something went wrong.'
-                  />
+                  <FormattedMessage id='copy.oops' defaultMessage='Oops. Something went wrong.' />
                 </Text>
               ),
               Loading: () => <SkeletonRectangle height='18px' width='70px' />,
-              NotAsked: () => <SkeletonRectangle height='18px' width='70px' />
+              NotAsked: () => <SkeletonRectangle height='18px' width='70px' />,
             })}
           </Value>
         </Row>
@@ -172,20 +145,17 @@ class PreviewSwap extends PureComponent<InjectedFormProps<{}, Props> & Props> {
               </FreeCartridge>
             ) : (
               this.props.paymentR.cata({
-                Success: value => (
+                Success: (value) => (
                   <>
                     {coinToString({
-                      value: convertBaseToStandard(
-                        BASE.baseCoin,
-                        this.networkFee(value)
-                      ),
-                      unit: { symbol: coins[BASE.baseCoin].coinTicker }
+                      value: convertBaseToStandard(BASE.baseCoin, this.networkFee(value)),
+                      unit: { symbol: coins[BASE.baseCoin].coinTicker },
                     })}
                   </>
                 ),
-                Failure: e => e,
+                Failure: (e) => e,
                 Loading: () => <SkeletonRectangle height='18px' width='70px' />,
-                NotAsked: () => <SkeletonRectangle height='18px' width='70px' />
+                NotAsked: () => <SkeletonRectangle height='18px' width='70px' />,
               })
             )}
           </Value>
@@ -205,22 +175,19 @@ class PreviewSwap extends PureComponent<InjectedFormProps<{}, Props> & Props> {
               </FreeCartridge>
             ) : (
               this.props.quoteR.cata({
-                Success: value => (
+                Success: (value) => (
                   <>
                     {coinToString({
-                      value: convertBaseToStandard(
-                        COUNTER.coin,
-                        value.quote.networkFee
-                      ),
+                      value: convertBaseToStandard(COUNTER.coin, value.quote.networkFee),
                       unit: {
-                        symbol: coins[COUNTER.coin].coinTicker
-                      }
+                        symbol: coins[COUNTER.coin].coinTicker,
+                      },
                     })}
                   </>
                 ),
-                Failure: e => e,
+                Failure: (e) => e,
                 Loading: () => <SkeletonRectangle height='18px' width='70px' />,
-                NotAsked: () => <SkeletonRectangle height='18px' width='70px' />
+                NotAsked: () => <SkeletonRectangle height='18px' width='70px' />,
               })
             )}
           </Value>
@@ -272,15 +239,8 @@ class PreviewSwap extends PureComponent<InjectedFormProps<{}, Props> & Props> {
               />
             </Text>
             {this.props.error && (
-              <ErrorCartridge
-                style={{ marginTop: '16px' }}
-                data-e2e='checkoutError'
-              >
-                <Icon
-                  name='alert-filled'
-                  color='red600'
-                  style={{ marginRight: '4px' }}
-                />
+              <ErrorCartridge style={{ marginTop: '16px' }} data-e2e='checkoutError'>
+                <Icon name='alert-filled' color='red600' style={{ marginRight: '4px' }} />
                 Error: {this.props.error}
               </ErrorCartridge>
             )}
@@ -292,19 +252,15 @@ class PreviewSwap extends PureComponent<InjectedFormProps<{}, Props> & Props> {
 }
 
 const mapStateToProps = (state: RootState) => ({
-  initSwapFormValues: selectors.form.getFormValues('initSwap')(
-    state
-  ) as InitSwapFormValuesType,
-  swapAmountFormValues: selectors.form.getFormValues('swapAmount')(
-    state
-  ) as SwapAmountFormValues,
+  initSwapFormValues: selectors.form.getFormValues('initSwap')(state) as InitSwapFormValuesType,
+  swapAmountFormValues: selectors.form.getFormValues('swapAmount')(state) as SwapAmountFormValues,
   incomingAmountR: selectors.components.swap.getIncomingAmount(state),
   paymentR: selectors.components.swap.getPayment(state),
-  quoteR: selectors.components.swap.getQuote(state)
+  quoteR: selectors.components.swap.getQuote(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  swapActions: bindActionCreators(actions.components.swap, dispatch)
+  swapActions: bindActionCreators(actions.components.swap, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

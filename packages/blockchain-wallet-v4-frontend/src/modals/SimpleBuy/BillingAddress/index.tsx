@@ -22,28 +22,22 @@ class BillingAddress extends PureComponent<Props> {
 
   render() {
     return this.props.data.cata({
-      Success: val => (
-        <Success {...val} {...this.props} onSubmit={this.handleSubmit} />
-      ),
+      Success: (val) => <Success {...val} {...this.props} onSubmit={this.handleSubmit} />,
       Loading: () => <Loading />,
       Failure: () => (
-        <DataError
-          onClick={() =>
-            this.props.simpleBuyActions.setStep({ step: 'ADD_CARD' })
-          }
-        />
+        <DataError onClick={() => this.props.simpleBuyActions.setStep({ step: 'ADD_CARD' })} />
       ),
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state: RootState): LinkStatePropsType => ({
-  data: getData(state)
+  data: getData(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch)
+  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

@@ -10,7 +10,7 @@ export const setSBCoreCoinData = (
   payload: {
     coin,
     next,
-    pendingTxsN
+    pendingTxsN,
   },
-  type: AT.SET_SB_CORE_COIN_DATA
+  type: AT.SET_SB_CORE_COIN_DATA,
 })

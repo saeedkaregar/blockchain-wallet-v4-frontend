@@ -26,13 +26,8 @@ const IconColumn = styled.div`
   margin: 0 10px 0 0;
 `
 
-const buildMessageTemplate = messageText => (
-  <Text
-    size='14px'
-    weight={600}
-    style={{ marginLeft: '10px' }}
-    data-e2e='toastMessage'
-  >
+const buildMessageTemplate = (messageText) => (
+  <Text size='14px' weight={600} style={{ marginLeft: '10px' }} data-e2e='toastMessage'>
     {messageText}
   </Text>
 )
@@ -61,9 +56,7 @@ export const getAlertContent = (message, data = undefined) => {
               </Text>
               <Text>
                 <Link
-                  href={
-                    'https://support.blockchain.com/hc/en-us/sections/360004368351-USD-Pax-FAQ'
-                  }
+                  href={'https://support.blockchain.com/hc/en-us/sections/360004368351-USD-Pax-FAQ'}
                   target='_blank'
                   weight={500}
                   size='12px'
@@ -320,10 +313,7 @@ export const getAlertContent = (message, data = undefined) => {
               weight={500}
               size='12px'
             >
-              <FormattedMessage
-                id='buttons.learn_more'
-                defaultMessage='Learn More'
-              />
+              <FormattedMessage id='buttons.learn_more' defaultMessage='Learn More' />
             </Link>
           </TextGroup>
         </React.Fragment>
@@ -493,10 +483,7 @@ export const getAlertContent = (message, data = undefined) => {
       )
     case C.LOGIN_ERROR:
       return buildMessageTemplate(
-        <FormattedMessage
-          id='components.alerts.login_failed'
-          defaultMessage='Login failed'
-        />
+        <FormattedMessage id='components.alerts.login_failed' defaultMessage='Login failed' />
       )
 
     case C.MESSAGE_SIGN_ERROR:

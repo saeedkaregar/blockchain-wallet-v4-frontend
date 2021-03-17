@@ -5,33 +5,17 @@ import { Exchange } from 'blockchain-wallet-v4/src'
 import { INVALID_COIN_TYPE } from 'blockchain-wallet-v4/src/model'
 import { APIType } from 'blockchain-wallet-v4/src/network/api'
 import { ADDRESS_TYPES } from 'blockchain-wallet-v4/src/redux/payment/btc/utils'
-import {
-  CoinType,
-  PaymentType,
-  PaymentValue,
-  RemoteDataType
-} from 'blockchain-wallet-v4/src/types'
+import { CoinType, PaymentType, PaymentValue, RemoteDataType } from 'blockchain-wallet-v4/src/types'
 import { generateProvisionalPaymentAmount } from 'data/coins/utils'
 import { promptForSecondPassword } from 'services/sagas'
 
-import {
-  convertBaseToStandard,
-  convertStandardToBase
-} from '../exchange/services'
+import { convertBaseToStandard, convertStandardToBase } from '../exchange/services'
 import * as A from './actions'
 import { NO_OFFER_EXISTS } from './model'
 import * as S from './selectors'
 
-export default ({
-  api,
-  coreSagas,
-  networks
-}: {
-  api: APIType
-  coreSagas: any
-  networks: any
-}) => {
-  const buildAndPublishPayment = function * (
+export default ({ api, coreSagas, networks }: { api: APIType; coreSagas: any; networks: any }) => {
+  const buildAndPublishPayment = function* (
     coin: CoinType,
     payment: PaymentType,
     amount: number,
@@ -54,7 +38,7 @@ export default ({
     return !paymentError
   }
 
-  const createLimits = function * (payment: PaymentType) {
+  const createLimits = function* (payment: PaymentType) {
     try {
       const coin = S.getCoinType(yield select())
       const offer = S.getOffer(yield select())
@@ -65,19 +49,19 @@ export default ({
 
       if (!offer) throw new Error(NO_OFFER_EXISTS)
 
-      let adjustedBalance = new BigNumber(balance)
+      const adjustedBalance = new BigNumber(balance)
         .dividedBy(offer.terms.collateralRatio)
         .toNumber()
       const value = step === 'CHECKOUT' ? adjustedBalance : balance
 
       let maxFiat
-      let offerMax = Number(
+      const offerMax = Number(
         convertBaseToStandard(
           offer.terms.maxPrincipalAmount.currency,
           offer.terms.maxPrincipalAmount.amount
         )
       )
-      let offerMin = Number(
+      const offerMin = Number(
         convertBaseToStandard(
           offer.terms.minPrincipalAmount.currency,
           offer.terms.minPrincipalAmount.amount
@@ -89,7 +73,7 @@ export default ({
             value,
             fromUnit: 'SAT',
             toCurrency: 'USD',
-            rates
+            rates,
           }).value
           break
         case 'PAX':
@@ -97,7 +81,7 @@ export default ({
             value,
             fromUnit: 'WEI',
             toCurrency: 'USD',
-            rates
+            rates,
           }).value
           break
         default:
@@ -107,7 +91,7 @@ export default ({
       yield put(
         A.setLimits({
           maxFiat: Math.min(Number(maxFiat), offerMax),
-          minFiat: offerMin
+          minFiat: offerMin,
         })
       )
     } catch (e) {
@@ -115,14 +99,14 @@ export default ({
     }
   }
 
-  const createPayment = function * (index?: number) {
+  const createPayment = function* (index?: number) {
     let payment
     const coin = S.getCoinType(yield select())
 
     switch (coin) {
       case 'BTC':
         payment = coreSagas.payment.btc.create({
-          network: networks.btc
+          network: networks.btc,
         })
         payment = yield payment.init()
         payment = yield payment.from(index, ADDRESS_TYPES.ACCOUNT)
@@ -130,7 +114,7 @@ export default ({
         break
       case 'PAX':
         payment = coreSagas.payment.eth.create({
-          network: networks.eth
+          network: networks.eth,
         })
         payment = yield payment.init({ isErc20: true, coin })
         payment = yield payment.from()
@@ -143,7 +127,7 @@ export default ({
     return payment
   }
 
-  const notifyDeposit = function * (
+  const notifyDeposit = function* (
     coin: CoinType,
     loanId: string,
     amount: number,
@@ -158,7 +142,7 @@ export default ({
         loanId,
         {
           currency: coin,
-          amount: convertStandardToBase(coin, amount)
+          amount: convertStandardToBase(coin, amount),
         },
         destination,
         paymentSuccess ? 'REQUESTED' : 'FAILED',
@@ -178,12 +162,12 @@ export default ({
       case 'ETH':
         return coreSagas.payment.eth.create({
           payment: paymentR.getOrElse(<PaymentValue>{}),
-          network: networks.eth
+          network: networks.eth,
         })
       default: {
         return coreSagas.payment.btc.create({
           payment: paymentR.getOrElse(<PaymentValue>{}),
-          network: networks.btc
+          network: networks.btc,
         })
       }
     }
@@ -194,6 +178,6 @@ export default ({
     createLimits,
     createPayment,
     paymentGetOrElse,
-    notifyDeposit
+    notifyDeposit,
   }
 }

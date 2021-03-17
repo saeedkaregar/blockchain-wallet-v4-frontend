@@ -5,11 +5,7 @@ import styled, { DefaultTheme } from 'styled-components'
 
 import { SkeletonRectangle } from 'blockchain-info-components'
 import { Remote } from 'blockchain-wallet-v4/src'
-import {
-  CoinType,
-  FiatType,
-  PriceMovementDirType
-} from 'blockchain-wallet-v4/src/types'
+import { CoinType, FiatType, PriceMovementDirType } from 'blockchain-wallet-v4/src/types'
 import { actions } from 'data'
 import { RootState } from 'data/rootReducer'
 
@@ -20,7 +16,7 @@ const Container = styled.span`
 `
 const Change = styled.span<{ color: keyof DefaultTheme }>`
   font-weight: 600;
-  color: ${props => props.theme[props.color]};
+  color: ${(props) => props.theme[props.color]};
 `
 
 const getSignFromMovement = (movement: PriceMovementDirType) => {
@@ -49,11 +45,7 @@ class PriceMovement extends PureComponent<Props, State> {
   componentDidMount() {
     if (!Remote.Success.is(this.props.data)) {
       const coin = this.props.coin
-      this.props.miscActions.fetchPriceChange(
-        coin,
-        this.props.fiat || 'EUR',
-        'day'
-      )
+      this.props.miscActions.fetchPriceChange(coin, this.props.fiat || 'EUR', 'day')
     }
   }
 
@@ -61,17 +53,15 @@ class PriceMovement extends PureComponent<Props, State> {
     return (
       <Container>
         {this.props.data.cata({
-          Success: val => (
-            <Change
-              color={getColorFromMovement(val.price24Hr.overallChange.movement)}
-            >
+          Success: (val) => (
+            <Change color={getColorFromMovement(val.price24Hr.overallChange.movement)}>
               {getSignFromMovement(val.price24Hr.overallChange.movement)}
               {val.price24Hr.overallChange.percentChange}%
             </Change>
           ),
           Loading: () => <SkeletonRectangle height={'12px'} width={'40px'} />,
           Failure: () => null,
-          NotAsked: () => null
+          NotAsked: () => null,
         })}
       </Container>
     )
@@ -79,11 +69,11 @@ class PriceMovement extends PureComponent<Props, State> {
 }
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
-  data: getData(state, ownProps)
+  data: getData(state, ownProps),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  miscActions: bindActionCreators(actions.core.data.misc, dispatch)
+  miscActions: bindActionCreators(actions.core.data.misc, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

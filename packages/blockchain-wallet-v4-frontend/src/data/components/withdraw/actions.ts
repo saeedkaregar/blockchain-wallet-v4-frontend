@@ -4,7 +4,7 @@ import {
   SBPaymentTypes,
   WalletFiatType,
   WithdrawalLockResponseType,
-  WithdrawalMinsAndFeesResponse
+  WithdrawalMinsAndFeesResponse,
 } from 'blockchain-wallet-v4/src/types'
 
 import * as AT from './actionTypes'
@@ -19,40 +19,36 @@ export const handleCustodyWithdraw = (
   payload: {
     amount,
     beneficiary,
-    fiatCurrency
-  }
+    fiatCurrency,
+  },
 })
 
 export const setStep = (payload: WithdrawStepActionsPayload) => ({
   type: AT.SET_STEP,
-  payload
+  payload,
 })
 
 export const showModal = (fiatCurrency: WalletFiatType) => ({
   type: AT.SHOW_MODAL,
   payload: {
-    fiatCurrency
-  }
+    fiatCurrency,
+  },
 })
 
-export const fetchWithdrawalFees = (
-  paymentMethod?: SBPaymentTypes | 'ALL'
-) => ({
+export const fetchWithdrawalFees = (paymentMethod?: SBPaymentTypes | 'ALL') => ({
   type: AT.FETCH_WITHDRAWAL_FEES,
-  payload: { paymentMethod }
+  payload: { paymentMethod },
 })
 
-export const fetchWithdrawalFeesFailure = (
-  error: string
-): WithdrawActionTypes => ({
+export const fetchWithdrawalFeesFailure = (error: string): WithdrawActionTypes => ({
   type: AT.FETCH_WITHDRAWAL_FEES_FAILURE,
   payload: {
-    error
-  }
+    error,
+  },
 })
 
 export const fetchWithdrawalFeesLoading = (): WithdrawActionTypes => ({
-  type: AT.FETCH_WITHDRAWAL_FEES_LOADING
+  type: AT.FETCH_WITHDRAWAL_FEES_LOADING,
 })
 
 export const fetchWithdrawalFeesSuccess = (
@@ -60,26 +56,24 @@ export const fetchWithdrawalFeesSuccess = (
 ): WithdrawActionTypes => ({
   type: AT.FETCH_WITHDRAWAL_FEES_SUCCESS,
   payload: {
-    withdrawFeesResponse
-  }
+    withdrawFeesResponse,
+  },
 })
 
 export const fetchWithdrawalLock = (currency?: WalletFiatType) => ({
   type: AT.FETCH_WITHDRAWAL_LOCK,
-  currency
+  currency,
 })
 
-export const fetchWithdrawalLockFailure = (
-  error: string
-): WithdrawActionTypes => ({
+export const fetchWithdrawalLockFailure = (error: string): WithdrawActionTypes => ({
   type: AT.FETCH_WITHDRAWAL_LOCK_FAILURE,
   payload: {
-    error
-  }
+    error,
+  },
 })
 
 export const fetchWithdrawalLockLoading = (): WithdrawActionTypes => ({
-  type: AT.FETCH_WITHDRAWAL_LOCK_LOADING
+  type: AT.FETCH_WITHDRAWAL_LOCK_LOADING,
 })
 
 export const fetchWithdrawalLockSuccess = (
@@ -87,6 +81,6 @@ export const fetchWithdrawalLockSuccess = (
 ): WithdrawActionTypes => ({
   type: AT.FETCH_WITHDRAWAL_LOCK_SUCCESS,
   payload: {
-    withdrawLockResponse
-  }
+    withdrawLockResponse,
+  },
 })

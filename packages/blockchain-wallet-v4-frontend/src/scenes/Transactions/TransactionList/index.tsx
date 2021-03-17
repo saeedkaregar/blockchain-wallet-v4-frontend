@@ -9,7 +9,7 @@ import {
   RemoteDataType,
   SBOrderType,
   SBTransactionType,
-  WalletCurrencyType
+  WalletCurrencyType,
 } from 'blockchain-wallet-v4/src/types'
 import DataError from 'components/DataError'
 
@@ -27,7 +27,7 @@ const TransactionsWrapper = styled.div`
   align-items: flex-start;
   width: 99%;
   border-radius: 8px;
-  border: 1px solid ${props => props.theme.grey000};
+  border: 1px solid ${(props) => props.theme.grey000};
 `
 
 class TransactionList extends PureComponent<Props> {
@@ -37,7 +37,7 @@ class TransactionList extends PureComponent<Props> {
     return data.cata({
       Success: (transactions: SuccessStateType) => (
         <TransactionsWrapper>
-          {transactions.map(tx => {
+          {transactions.map((tx) => {
             return 'hash' in tx ? (
               <NonCustodialTxListItem
                 key={tx.hash}
@@ -51,19 +51,14 @@ class TransactionList extends PureComponent<Props> {
             ) : 'pair' in tx ? (
               <SimpleBuyListItem order={tx} />
             ) : (
-              <CustodialTxListItem
-                tx={tx as FiatSBAndSwapTransactionType}
-                {...this.props}
-              />
+              <CustodialTxListItem tx={tx as FiatSBAndSwapTransactionType} {...this.props} />
             )
           })}
         </TransactionsWrapper>
       ),
-      Failure: message => (
-        <DataError onClick={this.props.onRefresh} message={message} />
-      ),
+      Failure: (message) => <DataError onClick={this.props.onRefresh} message={message} />,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
@@ -72,18 +67,13 @@ export type Props = {
   coin: WalletCurrencyType
   coinTicker: string
   currency: FiatType
-  data: RemoteDataType<
-    { message: string },
-    Array<SBOrderType | ProcessedTxType>
-  >
+  data: RemoteDataType<{ message: string }, Array<SBOrderType | ProcessedTxType>>
   onArchive: (address: string) => void
   onLoadMore: () => void
   onRefresh: () => void
   sourceType?: string
 }
 
-export type SuccessStateType = Array<
-  SBOrderType | SBTransactionType | ProcessedTxType
->
+export type SuccessStateType = Array<SBOrderType | SBTransactionType | ProcessedTxType>
 
 export default TransactionList

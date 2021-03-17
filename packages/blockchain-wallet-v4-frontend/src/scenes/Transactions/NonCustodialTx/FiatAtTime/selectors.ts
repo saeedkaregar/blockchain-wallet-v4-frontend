@@ -8,12 +8,12 @@ import { selectors } from 'data'
 
 export const getData = curry((hash, currency: FiatType, state) => {
   return createSelector(
-    [state => selectors.core.data.btc.getFiatAtTime(hash, currency)(state)],
-    fiatR =>
-      (fiatR || Remote.NotAsked).map(value =>
+    [(state) => selectors.core.data.btc.getFiatAtTime(hash, currency)(state)],
+    (fiatR) =>
+      (fiatR || Remote.NotAsked).map((value) =>
         fiatToString({
           value,
-          unit: currency
+          unit: currency,
         })
       )
   )(state)

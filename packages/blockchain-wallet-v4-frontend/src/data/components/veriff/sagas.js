@@ -13,12 +13,12 @@ const { STEPS } = model.components.identityVerification
 export default ({ api, coreSagas }) => {
   const { fetchUser } = profileSagas({ api, coreSagas })
 
-  const fetchVeriffUrl = function * () {
+  const fetchVeriffUrl = function* () {
     try {
       yield put(A.fetchVeriffUrlLoading())
       const {
         applicantId,
-        data: { url }
+        data: { url },
       } = yield call(api.fetchVeriffUrl)
       yield put(A.setApplicantId(applicantId))
       yield put(A.fetchVeriffUrlSuccess(url))
@@ -27,16 +27,12 @@ export default ({ api, coreSagas }) => {
     }
   }
 
-  const syncVeriff = function * () {
+  const syncVeriff = function* () {
     try {
       const applicantId = yield select(S.getApplicantId)
       yield call(api.syncVeriff, applicantId)
       yield call(fetchUser)
-      yield put(
-        actions.components.identityVerification.setVerificationStep(
-          STEPS.submitted
-        )
-      )
+      yield put(actions.components.identityVerification.setVerificationStep(STEPS.submitted))
     } catch (e) {
       yield put(actions.logs.logErrorMessage(logLocation, 'syncVeriff', e))
     }
@@ -44,6 +40,6 @@ export default ({ api, coreSagas }) => {
 
   return {
     fetchVeriffUrl,
-    syncVeriff
+    syncVeriff,
   }
 }

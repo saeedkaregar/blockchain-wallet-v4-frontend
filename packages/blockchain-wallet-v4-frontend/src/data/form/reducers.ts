@@ -4,10 +4,7 @@ import { reducer as formReducer } from 'redux-form'
 import * as AT from './actionTypes'
 
 const reducerReducers = (...reducers) => (prevState, value, ...args) =>
-  reducers.reduce(
-    (newState, reducer) => reducer(newState, value, ...args),
-    prevState
-  )
+  reducers.reduce((newState, reducer) => reducer(newState, value, ...args), prevState)
 
 const extendedReducer = (state, action) => {
   const { payload, type } = action

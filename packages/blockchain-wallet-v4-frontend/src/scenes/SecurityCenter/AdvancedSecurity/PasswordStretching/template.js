@@ -13,7 +13,7 @@ import {
   SettingForm,
   SettingHeader,
   SettingSummary,
-  SettingWrapper
+  SettingWrapper,
 } from 'components/Setting'
 import { validPasswordStretchingNumber } from 'services/forms'
 
@@ -28,15 +28,8 @@ const ButtonWrapper = styled.div`
 const CurrentText = styled(Text)`
   margin-bottom: 10px;
 `
-const PasswordStretching = props => {
-  const {
-    currentStretch,
-    handleSubmit,
-    handleToggle,
-    invalid,
-    submitting,
-    updateToggled
-  } = props
+const PasswordStretching = (props) => {
+  const { currentStretch, handleSubmit, handleToggle, invalid, submitting, updateToggled } = props
 
   return (
     <SettingContainer>
@@ -57,16 +50,10 @@ const PasswordStretching = props => {
       <SettingComponent>
         <SettingWrapper>
           {currentStretch && (
-            <CurrentText data-e2e='currentStretchLabel'>
-              {currentStretch}
-            </CurrentText>
+            <CurrentText data-e2e='currentStretchLabel'>{currentStretch}</CurrentText>
           )}
           {!updateToggled && (
-            <Button
-              nature='primary'
-              onClick={handleToggle}
-              data-e2e='editPasswordStretchingButton'
-            >
+            <Button nature='primary' onClick={handleToggle} data-e2e='editPasswordStretchingButton'>
               <FormattedMessage
                 id='scenes.securitycenter.advanced.passwordstretching.edit'
                 defaultMessage='Edit'
@@ -88,10 +75,7 @@ const PasswordStretching = props => {
                   onClick={handleToggle}
                   data-e2e='passwordStretchCancelButton'
                 >
-                  <FormattedMessage
-                    id='buttons.cancel'
-                    defaultMessage='Cancel'
-                  />
+                  <FormattedMessage id='buttons.cancel' defaultMessage='Cancel' />
                 </Button>
                 <Button
                   type='submit'
@@ -117,9 +101,9 @@ const PasswordStretching = props => {
 PasswordStretching.propTypes = {
   updateToggled: PropTypes.bool.isRequired,
   handleToggle: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
 }
 
 export default reduxForm({
-  form: 'settingPasswordStretching'
+  form: 'settingPasswordStretching',
 })(PasswordStretching)

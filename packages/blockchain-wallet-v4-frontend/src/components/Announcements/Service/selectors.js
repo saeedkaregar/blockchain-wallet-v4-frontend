@@ -8,7 +8,7 @@ export const getData = createDeepEqualSelector(
     selectors.core.walletOptions.getAnnouncements,
     selectors.cache.getLastAnnouncementState,
     selectors.preferences.getLanguage,
-    (state, { alertArea, currentCoin }) => ({ alertArea, currentCoin })
+    (state, { alertArea, currentCoin }) => ({ alertArea, currentCoin }),
   ],
   (announcementsR, announcementCached, language, ownProps) => {
     const { alertArea, currentCoin } = ownProps
@@ -16,8 +16,7 @@ export const getData = createDeepEqualSelector(
     const announcement = prop(alertArea, announcements)
     if (keys(announcement).length) {
       const announcement = announcements[alertArea]
-      const cachedState =
-        announcementCached && announcementCached[announcement.id]
+      const cachedState = announcementCached && announcementCached[announcement.id]
       const showAnnouncement = prop('coins', announcement)
         ? includes(currentCoin, prop('coins', announcement))
         : !(cachedState && cachedState.dismissed)
@@ -25,7 +24,7 @@ export const getData = createDeepEqualSelector(
         announcements: announcements,
         collapsed: cachedState && cachedState.collapsed,
         language: language,
-        showAnnouncement
+        showAnnouncement,
       }
     }
     return { announcements: {} }

@@ -49,24 +49,19 @@ class VerifyEmailContainer extends React.PureComponent<PropsType, {}> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   email: selectors.auth.getRegisterEmail(state),
   appEnv: selectors.core.walletOptions.getAppEnv(state).getOrElse('prod'),
-  isEmailVerified: selectors.core.settings
-    .getEmailVerified(state)
-    .getOrElse(false)
+  isEmailVerified: selectors.core.settings.getEmailVerified(state).getOrElse(false),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   miscActions: bindActionCreators(actions.core.data.misc, dispatch),
-  securityCenterActions: bindActionCreators(
-    actions.modules.securityCenter,
-    dispatch
-  ),
+  securityCenterActions: bindActionCreators(actions.modules.securityCenter, dispatch),
   routerActions: bindActionCreators(actions.router, dispatch),
   authActions: bindActionCreators(actions.auth, dispatch),
   analyticsActions: bindActionCreators(actions.analytics, dispatch),
-  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch)
+  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

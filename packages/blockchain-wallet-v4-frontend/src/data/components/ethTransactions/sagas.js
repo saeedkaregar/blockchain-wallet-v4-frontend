@@ -10,11 +10,11 @@ export default () => {
   //
   // ETH
   //
-  const initialized = function * () {
+  const initialized = function* () {
     try {
       const initialValues = {
         status: '',
-        search: ''
+        search: '',
       }
       yield put(actions.form.initialize(WALLET_TX_SEARCH, initialValues))
       yield put(actions.core.data.eth.fetchTransactions(null, true))
@@ -23,7 +23,7 @@ export default () => {
     }
   }
 
-  const loadMore = function * () {
+  const loadMore = function* () {
     try {
       yield put(actions.core.data.eth.fetchTransactions())
     } catch (e) {
@@ -31,7 +31,7 @@ export default () => {
     }
   }
 
-  const formChanged = function * (action) {
+  const formChanged = function* (action) {
     try {
       const form = path(['meta', 'form'], action)
       const field = path(['meta', 'field'], action)
@@ -48,29 +48,25 @@ export default () => {
   //
   // ERC20
   //
-  const initializedErc20 = function * (action) {
+  const initializedErc20 = function* (action) {
     try {
       const { token } = action.payload
       const initialValues = {
         status: '',
-        search: ''
+        search: '',
       }
       yield put(actions.form.initialize(WALLET_TX_SEARCH, initialValues))
       yield put(actions.core.data.eth.fetchErc20Transactions(token, true))
-      const lowEthBalance = yield select(
-        selectors.core.data.eth.getLowEthBalanceWarning()
-      )
+      const lowEthBalance = yield select(selectors.core.data.eth.getLowEthBalanceWarning())
       if (lowEthBalance) {
         yield put(actions.alerts.displayWarning(C.ETH_LOW_BALANCE_WARNING))
       }
     } catch (e) {
-      yield put(
-        actions.logs.logErrorMessage(logLocation, 'initializedErc20', e)
-      )
+      yield put(actions.logs.logErrorMessage(logLocation, 'initializedErc20', e))
     }
   }
 
-  const loadMoreErc20 = function * (action) {
+  const loadMoreErc20 = function* (action) {
     try {
       const { token } = action.payload
       yield put(actions.core.data.eth.fetchErc20Transactions(token))
@@ -84,6 +80,6 @@ export default () => {
     initialized,
     initializedErc20,
     loadMore,
-    loadMoreErc20
+    loadMoreErc20,
   }
 }

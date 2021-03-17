@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   border-radius: 8px;
   position: relative;
   flex-direction: column;
-  border: 1px solid ${props => props.theme.grey000};
+  border: 1px solid ${(props) => props.theme.grey000};
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.21);
   width: 375px;
   &.column {
@@ -75,14 +75,14 @@ const Column = styled.div`
   width: ${(props: { width?: string }) => props.width || '100%'};
   &:first-child {
     margin-right: 20px;
-    border-right: 1px solid ${props => props.theme.grey000};
+    border-right: 1px solid ${(props) => props.theme.grey000};
   }
   ${Wrapper}.column & {
     text-align: center;
     &:first-child {
       margin-right: 0px;
       border-right: 0px;
-      border-bottom: 1px solid ${props => props.theme.grey000};
+      border-bottom: 1px solid ${(props) => props.theme.grey000};
       padding-bottom: 15px;
       margin-bottom: 15px;
     }
@@ -106,14 +106,13 @@ export const TierCard = ({
   swapActions,
   tier,
   userData,
-  userTiers
+  userTiers,
 }: Props) => {
-  const tierData = userTiers.find(userTier => userTier.index === tier)
+  const tierData = userTiers.find((userTier) => userTier.index === tier)
   if (!tierData) return null
   const limitType: 'daily' | 'annual' = TIERS[tier].limit.toLowerCase()
   const tierFiatLimit =
-    Exchange.getSymbol(tierData.limits.currency) +
-    formatFiat(tierData.limits[limitType], 0)
+    Exchange.getSymbol(tierData.limits.currency) + formatFiat(tierData.limits[limitType], 0)
   const tierLimit = limits[path([tier, 'limit'], TIERS)]
   const tierStatus = status(tier, userTiers, path([tier, 'time'], TIERS))
   const isRejected = all(propEq('state', TIERS_STATES.REJECTED), userTiers)
@@ -137,20 +136,10 @@ export const TierCard = ({
               <Text size='32px' weight={600} color='marketing-secondary'>
                 {tierFiatLimit}
               </Text>
-              <Text
-                size='14px'
-                weight={500}
-                color='textBlack'
-                style={{ marginTop: '8px' }}
-              >
+              <Text size='14px' weight={500} color='textBlack' style={{ marginTop: '8px' }}>
                 {tierLimit}
               </Text>
-              <Text
-                size='14px'
-                weight={500}
-                color='grey400'
-                style={{ marginTop: '7px' }}
-              >
+              <Text size='14px' weight={500} color='grey400' style={{ marginTop: '7px' }}>
                 {tierStatus}
               </Text>
             </Column>
@@ -162,14 +151,9 @@ export const TierCard = ({
                     userData,
                     userTiers,
                     mobileVerified,
-                    emailVerified
+                    emailVerified,
                   }) && (
-                    <Icon
-                      style={{ marginLeft: '5px' }}
-                      color='success'
-                      size='12px'
-                      name='check'
-                    />
+                    <Icon style={{ marginLeft: '5px' }} color='success' size='12px' name='check' />
                   )}
                 </TextGroup>
               ))}
@@ -182,16 +166,11 @@ export const TierCard = ({
             className='actionButton'
             fullwidth
             nature='primary'
-            onClick={() =>
-              identityVerificationActions.verifyIdentity(tier, false)
-            }
+            onClick={() => identityVerificationActions.verifyIdentity(tier, false)}
             data-e2e={`continueKycTier${tier}Btn`}
           >
             {tierStarted ? (
-              <FormattedMessage
-                id='buttons.continue'
-                defaultMessage='Continue'
-              />
+              <FormattedMessage id='buttons.continue' defaultMessage='Continue' />
             ) : (
               ctas[path([tier, 'level'], TIERS)]
             )}
@@ -232,13 +211,13 @@ export const TierCard = ({
   )
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   identityVerificationActions: bindActionCreators(
     actions.components.identityVerification,
     dispatch
   ),
   swapActions: bindActionCreators(actions.components.swap, dispatch),
-  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch)
+  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
 })
 
 const connector = connect(getData, mapDispatchToProps)

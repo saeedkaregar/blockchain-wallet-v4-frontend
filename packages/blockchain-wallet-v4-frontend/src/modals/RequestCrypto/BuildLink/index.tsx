@@ -27,8 +27,8 @@ const AddressWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 16px 40px;
-  border-top: ${props => `1px solid ${props.theme.grey000}`};
-  border-bottom: ${props => `1px solid ${props.theme.grey000}`};
+  border-top: ${(props) => `1px solid ${props.theme.grey000}`};
+  border-bottom: ${(props) => `1px solid ${props.theme.grey000}`};
 `
 const AddressDisplay = styled.div`
   display: flex;
@@ -78,7 +78,7 @@ const CustomField = styled(Field)<
   }
 >`
   > input {
-    padding-left: ${props => (props.isFiatBaseCcy ? '32px' : '50px')};
+    padding-left: ${(props) => (props.isFiatBaseCcy ? '32px' : '50px')};
   }
   > div:last-child {
     display: none;
@@ -94,8 +94,7 @@ const ToggleCurrencyText = styled(Text)<{ selected?: boolean }>`
   font-weight: 500;
   cursor: pointer;
   display: inline;
-  color: ${props =>
-    props.selected ? props.theme.blue600 : props.theme.grey800};
+  color: ${(props) => (props.selected ? props.theme.blue600 : props.theme.grey800)};
 `
 
 class BuildLink extends React.PureComponent<Props> {
@@ -104,13 +103,7 @@ class BuildLink extends React.PureComponent<Props> {
   }
 
   render() {
-    const {
-      formValues,
-      invalid,
-      setStep,
-      supportedCoins,
-      walletCurrency
-    } = this.props
+    const { formValues, invalid, setStep, supportedCoins, walletCurrency } = this.props
     const { currencyDisplay, selectedAccount } = formValues
     const currencySymbol = Exchange.getSymbol(walletCurrency) as string
     const isFiatBaseCcy = currencyDisplay === walletCurrency
@@ -155,11 +148,7 @@ class BuildLink extends React.PureComponent<Props> {
             </Text>
           </AddressDisplay>
           <ClipboardWrapper>
-            <CopyClipboardButton
-              textToCopy={receiveAddress}
-              color='blue600'
-              size='24px'
-            />
+            <CopyClipboardButton textToCopy={receiveAddress} color='blue600' size='24px' />
           </ClipboardWrapper>
         </AddressWrapper>
         <FormContainer>
@@ -170,9 +159,7 @@ class BuildLink extends React.PureComponent<Props> {
             <div style={{ display: 'inline' }}>
               <ToggleCurrencyText
                 data-e2e='toggleFiat'
-                onClick={() =>
-                  this.handleDisplayToggle(walletCurrency as WalletCurrencyType)
-                }
+                onClick={() => this.handleDisplayToggle(walletCurrency as WalletCurrencyType)}
                 selected={isFiatBaseCcy}
               >
                 {walletCurrency}
@@ -206,10 +193,7 @@ class BuildLink extends React.PureComponent<Props> {
           </AmountFieldContainer>
           <FormLabel style={{ marginTop: '24px' }}>
             <Text color='grey600' weight={500} size='14px'>
-              <FormattedMessage
-                id='copy.description'
-                defaultMessage='Description'
-              />
+              <FormattedMessage id='copy.description' defaultMessage='Description' />
             </Text>
           </FormLabel>
           <Field

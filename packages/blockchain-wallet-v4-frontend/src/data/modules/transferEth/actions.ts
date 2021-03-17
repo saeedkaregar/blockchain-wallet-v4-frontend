@@ -1,32 +1,26 @@
 import * as AT from './actionTypes'
 
-export const confirmTransferEth = payload => ({
+export const confirmTransferEth = (payload) => ({
   type: AT.CONFIRM_TRANSFER_ETH,
-  payload
+  payload,
 })
 
-export const initialized = ({
-  from,
-  type
-}: {
-  from: string
-  type: 'LEGACY'
-}) => ({
+export const initialized = ({ from, type }: { from: string; type: 'LEGACY' }) => ({
   type: AT.TRANSFER_ETH_INITIALIZED,
   payload: {
     from,
-    type
-  }
+    type,
+  },
 })
 
 export const transferEthPaymentUpdatedLoading = () => ({
-  type: AT.TRANSFER_ETH_PAYMENT_UPDATED_LOADING
+  type: AT.TRANSFER_ETH_PAYMENT_UPDATED_LOADING,
 })
-export const transferEthPaymentUpdatedSuccess = payment => ({
+export const transferEthPaymentUpdatedSuccess = (payment) => ({
   type: AT.TRANSFER_ETH_PAYMENT_UPDATED_SUCCESS,
-  payload: payment
+  payload: payment,
 })
-export const transferEthPaymentUpdatedFailure = e => ({
+export const transferEthPaymentUpdatedFailure = (e) => ({
   type: AT.TRANSFER_ETH_PAYMENT_UPDATED_FAILURE,
-  payload: e
+  payload: e,
 })

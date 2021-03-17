@@ -10,6 +10,6 @@ export const getData = (state: RootState) => {
 
   return lift((supportedCoins: ExtractSuccess<typeof supportedCoinsR>) => ({
     sellOrder,
-    supportedCoins
+    supportedCoins,
   }))(supportedCoinsR)
 }

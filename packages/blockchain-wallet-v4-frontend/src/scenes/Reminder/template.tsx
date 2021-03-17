@@ -4,21 +4,8 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Field, InjectedFormProps, reduxForm } from 'redux-form'
 import styled from 'styled-components'
 
-import {
-  Button,
-  HeartbeatLoader,
-  Link,
-  Text,
-  TextGroup
-} from 'blockchain-info-components'
-import {
-  CaptchaBox,
-  Form,
-  FormGroup,
-  FormItem,
-  FormLabel,
-  TextBox
-} from 'components/Form'
+import { Button, HeartbeatLoader, Link, Text, TextGroup } from 'blockchain-info-components'
+import { CaptchaBox, Form, FormGroup, FormItem, FormLabel, TextBox } from 'components/Form'
 import { Wrapper } from 'components/Public'
 import { required, validEmail } from 'services/forms'
 
@@ -50,10 +37,7 @@ const Reminder = (props: InjectedFormProps<{}, Props> & Props) => {
         <FormGroup>
           <FormItem>
             <FormLabel htmlFor='email'>
-              <FormattedMessage
-                id='scenes.reminder.email'
-                defaultMessage='Email'
-              />
+              <FormattedMessage id='scenes.reminder.email' defaultMessage='Email' />
             </FormLabel>
             <Field
               bgColor='grey000'
@@ -67,17 +51,9 @@ const Reminder = (props: InjectedFormProps<{}, Props> & Props) => {
         <FormGroup>
           <FormItem>
             <FormLabel htmlFor='code'>
-              <FormattedMessage
-                id='scenes.reminder.captcha'
-                defaultMessage='Captcha'
-              />
+              <FormattedMessage id='scenes.reminder.captcha' defaultMessage='Captcha' />
             </FormLabel>
-            <Field
-              bgColor='grey000'
-              name='code'
-              validate={[required]}
-              component={CaptchaBox}
-            />
+            <Field bgColor='grey000' name='code' validate={[required]} component={CaptchaBox} />
           </FormItem>
         </FormGroup>
         <Footer>
@@ -95,10 +71,7 @@ const Reminder = (props: InjectedFormProps<{}, Props> & Props) => {
             {loading ? (
               <HeartbeatLoader height='20px' width='20px' color='white' />
             ) : (
-              <FormattedMessage
-                id='buttons.continue'
-                defaultMessage='Continue'
-              />
+              <FormattedMessage id='buttons.continue' defaultMessage='Continue' />
             )}
           </Button>
         </Footer>
@@ -119,10 +92,7 @@ const Reminder = (props: InjectedFormProps<{}, Props> & Props) => {
         </SuccessMessages>
         <LinkContainer to='/login'>
           <Button data-e2e='continueToLogin' nature='primary' fullwidth>
-            <FormattedMessage
-              id='scenes.reminder.login'
-              defaultMessage='Continue to Login'
-            />
+            <FormattedMessage id='scenes.reminder.login' defaultMessage='Continue to Login' />
           </Button>
         </LinkContainer>
       </React.Fragment>
@@ -133,10 +103,7 @@ const Reminder = (props: InjectedFormProps<{}, Props> & Props) => {
     <Wrapper>
       <Header>
         <Text size='20px' color='blue900' weight={600} capitalize>
-          <FormattedMessage
-            id='scenes.reminder.reminder'
-            defaultMessage='Wallet ID Reminder'
-          />
+          <FormattedMessage id='scenes.reminder.reminder' defaultMessage='Wallet ID Reminder' />
         </Text>
       </Header>
       {success ? renderReminder() : renderForm()}

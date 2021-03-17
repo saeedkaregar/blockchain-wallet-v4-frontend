@@ -8,13 +8,13 @@ export default {
       rate: '1',
       symbol: '¢£',
       decimal_digits: 0,
-      currency: 'GBP'
+      currency: 'GBP',
     },
     GBP: {
       rate: '100',
       symbol: '£',
       decimal_digits: 2,
-      currency: 'GBP'
-    }
-  }
+      currency: 'GBP',
+    },
+  },
 }

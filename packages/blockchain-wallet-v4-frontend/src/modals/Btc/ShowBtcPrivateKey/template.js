@@ -9,7 +9,7 @@ import {
   ModalFooter,
   ModalHeader,
   SelectInput,
-  Text
+  Text,
 } from 'blockchain-info-components'
 import { utils } from 'blockchain-wallet-v4/src'
 import CoinDisplay from 'components/Display/CoinDisplay'
@@ -20,7 +20,7 @@ const DropdownWrapper = styled.div`
   position: relative;
   width: 60%;
   height: auto;
-  background-color: ${props => props.theme.white};
+  background-color: ${(props) => props.theme.white};
 `
 
 const DetailTable = styled.div`
@@ -53,10 +53,7 @@ const KeySelectInput = styled(SelectInput)`
 const FirstStep = () => (
   <div>
     <Text size='13px' color='error' weight={500} uppercase>
-      <FormattedMessage
-        id='modals.showbtcpriv.warning'
-        defaultMessage='Warning'
-      />
+      <FormattedMessage id='modals.showbtcpriv.warning' defaultMessage='Warning' />
     </Text>
     <Text size='14px' style={spacing('mt-10')} weight={400}>
       <FormattedMessage
@@ -67,14 +64,7 @@ const FirstStep = () => (
   </div>
 )
 
-const SecondStep = ({
-  addr,
-  balance,
-  format,
-  formats,
-  onChangeFormat,
-  priv
-}) => (
+const SecondStep = ({ addr, balance, format, formats, onChangeFormat, priv }) => (
   <div style={flex('row')}>
     <div style={spacing('mr-25')}>
       <QRCodeWrapper value={priv} size={120} />
@@ -102,20 +92,17 @@ const SecondStep = ({
       </DetailRow>
       <DetailRow>
         <DetailRowText size='14px' weight={500}>
-          <FormattedMessage
-            id='copy.private_key'
-            defaultMessage='Private Key'
-          />
+          <FormattedMessage id='copy.private_key' defaultMessage='Private Key' />
         </DetailRowText>
         {':'}
         &nbsp;
         {utils.btc.formatPrivateKeyString(priv, format, addr).fold(
-          error => (
+          (error) => (
             <Text size='14px' weight={400} color='error'>
               {error.message}
             </Text>
           ),
-          keyString => (
+          (keyString) => (
             <KeyText size='14px' weight={400} data-e2e='btcPrivateKeyValue'>
               {keyString}
             </KeyText>
@@ -145,21 +132,12 @@ const SecondStep = ({
   </div>
 )
 
-const ShowBtcPrivateKeyTemplate = ({
-  close,
-  onContinue,
-  position,
-  step,
-  total,
-  ...rest
-}) => (
+const ShowBtcPrivateKeyTemplate = ({ close, onContinue, position, step, total, ...rest }) => (
   <Modal size='large' position={position} total={total}>
     <ModalHeader icon='lock' closeButton={false}>
       <FormattedMessage id='copy.private_key' defaultMessage='Private Key' />
     </ModalHeader>
-    <ModalBody>
-      {step === 0 ? <FirstStep /> : <SecondStep {...rest} />}
-    </ModalBody>
+    <ModalBody>{step === 0 ? <FirstStep /> : <SecondStep {...rest} />}</ModalBody>
     <ModalFooter align='right'>
       <Text
         cursor='pointer'
@@ -172,11 +150,7 @@ const ShowBtcPrivateKeyTemplate = ({
         <FormattedMessage id='buttons.close' defaultMessage='Close' />
       </Text>
       {step === 0 && (
-        <Button
-          nature='primary'
-          onClick={onContinue}
-          data-e2e='btcPrivateKeyContinueButton'
-        >
+        <Button nature='primary' onClick={onContinue} data-e2e='btcPrivateKeyContinueButton'>
           <FormattedMessage id='buttons.continue' defaultMessage='Continue' />
         </Button>
       )}

@@ -28,16 +28,9 @@ export const getAccounts = createDeepEqualSelector(
     coreSelectors.kvStore.bch.getAccounts, // non-custodial metadata info
     coreSelectors.common.bch.getActiveAddresses, // imported addresses
     (state, { coin }) => getTradingBalance(coin, state), // custodial accounts
-    (state, ownProps) => ownProps // selector config
+    (state, ownProps) => ownProps, // selector config
   ],
-  (
-    bchAccounts,
-    bchDataR,
-    bchMetadataR,
-    importedAddressesR,
-    sbBalanceR,
-    ownProps
-  ) => {
+  (bchAccounts, bchDataR, bchMetadataR, importedAddressesR, sbBalanceR, ownProps) => {
     const transform = (
       bchData,
       bchMetadata,
@@ -51,7 +44,7 @@ export const getAccounts = createDeepEqualSelector(
       if (ownProps?.nonCustodialAccounts) {
         accounts = accounts.concat(
           bchAccounts
-            .map(acc => {
+            .map((acc) => {
               const index = prop('index', acc)
               const xpub = prop('xpub', acc)
               const data = prop(xpub, bchData)
@@ -65,7 +58,7 @@ export const getAccounts = createDeepEqualSelector(
                 baseCoin: coin,
                 coin,
                 label: prop('label', metadata) || xpub,
-                type: ADDRESS_TYPES.ACCOUNT
+                type: ADDRESS_TYPES.ACCOUNT,
               }
             })
             .filter(propEq('archived', false))
@@ -75,13 +68,13 @@ export const getAccounts = createDeepEqualSelector(
       // add imported addresses if requested
       if (ownProps?.importedAddresses) {
         accounts = accounts.concat(
-          importedAddresses.map(importedAcc => ({
+          importedAddresses.map((importedAcc) => ({
             address: importedAcc.addr,
             balance: importedAcc.final_balance,
             baseCoin: coin,
             coin,
             label: importedAcc.label || importedAcc.addr,
-            type: ADDRESS_TYPES.LEGACY
+            type: ADDRESS_TYPES.LEGACY,
           }))
         )
       }
@@ -97,11 +90,6 @@ export const getAccounts = createDeepEqualSelector(
       return accounts
     }
 
-    return lift(transform)(
-      bchDataR,
-      bchMetadataR,
-      importedAddressesR,
-      sbBalanceR
-    )
+    return lift(transform)(bchDataR, bchMetadataR, importedAddressesR, sbBalanceR)
   }
 )

@@ -5,7 +5,7 @@ import { compose } from 'redux'
 import {
   BeneficiaryType,
   WalletFiatType,
-  WithdrawResponseType
+  WithdrawResponseType,
 } from 'blockchain-wallet-v4/src/types'
 import DataError from 'components/DataError'
 import Flyout, { duration, FlyoutChild } from 'components/Flyout'
@@ -104,7 +104,7 @@ const mapStateToProps = (state: RootState) => ({
   beneficiary: selectors.components.withdraw.getBeneficiary(state),
   fiatCurrency: selectors.components.withdraw.getFiatCurrency(state),
   step: selectors.components.withdraw.getStep(state),
-  withdrawal: selectors.components.withdraw.getWithdrawal(state)
+  withdrawal: selectors.components.withdraw.getWithdrawal(state),
 })
 
 const connector = connect(mapStateToProps)
@@ -143,9 +143,7 @@ type LinkStatePropsType =
       step: WithdrawStepEnum.WITHDRAWAL_METHODS
     }
 // export type SuccessStateType = ExtractSuccess<ReturnType<typeof getData>>
-export type Props = OwnProps &
-  LinkStatePropsType &
-  ConnectedProps<typeof connector>
+export type Props = OwnProps & LinkStatePropsType & ConnectedProps<typeof connector>
 type State = { direction: 'left' | 'right'; show: boolean }
 
 export default enhance(Withdraw)

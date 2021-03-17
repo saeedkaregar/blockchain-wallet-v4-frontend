@@ -5,11 +5,7 @@ import styled from 'styled-components'
 
 import { Button, Icon, Text } from 'blockchain-info-components'
 import { FlyoutWrapper } from 'components/Flyout'
-import {
-  getBaseAmount,
-  getBaseCurrency,
-  getOrderType
-} from 'data/components/simpleBuy/model'
+import { getBaseAmount, getBaseCurrency, getOrderType } from 'data/components/simpleBuy/model'
 
 import { Props as OwnProps, SuccessStateType } from '.'
 import InterestBanner from './InterestBanner'
@@ -59,7 +55,7 @@ const IconBackground = styled.div<{ color: string }>`
   z-index: 100;
   position: absolute;
   right: -5px;
-  background: ${props => props.theme[props.color]};
+  background: ${(props) => props.theme[props.color]};
 `
 const IconWrapper = styled.div`
   display: flex;
@@ -73,12 +69,12 @@ const TitleWrapper = styled(Text)`
 const BottomInfo = styled(Bottom)`
   text-align: center;
   a {
-    color: ${props => props.theme.blue600};
+    color: ${(props) => props.theme.blue600};
     text-decoration: none;
   }
 `
 
-const Success: React.FC<Props> = props => {
+const Success: React.FC<Props> = (props) => {
   const orderType = getOrderType(props.order)
   const baseAmount = getBaseAmount(props.order)
   const baseCurrency = getBaseCurrency(props.order, props.supportedCoins)
@@ -88,12 +84,10 @@ const Success: React.FC<Props> = props => {
       : 3
 
   const isPendingDeposit = props.order.state === 'PENDING_DEPOSIT'
-  const isPendingAch =
-    isPendingDeposit && props.order.paymentType === 'BANK_TRANSFER'
+  const isPendingAch = isPendingDeposit && props.order.paymentType === 'BANK_TRANSFER'
   const isTransactionPending =
     isPendingDeposit &&
-    props.order.attributes?.everypay?.paymentState ===
-      'WAITING_FOR_3DS_RESPONSE'
+    props.order.attributes?.everypay?.paymentState === 'WAITING_FOR_3DS_RESPONSE'
   const { show } = props.afterTransaction
 
   return (
@@ -103,20 +97,13 @@ const Success: React.FC<Props> = props => {
           <IconWrapper>
             <Icon
               color={props.supportedCoins[props.order.outputCurrency].colorCode}
-              name={
-                props.supportedCoins[props.order.outputCurrency].icons
-                  .circleFilled
-              }
+              name={props.supportedCoins[props.order.outputCurrency].icons.circleFilled}
               size='64px'
             />
 
             {props.order.state === 'FINISHED' ? (
               <IconBackground color='white'>
-                <Icon
-                  name='checkmark-circle-filled'
-                  size='24px'
-                  color='green400'
-                />
+                <Icon name='checkmark-circle-filled' size='24px' color='green400' />
               </IconBackground>
             ) : (
               <IconBackground color='grey600'>
@@ -125,19 +112,14 @@ const Success: React.FC<Props> = props => {
             )}
           </IconWrapper>
           <TitleWrapper>
-            <Text
-              data-e2e='sbSddPurchasing'
-              size='20px'
-              weight={600}
-              color='grey800'
-            >
+            <Text data-e2e='sbSddPurchasing' size='20px' weight={600} color='grey800'>
               {isPendingAch ? (
                 <FormattedMessage
                   id='modals.simplebuy.summary.buy_started'
                   defaultMessage='{amount} {coin} Buy Started'
                   values={{
                     amount: baseAmount,
-                    coin: baseCurrency
+                    coin: baseCurrency,
                   }}
                 />
               ) : isPendingDeposit ? (
@@ -151,24 +133,19 @@ const Success: React.FC<Props> = props => {
                   defaultMessage='{amount} {coin} Purchased'
                   values={{
                     amount: baseAmount,
-                    coin: baseCurrency
+                    coin: baseCurrency,
                   }}
                 />
               )}
             </Text>
 
-            <Text
-              size='14px'
-              weight={500}
-              color='grey600'
-              style={{ marginTop: '8px' }}
-            >
+            <Text size='14px' weight={500} color='grey600' style={{ marginTop: '8px' }}>
               {props.order.state === 'FINISHED' && (
                 <FormattedMessage
                   id='modals.simplebuy.transferdetails.available'
                   defaultMessage='Your {coin} is now available in your Trading Wallet.'
                   values={{
-                    coin: baseCurrency
+                    coin: baseCurrency,
                   }}
                 />
               )}
@@ -197,7 +174,7 @@ const Success: React.FC<Props> = props => {
                 onClick={() =>
                   props.simpleBuyActions.setStep({
                     step: '3DS_HANDLER',
-                    order: props.order
+                    order: props.order,
                   })
                 }
               >
@@ -220,12 +197,7 @@ const Success: React.FC<Props> = props => {
                     values={{ days: days }}
                   />
                 </Text>
-                <Text
-                  color='grey600'
-                  size='14px'
-                  weight={500}
-                  style={{ marginTop: '16px' }}
-                >
+                <Text color='grey600' size='14px' weight={500} style={{ marginTop: '16px' }}>
                   <span>
                     <FormattedMessage
                       id='modals.simplebuy.summary.complete_card_info_additional'
@@ -245,31 +217,29 @@ const Success: React.FC<Props> = props => {
                 </Text>
               </BottomInfo>
             )}
-          {orderType === 'BUY' &&
-            props.order.paymentType === 'BANK_TRANSFER' &&
-            !isPendingAch && (
-              <BottomInfo>
-                <Text color='grey600' size='14px' weight={500}>
-                  <FormattedHTMLMessage
-                    id='modals.simplebuy.summary.ach_lock'
-                    defaultMessage='Note: You will not be able to Send or Withdraw these funds from your Wallet for the next {days} days.'
-                    values={{ days: days }}
-                  />{' '}
-                  <span>
-                    <a
-                      href='https://support.blockchain.com/hc/en-us/articles/360048200392'
-                      rel='noopener noreferrer'
-                      target='_blank'
-                    >
-                      <FormattedMessage
-                        id='modals.simplebuy.summary.learn_more'
-                        defaultMessage='Learn more'
-                      />
-                    </a>
-                  </span>
-                </Text>
-              </BottomInfo>
-            )}
+          {orderType === 'BUY' && props.order.paymentType === 'BANK_TRANSFER' && !isPendingAch && (
+            <BottomInfo>
+              <Text color='grey600' size='14px' weight={500}>
+                <FormattedHTMLMessage
+                  id='modals.simplebuy.summary.ach_lock'
+                  defaultMessage='Note: You will not be able to Send or Withdraw these funds from your Wallet for the next {days} days.'
+                  values={{ days: days }}
+                />{' '}
+                <span>
+                  <a
+                    href='https://support.blockchain.com/hc/en-us/articles/360048200392'
+                    rel='noopener noreferrer'
+                    target='_blank'
+                  >
+                    <FormattedMessage
+                      id='modals.simplebuy.summary.learn_more'
+                      defaultMessage='Learn more'
+                    />
+                  </a>
+                </span>
+              </Text>
+            </BottomInfo>
+          )}
         </Content>
       </ContentWrapper>
       {orderType === 'BUY' &&

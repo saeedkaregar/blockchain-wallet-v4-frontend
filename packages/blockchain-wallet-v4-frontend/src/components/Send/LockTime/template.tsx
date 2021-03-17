@@ -15,7 +15,7 @@ const LockTime = (props: Props & { lockTime: number }) => {
           values={{
             coin,
             lockTime,
-            withdrawable
+            withdrawable,
           }}
         />
       ) : (

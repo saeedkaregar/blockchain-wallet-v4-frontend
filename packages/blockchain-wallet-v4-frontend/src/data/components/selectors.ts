@@ -45,5 +45,5 @@ export {
   uploadDocuments,
   utils,
   veriff,
-  withdraw
+  withdraw,
 }

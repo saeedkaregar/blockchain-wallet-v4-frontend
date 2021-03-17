@@ -11,9 +11,7 @@ import * as A from './actions'
 const SERVICE_NAME = 'simplebuy'
 
 export default ({ api }: { api: APIType }) => {
-  const handleWithdrawSubmit = function * ({
-    payload
-  }: ReturnType<typeof A.handleCustodyWithdraw>) {
+  const handleWithdrawSubmit = function* ({ payload }: ReturnType<typeof A.handleCustodyWithdraw>) {
     const WITHDRAW_CONFIRM_FORM = 'confirmCustodyWithdraw'
 
     try {
@@ -26,30 +24,26 @@ export default ({ api }: { api: APIType }) => {
           convertStandardToBase('FIAT', payload.amount)
         )
         yield put(actions.form.stopSubmit(WITHDRAW_CONFIRM_FORM))
-        yield put(
-          actions.core.data.fiat.fetchTransactions(payload.fiatCurrency, true)
-        )
+        yield put(actions.core.data.fiat.fetchTransactions(payload.fiatCurrency, true))
         yield put(
           A.setStep({
             step: WithdrawStepEnum.WITHDRAWAL_DETAILS,
-            withdrawal
+            withdrawal,
           })
         )
       }
     } catch (e) {
       const error = errorHandler(e)
-      yield put(
-        actions.form.stopSubmit(WITHDRAW_CONFIRM_FORM, { _error: error })
-      )
+      yield put(actions.form.stopSubmit(WITHDRAW_CONFIRM_FORM, { _error: error }))
     }
   }
 
-  const showModal = function * ({ payload }: ReturnType<typeof A.showModal>) {
+  const showModal = function* ({ payload }: ReturnType<typeof A.showModal>) {
     const { fiatCurrency } = payload
 
     yield put(
       actions.modals.showModal('CUSTODY_WITHDRAW_MODAL', {
-        origin: 'TransactionList'
+        origin: 'TransactionList',
       })
     )
 
@@ -66,9 +60,7 @@ export default ({ api }: { api: APIType }) => {
     yield put(A.setStep({ step: WithdrawStepEnum.ENTER_AMOUNT, fiatCurrency }))
   }
 
-  const fetchFees = function * (
-    action: ReturnType<typeof A.fetchWithdrawalFees>
-  ) {
+  const fetchFees = function* (action: ReturnType<typeof A.fetchWithdrawalFees>) {
     yield put(A.fetchWithdrawalFeesLoading())
     try {
       const withdrawalFees: ReturnType<typeof api.getWithdrawalFees> = yield call(
@@ -84,12 +76,10 @@ export default ({ api }: { api: APIType }) => {
     }
   }
 
-  const fetchWithdrawLocks = function * () {
+  const fetchWithdrawLocks = function* () {
     yield put(A.fetchWithdrawalFeesLoading())
     try {
-      const locks: ReturnType<typeof api.getWithdrawalLocks> = yield call(
-        api.getWithdrawalLocks
-      )
+      const locks: ReturnType<typeof api.getWithdrawalLocks> = yield call(api.getWithdrawalLocks)
       yield put(A.fetchWithdrawalLockSuccess(locks))
     } catch (e) {
       const error = errorHandler(e)
@@ -101,6 +91,6 @@ export default ({ api }: { api: APIType }) => {
     handleWithdrawSubmit,
     showModal,
     fetchFees,
-    fetchWithdrawLocks
+    fetchWithdrawLocks,
   }
 }

@@ -2,10 +2,7 @@ import BigNumber from 'bignumber.js'
 
 import { UnitType } from 'blockchain-wallet-v4/src/exchange'
 import Currencies from 'blockchain-wallet-v4/src/exchange/currencies'
-import {
-  coinToString,
-  fiatToString
-} from 'blockchain-wallet-v4/src/exchange/currency'
+import { coinToString, fiatToString } from 'blockchain-wallet-v4/src/exchange/currency'
 import {
   PaymentValue,
   SBBalancesType,
@@ -15,19 +12,12 @@ import {
   SBQuoteType,
   SupportedWalletCurrenciesType,
   SwapQuoteType,
-  SwapUserLimitsType
+  SwapUserLimitsType,
 } from 'blockchain-wallet-v4/src/types'
 import { model } from 'data'
 import { convertBaseToStandard } from 'data/components/exchange/services'
-import {
-  getCoinFromPair,
-  getFiatFromPair
-} from 'data/components/simpleBuy/model'
-import {
-  SBCheckoutFormValuesType,
-  SBFixType,
-  SwapAccountType
-} from 'data/types'
+import { getCoinFromPair, getFiatFromPair } from 'data/components/simpleBuy/model'
+import { SBCheckoutFormValuesType, SBFixType, SwapAccountType } from 'data/types'
 
 import { Props } from './template.success'
 
@@ -43,16 +33,12 @@ export const getQuote = (
     const coin = getCoinFromPair(pair)
     const decimals = Currencies[coin].units[coin as UnitType].decimal_digits
     const standardRate = convertBaseToStandard('FIAT', rate)
-    return new BigNumber(baseAmount || '0')
-      .dividedBy(standardRate)
-      .toFixed(decimals)
+    return new BigNumber(baseAmount || '0').dividedBy(standardRate).toFixed(decimals)
   } else {
     const fiat = getFiatFromPair(pair)
     const decimals = Currencies[fiat].units[fiat as UnitType].decimal_digits
     const standardRate = convertBaseToStandard('FIAT', rate)
-    return new BigNumber(baseAmount || '0')
-      .times(standardRate)
-      .toFixed(decimals)
+    return new BigNumber(baseAmount || '0').times(standardRate).toFixed(decimals)
   }
 }
 
@@ -65,12 +51,12 @@ export const formatQuote = (
   if (fix === 'FIAT') {
     return coinToString({
       value: amt,
-      unit: { symbol: supportedCoins[getCoinFromPair(pair)].coinTicker }
+      unit: { symbol: supportedCoins[getCoinFromPair(pair)].coinTicker },
     })
   } else {
     return fiatToString({
       value: amt,
-      unit: getFiatFromPair(pair)
+      unit: getFiatFromPair(pair),
     })
   }
 }
@@ -85,7 +71,7 @@ export const getMaxMin = (
   allValues?: SBCheckoutFormValuesType,
   method?: SBPaymentMethodType,
   account?: SwapAccountType,
-  isSddFlow: boolean = false,
+  isSddFlow = false,
   sddLimit = LIMIT,
   limits?: SwapUserLimitsType
 ): { CRYPTO: string; FIAT: string } => {
@@ -95,7 +81,7 @@ export const getMaxMin = (
       quote = QUOTE as SBQuoteType
       switch (minOrMax) {
         case 'max':
-          let defaultMax = {
+          const defaultMax = {
             FIAT: isSddFlow
               ? convertBaseToStandard('FIAT', Number(sddLimit.max))
               : convertBaseToStandard('FIAT', pair.buyMax),
@@ -106,7 +92,7 @@ export const getMaxMin = (
               isSddFlow
                 ? convertBaseToStandard('FIAT', Number(sddLimit.max))
                 : convertBaseToStandard('FIAT', pair.buyMax)
-            )
+            ),
           }
 
           if (!allValues) return defaultMax
@@ -117,11 +103,7 @@ export const getMaxMin = (
             isSddFlow ? Number(sddLimit.max) : pair.buyMax
           ).toString()
 
-          if (
-            method.type === 'FUNDS' &&
-            sbBalances &&
-            limits?.maxPossibleOrder
-          ) {
+          if (method.type === 'FUNDS' && sbBalances && limits?.maxPossibleOrder) {
             const { available } = sbBalances[method.currency]
             switch (true) {
               case !available:
@@ -141,7 +123,7 @@ export const getMaxMin = (
 
           return { FIAT: maxFiat, CRYPTO: maxCrypto }
         case 'min':
-          let defaultMin = {
+          const defaultMin = {
             FIAT: isSddFlow
               ? convertBaseToStandard('FIAT', Number(sddLimit.min))
               : convertBaseToStandard('FIAT', pair.buyMin),
@@ -152,16 +134,13 @@ export const getMaxMin = (
               isSddFlow
                 ? convertBaseToStandard('FIAT', Number(sddLimit.min))
                 : convertBaseToStandard('FIAT', pair.buyMin)
-            )
+            ),
           }
 
           if (!allValues) return defaultMin
           if (!method) return defaultMin
 
-          const min = BigNumber.maximum(
-            method.limits.min,
-            pair.buyMin
-          ).toString()
+          const min = BigNumber.maximum(method.limits.min, pair.buyMin).toString()
 
           const minFiat = convertBaseToStandard('FIAT', min)
           const minCrypto = getQuote(quote.pair, quote.rate, 'FIAT', minFiat)
@@ -207,17 +186,13 @@ export const getMaxMinSell = (
       const rate = quote.rate
       switch (minOrMax) {
         case 'max':
-          const maxAvailable = account
-            ? account.balance
-            : sbBalances[coin]?.available || '0'
+          const maxAvailable = account ? account.balance : sbBalances[coin]?.available || '0'
 
           const maxSell = new BigNumber(pair.sellMax)
             .dividedBy(rate)
             .toFixed(Currencies[coin].units[coin].decimal_digits)
 
-          const userMax = Number(
-            payment ? payment.effectiveBalance : maxAvailable
-          )
+          const userMax = Number(payment ? payment.effectiveBalance : maxAvailable)
           const maxCrypto = Math.min(
             Number(convertBaseToStandard(coin, userMax)),
             Number(maxSell)
@@ -235,14 +210,8 @@ export const getMaxMinSell = (
   }
 }
 
-export const useConvertedValue = (
-  orderType: SBOrderActionType,
-  fix: SBFixType
-) => {
-  return (
-    (orderType === 'BUY' && fix === 'CRYPTO') ||
-    (orderType === 'SELL' && fix === 'FIAT')
-  )
+export const useConvertedValue = (orderType: SBOrderActionType, fix: SBFixType) => {
+  return (orderType === 'BUY' && fix === 'CRYPTO') || (orderType === 'SELL' && fix === 'FIAT')
 }
 
 export const maximumAmount = (
@@ -263,16 +232,13 @@ export const maximumAmount = (
     quote,
     sbBalances,
     sddLimit,
-    swapAccount
+    swapAccount,
   } = restProps
 
   const method = selectedMethod || defaultMethod
   if (!allValues) return
 
-  if (
-    limits?.maxPossibleOrder &&
-    Number(limits.maxPossibleOrder) < Number(sddLimit.max)
-  ) {
+  if (limits?.maxPossibleOrder && Number(limits.maxPossibleOrder) < Number(sddLimit.max)) {
     sddLimit.max = limits.maxPossibleOrder
   }
 
@@ -314,7 +280,7 @@ export const minimumAmount = (
     quote,
     sbBalances,
     sddLimit,
-    swapAccount
+    swapAccount,
   } = restProps
   const method = selectedMethod || defaultMethod
   if (!allValues) return

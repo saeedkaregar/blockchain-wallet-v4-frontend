@@ -1,44 +1,38 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
 
-const fontSizeToNumber = fontSize => Number(fontSize.replace(/px/, ''))
+const fontSizeToNumber = (fontSize) => Number(fontSize.replace(/px/, ''))
 
 // Empirical constant
-const getFontSizeToCharWidth = fontSize => {
+const getFontSizeToCharWidth = (fontSize) => {
   if (/px/.test(fontSize)) return 0.62
   return 0
 }
 
-const calculateFontSizeRatio = (
-  inputWidth,
-  inputFontSize,
-  fontSizeToCharWidth,
-  valueLength
-) => inputWidth / (inputFontSize * fontSizeToCharWidth * valueLength)
+const calculateFontSizeRatio = (inputWidth, inputFontSize, fontSizeToCharWidth, valueLength) =>
+  inputWidth / (inputFontSize * fontSizeToCharWidth * valueLength)
 
-const getValueLength = value => {
+const getValueLength = (value) => {
   const length = String(value).length
   const matchDot = /\.*/.exec(value)
   const matchOne = /1*/.exec(value)
   const matchDotLength = matchDot ? matchDot[0].length : 0
   const matchOneLength = matchOne ? matchOne[0].length : 0
   const altLength = length - matchDotLength - matchOneLength
-  return altLength !== length
-    ? altLength + matchDotLength / 2 + matchOneLength / 1.3
-    : length
+  return altLength !== length ? altLength + matchDotLength / 2 + matchOneLength / 1.3 : length
 }
 
 /**
  * THIS HOC CAN ONLY BE USED ON CLASS COMPONENTS
  * ANY SFC WILL NOT WORK AND SFC WRAPPED WITH styled() WILL BREAK IN PROD
  */
-export const ResizeableFontInput = Component =>
+export const ResizeableFontInput = (Component) =>
   class ResizeableInput extends React.PureComponent {
     static defaultProps = {
-      onUpdate: () => {}
+      onUpdate: () => {},
     }
     state = {
-      fontRatio: 1
+      fontRatio: 1,
     }
 
     componentDidMount() {
@@ -83,7 +77,7 @@ export const ResizeableFontInput = Component =>
       // @ts-ignore
       const { maxFontSize, onUpdate } = this.props
       const fontSizeNumber = fontSizeToNumber(maxFontSize)
-      let fontSizeRatio = calculateFontSizeRatio(
+      const fontSizeRatio = calculateFontSizeRatio(
         input.offsetWidth,
         fontSizeNumber,
         getFontSizeToCharWidth(maxFontSize),
@@ -107,7 +101,7 @@ export const ResizeableFontInput = Component =>
       this.resizeInputFont()
     }
 
-    onValueChange = e => {
+    onValueChange = (e) => {
       // @ts-ignore
       this.props.input.onChange(e)
       requestAnimationFrame(this.updateValueLength)

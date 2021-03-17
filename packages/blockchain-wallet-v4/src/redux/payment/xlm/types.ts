@@ -13,7 +13,4 @@ export type XlmAddressFromType = {
   type: 'ADDRESS'
 }
 
-export type XlmFromType =
-  | XlmAccountFromType
-  | XlmAddressFromType
-  | CustodialFromType
+export type XlmFromType = XlmAccountFromType | XlmAddressFromType | CustodialFromType

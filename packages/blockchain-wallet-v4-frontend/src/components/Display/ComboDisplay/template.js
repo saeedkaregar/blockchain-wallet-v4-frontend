@@ -20,7 +20,7 @@ const Container = styled.div`
   padding-left: 5px;
 `
 
-const ComboDisplay = props => {
+const ComboDisplay = (props) => {
   return (
     <Wrapper>
       <CoinDisplay {...props} />
@@ -34,7 +34,7 @@ const ComboDisplay = props => {
 }
 
 ComboDisplay.propTypes = {
-  coin: PropTypes.string.isRequired
+  coin: PropTypes.string.isRequired,
 }
 
 export default ComboDisplay

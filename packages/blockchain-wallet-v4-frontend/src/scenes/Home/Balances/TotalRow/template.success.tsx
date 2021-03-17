@@ -20,10 +20,10 @@ const HomeBalanceAmount = styled(Text)`
   position: relative;
   font-size: 24px;
   font-weight: 500;
-  color: ${props => props.theme.grey800};
+  color: ${(props) => props.theme.grey800};
 `
 
-const Success: React.FC<Props> = props => {
+const Success: React.FC<Props> = (props) => {
   return (
     <TotalRow>
       <Text size='16px' weight={500} color='grey400' capitalize>
@@ -33,9 +33,7 @@ const Success: React.FC<Props> = props => {
           values={{ viewType: props.currentTab }}
         />
       </Text>
-      <HomeBalanceAmount data-e2e='homeBalanceAmt'>
-        {props.totalBalance}
-      </HomeBalanceAmount>
+      <HomeBalanceAmount data-e2e='homeBalanceAmt'>{props.totalBalance}</HomeBalanceAmount>
     </TotalRow>
   )
 }

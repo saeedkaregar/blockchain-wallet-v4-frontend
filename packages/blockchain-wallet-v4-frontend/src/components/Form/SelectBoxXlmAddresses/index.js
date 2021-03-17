@@ -10,28 +10,26 @@ class SelectBoxXlmAddresses extends React.PureComponent {
     const { data, includeAll, ...rest } = this.props
 
     return data.cata({
-      Success: value => {
-        return (
-          <SelectBoxXlm options={value.data} elements={value.data} {...rest} />
-        )
+      Success: (value) => {
+        return <SelectBoxXlm options={value.data} elements={value.data} {...rest} />
       },
-      Failure: message => <div>{message}</div>,
+      Failure: (message) => <div>{message}</div>,
       Loading: () => <div />,
-      NotAsked: () => <div />
+      NotAsked: () => <div />,
     })
   }
 }
 
 SelectBoxXlmAddresses.propTypes = {
-  includeAll: PropTypes.bool
+  includeAll: PropTypes.bool,
 }
 
 SelectBoxXlmAddresses.defaultProps = {
-  includeAll: true
+  includeAll: true,
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  data: getData(state, ownProps)
+  data: getData(state, ownProps),
 })
 
 export default connect(mapStateToProps)(SelectBoxXlmAddresses)

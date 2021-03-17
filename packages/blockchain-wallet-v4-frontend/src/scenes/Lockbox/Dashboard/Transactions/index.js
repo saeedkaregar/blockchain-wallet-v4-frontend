@@ -16,7 +16,7 @@ class TransactionsContainer extends React.PureComponent {
   render() {
     const { data } = this.props
     return data.cata({
-      Success: val => (
+      Success: (val) => (
         <Success
           currency={val.currency}
           loadMore={this.loadMore}
@@ -28,20 +28,17 @@ class TransactionsContainer extends React.PureComponent {
       ),
       Loading: () => <Loading />,
       Failure: () => <div>Something went wrong.</div>,
-      NotAsked: () => <div />
+      NotAsked: () => <div />,
     })
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  lockboxActions: bindActionCreators(actions.components.lockbox, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  lockboxActions: bindActionCreators(actions.components.lockbox, dispatch),
 })
 
-const mapStateToProps = state => ({
-  data: getData(state)
+const mapStateToProps = (state) => ({
+  data: getData(state),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TransactionsContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionsContainer)

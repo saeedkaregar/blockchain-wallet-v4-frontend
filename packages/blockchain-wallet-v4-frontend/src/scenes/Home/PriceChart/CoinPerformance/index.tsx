@@ -12,13 +12,13 @@ class CoinPerformance extends React.PureComponent<Props> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currency: selectors.core.settings.getCurrency(state).getOrElse('USD'),
-  priceChart: selectors.preferences.getPriceChart(state)
+  priceChart: selectors.preferences.getPriceChart(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-  miscActions: bindActionCreators(actions.core.data.misc, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  miscActions: bindActionCreators(actions.core.data.misc, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

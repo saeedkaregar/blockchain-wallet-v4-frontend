@@ -23,8 +23,8 @@ class InfoAndResidential extends PureComponent<Props> {
       'INFO_AND_RESIDENTIAL',
       JSON.stringify({
         countryCode: this.props.countryCode,
-        infoAndResidential: 'page init'
-      })
+        infoAndResidential: 'page init',
+      }),
     ])
   }
 
@@ -34,11 +34,7 @@ class InfoAndResidential extends PureComponent<Props> {
   }
 
   handleSubmit = () => {
-    const {
-      checkSddEligibility,
-      identityVerificationActions,
-      onCompletionCallback
-    } = this.props
+    const { checkSddEligibility, identityVerificationActions, onCompletionCallback } = this.props
     identityVerificationActions.saveInfoAndResidentialData(
       checkSddEligibility,
       onCompletionCallback
@@ -47,8 +43,8 @@ class InfoAndResidential extends PureComponent<Props> {
       'INFO_AND_RESIDENTIAL',
       JSON.stringify({
         countryCode: this.props.countryCode,
-        infoAndResidential: 'page submit'
-      })
+        infoAndResidential: 'page submit',
+      }),
     ])
   }
 
@@ -58,17 +54,12 @@ class InfoAndResidential extends PureComponent<Props> {
 
   setDefaultCountry = (country: CountryType) => {
     this.props.formActions.change(INFO_AND_RESIDENTIAL_FORM, 'country', country)
-    this.props.formActions.clearFields(
-      INFO_AND_RESIDENTIAL_FORM,
-      false,
-      false,
-      'state'
-    )
+    this.props.formActions.clearFields(INFO_AND_RESIDENTIAL_FORM, false, false, 'state')
   }
 
   render() {
     return this.props.data.cata({
-      Success: val => (
+      Success: (val) => (
         <Success
           {...this.props}
           {...val}
@@ -76,13 +67,13 @@ class InfoAndResidential extends PureComponent<Props> {
           onCountrySelect={this.onCountryChange}
           updateDefaultCountry={this.setDefaultCountry}
           initialValues={{
-            ...val.userData
+            ...val.userData,
           }}
         />
       ),
       Failure: () => <DataError onClick={this.fetchData} />,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
@@ -92,16 +83,16 @@ const mapStateToProps = (state: RootState) => ({
   formValues: selectors.form.getFormValues(INFO_AND_RESIDENTIAL_FORM)(state) as
     | InfoAndResidentialFormValuesType
     | undefined,
-  countryCode: selectors.core.settings.getCountryCode(state).getOrElse(null)
+  countryCode: selectors.core.settings.getCountryCode(state).getOrElse(null),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   analyticsActions: bindActionCreators(actions.analytics, dispatch),
   identityVerificationActions: bindActionCreators(
     actions.components.identityVerification,
     dispatch
   ),
-  formActions: bindActionCreators(actions.form, dispatch)
+  formActions: bindActionCreators(actions.form, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

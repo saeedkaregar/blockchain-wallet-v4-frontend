@@ -7,7 +7,7 @@ describe('convertFiatToBtc', () => {
       value: 1,
       fromCurrency: 'USD',
       toUnit: 'BTC',
-      rates: btcRates
+      rates: btcRates,
     }
     const expectedOutput = {
       value: '0.00015174',
@@ -15,18 +15,18 @@ describe('convertFiatToBtc', () => {
         rate: '100000000',
         symbol: 'BTC',
         decimal_digits: 8,
-        currency: 'BTC'
-      }
+        currency: 'BTC',
+      },
     }
     const result = Conversion.convertFiatToBtc(input)
     expect(result).toEqual(expectedOutput)
   })
 
-  it('should return value 0 if value is undefined ', () => {
+  it('should return value 0 if value is undefined', () => {
     const input = {
       fromCurrency: 'USD',
       toUnit: 'BTC',
-      rates: btcRates
+      rates: btcRates,
     }
     const expectedOutput = {
       value: '0',
@@ -34,8 +34,8 @@ describe('convertFiatToBtc', () => {
         rate: '100000000',
         symbol: 'BTC',
         decimal_digits: 8,
-        currency: 'BTC'
-      }
+        currency: 'BTC',
+      },
     }
     const result = Conversion.convertFiatToBtc(input)
     expect(result).toEqual(expectedOutput)
@@ -45,7 +45,7 @@ describe('convertFiatToBtc', () => {
     const input = {
       value: 1,
       toUnit: 'BTC',
-      rates: btcRates
+      rates: btcRates,
     }
     const result = Conversion.convertFiatToBtc(input)
     expect(result).toEqual(Conversion.DefaultConversion)
@@ -56,7 +56,7 @@ describe('convertFiatToBtc', () => {
       value: 1,
       fromCurrency: 'USDDDD',
       toUnit: 'BTC',
-      rates: btcRates
+      rates: btcRates,
     }
 
     const result = Conversion.convertFiatToBtc(input)
@@ -68,7 +68,7 @@ describe('convertFiatToBtc', () => {
       value: 1,
       fromCurrency: 'USD',
       toUnit: '',
-      rates: btcRates
+      rates: btcRates,
     }
 
     const result = Conversion.convertFiatToBtc(input)
@@ -80,7 +80,7 @@ describe('convertFiatToBtc', () => {
       value: 1,
       fromCurrency: 'USD',
       toUnit: 'BTCCCC',
-      rates: btcRates
+      rates: btcRates,
     }
     const result = Conversion.convertFiatToBtc(input)
     expect(result).toEqual(Conversion.DefaultConversion)

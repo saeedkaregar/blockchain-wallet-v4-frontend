@@ -7,7 +7,7 @@ export enum RecoveryPhraseStepType {
   'FIRST_SET_WORDS',
   'SECOND_SET_WORDS',
   'CONFIRM_WORDS',
-  'CONFIRM_WORDS_SUCCESS'
+  'CONFIRM_WORDS_SUCCESS',
 }
 
 // State

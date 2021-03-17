@@ -80,10 +80,7 @@ type IPaymentType = {
   ) => PaymentType
   publish: () => PaymentType
   sign: (pw: string) => PaymentType
-  to: (
-    addressOrIndex: string | number,
-    addressType?: AddressTypesType
-  ) => PaymentType
+  to: (addressOrIndex: string | number, addressType?: AddressTypesType) => PaymentType
 }
 
 export type BchPaymentType = IPaymentType & {
@@ -107,10 +104,7 @@ export type EthPaymentType = IPaymentType & {
   coin: 'ETH' | 'PAX' | 'USDT' | 'WDGLD'
   description: (arg: string) => EthPaymentType
   fee: (arg: number, account: string) => EthPaymentType
-  init: (arg: {
-    coin: 'ETH' | Erc20CoinType
-    isErc20?: boolean
-  }) => EthPaymentType
+  init: (arg: { coin: 'ETH' | Erc20CoinType; isErc20?: boolean }) => EthPaymentType
   setIsRetryAttempt: (
     isRetryAttempt: boolean,
     nonce: string,
@@ -129,11 +123,7 @@ export type XlmPaymentType = IPaymentType & {
   value: () => XlmPaymentValue
 }
 
-export type PaymentType =
-  | BchPaymentType
-  | BtcPaymentType
-  | EthPaymentType
-  | XlmPaymentType
+export type PaymentType = BchPaymentType | BtcPaymentType | EthPaymentType | XlmPaymentType
 
 export type PaymentValue = BtcPaymentValue | EthPaymentValue | XlmPaymentValue
 

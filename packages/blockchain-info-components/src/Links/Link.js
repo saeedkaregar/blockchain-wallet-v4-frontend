@@ -6,18 +6,18 @@ import styled from 'styled-components'
 import { Palette } from '../Colors/index.ts'
 
 const BaseLink = styled.a`
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: ${props => props.size};
-  font-weight: ${props => props.weight};
-  color: ${props => props.theme[props.color]};
-  text-transform: ${props =>
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: ${(props) => props.size};
+  font-weight: ${(props) => props.weight};
+  color: ${(props) => props.theme[props.color]};
+  text-transform: ${(props) =>
     props.uppercase ? 'uppercase' : props.capitalize ? 'capitalize' : 'none'};
   text-decoration: none;
   cursor: pointer;
 
   &:hover {
-    color: ${props => props.theme[props.color]};
+    color: ${(props) => props.theme[props.color]};
   }
 
   &:focus {
@@ -25,7 +25,7 @@ const BaseLink = styled.a`
   }
 `
 
-const Link = props => {
+const Link = (props) => {
   const { children, ...rest } = props
 
   return <BaseLink {...rest}>{children}</BaseLink>
@@ -37,7 +37,7 @@ Link.propTypes = {
   color: PropTypes.oneOf(keysIn(Palette())),
   uppercase: PropTypes.bool,
   capitalize: PropTypes.bool,
-  bold: PropTypes.bool
+  bold: PropTypes.bool,
 }
 
 Link.defaultProps = {
@@ -46,7 +46,7 @@ Link.defaultProps = {
   color: 'blue600',
   uppercase: false,
   capitalize: false,
-  bold: false
+  bold: false,
 }
 
 export default Link

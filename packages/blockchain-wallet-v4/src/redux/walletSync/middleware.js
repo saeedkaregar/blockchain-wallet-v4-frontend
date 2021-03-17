@@ -12,7 +12,7 @@ import {
   pluck,
   propEq,
   range,
-  uniq
+  uniq,
 } from 'ramda'
 
 import { HDAccount, Wallet, Wrapper } from '../../types'
@@ -27,8 +27,7 @@ import * as selectors from '../selectors'
  */
 export const addressLookaheadCount = 10
 
-export const toAsync = fn =>
-  new Promise(resolve => setTimeout(() => resolve(fn()), 0))
+export const toAsync = (fn) => new Promise((resolve) => setTimeout(() => resolve(fn()), 0))
 
 /**
  * Launches derivation of future addresses for target HDAccount
@@ -46,19 +45,13 @@ export const getHDAccountAddressPromises = curry((state, account) => {
    * setTimeout runs infrequently and is less blocking
    * requestAnimation frame blocks UI heavier
    */
-  const asyncDerive = index =>
-    toAsync(() =>
-      HDAccount.getReceiveAddress(account, index, networks.bitcoin.NETWORK_BTC)
-    )
+  const asyncDerive = (index) =>
+    toAsync(() => HDAccount.getReceiveAddress(account, index, networks.bitcoin.NETWORK_BTC))
 
-  const receiveIndex = selectors.data.btc
-    .getReceiveIndex(xpub, state)
-    .getOrElse(null)
+  const receiveIndex = selectors.data.btc.getReceiveIndex(xpub, state).getOrElse(null)
   if (isNil(receiveIndex)) return []
 
-  return range(receiveIndex, receiveIndex + addressLookaheadCount).map(
-    asyncDerive
-  )
+  return range(receiveIndex, receiveIndex + addressLookaheadCount).map(asyncDerive)
 })
 
 /**
@@ -68,10 +61,7 @@ export const getUnusedLabeledAddresses = async (state, api) => {
   const labeledAddresses = await api.fetchBlockchainData(
     selectors.kvStore.btc.getAddressLabelKeys(state)
   )
-  return compose(
-    pluck('address'),
-    filter(propEq('n_tx', 0))
-  )(labeledAddresses.addresses)
+  return compose(pluck('address'), filter(propEq('n_tx', 0)))(labeledAddresses.addresses)
 }
 
 /**
@@ -81,13 +71,10 @@ export const getUnusedLabeledAddresses = async (state, api) => {
  */
 export const getWalletAddresses = async (state, api) => {
   const activeAddresses = keysIn(selectors.wallet.getActiveAddresses(state))
-  const hdAccounts = compose(
-    Wallet.selectHDAccounts,
-    selectors.wallet.getWallet
-  )(state)
+  const hdAccounts = compose(Wallet.selectHDAccounts, selectors.wallet.getWallet)(state)
   const [unusedAddresses, ...hdAddresses] = await Promise.all([
     getUnusedLabeledAddresses(state, api),
-    ...hdAccounts.flatMap(getHDAccountAddressPromises(state)).toJS()
+    ...hdAccounts.flatMap(getHDAccountAddressPromises(state)).toJS(),
   ])
 
   return activeAddresses.concat(uniq(hdAddresses.concat(unusedAddresses)))
@@ -99,10 +86,7 @@ export const getWalletAddresses = async (state, api) => {
  *
  * TODO: refactor to sagas, VERY painful to test/write mocks
  */
-const walletSync = ({
-  api,
-  isAuthenticated
-} = {}) => store => next => action => {
+const walletSync = ({ api, isAuthenticated } = {}) => (store) => (next) => (action) => {
   const prevState = store.getState()
   const prevWallet = selectors.wallet.getWrapper(prevState)
   const wasAuth = isAuthenticated(prevState)
@@ -117,7 +101,7 @@ const walletSync = ({
   // Easily know when to sync, because of ✨immutable✨ data
   // the initial_state check could be done against full payload state
 
-  const handleChecksum = encrypted => {
+  const handleChecksum = (encrypted) => {
     const checksum = Wrapper.computeChecksum(encrypted)
     compose(store.dispatch, A.wallet.setPayloadChecksum)(checksum)
     return encrypted
@@ -132,9 +116,7 @@ const walletSync = ({
        */
       try {
         const addresses = await getWalletAddresses(state, api)
-        encryptedWallet = encryptedWallet.map(
-          assoc('active', join('|', addresses))
-        )
+        encryptedWallet = encryptedWallet.map(assoc('active', join('|', addresses)))
       } catch (error) {
         return store.dispatch(A.walletSync.syncError(error))
       }

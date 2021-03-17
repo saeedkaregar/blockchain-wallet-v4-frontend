@@ -18,22 +18,20 @@ export class CoinTickerContainer extends React.PureComponent<Props> {
     const { data } = this.props
 
     return data.cata({
-      Success: value => (
-        <Success {...value} data-e2e={this.props['data-e2e']} />
-      ),
-      Failure: message => <Error>{message}</Error>,
+      Success: (value) => <Success {...value} data-e2e={this.props['data-e2e']} />,
+      Failure: (message) => <Error>{message}</Error>,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state, ownProps: OwnProps) => ({
-  data: selectors.components.priceTicker.getData(ownProps.coin, state)
+  data: selectors.components.priceTicker.getData(ownProps.coin, state),
 })
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions.components.priceTicker, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions.components.priceTicker, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

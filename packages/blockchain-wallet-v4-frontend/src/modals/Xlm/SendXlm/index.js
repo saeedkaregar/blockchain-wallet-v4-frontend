@@ -35,16 +35,16 @@ SendXlmContainer.propTypes = {
   step: PropTypes.number.isRequired,
   position: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
-  closeAll: PropTypes.func.isRequired
+  closeAll: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
-  step: selectors.components.sendXlm.getStep(state)
+const mapStateToProps = (state) => ({
+  step: selectors.components.sendXlm.getStep(state),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(actions.components.sendXlm, dispatch),
-  fetchData: bindActionCreators(actions.core.data.xlm.fetchData, dispatch)
+  fetchData: bindActionCreators(actions.core.data.xlm.fetchData, dispatch),
 })
 
 const enhance = compose(

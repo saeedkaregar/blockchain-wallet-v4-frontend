@@ -5,9 +5,9 @@ export default ({ apiUrl, get }) => {
     get({
       url: apiUrl,
       endPoint: '/ticker',
-      data: { base: coin }
+      data: { base: coin },
     })
   return {
-    getCoinTicker
+    getCoinTicker,
   }
 }

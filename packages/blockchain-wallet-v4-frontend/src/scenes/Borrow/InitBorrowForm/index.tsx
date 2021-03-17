@@ -5,20 +5,13 @@ import { bindActionCreators, compose, Dispatch } from 'redux'
 import { Field, reduxForm } from 'redux-form'
 import styled from 'styled-components'
 
-import {
-  Button,
-  Icon,
-  Link,
-  Text,
-  TooltipHost,
-  TooltipIcon
-} from 'blockchain-info-components'
+import { Button, Icon, Link, Text, TooltipHost, TooltipIcon } from 'blockchain-info-components'
 import {
   CoinType,
   LoanType,
   NabuApiErrorType,
   OfferType,
-  RemoteDataType
+  RemoteDataType,
 } from 'blockchain-wallet-v4/src/types'
 import { Box } from 'components/Box'
 import { FormGroup, FormLabel } from 'components/Form'
@@ -48,7 +41,7 @@ const HorizontalBorder = styled.div`
   width: 100%;
   height: 1px;
   margin: 16px auto 8px auto;
-  background-color: ${props => props.theme.grey000};
+  background-color: ${(props) => props.theme.grey000};
 `
 
 const AbsoluteWarning = styled(Text)`
@@ -67,9 +60,7 @@ class InitBorrowForm extends PureComponent<Props> {
     const values = this.props.values
 
     const offer = offers.find(
-      offer =>
-        offer.terms.collateralCcy === values?.coin &&
-        offer.terms.principalCcy === 'PAX'
+      (offer) => offer.terms.collateralCcy === values?.coin && offer.terms.principalCcy === 'PAX'
     )
     return offer
   }
@@ -79,7 +70,7 @@ class InitBorrowForm extends PureComponent<Props> {
       Success: () => false,
       Loading: () => false,
       NotAsked: () => false,
-      Failure: e => typeof e === 'object' && e.description === USER_BLOCKED
+      Failure: (e) => typeof e === 'object' && e.description === USER_BLOCKED,
     })
   }
 
@@ -88,7 +79,7 @@ class InitBorrowForm extends PureComponent<Props> {
     if (!offer) return
     this.props.borrowActions.setStep({ step: 'CHECKOUT', offer })
     this.props.modalActions.showModal('BORROW_MODAL', {
-      origin: 'BorrowLandingPage'
+      origin: 'BorrowLandingPage',
     })
   }
 
@@ -110,10 +101,7 @@ class InitBorrowForm extends PureComponent<Props> {
           <FormGroup>
             <CustomFormLabel>
               <Text size='14px' color='grey600' weight={600}>
-                <FormattedMessage
-                  id='scenes.initborrow.collateral'
-                  defaultMessage='Collateral'
-                />
+                <FormattedMessage id='scenes.initborrow.collateral' defaultMessage='Collateral' />
               </Text>
             </CustomFormLabel>
             <Field component={SelectBoxCoin} name='coin' type='send' />
@@ -127,10 +115,7 @@ class InitBorrowForm extends PureComponent<Props> {
           onClick={this.initBorrow}
           data-e2e='initBorrowPax'
         >
-          <FormattedMessage
-            id='scenes.initborrow.borrow1'
-            defaultMessage='Borrow USD Digital'
-          />
+          <FormattedMessage id='scenes.initborrow.borrow1' defaultMessage='Borrow USD Digital' />
         </Button>
 
         <AbsoluteWarning size='12px' weight={500} color='grey600'>
@@ -145,10 +130,7 @@ class InitBorrowForm extends PureComponent<Props> {
               weight={500}
               href='https://support.blockchain.com/hc/en-us/articles/360040444691-How-it-works'
             >
-              <FormattedMessage
-                id='buttons.learn_more'
-                defaultMessage='Learn More'
-              />
+              <FormattedMessage id='buttons.learn_more' defaultMessage='Learn More' />
             </Link>
           </div>
         </AbsoluteWarning>
@@ -162,12 +144,12 @@ const mapStateToProps = (state: RootState): LinkStatePropsType => ({
   userHistoryR: selectors.components.borrow.getBorrowHistory(state),
   values: selectors.form.getFormValues('initBorrow')(state) as {
     coin: CoinType
-  }
+  },
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   borrowActions: bindActionCreators(actions.components.borrow, dispatch),
-  modalActions: bindActionCreators(actions.modals, dispatch)
+  modalActions: bindActionCreators(actions.modals, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

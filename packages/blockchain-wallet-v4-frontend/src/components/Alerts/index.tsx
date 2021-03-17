@@ -7,20 +7,15 @@ import { actions, selectors } from 'data'
 import Alerts from './template'
 
 const AlertsContainer = ({ alertActions, alerts }: Props) => {
-  return (
-    <Alerts
-      alerts={alerts || []}
-      handleClose={id => alertActions.dismissAlert(id)}
-    />
-  )
+  return <Alerts alerts={alerts || []} handleClose={(id) => alertActions.dismissAlert(id)} />
 }
 
-const mapStateToProps = state => ({
-  alerts: selectors.alerts.selectAlerts(state)
+const mapStateToProps = (state) => ({
+  alerts: selectors.alerts.selectAlerts(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-  alertActions: bindActionCreators(actions.alerts, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  alertActions: bindActionCreators(actions.alerts, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

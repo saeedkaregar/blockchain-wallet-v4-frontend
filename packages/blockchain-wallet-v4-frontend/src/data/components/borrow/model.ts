@@ -3,7 +3,7 @@ import {
   LoanTransactionsStatusType,
   LoanTransactionsType,
   LoanType,
-  OfferType
+  OfferType,
 } from 'blockchain-wallet-v4/src/types'
 
 import { convertBaseToStandard } from '../exchange/services'
@@ -12,9 +12,7 @@ export const NO_OFFER_EXISTS = 'NO_OFFER_EXISTS'
 export const NO_LOAN_EXISTS = 'NO_LOAN_EXISTS'
 export const USER_BLOCKED = 'User is from a blocked country or state'
 
-export const getCollateralizationColor = (
-  displayName: 'safe' | 'risky' | 'unsafe'
-) => {
+export const getCollateralizationColor = (displayName: 'safe' | 'risky' | 'unsafe') => {
   switch (displayName) {
     case 'safe':
       return 'green600'
@@ -29,18 +27,12 @@ export const getCollateralAmtRequired = (loan: LoanType, offer: OfferType) => {
   return (
     (offer.terms.collateralRatio - loan.collateralisationRatio) *
     Number(
-      convertBaseToStandard(
-        loan.principal.amount[0].currency,
-        loan.principal.amount[0].amount
-      )
+      convertBaseToStandard(loan.principal.amount[0].currency, loan.principal.amount[0].amount)
     )
   ).toFixed(2)
 }
 
-export const getCollateralizationDisplayName = (
-  currentCollateral: number,
-  offer: OfferType
-) => {
+export const getCollateralizationDisplayName = (currentCollateral: number, offer: OfferType) => {
   switch (true) {
     case currentCollateral <= offer.callTerms.liquidationHardRatio:
       return 'unsafe'
@@ -82,10 +74,8 @@ export const isLastTxStatus = (
   }
 
   if (!txType) return
-  const lastDeposit = loanTransactions.find(tx => tx.type === txType)
-  return lastDeposit && statuses.indexOf(lastDeposit.status) > -1
-    ? lastDeposit
-    : undefined
+  const lastDeposit = loanTransactions.find((tx) => tx.type === txType)
+  return lastDeposit && statuses.indexOf(lastDeposit.status) > -1 ? lastDeposit : undefined
 }
 
 export const showBorrowSummary = (loan: LoanType): boolean => {

@@ -7,7 +7,7 @@ import {
   NavbarNavItem,
   NavbarNavItemButton,
   NavbarNavItemIcon,
-  NavbarNavItemTextHeader
+  NavbarNavItemTextHeader,
 } from 'components/Navbar'
 import { media } from 'services/styles'
 
@@ -34,7 +34,7 @@ const StyledNavbarNavItem = styled(NavbarNavItem)`
       &:last-child {
         padding-right: 0px;
       }
-    `}   
+    `}
   }
 `
 

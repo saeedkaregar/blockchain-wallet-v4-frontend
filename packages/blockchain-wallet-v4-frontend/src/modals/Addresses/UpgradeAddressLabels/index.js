@@ -12,9 +12,7 @@ class UpgradeAddressLabelsContainer extends React.PureComponent {
 }
 
 UpgradeAddressLabelsContainer.propTypes = {
-  duration: PropTypes.number
+  duration: PropTypes.number,
 }
 
-export default modalEnhancer('UpgradeAddressLabels')(
-  UpgradeAddressLabelsContainer
-)
+export default modalEnhancer('UpgradeAddressLabels')(UpgradeAddressLabelsContainer)

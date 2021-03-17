@@ -3,17 +3,13 @@ import { lift } from 'ramda'
 import { ExtractSuccess, FiatType } from 'blockchain-wallet-v4/src/types'
 import { selectors } from 'data'
 
-export const getData = state => {
+export const getData = (state) => {
   const balancesR = selectors.components.simpleBuy.getSBBalances(state)
-  const bankTransferAccountsR = selectors.components.brokerage.getBankTransferAccounts(
-    state
-  )
+  const bankTransferAccountsR = selectors.components.brokerage.getBankTransferAccounts(state)
   const cardsR = selectors.components.simpleBuy.getSBCards(state)
   const eligibilityR = selectors.components.simpleBuy.getSBFiatEligible(state)
   const pairsR = selectors.components.simpleBuy.getSBPairs(state)
-  const paymentMethodsR = selectors.components.simpleBuy.getSBPaymentMethods(
-    state
-  )
+  const paymentMethodsR = selectors.components.simpleBuy.getSBPaymentMethods(state)
   const supportedCoinsR = selectors.core.walletOptions.getSupportedCoins(state)
   const walletCurrencyR = selectors.core.settings.getCurrency(state)
 
@@ -35,7 +31,7 @@ export const getData = state => {
       pairs,
       paymentMethods,
       supportedCoins,
-      walletCurrency
+      walletCurrency,
     })
   )(
     balancesR,

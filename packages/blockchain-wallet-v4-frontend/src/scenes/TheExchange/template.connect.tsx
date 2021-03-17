@@ -94,10 +94,7 @@ const ExchangeConnect = (props: Props) => {
               fullwidth
               onClick={onSignup}
             >
-              <FormattedMessage
-                id='scenes.exchange.connectnow'
-                defaultMessage='Connect Now'
-              />
+              <FormattedMessage id='scenes.exchange.connectnow' defaultMessage='Connect Now' />
             </Button>
           </>
         )}

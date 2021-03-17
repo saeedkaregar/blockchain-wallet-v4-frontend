@@ -28,7 +28,7 @@ type State = {}
 class LinkBankStatus extends PureComponent<Props, State> {
   render() {
     return this.props.data.cata({
-      Success: val =>
+      Success: (val) =>
         val.bankStatus === 'ACTIVE' ? (
           <Success {...val} {...this.props} />
         ) : (
@@ -36,18 +36,18 @@ class LinkBankStatus extends PureComponent<Props, State> {
         ),
       Failure: () => null,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state: RootState): LinkStatePropsType => ({
-  data: getData(state)
+  data: getData(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch): LinkDispatchPropsType => ({
   analyticsActions: bindActionCreators(actions.analytics, dispatch),
-  brokerageActions: bindActionCreators(actions.components.brokerage, dispatch)
+  brokerageActions: bindActionCreators(actions.components.brokerage, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

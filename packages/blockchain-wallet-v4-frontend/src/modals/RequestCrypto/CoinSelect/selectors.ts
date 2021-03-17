@@ -18,23 +18,21 @@ export const getData = createDeepEqualSelector(
     (state, ownProps) =>
       getCoinAccounts(state, {
         coins: ownProps.requestableCoins,
-        ...REQUEST_ACCOUNTS_SELECTOR
+        ...REQUEST_ACCOUNTS_SELECTOR,
       } as CoinAccountSelectorType),
     selectors.core.walletOptions.getAllCoinAvailabilities,
     selectors.core.walletOptions.getBtcNetwork,
-    (state, ownProps) => ({ ownProps, state })
+    (state, ownProps) => ({ ownProps, state }),
   ],
   (accounts, coinAvailabilitiesR, btcNetworkR, { ownProps, state }) => {
     const { selectedCoin } = ownProps?.formValues || {}
-    const coinAvailabilities = coinAvailabilitiesR.getOrFail(
-      'No available coins.'
-    )
+    const coinAvailabilities = coinAvailabilitiesR.getOrFail('No available coins.')
     const btcNetwork = btcNetworkR.getOrElse('bitcoin')
     const prunedAccounts = [] as Array<SwapAccountType>
 
     // @ts-ignore
     map(
-      coin =>
+      (coin) =>
         map((acct: any) => {
           // remove account if any if either of following are true
           // - coin receive feature is currently disabled

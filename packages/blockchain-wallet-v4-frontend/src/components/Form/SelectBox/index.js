@@ -8,20 +8,20 @@ const Container = styled.div`
   position: relative;
   width: 100%;
   height: auto;
-  z-index: ${props => props.zIndex || 'initial'};
-  background-color: ${props => props.theme.white};
+  z-index: ${(props) => props.zIndex || 'initial'};
+  background-color: ${(props) => props.theme.white};
 `
 const Error = styled.label`
   position: absolute;
-  top: ${props => (props.errorBottom ? '48px' : '-20px')};
+  top: ${(props) => (props.errorBottom ? '48px' : '-20px')};
   right: 0;
   display: block;
   height: 15px;
   font-size: 12px;
   font-weight: 400;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: ${props => props.theme['error']};
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: ${(props) => props.theme['error']};
 `
 
 class SelectBox extends React.PureComponent {
@@ -31,11 +31,11 @@ class SelectBox extends React.PureComponent {
     }
   }
 
-  getSelectRef = node => {
+  getSelectRef = (node) => {
     if (node) this.selectRef = node
   }
 
-  onKeyPressed = evt => {
+  onKeyPressed = (evt) => {
     const event = evt || window.event
     if (event.keyCode === 27) {
       event.stopPropagation()
@@ -44,24 +44,12 @@ class SelectBox extends React.PureComponent {
   }
 
   render() {
-    const {
-      className,
-      errorBottom,
-      hideErrors,
-      input,
-      meta,
-      zIndex,
-      ...rest
-    } = this.props
+    const { className, errorBottom, hideErrors, input, meta, zIndex, ...rest } = this.props
     const { error, invalid, pristine, touched } = meta
     const errorState = touched && invalid ? 'invalid' : 'initial'
 
     return (
-      <Container
-        className={className}
-        zIndex={zIndex}
-        data-e2e='dropdownSelect'
-      >
+      <Container className={className} zIndex={zIndex} data-e2e='dropdownSelect'>
         <SelectInput
           {...input}
           {...meta}
@@ -83,11 +71,7 @@ SelectBox.propTypes = {
     onBlur: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
     onFocus: PropTypes.func.isRequired,
-    value: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.object
-    ])
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
   }).isRequired,
   elements: PropTypes.arrayOf(
     PropTypes.shape({
@@ -97,20 +81,20 @@ SelectBox.propTypes = {
           text: PropTypes.oneOfType([
             PropTypes.string.isRequired,
             PropTypes.number.isRequired,
-            PropTypes.object.isRequired
+            PropTypes.object.isRequired,
           ]),
           value: PropTypes.oneOfType([
             PropTypes.string.isRequired,
             PropTypes.number.isRequired,
-            PropTypes.object.isRequired
-          ])
+            PropTypes.object.isRequired,
+          ]),
         })
-      )
+      ),
     })
   ).isRequired,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   searchEnabled: PropTypes.bool,
-  opened: PropTypes.bool
+  opened: PropTypes.bool,
 }
 
 export default SelectBox

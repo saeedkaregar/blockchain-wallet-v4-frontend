@@ -25,7 +25,7 @@ const TX_PER_PAGE = 10
 export default ({ api }: { api: APIType }) => {
   const { fetchCustodialOrdersAndTransactions } = custodialSagas({ api })
 
-  const fetchData = function * () {
+  const fetchData = function* () {
     try {
       yield put(A.fetchDataLoading())
       const context = yield select(S.getContext)
@@ -34,7 +34,7 @@ export default ({ api }: { api: APIType }) => {
         // @ts-ignore
         addresses: indexBy(prop('address'), prop('addresses', data)),
         info: path(['wallet'], data),
-        latest_block: path(['info', 'latest_block'], data)
+        latest_block: path(['info', 'latest_block'], data),
       }
       yield put(A.fetchDataSuccess(btcData))
     } catch (e) {
@@ -42,7 +42,7 @@ export default ({ api }: { api: APIType }) => {
     }
   }
 
-  const fetchRates = function * () {
+  const fetchRates = function* () {
     try {
       yield put(A.fetchRatesLoading())
       const data = yield call(api.getBtcTicker)
@@ -52,14 +52,14 @@ export default ({ api }: { api: APIType }) => {
     }
   }
 
-  const watchTransactions = function * () {
+  const watchTransactions = function* () {
     while (true) {
       const action = yield take(AT.FETCH_BTC_TRANSACTIONS)
       yield call(fetchTransactions, action)
     }
   }
 
-  const fetchTransactions = function * (action) {
+  const fetchTransactions = function* (action) {
     try {
       const { payload } = action
       const { address, reset, filter } = payload
@@ -76,7 +76,7 @@ export default ({ api }: { api: APIType }) => {
         {
           n: TX_PER_PAGE,
           onlyShow: address || walletContext,
-          offset
+          offset,
         },
         filter
       )
@@ -104,7 +104,7 @@ export default ({ api }: { api: APIType }) => {
     }
   }
 
-  const fetchTransactionHistory = function * ({ payload }) {
+  const fetchTransactionHistory = function* ({ payload }) {
     const { address, end, start } = payload
     const startDate = moment(start).format('DD/MM/YYYY')
     const endDate = moment(end).format('DD/MM/YYYY')
@@ -139,7 +139,7 @@ export default ({ api }: { api: APIType }) => {
     }
   }
 
-  const __processTxs = function * (txs) {
+  const __processTxs = function* (txs) {
     // Page == Remote ([Tx])
     // Remote(wallet)
     const wallet = yield select(walletSelectors.getWallet)
@@ -168,7 +168,7 @@ export default ({ api }: { api: APIType }) => {
     return ProcessTxs(walletR, accountListR, txs, txNotes, addressLabels)
   }
 
-  const fetchFiatAtTime = function * (action) {
+  const fetchFiatAtTime = function* (action) {
     const { amount, currency, hash, time } = action.payload
     try {
       yield put(A.fetchFiatAtTimeLoading(hash, currency))
@@ -192,6 +192,6 @@ export default ({ api }: { api: APIType }) => {
     fetchTransactionHistory,
     fetchTransactions,
     watchTransactions,
-    __processTxs
+    __processTxs,
   }
 }

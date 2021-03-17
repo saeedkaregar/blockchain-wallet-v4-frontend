@@ -31,10 +31,10 @@ const GoBackLink = styled(LinkContainer)`
   margin-right: 15px;
 `
 
-const FirstStep = props => {
+const FirstStep = (props) => {
   const { handleSubmit, invalid, submitting } = props
 
-  const validNullableEmail = emailVal => {
+  const validNullableEmail = (emailVal) => {
     return emailVal && emailVal.length ? validEmail(emailVal) : undefined
   }
 
@@ -42,10 +42,7 @@ const FirstStep = props => {
     <Wrapper>
       <Header>
         <Text size='20px' color='blue900' weight={600} capitalize>
-          <FormattedMessage
-            id='scenes.reset2fa.firststep.reset'
-            defaultMessage='Reset 2FA'
-          />
+          <FormattedMessage id='scenes.reset2fa.firststep.reset' defaultMessage='Reset 2FA' />
         </Text>
       </Header>
       <TextGroup>
@@ -147,11 +144,7 @@ const FirstStep = props => {
               <FormattedMessage id='buttons.go_back' defaultMessage='Go Back' />
             </Link>
           </GoBackLink>
-          <Button
-            type='submit'
-            nature='primary'
-            disabled={submitting || invalid}
-          >
+          <Button type='submit' nature='primary' disabled={submitting || invalid}>
             <FormattedMessage id='buttons.continue' defaultMessage='Continue' />
           </Button>
         </Footer>
@@ -160,6 +153,4 @@ const FirstStep = props => {
   )
 }
 
-export default reduxForm({ form: 'reset2FA', destroyOnUnmount: false })(
-  FirstStep
-)
+export default reduxForm({ form: 'reset2FA', destroyOnUnmount: false })(FirstStep)

@@ -3,16 +3,11 @@ import { FormattedMessage } from 'react-intl'
 
 import { PriceChartPreferenceType } from 'data/preferences/types'
 
-export const getPriceChartTime = (
-  priceChartTime: PriceChartPreferenceType['time']
-) => {
+export const getPriceChartTime = (priceChartTime: PriceChartPreferenceType['time']) => {
   switch (priceChartTime) {
     case 'day': {
       return (
-        <FormattedMessage
-          id='scenes.home.pricechart.coinperformance.day'
-          defaultMessage='today'
-        />
+        <FormattedMessage id='scenes.home.pricechart.coinperformance.day' defaultMessage='today' />
       )
     }
     case 'week': {

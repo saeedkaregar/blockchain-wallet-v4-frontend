@@ -1,25 +1,25 @@
 import * as AT from './actionTypes'
 
 export const fetchMetadataUserCredentials = () => ({
-  type: AT.FETCH_METADATA_USER_CREDENTIALS
+  type: AT.FETCH_METADATA_USER_CREDENTIALS,
 })
 export const fetchMetadataUserCredentialsLoading = () => ({
-  type: AT.FETCH_METADATA_USER_CREDENTIALS_LOADING
+  type: AT.FETCH_METADATA_USER_CREDENTIALS_LOADING,
 })
-export const fetchMetadataUserCredentialsSuccess = data => ({
+export const fetchMetadataUserCredentialsSuccess = (data) => ({
   type: AT.FETCH_METADATA_USER_CREDENTIALS_SUCCESS,
-  payload: data
+  payload: data,
 })
-export const fetchMetadataUserCredentialsFailure = error => ({
+export const fetchMetadataUserCredentialsFailure = (error) => ({
   type: AT.FETCH_METADATA_USER_CREDENTIALS_FAILURE,
-  payload: error
+  payload: error,
 })
-export const createMetadataUserCredentials = data => ({
+export const createMetadataUserCredentials = (data) => ({
   type: AT.CREATE_METADATA_USER_CREDENTIALS,
-  payload: data
+  payload: data,
 })
 
 export const setUserCredentials = (user_id, lifetime_token) => ({
   type: AT.SET_USER_CREDENTIALS,
-  payload: { user_id, lifetime_token }
+  payload: { user_id, lifetime_token },
 })

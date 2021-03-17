@@ -7,7 +7,7 @@ import { fiatToString } from 'blockchain-wallet-v4/src/exchange/currency'
 import {
   CoinTypeEnum,
   FiatSBAndSwapTransactionType,
-  SupportedWalletCurrenciesType
+  SupportedWalletCurrenciesType,
 } from 'blockchain-wallet-v4/src/types'
 import { selectors } from 'data'
 import { convertBaseToStandard } from 'data/components/exchange/services'
@@ -25,19 +25,12 @@ import {
   StyledCoinDisplay,
   StyledFiatDisplay,
   TxRow,
-  TxRowContainer
+  TxRowContainer,
 } from '../components'
 import { Props as OwnProps } from '../TransactionList'
-import {
-  Destination,
-  IconTx,
-  Origin,
-  Status,
-  Timestamp,
-  TransactionType
-} from './model'
+import { Destination, IconTx, Origin, Status, Timestamp, TransactionType } from './model'
 
-const CustodialTxListItem: React.FC<Props> = props => {
+const CustodialTxListItem: React.FC<Props> = (props) => {
   const [isToggled, setIsToggled] = useState(false)
   const { tx } = props
   return (
@@ -46,12 +39,7 @@ const CustodialTxListItem: React.FC<Props> = props => {
         <Row width='30%'>
           <IconTx {...props} />
           <StatusAndType data-e2e='orderStatusColumn'>
-            <Text
-              size='16px'
-              color='grey800'
-              weight={600}
-              data-e2e='txTypeText'
-            >
+            <Text size='16px' color='grey800' weight={600} data-e2e='txTypeText'>
               <TransactionType {...props} /> {tx.amount.symbol}
             </Text>
             <Timestamp {...props} />
@@ -71,11 +59,7 @@ const CustodialTxListItem: React.FC<Props> = props => {
             }
           />
         </Col>
-        <Col
-          width='20%'
-          style={{ textAlign: 'right' }}
-          data-e2e='orderAmountColumn'
-        >
+        <Col width='20%' style={{ textAlign: 'right' }} data-e2e='orderAmountColumn'>
           <StyledCoinDisplay coin={props.coin} data-e2e='orderCoinAmt'>
             {tx.amount.symbol in CoinTypeEnum && tx.type !== 'SELL'
               ? tx.amountMinor
@@ -121,7 +105,7 @@ const CustodialTxListItem: React.FC<Props> = props => {
                 <RowValue data-e2e='sellRate'>
                   {fiatToString({
                     unit: tx.amount.fiatSymbol || 'USD',
-                    value: tx.extraAttributes?.indicativePrice || 0
+                    value: tx.extraAttributes?.indicativePrice || 0,
                   })}{' '}
                   / {tx.amount.symbol}
                 </RowValue>
@@ -131,10 +115,7 @@ const CustodialTxListItem: React.FC<Props> = props => {
           <DetailsColumn />
           <DetailsColumn>
             <RowHeader>
-              <FormattedMessage
-                defaultMessage='Status'
-                id='components.txlistitem.status'
-              />
+              <FormattedMessage defaultMessage='Status' id='components.txlistitem.status' />
             </RowHeader>
             <RowValue>
               <Status {...props} />
@@ -146,11 +127,8 @@ const CustodialTxListItem: React.FC<Props> = props => {
                   <FormattedMessage id='copy.amount' defaultMessage='Amount' />
                 </RowHeader>
                 <RowValue data-e2e='sbSelling'>
-                  {convertBaseToStandard(
-                    tx.amount.symbol,
-                    tx.amount.inputMoney
-                  )}{' '}
-                  of {tx.amount.symbol}
+                  {convertBaseToStandard(tx.amount.symbol, tx.amount.inputMoney)} of{' '}
+                  {tx.amount.symbol}
                 </RowValue>
               </>
             )}
@@ -164,7 +142,7 @@ const CustodialTxListItem: React.FC<Props> = props => {
 const mapStateToProps = (state: RootState) => ({
   supportedCoins: selectors.core.walletOptions
     .getSupportedCoins(state)
-    .getOrElse({} as SupportedWalletCurrenciesType)
+    .getOrElse({} as SupportedWalletCurrenciesType),
 })
 
 const connector = connect(mapStateToProps)

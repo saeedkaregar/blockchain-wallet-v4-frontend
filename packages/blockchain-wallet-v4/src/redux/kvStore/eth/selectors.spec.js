@@ -6,12 +6,12 @@ describe('kvstore eth selectors', () => {
   const accounts = [
     {
       addr: 'some address',
-      label: 'some label'
+      label: 'some label',
     },
     {
       addr: 'second address',
-      label: 'second label'
-    }
+      label: 'second label',
+    },
   ]
 
   const ethMetadata = {
@@ -22,16 +22,16 @@ describe('kvstore eth selectors', () => {
         last_tx_timestamp: 'this is the last tx timestamp',
         legacy_account: { addr: 'legacy account addr' },
         tx_notes: {
-          someTxHash: 'some someTxHash tx note'
-        }
-      }
-    }
+          someTxHash: 'some someTxHash tx note',
+        },
+      },
+    },
   }
 
   const successState = {
     kvStorePath: {
-      [ETH]: Remote.Success(ethMetadata)
-    }
+      [ETH]: Remote.Success(ethMetadata),
+    },
   }
 
   it('getMetadata should return success of metadata', () => {
@@ -47,7 +47,7 @@ describe('kvstore eth selectors', () => {
   it('getDefaultAccount should return success of default account', () => {
     const expectedResult = Remote.Success({
       addr: 'some address',
-      label: 'some label'
+      label: 'some label',
     })
     expect(selectors.getDefaultAccount(successState)).toEqual(expectedResult)
   })
@@ -69,53 +69,39 @@ describe('kvstore eth selectors', () => {
 
   it('getLegacyAccountAddress should return success of legacy account address', () => {
     const expectedResult = Remote.Success('legacy account addr')
-    expect(selectors.getLegacyAccountAddress(successState)).toEqual(
-      expectedResult
-    )
+    expect(selectors.getLegacyAccountAddress(successState)).toEqual(expectedResult)
   })
 
   it('getAccount should return success of account', () => {
     const expectedResult = Remote.Success({
       addr: 'second address',
-      label: 'second label'
+      label: 'second label',
     })
-    expect(selectors.getAccount(successState, 'second address')).toEqual(
-      expectedResult
-    )
+    expect(selectors.getAccount(successState, 'second address')).toEqual(expectedResult)
   })
 
   it('getAccountLabel should return success of account label', () => {
     const expectedResult = Remote.Success('second label')
-    expect(selectors.getAccountLabel(successState, 'second address')).toEqual(
-      expectedResult
-    )
+    expect(selectors.getAccountLabel(successState, 'second address')).toEqual(expectedResult)
   })
 
   it('getAccountIndex should return success of account index', () => {
     const expectedResult = Remote.Success(1)
-    expect(selectors.getAccountIndex(successState, 'second address')).toEqual(
-      expectedResult
-    )
+    expect(selectors.getAccountIndex(successState, 'second address')).toEqual(expectedResult)
   })
 
   it('getEthTxNote should return success of correct eth tx note', () => {
     const expectedResult = Remote.Success('some someTxHash tx note')
-    expect(selectors.getEthTxNote(successState, 'someTxHash')).toEqual(
-      expectedResult
-    )
+    expect(selectors.getEthTxNote(successState, 'someTxHash')).toEqual(expectedResult)
   })
 
   it('getLatestTx should return success of latest tx', () => {
     const expectedResult = Remote.Success('this is the last tx')
-    expect(selectors.getLatestTx(successState, 'address')).toEqual(
-      expectedResult
-    )
+    expect(selectors.getLatestTx(successState, 'address')).toEqual(expectedResult)
   })
 
   it('getLatestTxTimestamp should return success of latest tx timestamp', () => {
     const expectedResult = Remote.Success('this is the last tx timestamp')
-    expect(selectors.getLatestTxTimestamp(successState, 'address')).toEqual(
-      expectedResult
-    )
+    expect(selectors.getLatestTxTimestamp(successState, 'address')).toEqual(expectedResult)
   })
 })

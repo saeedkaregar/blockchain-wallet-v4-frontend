@@ -34,5 +34,5 @@ export {
   preferences,
   router,
   session,
-  wizard
+  wizard,
 }

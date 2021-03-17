@@ -8,13 +8,13 @@ export default {
       rate: '1',
       symbol: '¢Ch$',
       decimal_digits: 0,
-      currency: 'CLP'
+      currency: 'CLP',
     },
     CLP: {
       rate: '100',
       symbol: 'Ch$',
       decimal_digits: 2,
-      currency: 'CLP'
-    }
-  }
+      currency: 'CLP',
+    },
+  },
 }

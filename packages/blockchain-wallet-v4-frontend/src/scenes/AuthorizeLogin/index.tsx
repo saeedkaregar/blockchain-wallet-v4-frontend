@@ -19,7 +19,7 @@ const AuthorizeLoginWrapper = styled(Wrapper)`
 const {
   VERIFY_DEVICE_ACCEPTED,
   VERIFY_DEVICE_EMAIL_SENT,
-  VERIFY_DEVICE_REJECTED
+  VERIFY_DEVICE_REJECTED,
 } = model.analytics.PREFERENCE_EVENTS.SECURITY
 
 class AuthorizeLogin extends React.PureComponent<Props, State> {
@@ -28,10 +28,8 @@ class AuthorizeLogin extends React.PureComponent<Props, State> {
     this.onAccept = this.onAccept.bind(this)
     this.onReject = this.onReject.bind(this)
     this.state = {
-      token: decodeURIComponent(
-        props.location.pathname.split('/authorize-approve/')[1]
-      ),
-      loginApproved: false
+      token: decodeURIComponent(props.location.pathname.split('/authorize-approve/')[1]),
+      loginApproved: false,
     }
   }
 
@@ -58,8 +56,8 @@ class AuthorizeLogin extends React.PureComponent<Props, State> {
   render() {
     const { data } = this.props
 
-    let AuthorizeLoginStatus = data.cata({
-      Success: value => (
+    const AuthorizeLoginStatus = data.cata({
+      Success: (value) => (
         <Success
           value={value}
           onAccept={this.onAccept}
@@ -67,9 +65,9 @@ class AuthorizeLogin extends React.PureComponent<Props, State> {
           handleSuccessContainer={() => this.setState({ loginApproved: true })}
         />
       ),
-      Failure: value => <Error value={value} />,
+      Failure: (value) => <Error value={value} />,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
 
     return this.state.loginApproved ? (
@@ -80,13 +78,13 @@ class AuthorizeLogin extends React.PureComponent<Props, State> {
   }
 }
 
-const mapStateToProps = state => ({
-  data: getData(state)
+const mapStateToProps = (state) => ({
+  data: getData(state),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   analyticsActions: bindActionCreators(actions.analytics, dispatch),
-  miscActions: bindActionCreators(actions.core.data.misc, dispatch)
+  miscActions: bindActionCreators(actions.core.data.misc, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

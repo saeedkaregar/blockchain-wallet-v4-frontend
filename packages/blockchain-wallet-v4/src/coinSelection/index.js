@@ -14,22 +14,21 @@ import {
   map,
   sort,
   tail,
-  unfold
+  unfold,
 } from 'ramda'
 import seedrandom from 'seedrandom'
 
 import * as Coin from './coin.js'
 
 // isFromAccount :: selection -> boolean
-export const isFromAccount = selection =>
+export const isFromAccount = (selection) =>
   selection.inputs[0] ? selection.inputs[0].isFromAccount() : false
 
 // isFromLegacy :: selection -> boolean
-export const isFromLegacy = selection =>
+export const isFromLegacy = (selection) =>
   selection.inputs[0] ? selection.inputs[0].isFromLegacy() : false
 
-export const dustThreshold = feeRate =>
-  (Coin.inputBytes({}) + Coin.outputBytes({})) * feeRate
+export const dustThreshold = (feeRate) => (Coin.inputBytes({}) + Coin.outputBytes({})) * feeRate
 export const transactionBytes = (inputs, outputs) =>
   Coin.TX_EMPTY_SIZE +
   inputs.reduce((a, c) => a + Coin.inputBytes(c), 0) +
@@ -39,15 +38,13 @@ export const changeBytes = () => Coin.TX_OUTPUT_BASE + Coin.TX_OUTPUT_PUBKEYHASH
 export const effectiveBalance = curry((feePerByte, inputs, outputs = [{}]) =>
   List(inputs)
     .fold(Coin.empty)
-    .overValue(v =>
-      clamp(0, Infinity, v - transactionBytes(inputs, outputs) * feePerByte)
-    )
+    .overValue((v) => clamp(0, Infinity, v - transactionBytes(inputs, outputs) * feePerByte))
 )
 
 // findTarget :: [Coin(x), ..., Coin(y)] -> Number -> [Coin(a), ..., Coin(b)] -> Selection
 const ft = (targets, feePerByte, coins, changeAddress) => {
   const target = List(targets).fold(Coin.empty).value
-  const _findTarget = seed => {
+  const _findTarget = (seed) => {
     const acc = seed[0]
     const newCoin = head(seed[2])
     if (isNil(newCoin) || acc > target + seed[1]) {
@@ -60,14 +57,11 @@ const ft = (targets, feePerByte, coins, changeAddress) => {
       ? false
       : [
           [nextAcc, partialFee, newCoin],
-          [nextAcc, partialFee, restCoins]
+          [nextAcc, partialFee, restCoins],
         ]
   }
   const partialFee = transactionBytes([], targets) * feePerByte
-  const effectiveCoins = filter(
-    c => Coin.effectiveValue(feePerByte, c) > 0,
-    coins
-  )
+  const effectiveCoins = filter((c) => Coin.effectiveValue(feePerByte, c) > 0, coins)
   const selection = unfold(_findTarget, [0, partialFee, effectiveCoins])
   if (isEmpty(selection)) {
     // no coins to select
@@ -75,7 +69,7 @@ const ft = (targets, feePerByte, coins, changeAddress) => {
   } else {
     const maxBalance = last(selection)[0]
     const fee = last(selection)[1]
-    const selectedCoins = map(e => e[2], selection)
+    const selectedCoins = map((e) => e[2], selection)
     if (maxBalance < target + fee) {
       // not enough money to satisfy target
       return { fee: fee, inputs: [], outputs: targets }
@@ -88,12 +82,12 @@ const ft = (targets, feePerByte, coins, changeAddress) => {
         const change = Coin.fromJS({
           value: extraWithChangeFee,
           address: changeAddress,
-          change: true
+          change: true,
         })
         return {
           fee: fee + feeChange,
           inputs: selectedCoins,
-          outputs: [...targets, change]
+          outputs: [...targets, change],
         }
       } else {
         // burn change
@@ -106,27 +100,18 @@ export const findTarget = memoize(ft)
 
 // singleRandomDraw :: Number -> [Coin(a), ..., Coin(b)] -> String -> Selection
 export const selectAll = (feePerByte, coins, outAddress) => {
-  const effectiveCoins = filter(
-    c => Coin.effectiveValue(feePerByte, c) > 0,
-    coins
-  )
+  const effectiveCoins = filter((c) => Coin.effectiveValue(feePerByte, c) > 0, coins)
   const effBalance = effectiveBalance(feePerByte, effectiveCoins).value
   const Balance = List(effectiveCoins).fold(Coin.empty).value
   const fee = Balance - effBalance
   return {
     fee: fee,
     inputs: effectiveCoins,
-    outputs: [Coin.fromJS({ value: effBalance, address: outAddress })]
+    outputs: [Coin.fromJS({ value: effBalance, address: outAddress })],
   }
 }
 // singleRandomDraw :: [Coin(x), ..., Coin(y)] -> Number -> [Coin(a), ..., Coin(b)] -> String -> Selection
-export const singleRandomDraw = (
-  targets,
-  feePerByte,
-  coins,
-  changeAddress,
-  seed
-) => {
+export const singleRandomDraw = (targets, feePerByte, coins, changeAddress, seed) => {
   const rng = is(String, seed) ? seedrandom(seed) : undefined
   return findTarget(targets, feePerByte, shuffle(coins, rng), changeAddress)
 }
@@ -155,7 +140,7 @@ export const ascentDraw = (targets, feePerByte, coins, changeAddress) =>
 const bnb = (targets, feePerByte, coins, changeAddress, seed) => {
   const rng = is(String, seed) ? seedrandom(seed) : undefined
   const sortedCoins = filter(
-    c => Coin.effectiveValue(feePerByte, c) > 0,
+    (c) => Coin.effectiveValue(feePerByte, c) > 0,
     sort((a, b) => a.lte(b), coins)
   )
   let bnbTries = 1000000
@@ -205,18 +190,12 @@ const bnb = (targets, feePerByte, coins, changeAddress, seed) => {
 
   const bnbSelection = _branchAndBound(0, [], 0)
   if (isEmpty(bnbSelection)) {
-    return singleRandomDraw(
-      targets,
-      feePerByte,
-      sortedCoins,
-      changeAddress,
-      seed
-    )
+    return singleRandomDraw(targets, feePerByte, sortedCoins, changeAddress, seed)
   } else {
     return {
       fee: List(bnbSelection).fold(Coin.empty).value - target,
       inputs: bnbSelection,
-      outputs: targets
+      outputs: targets,
     }
   }
 }

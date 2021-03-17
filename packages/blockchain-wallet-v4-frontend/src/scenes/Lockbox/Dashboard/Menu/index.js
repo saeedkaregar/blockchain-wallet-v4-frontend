@@ -12,7 +12,7 @@ class LockboxMenuContainer extends React.PureComponent {
   render() {
     const { data, ...rest } = this.props
     return data.cata({
-      Success: val => (
+      Success: (val) => (
         <LockboxMenu
           deviceInfo={val}
           location={this.props.location}
@@ -22,26 +22,20 @@ class LockboxMenuContainer extends React.PureComponent {
       ),
       Loading: () => <div />,
       Failure: () => <div />,
-      NotAsked: () => <div />
+      NotAsked: () => <div />,
     })
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  data: selectors.core.kvStore.lockbox.getDevice(
-    state,
-    ownProps.match.params.deviceIndex
-  ),
-  formValues: getFormValues(state)
+  data: selectors.core.kvStore.lockbox.getDevice(state, ownProps.match.params.deviceIndex),
+  formValues: getFormValues(state),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(actions.components.lockbox, dispatch),
-  formActions: bindActionCreators(actions.form, dispatch)
+  formActions: bindActionCreators(actions.form, dispatch),
 })
 
-const enhance = compose(
-  withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
-)
+const enhance = compose(withRouter, connect(mapStateToProps, mapDispatchToProps))
 export default enhance(LockboxMenuContainer)

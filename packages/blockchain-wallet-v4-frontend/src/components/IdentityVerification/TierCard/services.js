@@ -16,7 +16,7 @@ export const headers = {
       id='components.identityverification.tiercard.gold'
       defaultMessage='Gold Level'
     />
-  )
+  ),
 }
 
 export const levelName = {
@@ -31,7 +31,7 @@ export const levelName = {
       id='components.identityverification.tiercard.goldlevelname'
       defaultMessage='Gold'
     />
-  )
+  ),
 }
 
 export const messages = {
@@ -45,10 +45,7 @@ export const messages = {
   ),
   NAME: (
     <Text size='12px'>
-      <FormattedMessage
-        id='components.identityverification.tiercard.name'
-        defaultMessage='Name'
-      />
+      <FormattedMessage id='components.identityverification.tiercard.name' defaultMessage='Name' />
     </Text>
   ),
   DOB: (
@@ -87,7 +84,7 @@ export const messages = {
         defaultMessage='Portrait Photo'
       />
     </Text>
-  )
+  ),
 }
 
 export const limits = {
@@ -106,7 +103,7 @@ export const limits = {
         defaultMessage='Daily Trading Limit'
       />
     </Text>
-  )
+  ),
 }
 
 export const status = (tier, userTiers, time) => {
@@ -130,18 +127,10 @@ export const status = (tier, userTiers, time) => {
       )
     case 'rejected':
       if (nextTier) {
-        if (
-          or(
-            propEq('state', 'none', nextTier),
-            propEq('state', 'pending', nextTier)
-          )
-        ) {
+        if (or(propEq('state', 'none', nextTier), propEq('state', 'pending', nextTier))) {
           return (
             <Text size='14px' color='btc'>
-              <FormattedMessage
-                id='copy.in_review'
-                defaultMessage='In Review'
-              />
+              <FormattedMessage id='copy.in_review' defaultMessage='In Review' />
             </Text>
           )
         }
@@ -191,5 +180,5 @@ export const ctas = {
         defaultMessage='Unlock Gold 🥇'
       />
     </span>
-  )
+  ),
 }

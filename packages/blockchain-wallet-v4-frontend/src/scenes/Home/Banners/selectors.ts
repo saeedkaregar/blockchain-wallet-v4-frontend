@@ -25,14 +25,11 @@ export const getData = (state: RootState): { bannerToShow: BannerType } => {
   const ordersR = selectors.components.simpleBuy.getSBOrders(state)
   const orders: Array<SBOrderType> = ordersR.getOrElse([])
   const isSimpleBuyOrderPending = orders.find(
-    order =>
-      order.state === 'PENDING_CONFIRMATION' ||
-      order.state === 'PENDING_DEPOSIT'
+    (order) => order.state === 'PENDING_CONFIRMATION' || order.state === 'PENDING_DEPOSIT'
   )
 
   const isUserActive =
-    selectors.modules.profile.getUserActivationState(state).getOrElse('') !==
-    'NONE'
+    selectors.modules.profile.getUserActivationState(state).getOrElse('') !== 'NONE'
   const isKycStateNone =
     // @ts-ignore
     selectors.modules.profile.getUserKYCState(state).getOrElse('') === 'NONE'
@@ -40,17 +37,15 @@ export const getData = (state: RootState): { bannerToShow: BannerType } => {
 
   const userDataR = selectors.modules.profile.getUserData(state)
   const userData = userDataR.getOrElse({
-    tiers: { current: 0 }
+    tiers: { current: 0 },
   } as UserDataType)
 
-  const sddEligibleTier = selectors.components.simpleBuy
-    .getUserSddEligibleTier(state)
-    .getOrElse(1)
+  const sddEligibleTier = selectors.components.simpleBuy.getUserSddEligibleTier(state).getOrElse(1)
 
   const limits = selectors.components.simpleBuy.getLimits(state).getOrElse({
     annual: {
-      available: '0'
-    }
+      available: '0',
+    },
   } as SwapUserLimitsType)
 
   const isTier3SDD = sddEligibleTier === 3
@@ -74,6 +69,6 @@ export const getData = (state: RootState): { bannerToShow: BannerType } => {
   }
 
   return {
-    bannerToShow
+    bannerToShow,
   }
 }

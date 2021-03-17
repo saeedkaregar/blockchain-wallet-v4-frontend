@@ -9,22 +9,17 @@ import {
   ModalBody,
   ModalFooter,
   ModalHeader,
-  Text
+  Text,
 } from 'blockchain-info-components'
 import { Form } from 'components/Form'
 
-import {
-  selectCancel,
-  selectConfirm,
-  selectMessage,
-  selectTitle
-} from './helpers'
+import { selectCancel, selectConfirm, selectMessage, selectTitle } from './helpers'
 
 const Wrapper = styled.div`
   font-weight: 400;
-  color: ${props => props.theme.grey700};
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: ${(props) => props.theme.grey700};
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 `
 const Cancel = styled.span`
   margin-right: 20px;
@@ -48,7 +43,7 @@ const ConfirmTemplate = ({
   nature,
   position,
   title,
-  total
+  total,
 }) => (
   <Modal size='medium' position={position} total={total}>
     <Form onSubmit={handleSubmit}>

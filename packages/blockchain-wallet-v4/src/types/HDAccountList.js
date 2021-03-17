@@ -18,27 +18,24 @@ export const selectAccount = curry((index, as) =>
 )
 
 export const selectByXpub = curry((xpub, as) =>
-  pipe(HDAccountList.guard, xs => xs.find(HDAccount.isXpub(xpub)))(as)
+  pipe(HDAccountList.guard, (xs) => xs.find(HDAccount.isXpub(xpub)))(as)
 )
 
-export const selectContext = pipe(HDAccountList.guard, accList => {
+export const selectContext = pipe(HDAccountList.guard, (accList) => {
   return map(HDAccount.selectXpub, filter(HDAccount.isActive, accList))
 })
 
-export const selectActive = pipe(
-  HDAccountList.guard,
-  filter(HDAccount.isActive)
-)
+export const selectActive = pipe(HDAccountList.guard, filter(HDAccount.isActive))
 
-export const toJS = pipe(HDAccountList.guard, accList => {
+export const toJS = pipe(HDAccountList.guard, (accList) => {
   return map(HDAccount.toJS, accList).toArray()
 })
 
-export const toJSwithIndex = pipe(HDAccountList.guard, accList => {
+export const toJSwithIndex = pipe(HDAccountList.guard, (accList) => {
   return map(HDAccount.toJSwithIndex, accList).toArray()
 })
 
-export const fromJS = accounts => {
+export const fromJS = (accounts) => {
   if (is(HDAccountList, accounts)) {
     return accounts
   } else {
@@ -46,6 +43,6 @@ export const fromJS = accounts => {
   }
 }
 
-export const reviver = jsObject => {
+export const reviver = (jsObject) => {
   return new HDAccountList(jsObject)
 }

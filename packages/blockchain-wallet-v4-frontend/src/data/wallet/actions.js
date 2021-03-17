@@ -2,42 +2,42 @@ import * as AT from './actionTypes'
 
 export const toggleSecondPassword = (password, secondPasswordEnabled) => ({
   type: AT.TOGGLE_SECOND_PASSWORD,
-  payload: { password, secondPasswordEnabled }
+  payload: { password, secondPasswordEnabled },
 })
 
-export const updatePbkdf2Iterations = iterations => ({
+export const updatePbkdf2Iterations = (iterations) => ({
   type: AT.UPDATE_PBKDF2_ITERATIONS,
-  payload: { iterations }
+  payload: { iterations },
 })
 
-export const submitSecondPassword = password => ({
+export const submitSecondPassword = (password) => ({
   type: AT.SUBMIT_SECOND_PASSWORD,
-  payload: { password }
+  payload: { password },
 })
 
 export const importLegacyAddress = (addr, priv, to, bipPass) => ({
   type: AT.IMPORT_LEGACY_ADDRESS,
-  payload: { addr, priv, to, bipPass }
+  payload: { addr, priv, to, bipPass },
 })
 
 export const verifyMnemonic = () => ({ type: AT.VERIFY_MNEMONIC })
 
-export const submitPromptInput = value => ({
+export const submitPromptInput = (value) => ({
   type: AT.SUBMIT_PROMPT_INPUT,
-  payload: { value }
+  payload: { value },
 })
 
-export const submitConfirmation = value => ({
+export const submitConfirmation = (value) => ({
   type: AT.SUBMIT_CONFIRMATION,
-  payload: { value: true }
+  payload: { value: true },
 })
 
 export const editBtcAccountLabel = (index, label) => ({
   type: AT.EDIT_BTC_ACCOUNT_LABEL,
-  payload: { index, label }
+  payload: { index, label },
 })
 
-export const setMainPassword = password => ({
+export const setMainPassword = (password) => ({
   type: AT.SET_MAIN_PASSWORD,
-  payload: { password }
+  payload: { password },
 })

@@ -28,7 +28,7 @@ const FooterInner = styled.div`
 `
 
 const Wrapper = styled.div`
-  background-color: ${props => props.theme.grey900};
+  background-color: ${(props) => props.theme.grey900};
   height: auto;
   min-height: 100%;
   width: 100%;
@@ -62,7 +62,7 @@ const ContentContainer = styled.div`
 const PublicLayoutContainer = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={matchProps => (
+    render={(matchProps) => (
       <Wrapper>
         <ErrorBoundary>
           {/* TODO: STILL NEEDS DEV/QA */}

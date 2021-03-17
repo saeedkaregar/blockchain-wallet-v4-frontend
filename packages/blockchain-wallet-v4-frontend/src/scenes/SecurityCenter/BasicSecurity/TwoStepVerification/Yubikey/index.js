@@ -13,7 +13,7 @@ class YubikeyContainer extends React.PureComponent {
     this.state = {
       updateToggled: false,
       successToggled: false,
-      yubikeyCode: ''
+      yubikeyCode: '',
     }
     this.handleClick = this.handleClick.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
@@ -48,7 +48,7 @@ class YubikeyContainer extends React.PureComponent {
 
   render() {
     return this.props.data.cata({
-      Success: value => (
+      Success: (value) => (
         <Yubikey
           data={value}
           handleClick={this.handleClick}
@@ -61,22 +61,19 @@ class YubikeyContainer extends React.PureComponent {
       ),
       Failure: () => null,
       Loading: () => null,
-      NotAsked: () => null
+      NotAsked: () => null,
     })
   }
 }
 
-const mapStateToProps = state => ({
-  data: getData(state)
+const mapStateToProps = (state) => ({
+  data: getData(state),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   modalActions: bindActionCreators(actions.modals, dispatch),
   settingsActions: bindActionCreators(actions.core.settings, dispatch),
-  securityCenterActions: bindActionCreators(
-    actions.modules.securityCenter,
-    dispatch
-  )
+  securityCenterActions: bindActionCreators(actions.modules.securityCenter, dispatch),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(YubikeyContainer)

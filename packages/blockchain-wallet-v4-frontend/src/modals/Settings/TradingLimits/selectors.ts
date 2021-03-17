@@ -7,20 +7,16 @@ import { UserTierType } from 'data/types'
 
 export const getData = (state: RootState) => {
   const userData = selectors.modules.profile.getUserData(state).getOrElse({
-    tiers: { current: 0 }
+    tiers: { current: 0 },
   } as UserDataType)
   // @ts-ignore
-  const userTiers = selectors.modules.profile
-    .getTiers(state)
-    .getOrElse({} as UserTierType)
+  const userTiers = selectors.modules.profile.getTiers(state).getOrElse({} as UserTierType)
 
-  const sddEligible = selectors.components.simpleBuy
-    .getSddEligible(state)
-    .getOrElse({
-      eligible: false,
-      ineligibilityReason: 'KYC_TIER',
-      tier: 0
-    } as SDDEligibleType)
+  const sddEligible = selectors.components.simpleBuy.getSddEligible(state).getOrElse({
+    eligible: false,
+    ineligibilityReason: 'KYC_TIER',
+    tier: 0,
+  } as SDDEligibleType)
 
   const productsEligibility = selectors.components.settings
     .getProductsEligibility(state)
@@ -30,6 +26,6 @@ export const getData = (state: RootState) => {
     userData,
     userTiers,
     sddEligible,
-    productsEligibility
+    productsEligibility,
   })
 }

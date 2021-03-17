@@ -23,10 +23,10 @@ class CryptoSelection extends PureComponent<Props> {
 
   render() {
     return this.props.data.cata({
-      Success: val => <Success {...this.props} {...val} />,
+      Success: (val) => <Success {...this.props} {...val} />,
       Failure: () => <Failure {...this.props} />,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
@@ -35,15 +35,13 @@ const mapStateToProps = (state: RootState) => ({
   data: getData(state),
   fiatCurrency: selectors.components.simpleBuy.getFiatCurrency(state) || 'USD',
   isFirstLogin: selectors.auth.getFirstLogin(state),
-  sddTransactionFinished: selectors.components.simpleBuy.getSddTransactionFinished(
-    state
-  )
+  sddTransactionFinished: selectors.components.simpleBuy.getSddTransactionFinished(state),
 })
 
 export const mapDispatchToProps = (dispatch: Dispatch) => ({
   analyticsActions: bindActionCreators(actions.analytics, dispatch),
   formActions: bindActionCreators(actions.form, dispatch),
-  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch)
+  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

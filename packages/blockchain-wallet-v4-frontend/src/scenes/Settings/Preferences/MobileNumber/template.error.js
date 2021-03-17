@@ -7,10 +7,10 @@ import {
   SettingContainer,
   SettingDescription,
   SettingHeader,
-  SettingSummary
+  SettingSummary,
 } from 'components/Setting'
 
-const MobileNumber = props => {
+const MobileNumber = (props) => {
   const { message } = props
 
   return (

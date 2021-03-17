@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import TabMenuTransactionStatus from './template.js'
 
 class TabMenuTransactionStatusContainer extends React.PureComponent {
-  handleClick = value => {
+  handleClick = (value) => {
     this.props.input.onChange(value)
   }
 
@@ -20,7 +20,7 @@ class TabMenuTransactionStatusContainer extends React.PureComponent {
 }
 
 TabMenuTransactionStatusContainer.propTypes = {
-  input: PropTypes.object.isRequired
+  input: PropTypes.object.isRequired,
 }
 
 export default TabMenuTransactionStatusContainer

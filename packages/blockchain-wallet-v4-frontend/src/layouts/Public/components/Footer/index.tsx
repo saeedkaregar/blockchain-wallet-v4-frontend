@@ -27,7 +27,7 @@ const Footer = () => (
           id='scenes.login.version'
           defaultMessage='Version {version}'
           values={{
-            version: V
+            version: V,
           }}
         />
       </Link>

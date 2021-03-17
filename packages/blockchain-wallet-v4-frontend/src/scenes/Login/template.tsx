@@ -16,7 +16,7 @@ import {
   Image,
   Link,
   Text,
-  TextGroup
+  TextGroup,
 } from 'blockchain-info-components'
 import { CoinType, WalletFiatType } from 'blockchain-wallet-v4/src/types'
 import { SuccessCartridge } from 'components/Cartridge'
@@ -27,7 +27,7 @@ import {
   FormItem,
   FormLabel,
   PasswordBox,
-  TextBox
+  TextBox,
 } from 'components/Form'
 import { Wrapper } from 'components/Public'
 import QRCodeWrapper from 'components/QRCodeWrapper'
@@ -48,10 +48,10 @@ const isSupportedBrowser = browser.satisfies({
   firefox: '>45',
   opera: '>20',
   safari: '>8',
-  vivaldi: '>2'
+  vivaldi: '>2',
 })
 
-export const removeWhitespace = string => string.replace(/\s/g, ``)
+export const removeWhitespace = (string) => string.replace(/\s/g, ``)
 
 const OuterWrapper = styled.div`
   display: flex;
@@ -157,7 +157,7 @@ const SubCard = styled.div`
 `
 const SignUpText = styled(Text)`
   &:hover {
-    color: ${props => props.theme.white};
+    color: ${(props) => props.theme.white};
     font-weight: 600;
   }
 `
@@ -198,10 +198,7 @@ type GoalDataType = {
 const LinkAccountTitle = () => (
   <TitleWrapper>
     <Image name='wallet' height='2rem' />
-    <FormattedMessage
-      id='scenes.linkaccount.authorize2'
-      defaultMessage='Connect Your Wallet'
-    />
+    <FormattedMessage id='scenes.linkaccount.authorize2' defaultMessage='Connect Your Wallet' />
   </TitleWrapper>
 )
 
@@ -227,12 +224,9 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
   } = props
   const { authType, handleSmsResend, handleSubmit } = rest
 
-  const guidError =
-    loginError && loginError.toLowerCase().includes('unknown wallet id')
-  const passwordError =
-    loginError && loginError.toLowerCase().includes('wrong_wallet_password')
-  const twoFactorError =
-    loginError && loginError.toLowerCase().includes('authentication code')
+  const guidError = loginError && loginError.toLowerCase().includes('unknown wallet id')
+  const passwordError = loginError && loginError.toLowerCase().includes('wrong_wallet_password')
+  const twoFactorError = loginError && loginError.toLowerCase().includes('authentication code')
   const accountLocked =
     loginError &&
     (loginError.toLowerCase().includes('this account has been locked') ||
@@ -267,10 +261,7 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
                 {isLinkAccountGoal ? (
                   <LinkAccountTitle />
                 ) : (
-                  <FormattedMessage
-                    id='scenes.login.welcome'
-                    defaultMessage='Welcome back!'
-                  />
+                  <FormattedMessage id='scenes.login.welcome' defaultMessage='Welcome back!' />
                 )}
               </Text>
             </Header>
@@ -279,10 +270,7 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
               !!goalData.fiatCurrency &&
               !!goalData.crypto &&
               !!goalData.amount && (
-                <SimpleBuyInfo
-                  goalData={goalData}
-                  supportedCoins={supportedCoins}
-                />
+                <SimpleBuyInfo goalData={goalData} supportedCoins={supportedCoins} />
               )}
             <LoginForm onSubmit={handleSubmit}>
               {!isSupportedBrowser && (
@@ -298,10 +286,7 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
               <FormGroup>
                 <FormItem>
                   <FormLabel htmlFor='guid'>
-                    <FormattedMessage
-                      id='scenes.login.guid'
-                      defaultMessage='Wallet ID'
-                    />
+                    <FormattedMessage id='scenes.login.guid' defaultMessage='Wallet ID' />
                   </FormLabel>
                   <Field
                     component={TextBox}
@@ -315,12 +300,7 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
                 </FormItem>
                 {guidError && (
                   <GuidError inline>
-                    <Text
-                      size='12px'
-                      color='error'
-                      weight={400}
-                      data-e2e='walletIdError'
-                    >
+                    <Text size='12px' color='error' weight={400} data-e2e='walletIdError'>
                       <FormattedMessage
                         id='scenes.login.guiderror'
                         defaultMessage='Unknown Wallet ID. If you need a reminder '
@@ -365,10 +345,7 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
               <FormGroup>
                 <FormItem>
                   <FormLabel htmlFor='password'>
-                    <FormattedMessage
-                      id='scenes.login.password'
-                      defaultMessage='Password'
-                    />
+                    <FormattedMessage id='scenes.login.password' defaultMessage='Password' />
                   </FormLabel>
                   <Field
                     name='password'
@@ -389,11 +366,7 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
                     </FormError>
                   )}
                   {accountLocked && (
-                    <FormError
-                      position={
-                        authType > 0 || passwordError ? 'relative' : 'absolute'
-                      }
-                    >
+                    <FormError position={authType > 0 || passwordError ? 'relative' : 'absolute'}>
                       {loginError}
                     </FormError>
                   )}
@@ -404,10 +377,7 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
                   <FormItem>
                     <FormLabel htmlFor='code'>
                       {authType === 1 && (
-                        <FormattedMessage
-                          id='scenes.login.yubikey'
-                          defaultMessage='Yubikey'
-                        />
+                        <FormattedMessage id='scenes.login.yubikey' defaultMessage='Yubikey' />
                       )}
                       {authType === 4 && (
                         <FormattedMessage
@@ -416,10 +386,7 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
                         />
                       )}
                       {authType === 5 && (
-                        <FormattedMessage
-                          id='scenes.login.mobile'
-                          defaultMessage='SMS Code'
-                        />
+                        <FormattedMessage id='scenes.login.mobile' defaultMessage='SMS Code' />
                       )}
                     </FormLabel>
                     <Field
@@ -432,20 +399,11 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
                       data-e2e='loginTwoFactorCode'
                     />
                     {authType === 5 && (
-                      <ResendSmsLink
-                        size='12px'
-                        weight={400}
-                        onClick={handleSmsResend}
-                      >
-                        <FormattedMessage
-                          id='scenes.login.resendsms'
-                          defaultMessage='Resend SMS'
-                        />
+                      <ResendSmsLink size='12px' weight={400} onClick={handleSmsResend}>
+                        <FormattedMessage id='scenes.login.resendsms' defaultMessage='Resend SMS' />
                       </ResendSmsLink>
                     )}
-                    {twoFactorError && (
-                      <FormError position={'absolute'}>{loginError}</FormError>
-                    )}
+                    {twoFactorError && <FormError position={'absolute'}>{loginError}</FormError>}
                   </FormItem>
                 </FormGroup>
               )}
@@ -462,10 +420,7 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
                     <HeartbeatLoader height='20px' width='20px' color='white' />
                   ) : (
                     <Text color='whiteFade900' size='16px' weight={600}>
-                      <FormattedMessage
-                        id='scenes.login.login'
-                        defaultMessage='Log In'
-                      />
+                      <FormattedMessage id='scenes.login.login' defaultMessage='Log In' />
                     </Text>
                   )}
                 </LoginButton>
@@ -479,15 +434,8 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
                     />
                   </Text>
                   <LinkContainer to='/help'>
-                    <GetHelpLink
-                      size='13px'
-                      weight={600}
-                      data-e2e='loginGetHelp'
-                    >
-                      <FormattedMessage
-                        id='scenes.login.gethelp'
-                        defaultMessage='Get Help'
-                      />
+                    <GetHelpLink size='13px' weight={600} data-e2e='loginGetHelp'>
+                      <FormattedMessage id='scenes.login.gethelp' defaultMessage='Get Help' />
                     </GetHelpLink>
                   </LinkContainer>
                 </LoginHelpText>
@@ -495,11 +443,7 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
               {isSupportedBrowser && !showMobileAuth && (
                 <Footer>
                   <LinkContainer to='/mobile-login'>
-                    <Link
-                      size='13px'
-                      weight={600}
-                      data-e2e='loginViaMobileLink'
-                    >
+                    <Link size='13px' weight={600} data-e2e='loginViaMobileLink'>
                       <FormattedMessage
                         id='scenes.login.loginmobile'
                         defaultMessage='Login via Mobile'
@@ -530,10 +474,7 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
                 </Text>
                 &nbsp;
                 <SignUpText size='16px' color='whiteFade900' weight={600}>
-                  <FormattedMessage
-                    id='buttons.signup'
-                    defaultMessage='Sign Up'
-                  />
+                  <FormattedMessage id='buttons.signup' defaultMessage='Sign Up' />
                 </SignUpText>
               </SubCard>
             </Link>
@@ -551,32 +492,17 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
                   </SuccessCartridge>
                 </CartridgeContainer>
 
-                <Text
-                  size='16px'
-                  color='grey900'
-                  weight={600}
-                  style={{ marginTop: '8px' }}
-                >
-                  <FormattedMessage
-                    id='scenes.login.qrcodelogin'
-                    defaultMessage='QR Code Log In'
-                  />
+                <Text size='16px' color='grey900' weight={600} style={{ marginTop: '8px' }}>
+                  <FormattedMessage id='scenes.login.qrcodelogin' defaultMessage='QR Code Log In' />
                 </Text>
-                <TextGroup
-                  inline
-                  style={{ marginTop: '8px', lineHeight: '18px' }}
-                >
+                <TextGroup inline style={{ marginTop: '8px', lineHeight: '18px' }}>
                   <DescriptionText size='12px' color='grey900' weight={500}>
                     <FormattedMessage
                       id='scenes.login.qrcodelogin_description_1'
                       defaultMessage='Open your mobile Blockchain App, tap the QR Code Scanner'
                     />
                   </DescriptionText>
-                  <DescriptionIcon
-                    color='grey900'
-                    name='qr-camera'
-                    size='16px'
-                  />
+                  <DescriptionIcon color='grey900' name='qr-camera' size='16px' />
                   <Text size='12px' color='grey900' weight={500}>
                     <FormattedMessage
                       id='scenes.login.qrcodelogin_description_2'
@@ -594,9 +520,7 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
                         </Text>
                       )
                     },
-                    Failure: e => (
-                      <Text>{typeof e === 'string' ? e : 'Unknown Error'}</Text>
-                    ),
+                    Failure: (e) => <Text>{typeof e === 'string' ? e : 'Unknown Error'}</Text>,
                     Loading: () => {
                       return (
                         <Text size='14px' weight={600}>
@@ -604,13 +528,7 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
                         </Text>
                       )
                     },
-                    NotAsked: () => (
-                      <QRCodeWrapper
-                        value={qrData}
-                        size={qrData.length}
-                        showImage
-                      />
-                    )
+                    NotAsked: () => <QRCodeWrapper value={qrData} size={qrData.length} showImage />,
                   })}
                 </QRCodeContainer>
               </>
@@ -626,45 +544,27 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
                   </SuccessCartridge>
                 </CartridgeSentContainer>
 
-                <Text
-                  size='16px'
-                  color='grey900'
-                  weight={600}
-                  style={{ marginTop: '8px' }}
-                >
+                <Text size='16px' color='grey900' weight={600} style={{ marginTop: '8px' }}>
                   <FormattedMessage
                     id='scenes.login.wallet.connected.title'
                     defaultMessage='Mobile Device Connected'
                   />
                 </Text>
 
-                <Text
-                  size='12px'
-                  color='grey900'
-                  weight={500}
-                  style={{ marginTop: '8px' }}
-                >
+                <Text size='12px' color='grey900' weight={500} style={{ marginTop: '8px' }}>
                   <FormattedMessage
                     id='scenes.login.wallet.connected.description_1'
                     defaultMessage='We sent your connected mobile device a notification. Open the app to auto-log in on the web.'
                   />
                 </Text>
-                <Text
-                  size='12px'
-                  color='grey900'
-                  weight={500}
-                  style={{ marginTop: '24px' }}
-                >
+                <Text size='12px' color='grey900' weight={500} style={{ marginTop: '24px' }}>
                   <FormattedMessage
                     id='scenes.login.wallet.connected.description_2'
                     defaultMessage='Didn’t get the notification? Make sure you have push notifications enabled.'
                   />
                 </Text>
 
-                <TextGroup
-                  inline
-                  style={{ marginTop: '8px', lineHeight: '18px' }}
-                >
+                <TextGroup inline style={{ marginTop: '8px', lineHeight: '18px' }}>
                   <Link
                     size='12px'
                     weight={500}
@@ -677,10 +577,7 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
                   </Link>
 
                   <Text size='12px' color='grey900' weight={500}>
-                    <FormattedMessage
-                      id='modals.mobilenumberverify.getcode2'
-                      defaultMessage='or'
-                    />
+                    <FormattedMessage id='modals.mobilenumberverify.getcode2' defaultMessage='or' />
                   </Text>
 
                   <Link
@@ -703,8 +600,8 @@ const Login = (props: InjectedFormProps<{}, Props> & Props) => {
   )
 }
 
-const mapStateToProps = state => ({
-  secureChannelLoginState: selectors.auth.getSecureChannelLogin(state)
+const mapStateToProps = (state) => ({
+  secureChannelLoginState: selectors.auth.getSecureChannelLogin(state),
 })
 
 const connector = connect(mapStateToProps)

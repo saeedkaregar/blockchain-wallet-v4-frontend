@@ -10,7 +10,7 @@ import {
   ModalBody,
   ModalFooter,
   ModalHeader,
-  Text
+  Text,
 } from 'blockchain-info-components'
 import { Form, PhoneNumberBox } from 'components/Form'
 import { required, validMobileNumber } from 'services/forms'
@@ -27,7 +27,7 @@ const MobileNumber = styled.div`
   }
 `
 
-const MobileNumberChange = props => {
+const MobileNumberChange = (props) => {
   const {
     close,
     closeAll,
@@ -37,7 +37,7 @@ const MobileNumberChange = props => {
     pristine,
     smsNumber,
     submitting,
-    total
+    total,
   } = props
 
   return (
@@ -82,10 +82,7 @@ const MobileNumberChange = props => {
             capitalize
             disabled={submitting || invalid || pristine}
           >
-            <FormattedMessage
-              id='modals.mobilenumberchange.update'
-              defaultMessage='Update'
-            />
+            <FormattedMessage id='modals.mobilenumberchange.update' defaultMessage='Update' />
           </Button>
         </ModalFooter>
       </Form>

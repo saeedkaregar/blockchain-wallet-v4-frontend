@@ -24,9 +24,9 @@ const state = {
               balance: balance1,
               buying_liabilities: '0.0000000',
               selling_liabilities: '0.0000000',
-              asset_type: 'native'
-            }
-          ]
+              asset_type: 'native',
+            },
+          ],
         }),
         [id2]: Remote.of({
           id: id2,
@@ -36,28 +36,28 @@ const state = {
               balance: balance2,
               buying_liabilities: '0.0000000',
               selling_liabilities: '0.0000000',
-              asset_type: 'native'
-            }
-          ]
-        })
-      }
-    }
+              asset_type: 'native',
+            },
+          ],
+        }),
+      },
+    },
   },
   [kvStorePath]: {
     [XLM]: Remote.of({
       value: {
-        accounts: [{ publicKey: id1 }, { publicKey: id2 }]
-      }
+        accounts: [{ publicKey: id1 }, { publicKey: id2 }],
+      },
     }),
     [LOCKBOX]: Remote.of({
       value: {
         devices: [
           { xlm: { accounts: [{ publicKey: id1 }, { publicKey: id2 }] } },
-          { xlm: { accounts: [{ publicKey: id1 }, { publicKey: id2 }] } }
-        ]
-      }
-    })
-  }
+          { xlm: { accounts: [{ publicKey: id1 }, { publicKey: id2 }] } },
+        ],
+      },
+    }),
+  },
 }
 
 describe('getBalance', () => {

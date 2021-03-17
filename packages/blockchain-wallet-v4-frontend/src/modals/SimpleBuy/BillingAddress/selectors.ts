@@ -13,6 +13,6 @@ export const getData = (state: RootState) => {
 
   return lift((userData: ExtractSuccess<typeof userDataR>) => ({
     formValues,
-    userData
+    userData,
   }))(userDataR)
 }

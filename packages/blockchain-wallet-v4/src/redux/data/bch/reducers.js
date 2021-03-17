@@ -1,13 +1,4 @@
-import {
-  append,
-  assoc,
-  assocPath,
-  compose,
-  dropLast,
-  lensProp,
-  merge,
-  over
-} from 'ramda'
+import { append, assoc, assocPath, compose, dropLast, lensProp, merge, over } from 'ramda'
 
 import Remote from '../../../remote'
 import * as AT from './actionTypes'
@@ -20,7 +11,7 @@ const INITIAL_STATE = {
   rates: Remote.NotAsked,
   transactions: [],
   transactions_at_bound: false,
-  transaction_history: Remote.NotAsked
+  transaction_history: Remote.NotAsked,
 }
 
 const bchReducer = (state = INITIAL_STATE, action) => {
@@ -34,7 +25,7 @@ const bchReducer = (state = INITIAL_STATE, action) => {
       const data = {
         addresses: Remote.Loading,
         info: Remote.Loading,
-        latest_block: Remote.Loading
+        latest_block: Remote.Loading,
       }
       return merge(state, data)
     }
@@ -43,7 +34,7 @@ const bchReducer = (state = INITIAL_STATE, action) => {
       const data = {
         addresses: Remote.Success(addresses),
         info: Remote.Success(info),
-        latest_block: Remote.Success(latest_block)
+        latest_block: Remote.Success(latest_block),
       }
       return merge(state, data)
     }
@@ -51,7 +42,7 @@ const bchReducer = (state = INITIAL_STATE, action) => {
       const data = {
         addresses: Remote.Failure(payload),
         info: Remote.Failure(payload),
-        latest_block: Remote.Failure(payload)
+        latest_block: Remote.Failure(payload),
       }
       return merge(state, data)
     }

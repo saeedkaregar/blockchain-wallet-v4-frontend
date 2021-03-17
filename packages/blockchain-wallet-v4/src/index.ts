@@ -33,5 +33,5 @@ export {
   Remote,
   transactions,
   Types,
-  utils
+  utils,
 }

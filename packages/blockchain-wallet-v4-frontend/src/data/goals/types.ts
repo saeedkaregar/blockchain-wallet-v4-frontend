@@ -40,5 +40,5 @@ export enum DeepLinkGoal {
   REFERRAL = 'referral',
   SIMPLE_BUY = 'simple-buy',
   SWAP = 'swap',
-  XLM = 'xlm'
+  XLM = 'xlm',
 }

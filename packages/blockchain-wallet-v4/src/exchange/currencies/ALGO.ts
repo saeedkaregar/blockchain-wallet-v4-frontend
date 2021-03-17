@@ -8,13 +8,13 @@ export default {
       rate: '1',
       symbol: 'microAlgo',
       decimal_digits: 0,
-      currency: 'ALGO'
+      currency: 'ALGO',
     },
     ALGO: {
       rate: '1000000',
       symbol: 'ALGO',
       decimal_digits: 6,
-      currency: 'ALGO'
-    }
-  }
+      currency: 'ALGO',
+    },
+  },
 }

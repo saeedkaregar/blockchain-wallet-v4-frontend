@@ -20,7 +20,7 @@ import {
   SDDVerifiedType,
   SwapOrderType,
   SwapQuoteType,
-  SwapUserLimitsType
+  SwapUserLimitsType,
 } from 'blockchain-wallet-v4/src/types'
 
 import { SwapAccountType } from '../swap/types'
@@ -79,7 +79,7 @@ export enum SimpleBuyStepType {
   'TRANSFER_DETAILS',
   'UPGRADE_TO_GOLD',
   'VERIFY_EMAIL',
-  'BANK_WIRE_DETAILS'
+  'BANK_WIRE_DETAILS',
 }
 export type SBShowModalOriginType =
   | 'EmptyFeed'
@@ -101,7 +101,7 @@ export enum SBCardStateEnum {
   CREATED,
   ACTIVE,
   BLOCKED,
-  FRAUD_REVIEW
+  FRAUD_REVIEW,
 }
 
 // State
@@ -424,11 +424,7 @@ export type StepActionsPayload =
       step: 'PREVIEW_SELL'
     }
   | {
-      step:
-        | 'ADD_CARD'
-        | 'CC_BILLING_ADDRESS'
-        | 'KYC_REQUIRED'
-        | 'UPGRADE_TO_GOLD'
+      step: 'ADD_CARD' | 'CC_BILLING_ADDRESS' | 'KYC_REQUIRED' | 'UPGRADE_TO_GOLD'
     }
 
 interface SetStepAction {

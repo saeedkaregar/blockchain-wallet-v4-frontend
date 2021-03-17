@@ -12,12 +12,12 @@ import {
   Icon,
   Link,
   Text,
-  TextGroup
+  TextGroup,
 } from 'blockchain-info-components'
 import {
   CoinType,
   SupportedWalletCurrenciesType,
-  WalletFiatType
+  WalletFiatType,
 } from 'blockchain-wallet-v4/src/types'
 import { GoalsType } from 'data/goals/types'
 import { media } from 'services/styles'
@@ -67,7 +67,7 @@ const CardWrapper = styled.div`
 `
 const Card = styled.div`
   padding: 2rem;
-  background: ${props => props.theme.white};
+  background: ${(props) => props.theme.white};
   border-radius: 0.75rem;
   box-sizing: border-box;
 
@@ -87,7 +87,7 @@ const CardHeader = styled.div`
 `
 const IconWrapper = styled.div<{ color: keyof DefaultTheme }>`
   display: flex;
-  background: ${props => props.theme[props.color]};
+  background: ${(props) => props.theme[props.color]};
   height: 3rem;
   width: 3rem;
   justify-content: center;
@@ -131,13 +131,13 @@ const SubCard = styled.div`
   margin-bottom: 2.5rem;
 `
 const ExchangeButton = styled(Button)`
-  color: ${props => props.theme.white};
-  background-color: ${props => props.theme.black};
+  color: ${(props) => props.theme.white};
+  background-color: ${(props) => props.theme.black};
   position: relative;
   border: none;
 
   &:hover {
-    background-color: ${props => props.theme.greyFade800};
+    background-color: ${(props) => props.theme.greyFade800};
   }
 `
 const TabIcon = styled(Icon)`
@@ -151,9 +151,9 @@ const TabIcon = styled(Icon)`
 const Line = styled.div<{ showForm: boolean }>`
   height: 1px;
   width: 12.5rem;
-  margin: ${props => (props.showForm ? '1.5rem auto 0' : '0')};
-  background-color: ${props => props.theme.grey000};
-  visibility: ${props => (props.showForm ? 'visible' : 'hidden')};
+  margin: ${(props) => (props.showForm ? '1.5rem auto 0' : '0')};
+  background-color: ${(props) => props.theme.grey000};
+  visibility: ${(props) => (props.showForm ? 'visible' : 'hidden')};
   transition: all 0.5s ease;
 `
 const AppButtons = styled.footer<{ showForm: boolean }>`
@@ -163,8 +163,8 @@ const AppButtons = styled.footer<{ showForm: boolean }>`
   align-items: center;
   text-align: center;
   width: 100%;
-  max-height: ${props => (props.showForm ? '5.25rem' : '0')};
-  visibility: ${props => (props.showForm ? 'visible' : 'hidden')};
+  max-height: ${(props) => (props.showForm ? '5.25rem' : '0')};
+  visibility: ${(props) => (props.showForm ? 'visible' : 'hidden')};
   transition: all 0.5s ease;
   ${media.mobile`
     img {
@@ -181,7 +181,7 @@ const Bottom = styled.div`
 `
 const SignInText = styled(Text)`
   &:hover {
-    color: ${props => props.theme.white};
+    color: ${(props) => props.theme.white};
     font-weight: 600;
   }
 `
@@ -197,7 +197,7 @@ const SignupCard = ({
   password,
   passwordLength,
   showForm,
-  toggleForm
+  toggleForm,
 }: InjectedFormProps<{}, Props> & Props) => {
   const buttonSubmit = showForm ? handleSubmit : toggleForm
   return (
@@ -302,7 +302,7 @@ const SignupCard = ({
             nature='primary'
             onClick={buttonSubmit}
             style={{
-              borderRadius: '8px'
+              borderRadius: '8px',
             }}
             type='submit'
           >
@@ -342,10 +342,7 @@ const SignupCard = ({
             </Text>
             &nbsp;
             <SignInText color='white' size='14px' weight={500}>
-              <FormattedMessage
-                id='scenes.register.wallet.signin'
-                defaultMessage='Sign In'
-              />
+              <FormattedMessage id='scenes.register.wallet.signin' defaultMessage='Sign In' />
             </SignInText>
             <Icon size='18px' color='white' name='arrow-right' />
           </SubCard>
@@ -398,10 +395,7 @@ const Register = (props: InjectedFormProps<{}, Props> & Props) => {
               !!goalData.crypto &&
               !!goalData.amount && (
                 <>
-                  <SimpleBuyInfo
-                    goalData={goalData}
-                    supportedCoins={props.supportedCoins}
-                  />
+                  <SimpleBuyInfo goalData={goalData} supportedCoins={props.supportedCoins} />
 
                   <Text size='14px' color='grey600' weight={500}>
                     <FormattedMessage
@@ -432,10 +426,7 @@ const Register = (props: InjectedFormProps<{}, Props> & Props) => {
               </Text>
               &nbsp;
               <SignInText color='whiteFade900' size='14px' weight={500}>
-                <FormattedMessage
-                  id='scenes.register.wallet.signin'
-                  defaultMessage='Sign In'
-                />
+                <FormattedMessage id='scenes.register.wallet.signin' defaultMessage='Sign In' />
               </SignInText>
             </SubCard>
           </Link>
@@ -533,7 +524,7 @@ const Register = (props: InjectedFormProps<{}, Props> & Props) => {
                 height='48px'
                 nature='primary'
                 style={{
-                  borderRadius: '8px'
+                  borderRadius: '8px',
                 }}
               >
                 <Text color='white' size='16px' weight={600}>

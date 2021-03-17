@@ -8,9 +8,8 @@ import ViewKeys from '../ViewKeys'
 import { AddressType } from './.'
 
 const Wrapper = styled.div<{ showQrCode?: boolean }>`
-  display: ${props => (props.showQrCode ? 'flex' : 'inline-block')};
-  border: ${props =>
-    props.color ? `solid 1px ${props.theme[props.color]}` : 'none'};
+  display: ${(props) => (props.showQrCode ? 'flex' : 'inline-block')};
+  border: ${(props) => (props.color ? `solid 1px ${props.theme[props.color]}` : 'none')};
   border-radius: 1rem;
 
   ${media.laptop`
@@ -27,7 +26,7 @@ const XlmAddresses = ({
   addressInfo,
   coin,
   showQrCode,
-  toggleQrCode
+  toggleQrCode,
 }: {
   addressInfo: AddressType
   coin: 'XLM'

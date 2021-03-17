@@ -15,7 +15,7 @@ const LogoWrapper = styled.div`
   align-items: center;
 `
 
-const Error = props => {
+const Error = (props) => {
   const { error } = props
 
   return (
@@ -25,12 +25,7 @@ const Error = props => {
           <LogoWrapper>
             <Image name='email-success' width='75px' height='75px' />
           </LogoWrapper>
-          <Text
-            size='18px'
-            weight={500}
-            color='marketing-primary'
-            style={{ 'margin-top': '10px' }}
-          >
+          <Text size='18px' weight={500} color='marketing-primary' style={{ 'margin-top': '10px' }}>
             <FormattedMessage
               id='scenes.verifyemailtoken.error.alreadyverified.title'
               defaultMessage='Your email is already verified.'
@@ -48,12 +43,7 @@ const Error = props => {
           <LogoWrapper>
             <Image name='email-error' width='75px' height='75px' />
           </LogoWrapper>
-          <Text
-            size='18px'
-            weight={500}
-            color='marketing-primary'
-            style={{ 'margin-top': '10px' }}
-          >
+          <Text size='18px' weight={500} color='marketing-primary' style={{ 'margin-top': '10px' }}>
             <FormattedMessage
               id='scenes.verifyemailtoken.error'
               defaultMessage='Something went wrong.'
@@ -68,16 +58,8 @@ const Error = props => {
         </React.Fragment>
       )}
       <Link target='_blank' href='https://support.blockchain.com/'>
-        <Button
-          nature='primary'
-          fullwidth
-          style={{ marginTop: '20px' }}
-          height='50px'
-        >
-          <FormattedMessage
-            id='buttons.contact_support'
-            defaultMessage='Contact Support'
-          />
+        <Button nature='primary' fullwidth style={{ marginTop: '20px' }} height='50px'>
+          <FormattedMessage id='buttons.contact_support' defaultMessage='Contact Support' />
         </Button>
       </Link>
     </Wrapper>

@@ -17,5 +17,5 @@ export {
   SettingSelectBoxWrapper,
   SettingStatus,
   SettingSummary,
-  SettingWrapper
+  SettingWrapper,
 }

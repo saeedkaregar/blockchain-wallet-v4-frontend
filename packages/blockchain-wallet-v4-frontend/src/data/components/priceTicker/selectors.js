@@ -5,9 +5,7 @@ import { Exchange, Remote } from 'blockchain-wallet-v4/src'
 import * as selectors from '../../selectors'
 
 const selectRates = (coin, state) => {
-  const erc20List = selectors.core.walletOptions
-    .getErc20CoinList(state)
-    .getOrFail()
+  const erc20List = selectors.core.walletOptions.getErc20CoinList(state).getOrFail()
   try {
     return includes(coin, erc20List)
       ? selectors.core.data.eth.getErc20Rates(state, toLower(coin))
@@ -29,8 +27,8 @@ export const getData = (coin, state) => {
         value: 1,
         fromUnit: coin,
         toCurrency: currency,
-        rates
-      })
+        rates,
+      }),
     }
   }
 

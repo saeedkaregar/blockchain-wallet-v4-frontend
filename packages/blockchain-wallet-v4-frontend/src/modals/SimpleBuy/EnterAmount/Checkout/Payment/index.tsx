@@ -12,24 +12,22 @@ import {
   PaymentArrowContainer,
   PaymentContainer,
   PaymentText,
-  SectionTitle
+  SectionTitle,
 } from './model'
 
 const RightArrowIcon = styled(Icon)<{
   disabled?: boolean
 }>`
   transform: rotate(180deg);
-  ${props =>
+  ${(props) =>
     props.disabled &&
     css`
       cursor: not-allowed;
     `}
 `
 
-const Payment: React.FC<Props & { invalid?: boolean }> = props => {
-  const nextStep = props.hasPaymentAccount
-    ? 'LINKED_PAYMENT_ACCOUNTS'
-    : 'PAYMENT_METHODS'
+const Payment: React.FC<Props & { invalid?: boolean }> = (props) => {
+  const nextStep = props.hasPaymentAccount ? 'LINKED_PAYMENT_ACCOUNTS' : 'PAYMENT_METHODS'
 
   // disable payment method selection if SDD flow or there is invalid amount entered
   const disablePaymentSelect = props.isSddFlow ? false : props.invalid
@@ -40,7 +38,7 @@ const Payment: React.FC<Props & { invalid?: boolean }> = props => {
           step: nextStep,
           pair: props.pair,
           fiatCurrency: props.fiatCurrency || 'USD',
-          cryptoCurrency: props.cryptoCurrency
+          cryptoCurrency: props.cryptoCurrency,
         })
       : null
   }

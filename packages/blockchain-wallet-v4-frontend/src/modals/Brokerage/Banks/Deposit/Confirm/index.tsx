@@ -19,11 +19,11 @@ const mapStateToProps = (state: RootState) => ({
   supportedCoins: selectors.core.walletOptions
     .getSupportedCoins(state)
     .getOrElse({} as SupportedWalletCurrenciesType),
-  formValues: getFormValues('brokerageTx')(state)
+  formValues: getFormValues('brokerageTx')(state),
 })
 
 export const mapDispatchToProps = (dispatch: Dispatch) => ({
-  brokerageActions: bindActionCreators(actions.components.brokerage, dispatch)
+  brokerageActions: bindActionCreators(actions.components.brokerage, dispatch),
 })
 
 export type OwnProps = {

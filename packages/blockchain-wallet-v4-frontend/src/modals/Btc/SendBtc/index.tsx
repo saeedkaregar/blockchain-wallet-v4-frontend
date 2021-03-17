@@ -36,7 +36,7 @@ class SendBtcContainer extends React.PureComponent<Props> {
       description,
       amount,
       lockboxIndex,
-      payPro
+      payPro,
     })
   }
 
@@ -54,7 +54,7 @@ class SendBtcContainer extends React.PureComponent<Props> {
       position,
       step,
       to,
-      total
+      total,
     } = this.props
 
     return (
@@ -74,12 +74,12 @@ class SendBtcContainer extends React.PureComponent<Props> {
   }
 }
 
-const mapStateToProps = state => ({
-  step: selectors.components.sendBtc.getStep(state)
+const mapStateToProps = (state) => ({
+  step: selectors.components.sendBtc.getStep(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions.components.sendBtc, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions.components.sendBtc, dispatch),
 })
 
 const enhance = compose(

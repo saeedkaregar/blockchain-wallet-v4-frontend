@@ -12,10 +12,7 @@ class SelectBoxUSState extends React.PureComponent {
     return (
       <SelectBox
         label={
-          <FormattedMessage
-            id='components.selectboxstate.label'
-            defaultMessage='Select state'
-          />
+          <FormattedMessage id='components.selectboxstate.label' defaultMessage='Select state' />
         }
         elements={elements}
         {...rest}
@@ -36,11 +33,11 @@ const mapStateToProps = () => ({
     { text: 'Delaware', value: { name: 'Delaware', code: 'DE' } },
     {
       text: 'District Of Columbia',
-      value: { name: 'District Of Columbia', code: 'DC' }
+      value: { name: 'District Of Columbia', code: 'DC' },
     },
     {
       text: 'Federated States Of Micronesia',
-      value: { name: 'Federated States Of Micronesia', code: 'FM' }
+      value: { name: 'Federated States Of Micronesia', code: 'FM' },
     },
     { text: 'Florida', value: { name: 'Florida', code: 'FL' } },
     { text: 'Georgia', value: { name: 'Georgia', code: 'GA' } },
@@ -56,7 +53,7 @@ const mapStateToProps = () => ({
     { text: 'Maine', value: { name: 'Maine', code: 'ME' } },
     {
       text: 'Marshall Islands',
-      value: { name: 'Marshall Islands', code: 'MH' }
+      value: { name: 'Marshall Islands', code: 'MH' },
     },
     { text: 'Maryland', value: { name: 'Maryland', code: 'MD' } },
     { text: 'Massachusetts', value: { name: 'Massachusetts', code: 'MA' } },
@@ -75,7 +72,7 @@ const mapStateToProps = () => ({
     { text: 'North Dakota', value: { name: 'North Dakota', code: 'ND' } },
     {
       text: 'Northern Mariana Islands',
-      value: { name: 'Northern Mariana Islands', code: 'MP' }
+      value: { name: 'Northern Mariana Islands', code: 'MP' },
     },
     { text: 'Ohio', value: { name: 'Ohio', code: 'OH' } },
     { text: 'Oklahoma', value: { name: 'Oklahoma', code: 'OK' } },
@@ -95,8 +92,8 @@ const mapStateToProps = () => ({
     { text: 'Washington', value: { name: 'Washington', code: 'WA' } },
     { text: 'West Virginia', value: { name: 'West Virginia', code: 'WV' } },
     { text: 'Wisconsin', value: { name: 'Wisconsin', code: 'WI' } },
-    { text: 'Wyoming', value: { name: 'Wyoming', code: 'WY' } }
-  ]
+    { text: 'Wyoming', value: { name: 'Wyoming', code: 'WY' } },
+  ],
 })
 
 export default connect(mapStateToProps)(SelectBoxUSState)

@@ -3,7 +3,7 @@ import {
   CustodialFromType,
   Erc20CoinType,
   EthPaymentType,
-  RemoteDataType
+  RemoteDataType,
 } from 'blockchain-wallet-v4/src/types'
 
 export type SendEthState = {

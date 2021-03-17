@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   z-index: 1;
 `
 const Header = styled(Text).attrs({
-  size: '12px'
+  size: '12px',
 })`
   margin-bottom: 8px;
 `
@@ -42,8 +42,8 @@ class CoinCurrentPrice extends React.PureComponent<Props> {
   }
 }
 
-const mapStateToProps = state => ({
-  priceChart: selectors.preferences.getPriceChart(state)
+const mapStateToProps = (state) => ({
+  priceChart: selectors.preferences.getPriceChart(state),
 })
 
 const connector = connect(mapStateToProps)

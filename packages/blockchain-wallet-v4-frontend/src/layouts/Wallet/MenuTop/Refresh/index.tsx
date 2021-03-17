@@ -8,7 +8,7 @@ import Refresh from './template'
 
 class RefreshContainer extends React.PureComponent<Props> {
   state = {
-    rotating: false
+    rotating: false,
   }
 
   handleRotate = () => {
@@ -33,8 +33,8 @@ class RefreshContainer extends React.PureComponent<Props> {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions.components.refresh, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions.components.refresh, dispatch),
 })
 
 const connector = connect(undefined, mapDispatchToProps)

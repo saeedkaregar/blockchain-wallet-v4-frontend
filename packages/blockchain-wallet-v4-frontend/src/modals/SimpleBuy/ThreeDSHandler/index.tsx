@@ -7,7 +7,7 @@ import {
   RemoteDataType,
   SBCardType,
   SBOrderType,
-  SBProviderDetailsType
+  SBProviderDetailsType,
 } from 'blockchain-wallet-v4/src/types'
 import DataError from 'components/DataError'
 import { actions } from 'data'
@@ -19,7 +19,7 @@ import Success from './template.success'
 
 class ThreeDSHandler extends PureComponent<Props, State> {
   state: State = {
-    threeDSCallbackReceived: false
+    threeDSCallbackReceived: false,
   }
 
   componentDidMount() {
@@ -50,7 +50,7 @@ class ThreeDSHandler extends PureComponent<Props, State> {
     const { card, order, type } = this.props.data.getOrElse({
       type: null,
       card: { id: '' },
-      order: { id: '' }
+      order: { id: '' },
     } as SuccessStateType)
 
     switch (type) {
@@ -66,20 +66,20 @@ class ThreeDSHandler extends PureComponent<Props, State> {
 
   render() {
     return this.props.data.cata({
-      Success: val => <Success {...val} {...this.props} {...this.state} />,
-      Failure: e => <DataError message={{ message: e }} />,
+      Success: (val) => <Success {...val} {...this.props} {...this.state} />,
+      Failure: (e) => <DataError message={{ message: e }} />,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state: RootState): LinkStatePropsType => ({
-  data: getData(state)
+  data: getData(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch)
+  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

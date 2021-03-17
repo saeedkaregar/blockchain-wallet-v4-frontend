@@ -14,22 +14,17 @@ class AddDeviceContainer extends React.PureComponent {
   }
 
   render() {
-    return (
-      <AddDevice
-        onClick={this.onClick}
-        isBrowserSupported={this.props.isBrowserSupported}
-      />
-    )
+    return <AddDevice onClick={this.onClick} isBrowserSupported={this.props.isBrowserSupported} />
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   lockboxActions: bindActionCreators(actions.components.lockbox, dispatch),
-  modalActions: bindActionCreators(actions.modals, dispatch)
+  modalActions: bindActionCreators(actions.modals, dispatch),
 })
 
 AddDeviceContainer.propTypes = {
-  isBrowserSupported: PropTypes.bool.isRequired
+  isBrowserSupported: PropTypes.bool.isRequired,
 }
 
 export default connect(null, mapDispatchToProps)(AddDeviceContainer)

@@ -5,11 +5,7 @@ import BigNumber from 'bignumber.js'
 import { bindActionCreators, Dispatch } from 'redux'
 
 import { SkeletonRectangle } from 'blockchain-info-components'
-import {
-  CoinType,
-  ExtractSuccess,
-  FiatType
-} from 'blockchain-wallet-v4/src/types'
+import { CoinType, ExtractSuccess, FiatType } from 'blockchain-wallet-v4/src/types'
 import { actions } from 'data'
 import { convertBaseToStandard } from 'data/components/exchange/services'
 import { RootState } from 'data/rootReducer'
@@ -42,11 +38,11 @@ class UserPortfolioPositionChange extends PureComponent<Props> {
 
   render() {
     return this.props.data.cata({
-      Success: val => (
+      Success: (val) => (
         <PriceChange
           isPortfolioPosition
           priceChange={{
-            ...val.priceChange
+            ...val.priceChange,
           }}
           {...this.props}
         >
@@ -57,21 +53,19 @@ class UserPortfolioPositionChange extends PureComponent<Props> {
           />
         </PriceChange>
       ),
-      Failure: () => (
-        <SkeletonRectangle height='17px' width='40px' bgColor={'red400'} />
-      ),
+      Failure: () => <SkeletonRectangle height='17px' width='40px' bgColor={'red400'} />,
       Loading: () => <SkeletonRectangle height='17px' width='40px' />,
-      NotAsked: () => <SkeletonRectangle height='17px' width='40px' />
+      NotAsked: () => <SkeletonRectangle height='17px' width='40px' />,
     })
   }
 }
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
-  data: getData(state, ownProps)
+  data: getData(state, ownProps),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  miscActions: bindActionCreators(actions.core.data.misc, dispatch)
+  miscActions: bindActionCreators(actions.core.data.misc, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

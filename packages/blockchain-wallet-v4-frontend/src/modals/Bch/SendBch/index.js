@@ -18,7 +18,7 @@ class SendBchContainer extends React.PureComponent {
       to,
       description,
       amount,
-      payPro
+      payPro,
     })
   }
 
@@ -36,7 +36,7 @@ class SendBchContainer extends React.PureComponent {
       position,
       step,
       to,
-      total
+      total,
     } = this.props
 
     return (
@@ -60,15 +60,15 @@ SendBchContainer.propTypes = {
   step: PropTypes.number.isRequired,
   position: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
-  closeAll: PropTypes.func.isRequired
+  closeAll: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
-  step: selectors.components.sendBch.getStep(state)
+const mapStateToProps = (state) => ({
+  step: selectors.components.sendBch.getStep(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions.components.sendBch, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions.components.sendBch, dispatch),
 })
 
 const enhance = compose(

@@ -5,20 +5,14 @@ import { Field, reduxForm } from 'redux-form'
 import styled from 'styled-components'
 
 import { Button, HeartbeatLoader, Link, Text } from 'blockchain-info-components'
-import {
-  Form,
-  FormGroup,
-  FormLabel,
-  PasswordBox,
-  TextBox
-} from 'components/Form'
+import { Form, FormGroup, FormLabel, PasswordBox, TextBox } from 'components/Form'
 import { Wrapper } from 'components/Public'
 import Terms from 'components/Terms'
 import {
   required,
   validEmail,
   validPasswordConfirmation,
-  validStrongPassword
+  validStrongPassword,
 } from 'services/forms'
 
 const Header = styled.div`
@@ -39,34 +33,28 @@ const GoBackLink = styled(Link)`
 
 const validatePasswordConfirmation = validPasswordConfirmation('password')
 
-const SecondStep = props => {
+const SecondStep = (props) => {
   const {
     handleSubmit,
     invalid,
     isRegistering,
     isRestoringFromMetadata,
     password,
-    previousStep
+    previousStep,
   } = props
 
   return (
     <Wrapper>
       <Header>
         <Text size='20px' color='blue900' weight={600} capitalize>
-          <FormattedMessage
-            id='scenes.recover.secondstep.funds'
-            defaultMessage='Recover Funds'
-          />
+          <FormattedMessage id='scenes.recover.secondstep.funds' defaultMessage='Recover Funds' />
         </Text>
       </Header>
       <Form onSubmit={handleSubmit}>
         {!isRestoringFromMetadata && (
           <FormGroup>
             <FormLabel htmlFor='email'>
-              <FormattedMessage
-                id='scenes.recover.secondstep.email'
-                defaultMessage='New Email'
-              />
+              <FormattedMessage id='scenes.recover.secondstep.email' defaultMessage='New Email' />
             </FormLabel>
             <Field
               bgColor='grey000'
@@ -78,10 +66,7 @@ const SecondStep = props => {
         )}
         <FormGroup>
           <FormLabel htmlFor='password'>
-            <FormattedMessage
-              id='scenes.recover.secondstep.password'
-              defaultMessage='Password'
-            />
+            <FormattedMessage id='scenes.recover.secondstep.password' defaultMessage='Password' />
           </FormLabel>
           <Field
             bgColor='grey000'
@@ -89,9 +74,7 @@ const SecondStep = props => {
             validate={[required, validStrongPassword]}
             component={PasswordBox}
             showPasswordScore
-            passwordScore={
-              has('zxcvbn', window) ? window.zxcvbn(password).score : 0
-            }
+            passwordScore={has('zxcvbn', window) ? window.zxcvbn(password).score : 0}
           />
         </FormGroup>
         <FormGroup>
@@ -138,5 +121,5 @@ const SecondStep = props => {
 
 export default reduxForm({
   form: 'recover',
-  destroyOnUnmount: false
+  destroyOnUnmount: false,
 })(SecondStep)

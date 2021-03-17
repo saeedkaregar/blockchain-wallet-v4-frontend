@@ -14,14 +14,14 @@ import Loading from './template.loading'
 
 class VerifyContainer extends React.PureComponent<Props> {
   state = {
-    hasWebcam: false
+    hasWebcam: false,
   }
 
   componentDidMount() {
     const { actions } = this.props
     actions.fetchSupportedDocuments()
     actions.checkKycFlow()
-    checkHasWebcam().then(res => {
+    checkHasWebcam().then((res) => {
       this.setState({ hasWebcam: res })
     })
   }
@@ -35,16 +35,14 @@ class VerifyContainer extends React.PureComponent<Props> {
       },
       Loading: () => <Loading />,
       NotAsked: () => null,
-      Failure: message => <DataError message={message} />
+      Failure: (message) => <DataError message={message} />,
     })
 
     const PreIdvCheck = preIdvData.cata({
-      Success: val => (
-        <SiftScience {...val} onDone={actions.preIdvCheckFinished} />
-      ),
+      Success: (val) => <SiftScience {...val} onDone={actions.preIdvCheckFinished} />,
       Loading: () => null,
       NotAsked: () => null,
-      Failure: () => null
+      Failure: () => null,
     })
 
     return (
@@ -56,17 +54,14 @@ class VerifyContainer extends React.PureComponent<Props> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: getData(state),
-  preIdvData: getPreIdvData(state)
+  preIdvData: getPreIdvData(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(
-    actions.components.identityVerification,
-    dispatch
-  ),
-  modalActions: bindActionCreators(actions.modals, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions.components.identityVerification, dispatch),
+  modalActions: bindActionCreators(actions.modals, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

@@ -11,7 +11,7 @@ import {
   ModalHeader,
   Text,
   TooltipHost,
-  TooltipIcon
+  TooltipIcon,
 } from 'blockchain-info-components'
 import CopyClipboard from 'components/Clipboard/CopyClipboard'
 import QRCodeWrapper from 'components/QRCode/Wrapper'
@@ -24,11 +24,11 @@ const QRCodeContainer = styled.div`
   padding: 30px 0;
 `
 
-const QRCode = props => {
+const QRCode = (props) => {
   const { close, closeAll, position, total, ...rest } = props
   const { amount, message, receiveAddress } = rest.value
   let btcAddress = `bitcoin:${receiveAddress}`
-  let amt = amount > 0 ? amount : null
+  const amt = amount > 0 ? amount : null
   if (amt || message) btcAddress += '?'
   if (amt && !message) btcAddress += `amount=${amt}`
   if (!amt && message) btcAddress += `message=${message}`
@@ -41,10 +41,7 @@ const QRCode = props => {
       </ModalHeader>
       <ModalBody>
         <Text size='14px' weight={500}>
-          <FormattedMessage
-            id='modals.qrcode.scan'
-            defaultMessage='Scan QR Code'
-          />
+          <FormattedMessage id='modals.qrcode.scan' defaultMessage='Scan QR Code' />
           <TooltipHost id='qrcode.tooltip'>
             <TooltipIcon name='info' />
           </TooltipHost>
@@ -64,7 +61,7 @@ const QRCode = props => {
 }
 
 QRCode.propTypes = {
-  value: PropTypes.object.isRequired
+  value: PropTypes.object.isRequired,
 }
 
 export default QRCode

@@ -11,22 +11,18 @@ import {
   MaximumFeeMessage,
   MinimumAmountMessage,
   MinimumFeeMessage,
-  MinimumOneSatoshiMessage
+  MinimumOneSatoshiMessage,
 } from './validationMessages'
 
 const DUST = 546
 
-const getEffectiveBalance = props => {
+const getEffectiveBalance = (props) => {
   return Number(props.effectiveBalance)
 }
 
 export const insufficientFunds = (value, allValues, props) => {
   const effectiveBalance = getEffectiveBalance(props)
-  return effectiveBalance > 0 && DUST <= effectiveBalance ? (
-    undefined
-  ) : (
-    <InsufficientFundsMessage />
-  )
+  return effectiveBalance > 0 && DUST <= effectiveBalance ? undefined : <InsufficientFundsMessage />
 }
 
 export const invalidAmount = (value, allValues, props) => {
@@ -34,7 +30,7 @@ export const invalidAmount = (value, allValues, props) => {
   const valueSatoshi = Exchange.convertBtcToBtc({
     value: valueBtc,
     fromUnit: 'BTC',
-    toUnit: 'SAT'
+    toUnit: 'SAT',
   }).value
   return valueSatoshi > 0 ? undefined : <InvalidAmountMessage />
 }
@@ -44,7 +40,7 @@ export const minimumAmount = (value, allValues, props) => {
   const valueSatoshi = Exchange.convertBtcToBtc({
     value: valueBtc,
     fromUnit: 'BTC',
-    toUnit: 'SAT'
+    toUnit: 'SAT',
   }).value
   return parseInt(valueSatoshi) >= DUST ? undefined : <MinimumAmountMessage />
 }
@@ -55,35 +51,21 @@ export const maximumAmount = (value, allValues, props) => {
   const valueSatoshi = Exchange.convertBtcToBtc({
     value: valueBtc,
     fromUnit: 'BTC',
-    toUnit: 'SAT'
+    toUnit: 'SAT',
   }).value
   return valueSatoshi <= effectiveBalance ? undefined : <MaximumAmountMessage />
 }
 
 export const minimumFeePerByte = (value, allValues, props) =>
-  value && parseInt(value) >= props.minFeePerByte ? (
-    undefined
-  ) : (
-    <MinimumFeeMessage />
-  )
+  value && parseInt(value) >= props.minFeePerByte ? undefined : <MinimumFeeMessage />
 
 export const minimumOneSatoshi = (value, allValues, props) =>
   value >= 1 ? undefined : <MinimumOneSatoshiMessage />
 
 export const maximumFeePerByte = (value, allValues, props) =>
-  value && parseInt(value) <= props.maxFeePerByte ? (
-    undefined
-  ) : (
-    <MaximumFeeMessage />
-  )
+  value && parseInt(value) <= props.maxFeePerByte ? undefined : <MaximumFeeMessage />
 
-export const shouldError = ({
-  initialRender,
-  nextProps,
-  props,
-  structure,
-  values
-}) => {
+export const shouldError = ({ initialRender, nextProps, props, structure, values }) => {
   if (initialRender) {
     return true
   }
@@ -94,13 +76,7 @@ export const shouldError = ({
   )
 }
 
-export const shouldWarn = ({
-  initialRender,
-  nextProps,
-  props,
-  structure,
-  values
-}) => {
+export const shouldWarn = ({ initialRender, nextProps, props, structure, values }) => {
   if (initialRender) {
     return true
   }

@@ -9,7 +9,7 @@ import EditDescription from './template'
 class EditDescriptionContainer extends React.PureComponent<Props> {
   state = { newDescription: this.props.description }
 
-  handleConfirm = desc => {
+  handleConfirm = (desc) => {
     const { handleEditDescription } = this.props
     this.setState({ newDescription: desc })
     handleEditDescription(desc)
@@ -19,19 +19,14 @@ class EditDescriptionContainer extends React.PureComponent<Props> {
     this.props.modalActions.showModal('EditTxDescription', {
       origin: 'TransactionList',
       handleConfirm: this.handleConfirm,
-      value: this.state.newDescription
+      value: this.state.newDescription,
     })
   }
 
   render() {
     const { newDescription } = this.state
 
-    return (
-      <EditDescription
-        value={newDescription}
-        handleChange={this.handleChange}
-      />
-    )
+    return <EditDescription value={newDescription} handleChange={this.handleChange} />
   }
 }
 
@@ -39,8 +34,8 @@ type OwnProps = {
   description?: string
   handleEditDescription: (value?: string) => void
 }
-const mapDispatchToProps = dispatch => ({
-  modalActions: bindActionCreators(actions.modals, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  modalActions: bindActionCreators(actions.modals, dispatch),
 })
 
 const connector = connect(null, mapDispatchToProps)

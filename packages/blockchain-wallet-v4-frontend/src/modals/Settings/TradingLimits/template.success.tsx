@@ -3,20 +3,14 @@ import { FormattedMessage } from 'react-intl'
 import { path } from 'ramda'
 import styled from 'styled-components'
 
-import {
-  Button,
-  Icon,
-  Image,
-  Text,
-  TextGroup
-} from 'blockchain-info-components'
+import { Button, Icon, Image, Text, TextGroup } from 'blockchain-info-components'
 import { fiatToString } from 'blockchain-wallet-v4/src/exchange/currency'
 import { WalletFiatType } from 'blockchain-wallet-v4/src/types'
 import {
   BlueCartridge,
   ErrorCartridge,
   OrangeCartridge,
-  SuccessCartridge
+  SuccessCartridge,
 } from 'components/Cartridge'
 import { FlyoutWrapper } from 'components/Flyout'
 import { UserTierType } from 'data/types'
@@ -44,12 +38,12 @@ const IconsContainer = styled.div`
 `
 
 const Item = styled.div<{ isClickable?: boolean }>`
-  border-top: 1px solid ${props => props.theme.grey000};
+  border-top: 1px solid ${(props) => props.theme.grey000};
   padding: 20px 40px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  cursor: ${props => (props.isClickable ? 'pointer' : 'auto')};
+  cursor: ${(props) => (props.isClickable ? 'pointer' : 'auto')};
 `
 
 const ContentItem = styled(Item)`
@@ -67,7 +61,7 @@ const TierDescription = styled.div`
 const HeaderWrapper = styled(FlyoutWrapper)`
   position: fixed;
   max-width: 480px;
-  background-color: ${props => props.theme.white};
+  background-color: ${(props) => props.theme.white};
 `
 const FooterWrapper = styled(FlyoutWrapper)`
   flex: 1;
@@ -93,13 +87,13 @@ const MainContent = styled.div`
   margin-top: 177px;
 `
 const ItemTitle = styled(Text)`
-  color: ${props => props.theme.grey900};
+  color: ${(props) => props.theme.grey900};
   font-size: 16px;
   font-weight: 600;
   margin-left: 20px;
 `
 const ItemSubtitle = styled(Text)`
-  color: ${props => props.theme.grey900};
+  color: ${(props) => props.theme.grey900};
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 4px;
@@ -107,27 +101,17 @@ const ItemSubtitle = styled(Text)`
 
 type Props = OwnProps & SuccessStateType
 
-const getItemBadgeStatus = (
-  tier: number | undefined,
-  type: ITEMS,
-  isEligible: boolean = false
-) => {
+const getItemBadgeStatus = (tier: number | undefined, type: ITEMS, isEligible = false) => {
   return (tier !== undefined && TIERS[tier][type]) || isEligible ? (
     <CartridgeWrapper>
       <SuccessCartridge fontSize='12px'>
-        <FormattedMessage
-          id='modals.tradinglimits.unlocked'
-          defaultMessage='Unlocked'
-        />
+        <FormattedMessage id='modals.tradinglimits.unlocked' defaultMessage='Unlocked' />
       </SuccessCartridge>
     </CartridgeWrapper>
   ) : (
     <CartridgeWrapper>
       <ErrorCartridge fontSize='12px'>
-        <FormattedMessage
-          id='modals.tradinglimits.locked'
-          defaultMessage='Locked'
-        />
+        <FormattedMessage id='modals.tradinglimits.locked' defaultMessage='Locked' />
       </ErrorCartridge>
     </CartridgeWrapper>
   )
@@ -155,10 +139,7 @@ const getTierStatus = (
       <div>
         <CartridgeWrapper>
           <BlueCartridge fontSize='12px'>
-            <FormattedMessage
-              id='modals.tradinglimits.approved'
-              defaultMessage='Approved'
-            />
+            <FormattedMessage id='modals.tradinglimits.approved' defaultMessage='Approved' />
           </BlueCartridge>
         </CartridgeWrapper>
       </div>
@@ -172,18 +153,14 @@ const getTierStatus = (
   )
 }
 
-const Template: React.FC<Props> = props => {
+const Template: React.FC<Props> = (props) => {
   const { sddEligible, userData, userTiers } = props
 
   if (!Array.isArray(userTiers)) {
     return null
   }
-  const silverTier = userTiers.find(
-    userTier => userTier.index === TIER_TYPES.SILVER
-  )
-  const goldTier = userTiers.find(
-    userTier => userTier.index === TIER_TYPES.GOLD
-  )
+  const silverTier = userTiers.find((userTier) => userTier.index === TIER_TYPES.SILVER)
+  const goldTier = userTiers.find((userTier) => userTier.index === TIER_TYPES.GOLD)
 
   const userCurrentTier = path(['tiers', 'current'], userData) as number
   const currentTier: number | undefined =
@@ -194,25 +171,18 @@ const Template: React.FC<Props> = props => {
       : userCurrentTier
   const isUserGold = currentTier === TIER_TYPES.GOLD
   const isUserVerifiedSilver =
-    currentTier === TIER_TYPES.SILVER ||
-    isUserGold ||
-    currentTier === TIER_TYPES.SILVER_PLUS
+    currentTier === TIER_TYPES.SILVER || isUserGold || currentTier === TIER_TYPES.SILVER_PLUS
 
   const swapProduct =
-    props.productsEligibility &&
-    props.productsEligibility.find(pE => pE.product === 'SWAP')
+    props.productsEligibility && props.productsEligibility.find((pE) => pE.product === 'SWAP')
   const simpleBuyProduct =
-    props.productsEligibility &&
-    props.productsEligibility.find(pE => pE.product === 'SIMPLEBUY')
+    props.productsEligibility && props.productsEligibility.find((pE) => pE.product === 'SIMPLEBUY')
   const brokerageProduct =
-    props.productsEligibility &&
-    props.productsEligibility.find(pE => pE.product === 'BROKERAGE')
+    props.productsEligibility && props.productsEligibility.find((pE) => pE.product === 'BROKERAGE')
   const savingsProduct =
-    props.productsEligibility &&
-    props.productsEligibility.find(pE => pE.product === 'SAVINGS')
+    props.productsEligibility && props.productsEligibility.find((pE) => pE.product === 'SAVINGS')
 
-  const isGoldInreview =
-    goldTier.state === 'under_review' || goldTier.state === 'pending'
+  const isGoldInreview = goldTier.state === 'under_review' || goldTier.state === 'pending'
 
   return (
     <Wrapper>
@@ -234,12 +204,7 @@ const Template: React.FC<Props> = props => {
             defaultMessage='Trading Limits'
           />
         </Title>
-        <Text
-          color='grey600'
-          size='16px'
-          weight={500}
-          style={{ marginTop: '8px' }}
-        >
+        <Text color='grey600' size='16px' weight={500} style={{ marginTop: '8px' }}>
           <FormattedMessage
             id='modals.tradinglimits.description'
             defaultMessage='Unlock features within your Blockchain.com Wallet. Some features may ask you to verify your identity.'
@@ -252,10 +217,7 @@ const Template: React.FC<Props> = props => {
           onClick={() =>
             isUserVerifiedSilver
               ? null
-              : props.identityVerificationActions.verifyIdentity(
-                  TIER_TYPES.SILVER,
-                  false
-                )
+              : props.identityVerificationActions.verifyIdentity(TIER_TYPES.SILVER, false)
           }
           isClickable={!isUserVerifiedSilver}
           data-e2e={`continueKycTier${TIER_TYPES.SILVER}Btn`}
@@ -277,10 +239,9 @@ const Template: React.FC<Props> = props => {
                 values={{
                   amount: fiatToString({
                     value: silverTier.limits.annual,
-                    unit: (silverTier.limits.currency ||
-                      'USD') as WalletFiatType,
-                    digits: 0
-                  })
+                    unit: (silverTier.limits.currency || 'USD') as WalletFiatType,
+                    digits: 0,
+                  }),
                 }}
               />
             </ItemSubtitle>
@@ -300,10 +261,7 @@ const Template: React.FC<Props> = props => {
           onClick={() =>
             isUserGold || isGoldInreview
               ? null
-              : props.identityVerificationActions.verifyIdentity(
-                  TIER_TYPES.GOLD,
-                  false
-                )
+              : props.identityVerificationActions.verifyIdentity(TIER_TYPES.GOLD, false)
           }
           isClickable={!isUserGold}
           data-e2e={`continueKycTier${TIER_TYPES.GOLD}Btn`}
@@ -327,8 +285,8 @@ const Template: React.FC<Props> = props => {
                   amount: fiatToString({
                     value: goldTier.limits.daily,
                     unit: (goldTier.limits.currency || 'USD') as WalletFiatType,
-                    digits: 0
-                  })
+                    digits: 0,
+                  }),
                 }}
               />
             </ItemSubtitle>
@@ -350,9 +308,7 @@ const Template: React.FC<Props> = props => {
           </TierDescription>
 
           {getTierStatus(
-            currentTier === TIER_TYPES.SILVER_PLUS
-              ? TIER_TYPES.SILVER
-              : currentTier,
+            currentTier === TIER_TYPES.SILVER_PLUS ? TIER_TYPES.SILVER : currentTier,
             TIER_TYPES.GOLD,
             goldTier
           )}
@@ -384,10 +340,7 @@ const Template: React.FC<Props> = props => {
         <ContentItem>
           <Icon name='arrow-switch-thick' color='blue600' size='20px' />
           <ItemTitle>
-            <FormattedMessage
-              id='modals.tradinglimits.swap_crypto'
-              defaultMessage='Swap Crypto'
-            />
+            <FormattedMessage id='modals.tradinglimits.swap_crypto' defaultMessage='Swap Crypto' />
           </ItemTitle>
           {getItemBadgeStatus(currentTier, ITEMS.SWAP, swapProduct?.eligible)}
         </ContentItem>
@@ -410,11 +363,7 @@ const Template: React.FC<Props> = props => {
               defaultMessage='Buy with a Card'
             />
           </ItemTitle>
-          {getItemBadgeStatus(
-            currentTier,
-            ITEMS.BUY_WITH_A_CARD,
-            simpleBuyProduct?.eligible
-          )}
+          {getItemBadgeStatus(currentTier, ITEMS.BUY_WITH_A_CARD, simpleBuyProduct?.eligible)}
         </ContentItem>
         <ContentItem>
           <Icon name='bank-filled' color='blue600' size='20px' />
@@ -438,11 +387,7 @@ const Template: React.FC<Props> = props => {
               defaultMessage='Earn Interest'
             />
           </ItemTitle>
-          {getItemBadgeStatus(
-            currentTier,
-            ITEMS.EARN_INTEREST,
-            savingsProduct?.eligible
-          )}
+          {getItemBadgeStatus(currentTier, ITEMS.EARN_INTEREST, savingsProduct?.eligible)}
         </ContentItem>
       </MainContent>
 
@@ -455,9 +400,7 @@ const Template: React.FC<Props> = props => {
             nature='primary'
             data-e2e='tradingLimitsUnlockAll'
             type='button'
-            onClick={() =>
-              props.identityVerificationActions.verifyIdentity(2, false)
-            }
+            onClick={() => props.identityVerificationActions.verifyIdentity(2, false)}
           >
             {isUserVerifiedSilver ? (
               <FormattedMessage
@@ -465,10 +408,7 @@ const Template: React.FC<Props> = props => {
                 defaultMessage='Unlock Gold Tier ->'
               />
             ) : (
-              <FormattedMessage
-                id='buttons.unlock_all'
-                defaultMessage='Unlock All  ->'
-              />
+              <FormattedMessage id='buttons.unlock_all' defaultMessage='Unlock All  ->' />
             )}
           </Button>
         )}

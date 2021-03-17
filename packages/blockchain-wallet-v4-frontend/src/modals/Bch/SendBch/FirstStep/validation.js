@@ -6,19 +6,15 @@ import { Exchange } from 'blockchain-wallet-v4/src'
 import {
   InsufficientFundsMessage,
   InvalidAmountMessage,
-  MaximumAmountMessage
+  MaximumAmountMessage,
 } from './validationMessages'
 
-const getEffectiveBalance = props => {
+const getEffectiveBalance = (props) => {
   return Number(props.effectiveBalance)
 }
 
 export const insufficientFunds = (value, allValues, props) => {
-  return getEffectiveBalance(props) > 0 ? (
-    undefined
-  ) : (
-    <InsufficientFundsMessage />
-  )
+  return getEffectiveBalance(props) > 0 ? undefined : <InsufficientFundsMessage />
 }
 
 export const invalidAmount = (value, allValues, props) => {
@@ -26,7 +22,7 @@ export const invalidAmount = (value, allValues, props) => {
   const valueSatoshi = Exchange.convertBchToBch({
     value: valueBch,
     fromUnit: 'BCH',
-    toUnit: 'SAT'
+    toUnit: 'SAT',
   }).value
   return valueSatoshi > 0 ? undefined : <InvalidAmountMessage />
 }
@@ -36,22 +32,12 @@ export const maximumAmount = (value, allValues, props) => {
   const valueSatoshi = Exchange.convertBchToBch({
     value: valueBch,
     fromUnit: 'BCH',
-    toUnit: 'SAT'
+    toUnit: 'SAT',
   }).value
-  return valueSatoshi <= getEffectiveBalance(props) ? (
-    undefined
-  ) : (
-    <MaximumAmountMessage />
-  )
+  return valueSatoshi <= getEffectiveBalance(props) ? undefined : <MaximumAmountMessage />
 }
 
-export const shouldError = ({
-  initialRender,
-  nextProps,
-  props,
-  structure,
-  values
-}) => {
+export const shouldError = ({ initialRender, nextProps, props, structure, values }) => {
   if (initialRender) {
     return true
   }

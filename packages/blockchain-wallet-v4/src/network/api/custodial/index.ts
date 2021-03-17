@@ -1,9 +1,4 @@
-import {
-  BankTransferAccountType,
-  CoinType,
-  SBPaymentTypes,
-  WalletFiatType
-} from 'core/types'
+import { BankTransferAccountType, CoinType, SBPaymentTypes, WalletFiatType } from 'core/types'
 
 import {
   BeneficiariesType,
@@ -15,20 +10,20 @@ import {
   WithdrawalLockCheckResponseType,
   WithdrawalLockResponseType,
   WithdrawalMinsAndFeesResponse,
-  WithdrawResponseType
+  WithdrawResponseType,
 } from './types'
 
 export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
   const getBeneficiaries = (): BeneficiariesType =>
     authorizedGet({
       url: nabuUrl,
-      endPoint: '/payments/beneficiaries'
+      endPoint: '/payments/beneficiaries',
     })
 
   const getWithdrawalLocks = (): WithdrawalLockResponseType =>
     authorizedGet({
       url: nabuUrl,
-      endPoint: '/payments/withdrawals/locks'
+      endPoint: '/payments/withdrawals/locks',
     })
 
   const notifyNonCustodialToCustodialTransfer = (
@@ -47,8 +42,8 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
         depositAddress,
         txHash,
         amount,
-        product
-      }
+        product,
+      },
     })
 
   const withdrawFunds = (
@@ -61,13 +56,13 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
       endPoint: '/payments/withdrawals',
       contentType: 'application/json',
       headers: {
-        'blockchain-origin': 'simplebuy'
+        'blockchain-origin': 'simplebuy',
       },
       data: {
         beneficiary: beneficiary.id,
         currency,
-        amount: baseAmount
-      }
+        amount: baseAmount,
+      },
     })
 
   const getWithdrawalFees = (
@@ -78,9 +73,9 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
       url: nabuUrl,
       data: {
         paymentMethod,
-        product
+        product,
       },
-      endPoint: `/payments/withdrawals/fees`
+      endPoint: `/payments/withdrawals/fees`,
     })
 
   const checkWithdrawalLocks = (
@@ -93,8 +88,8 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
       contentType: 'application/json',
       data: {
         paymentMethod,
-        currency
-      }
+        currency,
+      },
     })
 
   const initiateCustodialTransfer = (request: CustodialTransferRequestType) =>
@@ -102,7 +97,7 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
       url: nabuUrl,
       endPoint: '/custodial/transfer',
       contentType: 'application/json',
-      data: request
+      data: request,
     })
 
   return {
@@ -112,6 +107,6 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
     getWithdrawalFees,
     initiateCustodialTransfer,
     notifyNonCustodialToCustodialTransfer,
-    withdrawFunds
+    withdrawFunds,
   }
 }

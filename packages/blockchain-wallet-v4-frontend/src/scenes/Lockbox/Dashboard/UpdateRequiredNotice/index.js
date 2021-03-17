@@ -59,7 +59,7 @@ const IconContainer = styled.div`
   height: 55px;
   width: 55px;
   min-width: 55px;
-  background: ${props => props.theme.blue100};
+  background: ${(props) => props.theme.blue100};
   border-radius: 50%;
 `
 const DownloadIcon = styled(Icon)`
@@ -79,17 +79,17 @@ class UpdateRequiredNotice extends React.PureComponent {
       case 'macos':
         return {
           extension: 'dmg',
-          updater: macUpdater
+          updater: macUpdater,
         }
       case 'linux':
         return {
           extension: 'AppImage',
-          updater: linuxUpdater
+          updater: linuxUpdater,
         }
       default:
         return {
           extension: 'exe',
-          updater: windowsUpdater
+          updater: windowsUpdater,
         }
     }
   }
@@ -98,7 +98,7 @@ class UpdateRequiredNotice extends React.PureComponent {
     this.props.modalActions.showModal('Confirm', {
       hideCancel: true,
       title: C.LOCKBOX_SOFTWARE_DOWNLOAD_TITLE,
-      message: C.LOCKBOX_SOFTWARE_DOWNLOAD_MSG
+      message: C.LOCKBOX_SOFTWARE_DOWNLOAD_MSG,
     })
     this.props.preferencesActions.hideLockboxSoftwareDownload()
   }
@@ -145,10 +145,7 @@ class UpdateRequiredNotice extends React.PureComponent {
           <RightColumn>
             <Link
               href={prop('updater', this.getOsSpecificUpdater())}
-              download={`lockbox-updater-1.0.0.${prop(
-                'extension',
-                this.getOsSpecificUpdater()
-              )}`}
+              download={`lockbox-updater-1.0.0.${prop('extension', this.getOsSpecificUpdater())}`}
             >
               <Button nature='primary' onClick={this.onSoftwareDownload}>
                 <FormattedMessage
@@ -175,18 +172,13 @@ class UpdateRequiredNotice extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  showLockboxDownload: selectors.preferences.getShowLockboxSoftwareDownload(
-    state
-  )
+const mapStateToProps = (state) => ({
+  showLockboxDownload: selectors.preferences.getShowLockboxSoftwareDownload(state),
 })
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   lockboxActions: bindActionCreators(actions.components.lockbox, dispatch),
   modalActions: bindActionCreators(actions.modals, dispatch),
-  preferencesActions: bindActionCreators(actions.preferences, dispatch)
+  preferencesActions: bindActionCreators(actions.preferences, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UpdateRequiredNotice)
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateRequiredNotice)

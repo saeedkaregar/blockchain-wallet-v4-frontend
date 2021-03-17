@@ -47,21 +47,18 @@ class AutoDisconnectionContainer extends React.PureComponent {
 }
 
 AutoDisconnectionContainer.defaultProps = {
-  duration: 0
+  duration: 0,
 }
 
 AutoDisconnectionContainer.propTypes = {
-  duration: PropTypes.number
+  duration: PropTypes.number,
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   authActions: bindActionCreators(actions.auth, dispatch),
-  modalActions: bindActionCreators(actions.modals, dispatch)
+  modalActions: bindActionCreators(actions.modals, dispatch),
 })
 
-const enhance = compose(
-  modalEnhancer('AutoDisconnection'),
-  connect(undefined, mapDispatchToProps)
-)
+const enhance = compose(modalEnhancer('AutoDisconnection'), connect(undefined, mapDispatchToProps))
 
 export default enhance(AutoDisconnectionContainer)

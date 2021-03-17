@@ -21,7 +21,7 @@ const RotateSyncContainer = styled(RotateSync)`
   margin-left: 15px;
 `
 
-const CheckForUpdatesStep = props => {
+const CheckForUpdatesStep = (props) => {
   return (
     <React.Fragment>
       <Title>
@@ -45,7 +45,7 @@ const CheckForUpdatesStep = props => {
         name='firmware-connect'
         srcset={{
           'firmware-connect2': '2x',
-          'firmware-connect3': '3x'
+          'firmware-connect3': '3x',
         }}
       />
       <ButtonContainer>

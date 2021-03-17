@@ -17,10 +17,7 @@ export const isValidBtcAddress = (value, network) => {
   try {
     const addr = address.fromBase58Check(value)
     const n = network || networks.bitcoin
-    return or(
-      equals(addr.version, n.pubKeyHash),
-      equals(addr.version, n.scriptHash)
-    )
+    return or(equals(addr.version, n.pubKeyHash), equals(addr.version, n.scriptHash))
   } catch (e) {
     try {
       const decoded = decode(value)
@@ -42,7 +39,7 @@ export const isValidBtcAddress = (value, network) => {
   }
 }
 
-export const isSegwitAddress = value => {
+export const isSegwitAddress = (value) => {
   try {
     const decoded = decode(value)
     return decoded.prefix === 'bc'
@@ -58,7 +55,7 @@ export const addressToScript = (value, network) => {
     if (value.toLowerCase().startsWith('bc')) {
       const words = decode(value).words
       const version = words[0]
-      const program = compose(Buffer.from, fromWords, w => w.slice(1))(words)
+      const program = compose(Buffer.from, fromWords, (w) => w.slice(1))(words)
 
       return compile([OP[`OP_${version}`], program])
     } else {
@@ -71,15 +68,13 @@ export const addressToScript = (value, network) => {
 
 export const scriptToAddress = (script, network) => {
   try {
-    return address
-      .fromOutputScript(Buffer.from(script, 'hex'), network)
-      .toString()
+    return address.fromOutputScript(Buffer.from(script, 'hex'), network).toString()
   } catch (e) {
     return undefined
   }
 }
 
-export const detectPrivateKeyFormat = key => {
+export const detectPrivateKeyFormat = (key) => {
   // 51 characters base58, always starts with 5
   const sipaRegex = /^[5][1-9A-HJ-Za-km-z]{50}$/
 
@@ -103,11 +98,7 @@ export const detectPrivateKeyFormat = key => {
     return 'hex'
   }
 
-  if (
-    /^[ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789=+/]{44}$/.test(
-      key
-    )
-  ) {
+  if (/^[ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789=+/]{44}$/.test(key)) {
     return 'base64'
   }
 
@@ -130,7 +121,7 @@ export const detectPrivateKeyFormat = key => {
   return null
 }
 
-const parseMiniKey = function(miniKey) {
+const parseMiniKey = function (miniKey) {
   const check = crypto.sha256(miniKey + '?')
   if (check[0] !== 0x00) {
     throw new Error('Invalid mini key')
@@ -138,12 +129,7 @@ const parseMiniKey = function(miniKey) {
   return crypto.sha256(miniKey)
 }
 
-export const privateKeyStringToKey = function(
-  value,
-  format,
-  network = networks.bitcoin,
-  addr
-) {
+export const privateKeyStringToKey = function (value, format, network = networks.bitcoin, addr) {
   if (format === 'sipa' || format === 'compsipa') {
     return ECPair.fromWIF(value, network)
   } else {
@@ -167,7 +153,7 @@ export const privateKeyStringToKey = function(
     }
 
     const d = BigInteger.fromBuffer(keyBuffer)
-    let keyPair = new ECPair(d, null, { network: network })
+    const keyPair = new ECPair(d, null, { network: network })
 
     if (addr && keyPair.getAddress() !== addr) {
       keyPair.compressed = false
@@ -179,14 +165,9 @@ export const privateKeyStringToKey = function(
 
 // formatPrivateKeyString :: String -> String -> String
 export const formatPrivateKeyString = (keyString, format, addr) => {
-  let keyFormat = detectPrivateKeyFormat(keyString)
-  let eitherKey = Either.try(privateKeyStringToKey)(
-    keyString,
-    keyFormat,
-    null,
-    addr
-  )
-  return eitherKey.chain(key => {
+  const keyFormat = detectPrivateKeyFormat(keyString)
+  const eitherKey = Either.try(privateKeyStringToKey)(keyString, keyFormat, null, addr)
+  return eitherKey.chain((key) => {
     if (format === 'wif') return Either.of(key.toWIF())
     if (format === 'base58') return Either.of(Base58.encode(key.d.toBuffer(32)))
     return Either.Left(new Error('Unsupported Key Format'))
@@ -195,11 +176,8 @@ export const formatPrivateKeyString = (keyString, format, addr) => {
 
 export const isValidBtcPrivateKey = (value, network) => {
   try {
-    let format = detectPrivateKeyFormat(value)
-    return (
-      format === 'bip38' ||
-      privateKeyStringToKey(value, format, network) != null
-    )
+    const format = detectPrivateKeyFormat(value)
+    return format === 'bip38' || privateKeyStringToKey(value, format, network) != null
   } catch (e) {
     return false
   }
@@ -212,7 +190,7 @@ export const calculateBalanceSatoshi = (coins, feePerByte) => {
   return { balance, fee, effectiveBalance }
 }
 
-export const isKey = function(btcKey) {
+export const isKey = function (btcKey) {
   return btcKey instanceof ECPair
 }
 
@@ -222,52 +200,52 @@ export const calculateBalanceBtc = (coins, feePerByte) => {
     balance: Exchange.convertBtcToBtc({
       value: data.balance,
       fromUnit: 'SAT',
-      toUnit: 'BTC'
+      toUnit: 'BTC',
     }).value,
     fee: Exchange.convertBtcToBtc({
       value: data.fee,
       fromUnit: 'SAT',
-      toUnit: 'BTC'
+      toUnit: 'BTC',
     }).value,
     effectiveBalance: Exchange.convertBtcToBtc({
       value: data.effectiveBalance,
       fromUnit: 'SAT',
-      toUnit: 'BTC'
-    }).value
+      toUnit: 'BTC',
+    }).value,
   }
 }
 
 export const getWifAddress = (key, compressed = true) => {
-  let oldFlag = key.compressed // avoid input mutation
+  const oldFlag = key.compressed // avoid input mutation
   key.compressed = compressed
-  let result = { address: key.getAddress(), wif: key.toWIF() }
+  const result = { address: key.getAddress(), wif: key.toWIF() }
   key.compressed = oldFlag
   return result
 }
 
-export const compressPublicKey = publicKey => {
+export const compressPublicKey = (publicKey) => {
   const prefix = (publicKey[64] & 1) !== 0 ? 0x03 : 0x02
   const prefixBuffer = Buffer.alloc(1)
   prefixBuffer[0] = prefix
   return Buffer.concat([prefixBuffer, publicKey.slice(1, 1 + 32)])
 }
 
-export const fingerprint = publickey => {
-  let pkh = compose(crypto.ripemd160, crypto.sha256)(publickey)
+export const fingerprint = (publickey) => {
+  const pkh = compose(crypto.ripemd160, crypto.sha256)(publickey)
   return ((pkh[0] << 24) | (pkh[1] << 16) | (pkh[2] << 8) | pkh[3]) >>> 0
 }
 
 export const getParentPath = compose(
-  array => bippath.fromPathArray(array).toString(),
+  (array) => bippath.fromPathArray(array).toString(),
   dropLast(1),
-  path => bippath.fromString(path).toPathArray()
+  (path) => bippath.fromString(path).toPathArray()
 )
 
 export const createXpubFromChildAndParent = (path, child, parent) => {
-  let pathArray = bippath.fromString(path).toPathArray()
-  let pkChild = compressPublicKey(Buffer.from(child.publicKey, 'hex'))
-  let pkParent = compressPublicKey(Buffer.from(parent.publicKey, 'hex'))
-  let hdnode = fromPublicKey(pkChild, Buffer.from(child.chainCode, 'hex'))
+  const pathArray = bippath.fromString(path).toPathArray()
+  const pkChild = compressPublicKey(Buffer.from(child.publicKey, 'hex'))
+  const pkParent = compressPublicKey(Buffer.from(parent.publicKey, 'hex'))
+  const hdnode = fromPublicKey(pkChild, Buffer.from(child.chainCode, 'hex'))
   hdnode.parentFingerprint = fingerprint(pkParent)
   hdnode.depth = pathArray.length
   hdnode.index = last(pathArray)

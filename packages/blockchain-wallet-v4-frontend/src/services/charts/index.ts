@@ -1,6 +1,6 @@
 const INTERVALS = {
   HOUR: 60 * 60 * 1000,
-  DAY: 24 * 60 * 60 * 1000
+  DAY: 24 * 60 * 60 * 1000,
 }
 
 const SCALES = {
@@ -8,7 +8,7 @@ const SCALES = {
   HOUR: 60 * 60,
   TWOHOUR: 2 * 60 * 60,
   DAY: 24 * 60 * 60,
-  FIVEDAY: 5 * 24 * 60 * 60
+  FIVEDAY: 5 * 24 * 60 * 60,
 }
 
 export const calculateScale = (coin, time) => {

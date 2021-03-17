@@ -13,11 +13,11 @@ class FooterContainer extends React.PureComponent<Props> {
   }
 }
 
-const mapStateToProps = state => getData(state)
+const mapStateToProps = (state) => getData(state)
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
-  swapActions: bindActionCreators(actions.components.swap, dispatch)
+  swapActions: bindActionCreators(actions.components.swap, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

@@ -35,13 +35,10 @@ class Reset2FAContainer extends React.PureComponent {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  formActions: bindActionCreators(actions.form, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  formActions: bindActionCreators(actions.form, dispatch),
 })
 
-const enhance = compose(
-  connect(null, mapDispatchToProps),
-  wizardProvider('reset2FA', 3)
-)
+const enhance = compose(connect(null, mapDispatchToProps), wizardProvider('reset2FA', 3))
 
 export default enhance(Reset2FAContainer)

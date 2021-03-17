@@ -10,7 +10,7 @@ import { getData } from './selectors'
 import Announcement from './template.js'
 
 class ServiceAnnouncement extends React.PureComponent {
-  handleDismiss = id => {
+  handleDismiss = (id) => {
     this.props.cacheActions.announcementDismissed(id)
   }
 
@@ -21,7 +21,7 @@ class ServiceAnnouncement extends React.PureComponent {
   render() {
     const { alertArea, data } = this.props
     return data.cata({
-      Success: val => {
+      Success: (val) => {
         return val.showAnnouncement ? (
           <Announcement
             announcement={val.announcements[alertArea]}
@@ -34,28 +34,21 @@ class ServiceAnnouncement extends React.PureComponent {
       },
       Loading: () => <div />,
       Failure: () => <div />,
-      NotAsked: () => <div />
+      NotAsked: () => <div />,
     })
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  data: Remote.of(getData(state, ownProps))
+  data: Remote.of(getData(state, ownProps)),
 })
 
-const mapDispatchToProps = dispatch => ({
-  cacheActions: bindActionCreators(actions.cache, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  cacheActions: bindActionCreators(actions.cache, dispatch),
 })
 
 ServiceAnnouncement.propTypes = {
-  alertArea: PropTypes.oneOf([
-    'lockbox',
-    'public',
-    'request',
-    'send',
-    'swap',
-    'wallet'
-  ]).isRequired
+  alertArea: PropTypes.oneOf(['lockbox', 'public', 'request', 'send', 'swap', 'wallet']).isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ServiceAnnouncement)

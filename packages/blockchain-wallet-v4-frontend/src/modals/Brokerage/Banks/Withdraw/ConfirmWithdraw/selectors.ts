@@ -7,16 +7,13 @@ import { RootState } from 'data/rootReducer'
 import { OwnProps } from '.'
 
 export const getData = (state: RootState, ownProps: OwnProps) => {
-  const feesR = selectors.components.withdraw.getFeeForCurrency(
-    state,
-    ownProps.fiatCurrency
-  )
+  const feesR = selectors.components.withdraw.getFeeForCurrency(state, ownProps.fiatCurrency)
 
   const defaultBeneficiaryR = selectors.custodial.getDefaultBeneficiary(
     ownProps.fiatCurrency,
     state
   )
-  let defaultMethodR = selectors.components.brokerage.getAccount(state)
+  const defaultMethodR = selectors.components.brokerage.getAccount(state)
 
   return lift(
     (
@@ -25,7 +22,7 @@ export const getData = (state: RootState, ownProps: OwnProps) => {
     ) => ({
       defaultBeneficiary,
       fees,
-      defaultMethod: defaultMethodR
+      defaultMethod: defaultMethodR,
     })
   )(defaultBeneficiaryR, feesR)
 }

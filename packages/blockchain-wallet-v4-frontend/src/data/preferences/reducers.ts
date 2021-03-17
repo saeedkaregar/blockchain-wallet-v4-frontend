@@ -9,15 +9,15 @@ const INITIAL_STATE: PreferencesState = {
   coinDisplayed: true,
   priceChart: {
     coin: 'BTC',
-    time: 'month'
+    time: 'month',
   },
   sbCheckout: {
     BUY: {
-      fix: 'FIAT'
+      fix: 'FIAT',
     },
     SELL: {
-      fix: 'CRYPTO'
-    }
+      fix: 'CRYPTO',
+    },
   },
   showKycCompleted: true,
   showBackupReminder: true,
@@ -32,8 +32,8 @@ const INITIAL_STATE: PreferencesState = {
   totalBalancesDropdown: {
     wallet: true,
     lockbox: false,
-    pending: false
-  }
+    pending: false,
+  },
 }
 
 export function preferencesReducer(
@@ -47,7 +47,7 @@ export function preferencesReducer(
       const { language } = action.payload
       return {
         ...state,
-        language
+        language,
       }
     }
     // @ts-ignore
@@ -56,7 +56,7 @@ export function preferencesReducer(
       const { culture } = action.payload
       return {
         ...state,
-        culture
+        culture,
       }
     }
     case AT.SET_SB_CHECKOUT_FIX: {
@@ -66,9 +66,9 @@ export function preferencesReducer(
           ...state.sbCheckout,
           [action.payload.orderType]: {
             ...state.sbCheckout[action.payload.orderType],
-            fix: action.payload.fix
-          }
-        }
+            fix: action.payload.fix,
+          },
+        },
       }
     }
     // @ts-ignore
@@ -77,7 +77,7 @@ export function preferencesReducer(
       const { theme } = action.payload
       return {
         ...state,
-        theme
+        theme,
       }
     }
     // @ts-ignore
@@ -88,29 +88,29 @@ export function preferencesReducer(
         ...state,
         totalBalancesDropdown: {
           ...state.totalBalancesDropdown,
-          [key]: val
-        }
+          [key]: val,
+        },
       }
     }
     // @ts-ignore
     case AT.TOGGLE_COIN_DISPLAY: {
       return {
         ...state,
-        coinDisplayed: !state.coinDisplayed
+        coinDisplayed: !state.coinDisplayed,
       }
     }
     // @ts-ignore
     case AT.HIDE_KYC_COMPLETED: {
       return {
         ...state,
-        showKycCompleted: false
+        showKycCompleted: false,
       }
     }
     // @ts-ignore
     case AT.HIDE_LOCKBOX_SOFTWARE_DOWNLOAD: {
       return {
         ...state,
-        showLockboxSoftwareDownload: false
+        showLockboxSoftwareDownload: false,
       }
     }
     // @ts-ignore
@@ -121,8 +121,8 @@ export function preferencesReducer(
         ...state,
         priceChart: {
           ...state.priceChart,
-          coin
-        }
+          coin,
+        },
       }
     }
     // @ts-ignore
@@ -133,8 +133,8 @@ export function preferencesReducer(
         ...state,
         priceChart: {
           ...state.priceChart,
-          time
-        }
+          time,
+        },
       }
     }
     // @ts-ignore
@@ -142,7 +142,7 @@ export function preferencesReducer(
       // @ts-ignore
       return {
         ...state,
-        showAirdropClaimModal: false
+        showAirdropClaimModal: false,
       }
     }
     // @ts-ignore
@@ -150,7 +150,7 @@ export function preferencesReducer(
       // @ts-ignore
       return {
         ...state,
-        showUpgradeForStxAirdropModal: false
+        showUpgradeForStxAirdropModal: false,
       }
     }
     // @ts-ignore
@@ -158,7 +158,7 @@ export function preferencesReducer(
       // @ts-ignore
       return {
         ...state,
-        showInterestInfoBox: false
+        showInterestInfoBox: false,
       }
     }
     // @ts-ignore
@@ -166,7 +166,7 @@ export function preferencesReducer(
       // @ts-ignore
       return {
         ...state,
-        showKycGetStarted: false
+        showKycGetStarted: false,
       }
     }
     // @ts-ignore
@@ -174,7 +174,7 @@ export function preferencesReducer(
       // @ts-ignore
       return {
         ...state,
-        showSwapBanner: false
+        showSwapBanner: false,
       }
     }
     // @ts-ignore
@@ -182,7 +182,7 @@ export function preferencesReducer(
       // @ts-ignore
       return {
         ...state,
-        showSwapUpgradeModal: false
+        showSwapUpgradeModal: false,
       }
     }
     default:

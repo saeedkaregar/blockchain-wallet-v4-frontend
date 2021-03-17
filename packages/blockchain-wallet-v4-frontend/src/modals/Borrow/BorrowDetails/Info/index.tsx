@@ -2,12 +2,7 @@ import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import styled, { DefaultTheme } from 'styled-components'
 
-import {
-  Icon,
-  Text,
-  TooltipHost,
-  TooltipIcon
-} from 'blockchain-info-components'
+import { Icon, Text, TooltipHost, TooltipIcon } from 'blockchain-info-components'
 import { OfferType } from 'blockchain-wallet-v4/src/types'
 import CoinDisplay from 'components/Display/CoinDisplay'
 import FiatDisplay from 'components/Display/FiatDisplay'
@@ -37,7 +32,7 @@ const IconWrapper = styled.div<{ bgColor?: keyof DefaultTheme }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.bgColor ? props.theme[props.bgColor] : props.theme.grey000};
 `
 const AmountsContainer = styled.div`
@@ -54,7 +49,7 @@ const AmountsHeader = styled(Text)`
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 8px;
-  color: ${props => props.theme.grey600};
+  color: ${(props) => props.theme.grey600};
 `
 const InlineText = styled(Text)`
   * {
@@ -62,12 +57,8 @@ const InlineText = styled(Text)`
   }
 `
 
-const Info: React.FC<Props & { offer: OfferType }> = props => {
-  const lastFailedTx = isLastTxStatus(
-    ['FAILED'],
-    props.loan,
-    props.loanTransactions
-  )
+const Info: React.FC<Props & { offer: OfferType }> = (props) => {
+  const lastFailedTx = isLastTxStatus(['FAILED'], props.loan, props.loanTransactions)
 
   switch (props.loan.status) {
     case 'PENDING_COLLATERAL_DEPOSIT':
@@ -222,10 +213,7 @@ const Info: React.FC<Props & { offer: OfferType }> = props => {
                     <TooltipIcon name='info' size='14px' />
                   </TooltipHost>
                 </AmountsHeader>
-                <Text
-                  weight={600}
-                  style={{ whiteSpace: 'nowrap', display: 'flex' }}
-                >
+                <Text weight={600} style={{ whiteSpace: 'nowrap', display: 'flex' }}>
                   {props.loan.financials.owedInterest[0] &&
                   props.loan.financials.collateralForInterest[0] ? (
                     <>
@@ -239,10 +227,7 @@ const Info: React.FC<Props & { offer: OfferType }> = props => {
                       </CoinDisplay>
                       &nbsp;(
                       <CoinDisplay
-                        coin={
-                          props.loan.financials.collateralForInterest[0]
-                            .currency
-                        }
+                        coin={props.loan.financials.collateralForInterest[0].currency}
                         color='grey800'
                         size='14px'
                         weight={600}

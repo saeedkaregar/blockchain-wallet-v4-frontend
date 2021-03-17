@@ -4,7 +4,7 @@ import { call, put, select } from 'redux-saga/effects'
 import { actions, selectors } from 'data'
 
 export default () => {
-  const refreshClicked = function * () {
+  const refreshClicked = function* () {
     try {
       // User
       yield put(actions.modules.profile.fetchUser())
@@ -63,11 +63,7 @@ export default () => {
           yield put(actions.core.data.fiat.fetchTransactions('USD', true))
           break
         case contains('/lockbox/', pathname):
-          yield put(
-            actions.components.lockbox.initializeDashboard(
-              pathname.split('/')[3]
-            )
-          )
+          yield put(actions.components.lockbox.initializeDashboard(pathname.split('/')[3]))
           break
         case contains('profile', pathname):
         case contains('/airdrops', pathname):
@@ -92,42 +88,38 @@ export default () => {
       // eslint-disable-next-line
       console.log(e)
       yield put(
-        actions.logs.logErrorMessage(
-          'components/refresh/sagas',
-          'refresh',
-          'Refresh failed.'
-        )
+        actions.logs.logErrorMessage('components/refresh/sagas', 'refresh', 'Refresh failed.')
       )
     }
   }
 
-  const refreshBchTransactions = function * () {
+  const refreshBchTransactions = function* () {
     yield put(actions.core.data.bch.fetchTransactions('', true))
   }
 
-  const refreshBtcTransactions = function * () {
+  const refreshBtcTransactions = function* () {
     yield put(actions.core.data.btc.fetchTransactions('', true))
   }
 
-  const refreshEthTransactions = function * () {
+  const refreshEthTransactions = function* () {
     yield put(actions.core.data.eth.fetchTransactions(null, true))
   }
 
-  const refreshErc20Transactions = function * (coin) {
+  const refreshErc20Transactions = function* (coin) {
     yield put(actions.core.data.eth.fetchErc20Transactions(coin, true))
   }
 
-  const refreshXlmTransactions = function * () {
+  const refreshXlmTransactions = function* () {
     yield put(actions.core.data.xlm.fetchTransactions(null, true))
   }
 
-  const refreshAlgoTransactions = function * () {
+  const refreshAlgoTransactions = function* () {
     yield put(actions.core.data.algo.fetchTransactions(null, true))
   }
 
   return {
     refreshClicked,
     refreshBchTransactions,
-    refreshBtcTransactions
+    refreshBtcTransactions,
   }
 }

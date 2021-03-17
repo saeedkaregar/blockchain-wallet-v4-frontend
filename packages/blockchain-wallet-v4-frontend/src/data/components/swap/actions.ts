@@ -3,7 +3,7 @@ import {
   PaymentValue,
   SwapOrderType,
   SwapQuoteType,
-  SwapUserLimitsType
+  SwapUserLimitsType,
 } from 'blockchain-wallet-v4/src/types'
 import { ModalOriginType } from 'data/modals/types'
 
@@ -13,22 +13,22 @@ import {
   SwapActionTypes,
   SwapCheckoutFixType,
   SwapSideType,
-  SwapStepPayload
+  SwapStepPayload,
 } from './types'
 
 export const cancelOrder = (id: string) => ({
   type: AT.CANCEL_ORDER,
   payload: {
-    id
-  }
+    id,
+  },
 })
 
 export const changePair = (side: SwapSideType, account: SwapAccountType) => ({
   type: AT.CHANGE_PAIR,
   payload: {
     side,
-    account
-  }
+    account,
+  },
 })
 
 export const changeTrendingPair = (
@@ -38,143 +38,132 @@ export const changeTrendingPair = (
   type: AT.CHANGE_SWAP_TRENDING_PAIR,
   payload: {
     baseAccount,
-    counterAccount
-  }
+    counterAccount,
+  },
 })
 
 export const createOrder = () => ({
-  type: AT.CREATE_ORDER
+  type: AT.CREATE_ORDER,
 })
 
 export const fetchCustodialEligibility = () => ({
-  type: AT.FETCH_CUSTODIAL_ELIGIBILITY
+  type: AT.FETCH_CUSTODIAL_ELIGIBILITY,
 })
-export const fetchCustodialEligibiliyFailure = (
-  error: string
-): SwapActionTypes => ({
+export const fetchCustodialEligibiliyFailure = (error: string): SwapActionTypes => ({
   type: AT.FETCH_CUSTODIAL_ELIGIBILITY_FAILURE,
   payload: {
-    error
-  }
+    error,
+  },
 })
 export const fetchCustodialEligibilityLoading = (): SwapActionTypes => ({
-  type: AT.FETCH_CUSTODIAL_ELIGIBILITY_LOADING
+  type: AT.FETCH_CUSTODIAL_ELIGIBILITY_LOADING,
 })
 
-export const fetchCustodialEligibilitySuccess = (
-  eligibility: boolean
-): SwapActionTypes => ({
+export const fetchCustodialEligibilitySuccess = (eligibility: boolean): SwapActionTypes => ({
   type: AT.FETCH_CUSTODIAL_ELIGIBILITY_SUCCESS,
   payload: {
-    eligibility
-  }
+    eligibility,
+  },
 })
 
 export const fetchLimits = () => ({
-  type: AT.FETCH_LIMITS
+  type: AT.FETCH_LIMITS,
 })
 export const fetchLimitsFailure = (error: string): SwapActionTypes => ({
   type: AT.FETCH_LIMITS_FAILURE,
   payload: {
-    error
-  }
+    error,
+  },
 })
 export const fetchLimitsLoading = (): SwapActionTypes => ({
-  type: AT.FETCH_LIMITS_LOADING
+  type: AT.FETCH_LIMITS_LOADING,
 })
-export const fetchLimitsSuccess = (
-  limits: SwapUserLimitsType
-): SwapActionTypes => ({
+export const fetchLimitsSuccess = (limits: SwapUserLimitsType): SwapActionTypes => ({
   type: AT.FETCH_LIMITS_SUCCESS,
   payload: {
-    limits
-  }
+    limits,
+  },
 })
 
 export const fetchPairs = () => ({
-  type: AT.FETCH_PAIRS
+  type: AT.FETCH_PAIRS,
 })
 export const fetchPairsFailure = (error: string): SwapActionTypes => ({
   type: AT.FETCH_PAIRS_FAILURE,
   payload: {
-    error
-  }
+    error,
+  },
 })
 export const fetchPairsLoading = (): SwapActionTypes => ({
-  type: AT.FETCH_PAIRS_LOADING
+  type: AT.FETCH_PAIRS_LOADING,
 })
 export const fetchPairsSuccess = (pairs: Array<string>): SwapActionTypes => ({
   type: AT.FETCH_PAIRS_SUCCESS,
   payload: {
-    pairs
-  }
+    pairs,
+  },
 })
 
 export const fetchQuote = () => ({
-  type: AT.FETCH_QUOTE
+  type: AT.FETCH_QUOTE,
 })
 export const fetchQuoteFailure = (error: string): SwapActionTypes => ({
   type: AT.FETCH_QUOTE_FAILURE,
   payload: {
-    error
-  }
+    error,
+  },
 })
 export const fetchQuoteLoading = (): SwapActionTypes => ({
-  type: AT.FETCH_QUOTE_LOADING
+  type: AT.FETCH_QUOTE_LOADING,
 })
-export const fetchQuoteSuccess = (
-  quote: SwapQuoteType,
-  rate: number
-): SwapActionTypes => ({
+export const fetchQuoteSuccess = (quote: SwapQuoteType, rate: number): SwapActionTypes => ({
   type: AT.FETCH_QUOTE_SUCCESS,
   payload: {
     quote,
-    rate
-  }
+    rate,
+  },
 })
 
 export const fetchTrades = () => ({
-  type: AT.FETCH_TRADES
+  type: AT.FETCH_TRADES,
 })
 export const fetchTradesFailure = (error: string): SwapActionTypes => ({
   type: AT.FETCH_TRADES_FAILURE,
   payload: {
-    error
-  }
+    error,
+  },
 })
 export const fetchTradesLoading = (): SwapActionTypes => ({
-  type: AT.FETCH_TRADES_LOADING
+  type: AT.FETCH_TRADES_LOADING,
 })
-export const fetchTradesSuccess = (
-  trades: Array<SwapOrderType>
-): SwapActionTypes => ({
+export const fetchTradesSuccess = (trades: Array<SwapOrderType>): SwapActionTypes => ({
   type: AT.FETCH_TRADES_SUCCESS,
   payload: {
-    trades
-  }
+    trades,
+  },
 })
 
 export const initAmountForm = () => ({
-  type: AT.INIT_AMOUNT_FORM
+  type: AT.INIT_AMOUNT_FORM,
 })
 
 export const refreshAccounts = () => ({
-  type: AT.REFRESH_ACCOUNTS
+  type: AT.REFRESH_ACCOUNTS,
 })
 
 export const setCheckoutFix = (fix: SwapCheckoutFixType) => ({
   type: AT.SET_CHECKOUT_FIX,
   payload: {
-    fix
-  }
+    fix,
+  },
 })
 
 export const setStep = ({ options, step }: SwapStepPayload) => ({
   type: AT.SET_STEP,
   payload: {
     step,
-    options
-  }
+    options,
+  },
 })
 
 export const showModal = (
@@ -186,44 +175,42 @@ export const showModal = (
   payload: {
     origin,
     baseCurrency,
-    counterCurrency
-  }
+    counterCurrency,
+  },
 })
 
 export const startPollQuote = () => ({
-  type: AT.START_POLL_QUOTE
+  type: AT.START_POLL_QUOTE,
 })
 
 export const stopPollQuote = () => ({
-  type: AT.STOP_POLL_QUOTE
+  type: AT.STOP_POLL_QUOTE,
 })
 
 export const switchFix = (amount: string, fix: SwapCheckoutFixType) => ({
   type: AT.SWITCH_FIX,
   payload: {
     amount,
-    fix
-  }
+    fix,
+  },
 })
 
 export const toggleBaseAndCounter = () => ({
-  type: AT.TOGGLE_BASE_COUNTER
+  type: AT.TOGGLE_BASE_COUNTER,
 })
 
 export const updatePaymentFailure = (error: string): SwapActionTypes => ({
   type: AT.UPDATE_PAYMENT_FAILURE,
   payload: {
-    error
-  }
+    error,
+  },
 })
 export const updatePaymentLoading = (): SwapActionTypes => ({
-  type: AT.UPDATE_PAYMENT_LOADING
+  type: AT.UPDATE_PAYMENT_LOADING,
 })
-export const updatePaymentSuccess = (
-  payment: PaymentValue | undefined
-): SwapActionTypes => ({
+export const updatePaymentSuccess = (payment: PaymentValue | undefined): SwapActionTypes => ({
   type: AT.UPDATE_PAYMENT_SUCCESS,
   payload: {
-    payment
-  }
+    payment,
+  },
 })

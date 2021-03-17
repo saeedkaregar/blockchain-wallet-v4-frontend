@@ -57,7 +57,7 @@ const InputWrapper = styled(LabelWrapper)`
 const Error = styled(Text)`
   position: absolute;
   display: block;
-  top: ${props => (props.errorBottom ? 48 : -20)}px;
+  top: ${(props) => (props.errorBottom ? 48 : -20)}px;
   right: 0;
   height: 15px;
 `
@@ -69,14 +69,13 @@ const monthElements = [
       const value = `${index + 1 < 10 ? '0' : ''}${index + 1}`
       return {
         text: `${value} - ${month}`,
-        value
+        value,
       }
-    })
-  }
+    }),
+  },
 ]
 
-const removeExtraDigits = maxDigits =>
-  replace(new RegExp(`(.{${maxDigits}}).*`), ($0, $1) => $1)
+const removeExtraDigits = (maxDigits) => replace(new RegExp(`(.{${maxDigits}}).*`), ($0, $1) => $1)
 const formatDate = removeExtraDigits(2)
 const formatYear = removeExtraDigits(4)
 
@@ -84,10 +83,7 @@ const MonthBox = ({ input, onBlur, onFocus, onMonthChange, otherMeta }) => (
   <MonthWrapper>
     <SelectBox
       label={
-        <FormattedMessage
-          id='components.DateInputBox.placeholder.month'
-          defaultMessage='Month'
-        />
+        <FormattedMessage id='components.DateInputBox.placeholder.month' defaultMessage='Month' />
       }
       menuPlacement='auto'
       elements={monthElements}
@@ -96,7 +92,7 @@ const MonthBox = ({ input, onBlur, onFocus, onMonthChange, otherMeta }) => (
         value: input.value.month,
         onBlur: onBlur.bind(this, 'month'),
         onChange: onMonthChange,
-        onFocus: onFocus
+        onFocus: onFocus,
       }}
       meta={otherMeta}
     />
@@ -108,14 +104,14 @@ const DateBox = ({ input, intl, onBlur, onDateChange, onFocus, otherMeta }) => (
     <NumberBox
       placeholder={intl.formatMessage({
         id: 'components.DateInputBox.placeholder.day',
-        defaultMessage: 'Day'
+        defaultMessage: 'Day',
       })}
       input={{
         name: 'date',
         value: input.value.date,
         onBlur: onBlur.bind(this, 'date'),
         onChange: onDateChange,
-        onFocus: onFocus
+        onFocus: onFocus,
       }}
       size='16px'
       meta={otherMeta}
@@ -128,14 +124,14 @@ const YearBox = ({ input, intl, onBlur, onFocus, onYearChange, otherMeta }) => (
     <NumberBox
       placeholder={intl.formatMessage({
         id: 'components.DateInputBox.placeholder.year',
-        defaultMessage: 'Year'
+        defaultMessage: 'Year',
       })}
       input={{
         name: 'year',
         value: input.value.year,
         onBlur: onBlur.bind(this, 'year'),
         onChange: onYearChange,
-        onFocus: onFocus
+        onFocus: onFocus,
       }}
       size='16px'
       meta={otherMeta}
@@ -145,7 +141,7 @@ const YearBox = ({ input, intl, onBlur, onFocus, onYearChange, otherMeta }) => (
 
 class DateInputBox extends React.PureComponent {
   state = {
-    isActive: false
+    isActive: false,
   }
 
   onBlur = () => {
@@ -157,39 +153,32 @@ class DateInputBox extends React.PureComponent {
     })
   }
 
-  onFocus = e => {
+  onFocus = (e) => {
     if (!this.state.isActive) this.props.input.onFocus(e)
     this.setState({ isActive: true })
   }
 
-  onMonthChange = month => {
+  onMonthChange = (month) => {
     this.props.input.onChange({
       ...this.props.input.value,
-      month
+      month,
     })
   }
 
-  onYearChange = e =>
+  onYearChange = (e) =>
     this.props.input.onChange({
       ...this.props.input.value,
-      year: formatYear(e.target.value)
+      year: formatYear(e.target.value),
     })
 
-  onDateChange = e =>
+  onDateChange = (e) =>
     this.props.input.onChange({
       ...this.props.input.value,
-      date: formatDate(e.target.value)
+      date: formatDate(e.target.value),
     })
 
   render() {
-    const {
-      className,
-      countryIsUS,
-      errorBottom,
-      input,
-      intl,
-      meta
-    } = this.props
+    const { className, countryIsUS, errorBottom, input, intl, meta } = this.props
     const { error, ...otherMeta } = meta
     const { onBlur, onDateChange, onFocus, onMonthChange, onYearChange } = this
 
@@ -197,47 +186,25 @@ class DateInputBox extends React.PureComponent {
       <Container className={className}>
         {countryIsUS ? (
           <RowWrapper>
-            <MonthBox
-              {...{ input, otherMeta, onBlur, onMonthChange, onFocus }}
-            />
-            <DateBox
-              {...{ intl, input, onBlur, onDateChange, onFocus, otherMeta }}
-            />
-            <YearBox
-              {...{ intl, input, onBlur, onYearChange, onFocus, otherMeta }}
-            />
+            <MonthBox {...{ input, otherMeta, onBlur, onMonthChange, onFocus }} />
+            <DateBox {...{ intl, input, onBlur, onDateChange, onFocus, otherMeta }} />
+            <YearBox {...{ intl, input, onBlur, onYearChange, onFocus, otherMeta }} />
           </RowWrapper>
         ) : (
           <RowWrapper>
-            <DateBox
-              {...{ intl, input, onBlur, onDateChange, onFocus, otherMeta }}
-            />
-            <MonthBox
-              {...{ input, otherMeta, onBlur, onMonthChange, onFocus }}
-            />
-            <YearBox
-              {...{ intl, input, onBlur, onYearChange, onFocus, otherMeta }}
-            />
+            <DateBox {...{ intl, input, onBlur, onDateChange, onFocus, otherMeta }} />
+            <MonthBox {...{ input, otherMeta, onBlur, onMonthChange, onFocus }} />
+            <YearBox {...{ intl, input, onBlur, onYearChange, onFocus, otherMeta }} />
           </RowWrapper>
         )}
 
         {meta.touched && error && (
-          <Error
-            size='12px'
-            weight={500}
-            color='error'
-            errorBottom={errorBottom}
-          >
+          <Error size='12px' weight={500} color='error' errorBottom={errorBottom}>
             {meta.error}
           </Error>
         )}
         {meta.touched && !error && meta.warning && (
-          <Error
-            size='12px'
-            weight={500}
-            color='error'
-            errorBottom={errorBottom}
-          >
+          <Error size='12px' weight={500} color='error' errorBottom={errorBottom}>
             {meta.warning}
           </Error>
         )}

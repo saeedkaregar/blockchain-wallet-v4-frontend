@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import { TabMenu, TabMenuItem } from 'blockchain-info-components'
 
-const TabMenuTransactionStatus = props => {
+const TabMenuTransactionStatus = (props) => {
   const { handleClick, statuses, value } = props
 
   return (
@@ -63,7 +63,7 @@ const TabMenuTransactionStatus = props => {
 
 TabMenuTransactionStatus.propTypes = {
   value: PropTypes.oneOf(['', 'received', 'sent', 'transferred']),
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 }
 
 export default TabMenuTransactionStatus

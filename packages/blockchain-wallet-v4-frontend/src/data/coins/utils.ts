@@ -3,14 +3,11 @@ import {
   CoinType,
   Erc20CoinsEnum,
   InterestBalanceType,
-  SBBalanceType
+  SBBalanceType,
 } from 'blockchain-wallet-v4/src/types'
 import { convertStandardToBase } from 'data/components/exchange/services'
 
-export const generateTradingAccount = (
-  coin: CoinType,
-  sbBalance?: SBBalanceType
-) => {
+export const generateTradingAccount = (coin: CoinType, sbBalance?: SBBalanceType) => {
   // hack to support PAX rebrand 🤬
   const ticker = coin === 'PAX' ? 'USD-D' : coin
   return [
@@ -19,15 +16,12 @@ export const generateTradingAccount = (
       coin,
       label: `${ticker} Trading Wallet`,
       type: ADDRESS_TYPES.CUSTODIAL,
-      balance: sbBalance?.available || '0'
-    }
+      balance: sbBalance?.available || '0',
+    },
   ]
 }
 
-export const generateInterestAccount = (
-  coin: CoinType,
-  interestBalance?: InterestBalanceType
-) => {
+export const generateInterestAccount = (coin: CoinType, interestBalance?: InterestBalanceType) => {
   // hack to support PAX rebrand 🤬
   const ticker = coin === 'PAX' ? 'USD-D' : coin
   return [
@@ -36,8 +30,8 @@ export const generateInterestAccount = (
       coin,
       label: `${ticker} Interest Wallet`,
       type: ADDRESS_TYPES.INTEREST,
-      balance: interestBalance?.balance
-    }
+      balance: interestBalance?.balance,
+    },
   ]
 }
 

@@ -51,7 +51,7 @@ const IconBackground = styled.div<{ color: string }>`
   z-index: 100;
   position: absolute;
   right: -5px;
-  background: ${props => props.theme[props.color]};
+  background: ${(props) => props.theme[props.color]};
 `
 const IconProgressBackground = styled.div<{ color: string }>`
   width: 72px;
@@ -60,7 +60,7 @@ const IconProgressBackground = styled.div<{ color: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: ${props => props.theme[props.color]};
+  background: ${(props) => props.theme[props.color]};
 `
 const TitleWrapper = styled(Text)`
   margin: 32px 0 24px 0;
@@ -71,13 +71,13 @@ const Bottom = styled.div`
   flex-direction: column;
   height: 100%;
   a {
-    color: ${props => props.theme.blue600};
+    color: ${(props) => props.theme.blue600};
     text-decoration: none;
     margin-left: 2px;
   }
 `
 
-const Success: React.FC<Props> = props => {
+const Success: React.FC<Props> = (props) => {
   const baseAmount = getBaseAmount(props.order)
   const baseCurrency = getBaseCurrency(props.order, props.supportedCoins)
   const days =
@@ -87,8 +87,7 @@ const Success: React.FC<Props> = props => {
 
   const isTransactionPending =
     props.order.state === 'PENDING_DEPOSIT' &&
-    props.order.attributes?.everypay?.paymentState ===
-      'WAITING_FOR_3DS_RESPONSE'
+    props.order.attributes?.everypay?.paymentState === 'WAITING_FOR_3DS_RESPONSE'
 
   const handleCancel = () => {
     props.simpleBuyActions.cancelSBOrder(props.order)
@@ -121,32 +120,18 @@ const Success: React.FC<Props> = props => {
           ) : (
             <IconWrapper>
               <Icon
-                color={
-                  props.supportedCoins[props.order.outputCurrency].colorCode
-                }
-                name={
-                  props.supportedCoins[props.order.outputCurrency].icons
-                    .circleFilled
-                }
+                color={props.supportedCoins[props.order.outputCurrency].colorCode}
+                name={props.supportedCoins[props.order.outputCurrency].icons.circleFilled}
                 size='64px'
               />
               <IconBackground color='white'>
-                <Icon
-                  name='checkmark-circle-filled'
-                  size='24px'
-                  color='green400'
-                />
+                <Icon name='checkmark-circle-filled' size='24px' color='green400' />
               </IconBackground>
             </IconWrapper>
           )}
 
           <TitleWrapper>
-            <Text
-              data-e2e='sbSddPurchasing'
-              size='20px'
-              weight={600}
-              color='grey800'
-            >
+            <Text data-e2e='sbSddPurchasing' size='20px' weight={600} color='grey800'>
               {isTransactionPending ? (
                 <FormattedMessage
                   id='modals.simplebuy.summary.pending_buy'
@@ -158,24 +143,19 @@ const Success: React.FC<Props> = props => {
                   defaultMessage='{amount} {coin} Purchased'
                   values={{
                     amount: baseAmount,
-                    coin: baseCurrency
+                    coin: baseCurrency,
                   }}
                 />
               )}
             </Text>
 
-            <Text
-              size='14px'
-              weight={500}
-              color='grey600'
-              style={{ marginTop: '8px' }}
-            >
+            <Text size='14px' weight={500} color='grey600' style={{ marginTop: '8px' }}>
               {isTransactionPending ? (
                 <FormattedMessage
                   id='modals.simplebuy.transferdetails.available'
                   defaultMessage='Your {coin} is now available in your Trading Wallet.'
                   values={{
-                    coin: baseCurrency
+                    coin: baseCurrency,
                   }}
                 />
               ) : (
@@ -189,22 +169,21 @@ const Success: React.FC<Props> = props => {
 
           <Bottom>
             {props.order.state === 'PENDING_CONFIRMATION' ||
-              (props.order.state === 'PENDING_DEPOSIT' &&
-                !props.order.paymentMethodId && (
-                  <Button
-                    data-e2e='sbSDDCancelPending'
-                    size='16px'
-                    height='48px'
-                    nature='light-red'
-                    onClick={handleCancel}
-                    style={{ marginBottom: '16px' }}
-                  >
-                    <FormattedMessage
-                      id='modals.simplebuy.summary.cancelbuy'
-                      defaultMessage='Cancel Buy'
-                    />
-                  </Button>
-                ))}
+              (props.order.state === 'PENDING_DEPOSIT' && !props.order.paymentMethodId && (
+                <Button
+                  data-e2e='sbSDDCancelPending'
+                  size='16px'
+                  height='48px'
+                  nature='light-red'
+                  onClick={handleCancel}
+                  style={{ marginBottom: '16px' }}
+                >
+                  <FormattedMessage
+                    id='modals.simplebuy.summary.cancelbuy'
+                    defaultMessage='Cancel Buy'
+                  />
+                </Button>
+              ))}
 
             {isTransactionPending && (
               <Button
@@ -215,7 +194,7 @@ const Success: React.FC<Props> = props => {
                 onClick={() =>
                   props.simpleBuyActions.setStep({
                     step: '3DS_HANDLER',
-                    order: props.order
+                    order: props.order,
                   })
                 }
                 style={{ marginBottom: '16px' }}
@@ -235,7 +214,7 @@ const Success: React.FC<Props> = props => {
                 nature='primary'
                 onClick={() => {
                   props.simpleBuyActions.setStep({
-                    step: 'UPGRADE_TO_GOLD'
+                    step: 'UPGRADE_TO_GOLD',
                   })
                   props.simpleBuyActions.updateSddTransactionFinished()
                 }}

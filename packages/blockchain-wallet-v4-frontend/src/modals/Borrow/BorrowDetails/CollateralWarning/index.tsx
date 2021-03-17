@@ -13,7 +13,7 @@ import { Props } from '../template.success'
 const {
   getCollateralAmtRequired,
   getCollateralizationDisplayName,
-  isLastTxStatus
+  isLastTxStatus,
 } = model.components.borrow
 
 const Container = styled.div<{ bgColor: string; borderColor?: string }>`
@@ -21,19 +21,19 @@ const Container = styled.div<{ bgColor: string; borderColor?: string }>`
   padding: 16px;
   border-radius: 8px;
   margin-bottom: 40px;
-  background-color: ${props => props.theme[props.bgColor]};
-  border: 1px solid ${props => props.theme[props.borderColor || props.bgColor]};
+  background-color: ${(props) => props.theme[props.bgColor]};
+  border: 1px solid ${(props) => props.theme[props.borderColor || props.bgColor]};
 
   .orange900 {
-    color: ${props => props.theme.orange900};
+    color: ${(props) => props.theme.orange900};
   }
 
   .green600 {
-    color: ${props => props.theme.green600};
+    color: ${(props) => props.theme.green600};
   }
 
   .grey900 {
-    color: ${props => props.theme.grey900};
+    color: ${(props) => props.theme.grey900};
   }
 `
 const CustomIcon = styled(Icon)`
@@ -44,7 +44,7 @@ const CustomButton = styled(Button)`
   margin-top: 16px;
 `
 
-const AddCollateralCTA: React.FC<Props & { optional?: boolean }> = props => {
+const AddCollateralCTA: React.FC<Props & { optional?: boolean }> = (props) => {
   const lastCompletedTx = isLastTxStatus(
     ['FAILED', 'CONFIRMED'],
     props.loan,
@@ -57,7 +57,7 @@ const AddCollateralCTA: React.FC<Props & { optional?: boolean }> = props => {
         props.borrowActions.setStep({
           step: 'ADD_COLLATERAL',
           loan: props.loan,
-          offer: props.offer
+          offer: props.offer,
         })
       }
       nature='primary'
@@ -69,17 +69,14 @@ const AddCollateralCTA: React.FC<Props & { optional?: boolean }> = props => {
             defaultMessage='Add Collateral (Optional)'
           />
         ) : (
-          <FormattedMessage
-            id='scenes.borrow.addcollateral'
-            defaultMessage='Add Collateral'
-          />
+          <FormattedMessage id='scenes.borrow.addcollateral' defaultMessage='Add Collateral' />
         )}
       </Text>
     </CustomButton>
   ) : null
 }
 
-const CollateralWarning: React.FC<Props> = props => {
+const CollateralWarning: React.FC<Props> = (props) => {
   const { offer } = props
   const currentCollateralStatus = getCollateralizationDisplayName(
     props.loan.collateralisationRatio,
@@ -116,8 +113,7 @@ const CollateralWarning: React.FC<Props> = props => {
                 id='scenes.borrow.warning.unsafe'
                 defaultMessage='Your collateralization ratio is below {unsafeRatio}. Your loan is in danger of being liquidated.'
                 values={{
-                  unsafeRatio:
-                    props.offer.callTerms.liquidationHardRatio * 100 + '%'
+                  unsafeRatio: props.offer.callTerms.liquidationHardRatio * 100 + '%',
                 }}
               />
             </Text>
@@ -135,16 +131,14 @@ const CollateralWarning: React.FC<Props> = props => {
                 id='scenes.borrow.warning.risky'
                 defaultMessage='Your collateralization ratio of <span class="orange900">{currentRatio}</span> is below the recommended level. <span class="grey900">You need to add {collateralAmtRequired} of additional collateral.</span> If it drops below {liquidationHardPerc} we will sell your collateral.'
                 values={{
-                  currentRatio: percentageFormatter(
-                    props.loan.collateralisationRatio
-                  ),
+                  currentRatio: percentageFormatter(props.loan.collateralisationRatio),
                   collateralAmtRequired: fiatToString({
                     unit: props.offer.terms.principalCcy as FiatType,
-                    value: getCollateralAmtRequired(props.loan, props.offer)
+                    value: getCollateralAmtRequired(props.loan, props.offer),
                   }),
                   liquidationHardPerc: percentageFormatter(
                     props.offer.callTerms.liquidationHardRatio
-                  )
+                  ),
                 }}
               />
             </Text>
@@ -162,9 +156,7 @@ const CollateralWarning: React.FC<Props> = props => {
                 id='scenes.borrow.warning.safe'
                 defaultMessage='Your collateralization ratio is <span class="green600">{currentRatio}</span>, no action needed at this time.'
                 values={{
-                  currentRatio: percentageFormatter(
-                    props.loan.collateralisationRatio
-                  )
+                  currentRatio: percentageFormatter(props.loan.collateralisationRatio),
                 }}
               />
             </Text>

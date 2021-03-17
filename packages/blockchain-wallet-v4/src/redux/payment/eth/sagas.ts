@@ -1,14 +1,6 @@
 import BigNumber from 'bignumber.js'
 import EthUtil from 'ethereumjs-util'
-import {
-  identity,
-  indexOf,
-  isNil,
-  mergeRight,
-  path,
-  prop,
-  toLower
-} from 'ramda'
+import { identity, indexOf, isNil, mergeRight, path, prop, toLower } from 'ramda'
 import { call, select } from 'redux-saga/effects'
 
 import { EthRawTxType } from 'core/types'
@@ -20,7 +12,7 @@ import {
   calculateEffectiveBalance,
   calculateFee,
   convertGweiToWei,
-  isValidAddress
+  isValidAddress,
 } from '../../../utils/eth'
 import * as S from '../../selectors'
 import { ADDRESS_TYPES } from '../btc/utils'
@@ -28,8 +20,7 @@ import { FETCH_FEES_FAILURE } from '../model'
 import { AddressTypesType } from '../types'
 import { isValidIndex } from './utils'
 
-const taskToPromise = t =>
-  new Promise((resolve, reject) => t.fork(reject, resolve))
+const taskToPromise = (t) => new Promise((resolve, reject) => t.fork(reject, resolve))
 
 /**
   Usage:
@@ -43,7 +34,7 @@ const taskToPromise = t =>
 
 export default ({ api }) => {
   const settingsSagas = settingsSagaFactory({ api })
-  const selectIndex = function * (from) {
+  const selectIndex = function* (from) {
     const appState = yield select(identity)
     switch (prop('type', from)) {
       case ADDRESS_TYPES.ACCOUNT:
@@ -55,14 +46,12 @@ export default ({ api }) => {
     }
   }
 
-  const calculateIsSufficientEthForErc20 = function * (fee) {
+  const calculateIsSufficientEthForErc20 = function* (fee) {
     const ethBalanceR = yield select(S.data.eth.getDefaultAddressBalance)
-    return new BigNumber(ethBalanceR.getOrElse(0)).isGreaterThan(
-      new BigNumber(fee)
-    )
+    return new BigNumber(ethBalanceR.getOrElse(0)).isGreaterThan(new BigNumber(fee))
   }
 
-  const calculateTo = destination => {
+  const calculateTo = (destination) => {
     if (!destination.type) {
       return { address: destination, type: ADDRESS_TYPES.ADDRESS }
     }
@@ -70,13 +59,7 @@ export default ({ api }) => {
     return destination
   }
 
-  const calculateSignature = function * (
-    network,
-    password,
-    transport,
-    scrambleKey,
-    p
-  ) {
+  const calculateSignature = function* (network, password, transport, scrambleKey, p) {
     switch (p.raw.fromType) {
       case ADDRESS_TYPES.ACCOUNT: {
         let sign
@@ -88,28 +71,19 @@ export default ({ api }) => {
             S.kvStore.eth.getErc20ContractAddr,
             toLower(p.coin)
           )).getOrFail('missing_contract_addr')
-          sign = data =>
-            taskToPromise(
-              eth.signErc20(network, mnemonic, data, contractAddress)
-            )
+          sign = (data) => taskToPromise(eth.signErc20(network, mnemonic, data, contractAddress))
         } else {
-          sign = data => taskToPromise(eth.sign(network, mnemonic, data))
+          sign = (data) => taskToPromise(eth.sign(network, mnemonic, data))
         }
         return yield call(sign, p.raw)
       }
       case ADDRESS_TYPES.LOCKBOX: {
-        return yield call(
-          eth.signWithLockbox,
-          network,
-          transport,
-          scrambleKey,
-          p.raw
-        )
+        return yield call(eth.signWithLockbox, network, transport, scrambleKey, p.raw)
       }
     }
   }
 
-  const calculateUnconfirmed = function * (address: string) {
+  const calculateUnconfirmed = function* (address: string) {
     const data: {
       transactions: Array<EthRawTxType>
     } = yield call(api.getEthTransactionsV2, address, 0, 1)
@@ -125,14 +99,14 @@ export default ({ api }) => {
   }
 
   function create({ network, payment } = { network: undefined, payment: {} }) {
-    const makePayment = p => ({
+    const makePayment = (p) => ({
       coin: 'ETH',
 
       value() {
         return p
       },
 
-      * init({ coin, isErc20 }) {
+      *init({ coin, isErc20 }) {
         let fees
         try {
           fees = yield call(api.getEthFees)
@@ -140,14 +114,9 @@ export default ({ api }) => {
           throw new Error(FETCH_FEES_FAILURE)
         }
         const gasPrice = prop('regular', fees)
-        const gasLimit = isErc20
-          ? prop('gasLimitContract', fees)
-          : prop('gasLimit', fees)
+        const gasLimit = isErc20 ? prop('gasLimitContract', fees) : prop('gasLimit', fees)
         const fee = calculateFee(gasPrice, gasLimit, true)
-        const isSufficientEthForErc20 = yield call(
-          calculateIsSufficientEthForErc20,
-          fee
-        )
+        const isSufficientEthForErc20 = yield call(calculateIsSufficientEthForErc20, fee)
 
         return makePayment(
           mergeRight(p, {
@@ -156,13 +125,13 @@ export default ({ api }) => {
             feeInGwei: gasPrice,
             isErc20,
             coin,
-            isSufficientEthForErc20
+            isSufficientEthForErc20,
           })
         )
       },
 
       to(destination) {
-        let to = calculateTo(destination)
+        const to = calculateTo(destination)
         if (!EthUtil.isValidAddress(to.address)) {
           throw new Error('Invalid address')
         }
@@ -173,13 +142,13 @@ export default ({ api }) => {
         return makePayment(mergeRight(p, { amount }))
       },
 
-      * from(origin, type: AddressTypesType, effectiveBalance?: string) {
+      *from(origin, type: AddressTypesType, effectiveBalance?: string) {
         let from, unconfirmedTx
 
         if (type === 'CUSTODIAL') {
           from = {
             type,
-            address: origin
+            address: origin,
           }
         } else {
           let account = origin
@@ -189,32 +158,25 @@ export default ({ api }) => {
           }
           const ethData = yield call(api.getEthBalances, account)
           const nonce = path([account, 'nonce'], ethData)
-          let balance = p.isErc20
-            ? (yield select(
-                S.data.eth.getErc20Balance,
-                toLower(p.coin)
-              )).getOrFail('missing_erc20_balance')
+          const balance = p.isErc20
+            ? (yield select(S.data.eth.getErc20Balance, toLower(p.coin))).getOrFail(
+                'missing_erc20_balance'
+              )
             : path([account, 'balance'], ethData)
 
-          effectiveBalance = calculateEffectiveBalance(
-            balance,
-            prop('fee', p),
-            prop('isErc20', p)
-          )
+          effectiveBalance = calculateEffectiveBalance(balance, prop('fee', p), prop('isErc20', p))
           from = {
             type: type || ADDRESS_TYPES.ACCOUNT,
             address: account,
-            nonce
+            nonce,
           }
           unconfirmedTx = yield call(calculateUnconfirmed, account)
         }
 
-        return makePayment(
-          mergeRight(p, { from, effectiveBalance, unconfirmedTx })
-        )
+        return makePayment(mergeRight(p, { from, effectiveBalance, unconfirmedTx }))
       },
 
-      * fee(value, origin) {
+      *fee(value, origin) {
         let contract
         let account = origin
         if (origin === null || origin === undefined || origin === '') {
@@ -225,20 +187,18 @@ export default ({ api }) => {
           return makePayment(
             mergeRight(p, {
               feeInGwei: 0,
-              fee: 0
+              fee: 0,
             })
           )
         }
         if (p.isErc20) {
-          contract = (yield select(
-            S.kvStore.eth.getErc20ContractAddr,
-            toLower(p.coin)
-          )).getOrFail('missing_contract_addr')
+          contract = (yield select(S.kvStore.eth.getErc20ContractAddr, toLower(p.coin))).getOrFail(
+            'missing_contract_addr'
+          )
         }
         // value can be in gwei or string ('regular' or 'priority')
         const fees = prop('fees', p)
-        const feeInGwei =
-          indexOf(value, ['regular', 'priority']) > -1 ? fees[value] : value
+        const feeInGwei = indexOf(value, ['regular', 'priority']) > -1 ? fees[value] : value
 
         const gasLimit =
           p.isErc20 || p.isContract
@@ -250,27 +210,21 @@ export default ({ api }) => {
           ? yield call(api.getErc20AccountSummaryV2, account, contract)
           : yield call(api.getEthBalances, account)
 
-        const balancePath = p.isErc20
-          ? path(['balance'])
-          : path([account, 'balance'])
+        const balancePath = p.isErc20 ? path(['balance']) : path([account, 'balance'])
 
         const balance = balancePath(data)
         // balance + fee need to be in wei
-        let effectiveBalance = calculateEffectiveBalance(
-          balance,
-          fee,
-          p.isErc20
-        )
+        const effectiveBalance = calculateEffectiveBalance(balance, fee, p.isErc20)
         return makePayment(
           mergeRight(p, {
             feeInGwei,
             fee,
-            effectiveBalance
+            effectiveBalance,
           })
         )
       },
 
-      * build() {
+      *build() {
         const fromData = prop('from', p)
         const index = yield call(selectIndex, fromData)
         const to = path(['to', 'address'], p)
@@ -301,12 +255,12 @@ export default ({ api }) => {
           gasLimit,
           nonce,
           from,
-          fromType
+          fromType,
         }
         return makePayment(mergeRight(p, { raw }))
       },
 
-      * sign(password, transport, scrambleKey) {
+      *sign(password, transport, scrambleKey) {
         try {
           const signed = yield call(
             calculateSignature,
@@ -322,13 +276,12 @@ export default ({ api }) => {
         }
       },
 
-      * signLegacy(password) {
+      *signLegacy(password) {
         try {
           const appState = yield select(identity)
           const seedHexT = S.wallet.getSeedHex(appState, password)
           const seedHex = yield call(() => taskToPromise(seedHexT))
-          const signLegacy = data =>
-            taskToPromise(eth.signLegacy(network, seedHex, data))
+          const signLegacy = (data) => taskToPromise(eth.signLegacy(network, seedHex, data))
           const signed = yield call(signLegacy, p.raw)
           return makePayment(mergeRight(p, { signed }))
         } catch (e) {
@@ -336,7 +289,7 @@ export default ({ api }) => {
         }
       },
 
-      * publish() {
+      *publish() {
         const signed = prop('signed', p)
         if (isNil(signed)) throw new Error('missing_signed_tx')
         const publish = () => api.pushEthTx(signed).then(prop('txHash'))
@@ -357,16 +310,12 @@ export default ({ api }) => {
         return makePayment(mergeRight(p, { isErc20 }))
       },
 
-      setIsRetryAttempt(
-        isRetryAttempt: boolean,
-        nonce: string,
-        minFeeRequiredForRetry: string
-      ) {
+      setIsRetryAttempt(isRetryAttempt: boolean, nonce: string, minFeeRequiredForRetry: string) {
         return makePayment(
           mergeRight(p, {
             from: { ...p.from, nonce: Number(nonce) },
             isRetryAttempt,
-            minFeeRequiredForRetry
+            minFeeRequiredForRetry,
           })
         )
       },
@@ -383,44 +332,40 @@ export default ({ api }) => {
 
       chain() {
         const chain = (gen, f) =>
-          makeChain(function * () {
+          makeChain(function* () {
             return yield f(yield gen())
           })
 
-        const makeChain = gen => ({
-          init: values => chain(gen, payment => payment.init(values)),
-          to: address => chain(gen, payment => payment.to(address)),
-          amount: amount => chain(gen, payment => payment.amount(amount)),
-          from: (origin, type) =>
-            chain(gen, payment => payment.from(origin, type)),
-          fee: value => chain(gen, payment => payment.fee(value)),
-          fees: fees => chain(gen, payment => payment.fees(fees)),
-          build: () => chain(gen, payment => payment.build()),
-          sign: password => chain(gen, payment => payment.sign(password)),
-          publish: () => chain(gen, payment => payment.publish()),
-          setIsErc20: val => chain(gen, payment => payment.setIsErc20(val)),
-          setIsContract: val =>
-            chain(gen, payment => payment.setIsContract(val)),
-          setIsRetryAttempt: val =>
-            chain(gen, payment => payment.setIsRetryAttempt(val)),
-          setCoin: coin => chain(gen, payment => payment.setCoin(coin)),
-          description: message =>
-            chain(gen, payment => payment.description(message)),
-          * done() {
+        const makeChain = (gen) => ({
+          init: (values) => chain(gen, (payment) => payment.init(values)),
+          to: (address) => chain(gen, (payment) => payment.to(address)),
+          amount: (amount) => chain(gen, (payment) => payment.amount(amount)),
+          from: (origin, type) => chain(gen, (payment) => payment.from(origin, type)),
+          fee: (value) => chain(gen, (payment) => payment.fee(value)),
+          fees: (fees) => chain(gen, (payment) => payment.fees(fees)),
+          build: () => chain(gen, (payment) => payment.build()),
+          sign: (password) => chain(gen, (payment) => payment.sign(password)),
+          publish: () => chain(gen, (payment) => payment.publish()),
+          setIsErc20: (val) => chain(gen, (payment) => payment.setIsErc20(val)),
+          setIsContract: (val) => chain(gen, (payment) => payment.setIsContract(val)),
+          setIsRetryAttempt: (val) => chain(gen, (payment) => payment.setIsRetryAttempt(val)),
+          setCoin: (coin) => chain(gen, (payment) => payment.setCoin(coin)),
+          description: (message) => chain(gen, (payment) => payment.description(message)),
+          *done() {
             return yield gen()
-          }
+          },
         })
 
-        return makeChain(function * () {
+        return makeChain(function* () {
           return yield call(makePayment, p)
         })
-      }
+      },
     })
 
     return makePayment(payment)
   }
 
   return {
-    create: create
+    create: create,
   }
 }

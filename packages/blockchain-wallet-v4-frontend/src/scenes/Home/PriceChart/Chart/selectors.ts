@@ -10,7 +10,7 @@ export const getData = createDeepEqualSelector(
     selectors.preferences.getPriceChart,
     selectors.components.priceChart.getCoin,
     selectors.components.priceChart.getTime,
-    selectors.core.data.misc.getPriceIndexSeries
+    selectors.core.data.misc.getPriceIndexSeries,
   ],
   (currencyR, priceChartPreferences, coin, time, priceIndexSeriesDataR) => {
     const currency = currencyR.getOrElse('USD')
@@ -20,10 +20,10 @@ export const getData = createDeepEqualSelector(
     // @ts-ignore
     const cacheTime = priceChartPreferences.time || 'month'
 
-    const transform = priceIndexSeriesData => ({
-      data: map(d => [d.timestamp * 1000, d.price], priceIndexSeriesData),
+    const transform = (priceIndexSeriesData) => ({
+      data: map((d) => [d.timestamp * 1000, d.price], priceIndexSeriesData),
       coin,
-      time
+      time,
     })
     return {
       data: lift(transform)(priceIndexSeriesDataR),
@@ -31,8 +31,8 @@ export const getData = createDeepEqualSelector(
       currencySymbol,
       cache: {
         coin: cacheCoin,
-        time: cacheTime
-      }
+        time: cacheTime,
+      },
     }
   }
 )

@@ -25,16 +25,16 @@ class BchWalletsContainer extends React.Component {
       ...rest
     } = this.props
 
-    const onEditBchAccountLabel = account => {
+    const onEditBchAccountLabel = (account) => {
       addressesBchActions.editBchAccountLabel(account.index, account.label)
     }
-    const onShowChangeAddrs = account => {
+    const onShowChangeAddrs = (account) => {
       addressesBchActions.showChangeAddrs(account.index, account.xpub)
     }
-    const onShowXPub = account => {
+    const onShowXPub = (account) => {
       modalsActions.showModal('ShowXPub', { xpub: account.xpub })
     }
-    const onMakeDefault = account => {
+    const onMakeDefault = (account) => {
       kvStoreBchActions.setDefaultAccountIdx(account.index)
     }
     const onSetArchived = (account, archived) => {
@@ -45,37 +45,29 @@ class BchWalletsContainer extends React.Component {
       onShowChangeAddrs,
       onMakeDefault,
       onSetArchived,
-      onShowXPub
+      onShowXPub,
     }
 
     return data.cata({
-      Success: value => (
-        <Wallets
-          search={search && search.toLowerCase()}
-          data={value}
-          {...props}
-          {...rest}
-        />
+      Success: (value) => (
+        <Wallets search={search && search.toLowerCase()} data={value} {...props} {...rest} />
       ),
-      Failure: message => <div>{message}</div>,
+      Failure: (message) => <div>{message}</div>,
       Loading: () => <div />,
-      NotAsked: () => <div />
+      NotAsked: () => <div />,
     })
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: getData(state),
-  search: formValueSelector(WALLET_TX_SEARCH)(state, 'search')
+  search: formValueSelector(WALLET_TX_SEARCH)(state, 'search'),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   kvStoreBchActions: bindActionCreators(actions.core.kvStore.bch, dispatch),
-  addressesBchActions: bindActionCreators(
-    actions.modules.addressesBch,
-    dispatch
-  ),
-  modalsActions: bindActionCreators(actions.modals, dispatch)
+  addressesBchActions: bindActionCreators(actions.modules.addressesBch, dispatch),
+  modalsActions: bindActionCreators(actions.modals, dispatch),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BchWalletsContainer)

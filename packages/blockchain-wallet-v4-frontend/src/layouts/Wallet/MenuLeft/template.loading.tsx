@@ -1,11 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import {
-  BlockchainLoader,
-  SkeletonCircle,
-  SkeletonRectangle
-} from 'blockchain-info-components'
+import { BlockchainLoader, SkeletonCircle, SkeletonRectangle } from 'blockchain-info-components'
 import { MenuItem, Wrapper } from 'components/MenuLeft'
 
 import { Container } from './template.success'

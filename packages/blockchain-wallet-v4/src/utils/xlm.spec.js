@@ -16,7 +16,7 @@ describe('xlm uri decode', () => {
       address: PLAIN_ADDRESS,
       memo: MEMO,
       note: MSG,
-      amount: AMOUNT.toString()
+      amount: AMOUNT.toString(),
     })
   })
 })

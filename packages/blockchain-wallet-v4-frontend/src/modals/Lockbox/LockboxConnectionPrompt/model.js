@@ -39,8 +39,8 @@ export const CONFIRM_STEPS = {
     image: () => 'lockbox-send-connect',
     srcset: () => ({
       'lockbox-send-connect2': '2x',
-      'lockbox-send-connect3': '3x'
-    })
+      'lockbox-send-connect3': '3x',
+    }),
   },
   ready: {
     name: 'ready',
@@ -60,8 +60,8 @@ export const CONFIRM_STEPS = {
     image: () => 'lockbox-send-review',
     srcset: () => ({
       'lockbox-send-review2': '2x',
-      'lockbox-send-review3': '3x'
-    })
+      'lockbox-send-review3': '3x',
+    }),
   },
   success: {
     name: 'success',
@@ -96,8 +96,8 @@ export const CONFIRM_STEPS = {
     image: () => 'lockbox-success',
     srcset: () => ({
       'lockbox-success2': '2x',
-      'lockbox-success3': '3x'
-    })
+      'lockbox-success3': '3x',
+    }),
   },
   error: {
     name: 'error',
@@ -123,7 +123,7 @@ export const CONFIRM_STEPS = {
     image: () => 'lockbox-failed',
     srcset: () => ({
       'lockbox-failed2': '2x',
-      'lockbox-failed3': '3x'
-    })
-  }
+      'lockbox-failed3': '3x',
+    }),
+  },
 }

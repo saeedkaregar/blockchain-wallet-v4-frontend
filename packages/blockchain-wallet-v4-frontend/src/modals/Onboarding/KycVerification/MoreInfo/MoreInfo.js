@@ -12,7 +12,7 @@ import {
   IdentityVerificationHeader,
   IdentityVerificationImage,
   IdentityVerificationSubHeader,
-  InputWrapper
+  InputWrapper,
 } from 'components/IdentityVerification'
 import { actions } from 'data'
 import { media } from 'services/styles'
@@ -58,11 +58,7 @@ const MoreInfo = ({ closeAllModals, goToNextStep }) => (
           <BackButton data-e2e='moreInfoCancelButton' onClick={closeAllModals}>
             <FormattedMessage id='buttons.cancel' defaultMessage='Cancel' />
           </BackButton>
-          <Button
-            nature='primary'
-            data-e2e='moreInfoContinueButton'
-            onClick={goToNextStep}
-          >
+          <Button nature='primary' data-e2e='moreInfoContinueButton' onClick={goToNextStep}>
             <FormattedMessage id='buttons.continue' defaultMessage='Continue' />
           </Button>
         </Footer>
@@ -71,10 +67,9 @@ const MoreInfo = ({ closeAllModals, goToNextStep }) => (
   </IdentityVerificationForm>
 )
 
-const mapDispatchToProps = dispatch => ({
-  goToNextStep: () =>
-    dispatch(actions.components.identityVerification.goToNextStep()),
-  closeAllModals: () => dispatch(actions.modals.closeAllModals())
+const mapDispatchToProps = (dispatch) => ({
+  goToNextStep: () => dispatch(actions.components.identityVerification.goToNextStep()),
+  closeAllModals: () => dispatch(actions.modals.closeAllModals()),
 })
 
 export default connect(undefined, mapDispatchToProps)(MoreInfo)

@@ -11,20 +11,20 @@ import Template from './template'
 class Table extends React.PureComponent<Props> {
   render() {
     return this.props.data.cata({
-      Success: val => <Template {...this.props} {...val} />,
+      Success: (val) => <Template {...this.props} {...val} />,
       Failure: () => null,
       NotAsked: () => null,
-      Loading: () => null
+      Loading: () => null,
     })
   }
 }
 
-const mapStateToProps = state => ({
-  data: getData(state)
+const mapStateToProps = (state) => ({
+  data: getData(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions.components.refresh, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions.components.refresh, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

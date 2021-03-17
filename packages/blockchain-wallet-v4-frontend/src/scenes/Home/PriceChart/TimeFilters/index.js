@@ -9,20 +9,17 @@ import { getData } from './selectors'
 import TimeFilters from './template'
 
 export const TimeFiltersContainer = ({ actions, time }) => (
-  <TimeFilters time={time} handleClick={time => actions.timeClicked(time)} />
+  <TimeFilters time={time} handleClick={(time) => actions.timeClicked(time)} />
 )
 
 TimeFiltersContainer.propTypes = {
-  time: PropTypes.string.isRequired
+  time: PropTypes.string.isRequired,
 }
 
-const mapStateToProps = state => getData(state)
+const mapStateToProps = (state) => getData(state)
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions.components.priceChart, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions.components.priceChart, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TimeFiltersContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(TimeFiltersContainer)

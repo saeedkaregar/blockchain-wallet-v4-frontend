@@ -40,7 +40,7 @@ const Subcontent = styled(Text)`
 export const Unsupported = ({
   eligibility: { paymentAccountEligible },
   fiatCurrency,
-  handleClose
+  handleClose,
 }: Props) => (
   <Top>
     <CloseIcon
@@ -88,10 +88,7 @@ export const Unsupported = ({
               id='modals.simplebuy.unsupported-subcontent-1'
               defaultMessage="Well this is awkward. We don't support buying crypto yet for"
             />{' '}
-            <FormattedMessage
-              id='modals.simplebuy.fiatregion'
-              defaultMessage='your region'
-            />
+            <FormattedMessage id='modals.simplebuy.fiatregion' defaultMessage='your region' />
             {'. '}
           </>
         )}

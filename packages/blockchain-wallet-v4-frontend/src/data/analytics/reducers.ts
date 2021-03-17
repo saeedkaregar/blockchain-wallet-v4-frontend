@@ -4,7 +4,7 @@ import * as AT from './actionTypes'
 import { AnalyticsActionTypes, AnalyticsStateType } from './types'
 
 const INITIAL_STATE: AnalyticsStateType = {
-  ab_tests: {}
+  ab_tests: {},
 }
 
 export const analyticsReducer = (
@@ -17,8 +17,8 @@ export const analyticsReducer = (
         ...state,
         ab_tests: {
           ...state.ab_tests,
-          [action.payload.test]: Remote.Loading
-        }
+          [action.payload.test]: Remote.Loading,
+        },
       }
     }
     case AT.CREATE_AB_TEST_SUCCESS: {
@@ -26,8 +26,8 @@ export const analyticsReducer = (
         ...state,
         ab_tests: {
           ...state.ab_tests,
-          [action.payload.test]: Remote.Success(action.payload.result)
-        }
+          [action.payload.test]: Remote.Success(action.payload.result),
+        },
       }
     }
     default: {

@@ -40,7 +40,7 @@ class Interest extends PureComponent<Props, State> {
     }, duration)
   }
 
-  handleSBClick = coin => {
+  handleSBClick = (coin) => {
     this.setState({ show: false })
     setTimeout(() => {
       this.props.close()
@@ -87,12 +87,12 @@ class Interest extends PureComponent<Props, State> {
 
 const mapStateToProps = (state: RootState): LinkStatePropsType => ({
   step: selectors.components.interest.getStep(state),
-  coin: selectors.components.interest.getCoinType(state)
+  coin: selectors.components.interest.getCoinType(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   interestActions: bindActionCreators(actions.components.interest, dispatch),
-  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch)
+  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)
@@ -109,9 +109,6 @@ type LinkStatePropsType = {
 type State = { direction: 'left' | 'right'; show: boolean }
 type Props = OwnProps & ConnectedProps<typeof connector>
 
-const enhance = compose<any>(
-  modalEnhancer('INTEREST_MODAL', { transition: duration }),
-  connector
-)
+const enhance = compose<any>(modalEnhancer('INTEREST_MODAL', { transition: duration }), connector)
 
 export default enhance(Interest)

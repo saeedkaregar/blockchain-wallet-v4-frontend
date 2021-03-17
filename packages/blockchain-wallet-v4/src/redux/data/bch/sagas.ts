@@ -11,11 +11,7 @@ import * as transactions from '../../../transactions'
 import { HDAccountList } from '../../../types'
 import { errorHandler, MISSING_WALLET } from '../../../utils'
 import { addFromToAccountNames } from '../../../utils/accounts'
-import {
-  BCH_FORK_TIME,
-  convertFromCashAddrIfCashAddr,
-  TX_PER_PAGE
-} from '../../../utils/bch'
+import { BCH_FORK_TIME, convertFromCashAddrIfCashAddr, TX_PER_PAGE } from '../../../utils/bch'
 import { getAccountsList, getBchTxNotes } from '../../kvStore/bch/selectors'
 import { getLockboxBchAccounts } from '../../kvStore/lockbox/selectors'
 import * as selectors from '../../selectors'
@@ -30,7 +26,7 @@ const transformTx = transactions.bch.transformTx
 export default ({ api }: { api: APIType }) => {
   const { fetchCustodialOrdersAndTransactions } = custodialSagas({ api })
 
-  const fetchData = function * () {
+  const fetchData = function* () {
     try {
       yield put(A.fetchDataLoading())
       const context = yield select(S.getContext)
@@ -39,7 +35,7 @@ export default ({ api }: { api: APIType }) => {
         // @ts-ignore
         addresses: indexBy(prop('address'), prop('addresses', data)),
         info: path(['wallet'], data),
-        latest_block: path(['info', 'latest_block'], data)
+        latest_block: path(['info', 'latest_block'], data),
       }
       yield put(A.fetchDataSuccess(bchData))
     } catch (e) {
@@ -47,7 +43,7 @@ export default ({ api }: { api: APIType }) => {
     }
   }
 
-  const fetchRates = function * () {
+  const fetchRates = function* () {
     try {
       yield put(A.fetchRatesLoading())
       const data = yield call(api.getBchTicker)
@@ -57,14 +53,14 @@ export default ({ api }: { api: APIType }) => {
     }
   }
 
-  const watchTransactions = function * () {
+  const watchTransactions = function* () {
     while (true) {
       const action = yield take(AT.FETCH_BCH_TRANSACTIONS)
       yield call(fetchTransactions, action)
     }
   }
 
-  const fetchTransactions = function * ({ payload }) {
+  const fetchTransactions = function* ({ payload }) {
     const { address, reset, filter } = payload
     try {
       const pages = yield select(S.getTransactions)
@@ -81,11 +77,11 @@ export default ({ api }: { api: APIType }) => {
         {
           n: TX_PER_PAGE,
           onlyShow: convertedAddress || walletContext.join('|'),
-          offset
+          offset,
         },
         filter
       )
-      const filteredTxs = data.txs.filter(tx => tx.time > BCH_FORK_TIME)
+      const filteredTxs = data.txs.filter((tx) => tx.time > BCH_FORK_TIME)
       const atBounds = length(filteredTxs) < TX_PER_PAGE
       yield put(A.transactionsAtBound(atBounds))
       const txPage: Array<BchTxType> = yield call(__processTxs, filteredTxs)
@@ -110,7 +106,7 @@ export default ({ api }: { api: APIType }) => {
     }
   }
 
-  const __processTxs = function * (txs) {
+  const __processTxs = function* (txs) {
     // Page == Remote ([Tx])
     // Remote(wallet)
     const wallet = yield select(walletSelectors.getWallet)
@@ -125,12 +121,7 @@ export default ({ api }: { api: APIType }) => {
     // ProcessPage :: wallet -> [Tx] -> [Tx]
     const ProcessTxs = (wallet, lockboxAccountList, txList, txNotes) =>
       map(
-        transformTx.bind(
-          undefined,
-          wallet.getOrFail(MISSING_WALLET),
-          lockboxAccountList,
-          txNotes
-        ),
+        transformTx.bind(undefined, wallet.getOrFail(MISSING_WALLET), lockboxAccountList, txNotes),
         txList
       )
     // ProcessRemotePage :: Page -> Page
@@ -138,7 +129,7 @@ export default ({ api }: { api: APIType }) => {
     return addFromToAccountNames(wallet, accountList, processedTxs)
   }
 
-  const fetchTransactionHistory = function * ({ payload }) {
+  const fetchTransactionHistory = function* ({ payload }) {
     const { address, end, start } = payload
     const startDate = moment(start).format('DD/MM/YYYY')
     const endDate = moment(end).format('DD/MM/YYYY')
@@ -180,6 +171,6 @@ export default ({ api }: { api: APIType }) => {
     fetchTransactionHistory,
     fetchTransactions,
     watchTransactions,
-    __processTxs
+    __processTxs,
   }
 }

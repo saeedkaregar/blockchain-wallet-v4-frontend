@@ -11,19 +11,19 @@ import { getData } from './selectors'
 import Features from './template'
 
 class FeaturesContainer extends React.PureComponent<Props> {
-  showModal = type => {
+  showModal = (type) => {
     const {
       coin,
       erc20List,
       lockboxDeviceId,
       lockboxPath,
       modalActions,
-      supportedCoins
+      supportedCoins,
     } = this.props
     if (type === 'REQUEST') {
       return modalActions.showModal('REQUEST_CRYPTO_MODAL', {
         coin: coin in CoinTypeEnum && coin,
-        origin: 'FeaturesTopNav'
+        origin: 'FeaturesTopNav',
       })
     }
 
@@ -31,24 +31,18 @@ class FeaturesContainer extends React.PureComponent<Props> {
     if (includes(coin, erc20List)) {
       return modalActions.showModal(`@MODAL.${type}.ETH` as ModalNamesType, {
         coin,
-        origin: 'FeaturesTopNav'
+        origin: 'FeaturesTopNav',
       })
     } else if (includes(coin, keys(supportedCoins))) {
-      return this.props.modalActions.showModal(
-        `@MODAL.SEND.${coin}` as ModalNamesType,
-        {
-          lockboxIndex: lockboxPath ? lockboxDeviceId : null,
-          origin: 'FeaturesTopNav'
-        }
-      )
-    }
-    return this.props.modalActions.showModal(
-      `@MODAL.SEND.BTC` as ModalNamesType,
-      {
+      return this.props.modalActions.showModal(`@MODAL.SEND.${coin}` as ModalNamesType, {
         lockboxIndex: lockboxPath ? lockboxDeviceId : null,
-        origin: 'FeaturesTopNav'
-      }
-    )
+        origin: 'FeaturesTopNav',
+      })
+    }
+    return this.props.modalActions.showModal(`@MODAL.SEND.BTC` as ModalNamesType, {
+      lockboxIndex: lockboxPath ? lockboxDeviceId : null,
+      origin: 'FeaturesTopNav',
+    })
   }
 
   render() {
@@ -56,10 +50,10 @@ class FeaturesContainer extends React.PureComponent<Props> {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   modalActions: bindActionCreators(actions.modals, dispatch),
   simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
-  swapActions: bindActionCreators(actions.components.swap, dispatch)
+  swapActions: bindActionCreators(actions.components.swap, dispatch),
 })
 
 const connector = connect(getData, mapDispatchToProps)

@@ -17,7 +17,7 @@ const dataReducer = combineReducers({
   eth,
   fiat: fiatReducer,
   misc: miscReducer,
-  xlm
+  xlm,
 })
 
 export default dataReducer

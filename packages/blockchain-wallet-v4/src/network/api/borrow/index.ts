@@ -12,8 +12,8 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
       endPoint: `/user/loans/${loan.loanId}/close_with_principal`,
       contentType: 'application/json',
       data: {
-        collateralWithdrawAddresses
-      }
+        collateralWithdrawAddresses,
+      },
     })
 
   const createLoan = (
@@ -28,34 +28,32 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
       data: {
         offerId,
         principalAmount,
-        principalWithdrawAddresses
-      }
+        principalWithdrawAddresses,
+      },
     })
 
   const getLoanFinancials = (loanId: string) =>
     authorizedGet({
       url: nabuUrl,
-      endPoint: `/user/loans/${loanId}/financials`
+      endPoint: `/user/loans/${loanId}/financials`,
     })
 
-  const getLoanTransactions = (
-    loanId: string
-  ): { transactions: Array<LoanTransactionsType> } =>
+  const getLoanTransactions = (loanId: string): { transactions: Array<LoanTransactionsType> } =>
     authorizedGet({
       url: nabuUrl,
-      endPoint: `/user/loans/${loanId}/transactions`
+      endPoint: `/user/loans/${loanId}/transactions`,
     })
 
   const getOffers = (): Array<OfferType> =>
     authorizedGet({
       url: nabuUrl,
-      endPoint: '/lending/offers'
+      endPoint: '/lending/offers',
     })
 
   const getUserBorrowHistory = (): Array<LoanType> =>
     authorizedGet({
       url: nabuUrl,
-      endPoint: '/user/loans'
+      endPoint: '/user/loans',
     })
 
   const notifyLoanDeposit = (
@@ -73,8 +71,8 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
         amount,
         dstAddress,
         status,
-        type
-      }
+        type,
+      },
     })
 
   return {
@@ -84,6 +82,6 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
     getLoanTransactions,
     getOffers,
     getUserBorrowHistory,
-    notifyLoanDeposit
+    notifyLoanDeposit,
   }
 }

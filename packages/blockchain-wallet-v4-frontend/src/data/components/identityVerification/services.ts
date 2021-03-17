@@ -8,7 +8,7 @@ import { STEP_TIERS, STEPS } from './model'
 export const computeSteps = ({
   kycState,
   needMoreInfo,
-  tiers
+  tiers,
 }: {
   kycState: KycStateType
   needMoreInfo: boolean
@@ -27,14 +27,11 @@ export const computeSteps = ({
   // in similar vein, if selected is 1 and next is 2, need to force selected to be 2
   selectedTier = next === 2 && selected === 1 ? 2 : selectedTier
 
-  const isStepRequired = step => {
+  const isStepRequired = (step) => {
     if ((!needMoreInfo || next < TIERS[2]) && step === STEPS.moreInfo) {
       return false
     }
-    if (
-      (kycState === 'PENDING' || kycState === 'VERIFIED') &&
-      step === STEPS.verify
-    ) {
+    if ((kycState === 'PENDING' || kycState === 'VERIFIED') && step === STEPS.verify) {
       return false
     }
 

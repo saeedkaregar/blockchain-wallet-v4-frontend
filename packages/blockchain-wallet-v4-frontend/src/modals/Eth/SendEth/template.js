@@ -10,11 +10,11 @@ const SendHeader = styled(ModalHeader)`
   border-bottom: 0;
   padding-bottom: 8px;
   > div:first-child * {
-    color: ${props => props.theme.blue900};
+    color: ${(props) => props.theme.blue900};
   }
 `
 
-const SendEth = props => (
+const SendEth = (props) => (
   <Modal size='medium' position={props.position} total={props.total}>
     <SendHeader icon='send' onClose={props.closeAll}>
       <FormattedHTMLMessage
@@ -33,7 +33,7 @@ SendEth.propTypes = {
   coinDisplayName: PropTypes.string.isRequired,
   position: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
-  closeAll: PropTypes.func.isRequired
+  closeAll: PropTypes.func.isRequired,
 }
 
 export default SendEth

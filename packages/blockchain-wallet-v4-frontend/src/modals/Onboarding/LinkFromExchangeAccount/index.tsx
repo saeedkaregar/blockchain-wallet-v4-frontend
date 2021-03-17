@@ -37,10 +37,7 @@ export type Props = OwnPropsType & LinkStatePropsType & LinkDispatchPropsType
 
 type State = { direction: 'left' | 'right'; show: boolean }
 
-class LinkFromExchangeAccountContainer extends React.PureComponent<
-  Props,
-  State
-> {
+class LinkFromExchangeAccountContainer extends React.PureComponent<Props, State> {
   state: State = { show: true, direction: 'left' }
   componentDidMount() {
     const { linkId } = this.props
@@ -56,7 +53,7 @@ class LinkFromExchangeAccountContainer extends React.PureComponent<
 
   render() {
     return this.props.linkFromExchangeAccountStatus.cata({
-      Success: val => (
+      Success: (val) => (
         <Flyout
           {...this.props}
           onClose={this.handleClose}
@@ -69,7 +66,7 @@ class LinkFromExchangeAccountContainer extends React.PureComponent<
           </FlyoutChild>
         </Flyout>
       ),
-      Failure: error => (
+      Failure: (error) => (
         <Flyout
           {...this.props}
           onClose={this.handleClose}
@@ -107,31 +104,27 @@ class LinkFromExchangeAccountContainer extends React.PureComponent<
             <NotAsked {...this.props} close={this.handleClose} />
           </FlyoutChild>
         </Flyout>
-      )
+      ),
     })
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   email: selectors.core.settings.getEmail(state).getOrElse(false),
-  emailVerified: selectors.core.settings
-    .getEmailVerified(state)
-    .getOrElse(true),
-  linkFromExchangeAccountStatus: selectors.modules.profile.getLinkFromExchangeAccountStatus(
-    state
-  ),
+  emailVerified: selectors.core.settings.getEmailVerified(state).getOrElse(true),
+  linkFromExchangeAccountStatus: selectors.modules.profile.getLinkFromExchangeAccountStatus(state),
   userTiers: selectors.modules.profile.getUserTiers(state),
-  walletId: selectors.core.wallet.getGuid(state) as string
+  walletId: selectors.core.wallet.getGuid(state) as string,
 })
 
 const mapDispatchToProps = (dispatch: Dispatch): LinkDispatchPropsType => ({
   actions: bindActionCreators(
     {
       ...actions.modules.profile,
-      ...actions.modules.securityCenter
+      ...actions.modules.securityCenter,
     },
     dispatch
-  )
+  ),
 })
 
 export default compose<any>(

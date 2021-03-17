@@ -26,10 +26,7 @@ class ErrorStepContainer extends React.PureComponent {
           nature='primary'
           onClick={this.props.onClose}
         >
-          <FormattedMessage
-            id='modals.lockboxsetup.duplicatedevice.continue'
-            defaultMessage='OK'
-          />
+          <FormattedMessage id='modals.lockboxsetup.duplicatedevice.continue' defaultMessage='OK' />
         </Button>
       </React.Fragment>
     )

@@ -10,11 +10,7 @@ import { CoinType } from 'blockchain-wallet-v4/src/types'
 import { FlyoutWrapper } from 'components/Flyout'
 import { CoinAccountListBalance } from 'components/Form'
 import { selectors } from 'data'
-import {
-  InitSwapFormValuesType,
-  SwapAccountType,
-  SwapCoinType
-} from 'data/components/swap/types'
+import { InitSwapFormValuesType, SwapAccountType, SwapCoinType } from 'data/components/swap/types'
 import checkAccountZeroBalance from 'services/CheckAccountZeroBalance'
 
 import { Props as BaseProps, SuccessStateType } from '..'
@@ -28,7 +24,7 @@ import {
   OptionValue,
   StyledForm,
   TopText,
-  TrendingIconRow
+  TrendingIconRow,
 } from '../components'
 import { getData } from './selectors'
 import VerifyIdentity from './VerifyIdentity'
@@ -37,7 +33,7 @@ const SuggestedTextCustomBorder = styled.span`
   width: 100%;
   height: 1px;
   margin-left: 8px;
-  background-color: ${props => props.theme['grey000']};
+  background-color: ${(props) => props.theme['grey000']};
 `
 
 class InitSwapForm extends PureComponent<InjectedFormProps<{}, Props> & Props> {
@@ -47,30 +43,28 @@ class InitSwapForm extends PureComponent<InjectedFormProps<{}, Props> & Props> {
     this.props.swapActions.refreshAccounts()
   }
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault()
     this.props.swapActions.setStep({ step: 'ENTER_AMOUNT' })
   }
 
   getCustodialWallet = (accounts, coin: CoinType) => {
-    return accounts[coin].filter(account => account.type === 'CUSTODIAL')[0]
+    return accounts[coin].filter((account) => account.type === 'CUSTODIAL')[0]
   }
 
-  handleStepCoinSelection = (
-    accounts: { [key in SwapCoinType]: Array<SwapAccountType> }
-  ) => {
+  handleStepCoinSelection = (accounts: { [key in SwapCoinType]: Array<SwapAccountType> }) => {
     const isAccountZeroBalance = checkAccountZeroBalance(accounts)
 
     if (isAccountZeroBalance) {
       this.props.swapActions.setStep({
-        step: 'NO_HOLDINGS'
+        step: 'NO_HOLDINGS',
       })
     } else {
       this.props.swapActions.setStep({
         step: 'COIN_SELECTION',
         options: {
-          side: 'BASE'
-        }
+          side: 'BASE',
+        },
       })
     }
   }
@@ -95,14 +89,8 @@ class InitSwapForm extends PureComponent<InjectedFormProps<{}, Props> & Props> {
           <Text size='24px' color='grey900' weight={600}>
             <FormattedMessage id='copy.new_swap' defaultMessage='New Swap' />
           </Text>
-          <Text
-            size='16px'
-            color='grey600'
-            weight={500}
-            style={{ marginTop: '10px' }}
-          >
-            {(values?.BASE && !values?.COUNTER) ||
-            (values?.COUNTER && !values?.BASE) ? (
+          <Text size='16px' color='grey600' weight={500} style={{ marginTop: '10px' }}>
+            {(values?.BASE && !values?.COUNTER) || (values?.COUNTER && !values?.BASE) ? (
               <FormattedMessage
                 id='copy.select_swap_wallets'
                 defaultMessage='Select the Wallet you want to Swap from and the crypto you want to receive.'
@@ -128,14 +116,9 @@ class InitSwapForm extends PureComponent<InjectedFormProps<{}, Props> & Props> {
                   <>
                     <div>
                       <Text color='grey600' weight={500} size='14px'>
-                        <FormattedMessage
-                          id='copy.swap_from'
-                          defaultMessage='Swap from'
-                        />
+                        <FormattedMessage id='copy.swap_from' defaultMessage='Swap from' />
                       </Text>
-                      <OptionTitle data-e2e='swapFromWallet'>
-                        {values.BASE.label}
-                      </OptionTitle>
+                      <OptionTitle data-e2e='swapFromWallet'>{values.BASE.label}</OptionTitle>
                       <OptionValue>
                         <BalanceRow>
                           <CoinAccountListBalance
@@ -155,10 +138,7 @@ class InitSwapForm extends PureComponent<InjectedFormProps<{}, Props> & Props> {
                   <>
                     <div>
                       <Text color='grey600' weight={500} size='14px'>
-                        <FormattedMessage
-                          id='copy.swap_from'
-                          defaultMessage='Swap from'
-                        />
+                        <FormattedMessage id='copy.swap_from' defaultMessage='Swap from' />
                       </Text>
                       <>
                         <OptionTitle>Select a Wallet</OptionTitle>
@@ -186,8 +166,8 @@ class InitSwapForm extends PureComponent<InjectedFormProps<{}, Props> & Props> {
                   this.props.swapActions.setStep({
                     step: 'COIN_SELECTION',
                     options: {
-                      side: 'COUNTER'
-                    }
+                      side: 'COUNTER',
+                    },
                   })
                 }
               >
@@ -195,10 +175,7 @@ class InitSwapForm extends PureComponent<InjectedFormProps<{}, Props> & Props> {
                   <>
                     <div>
                       <OptionValue>
-                        <FormattedMessage
-                          id='copy.receive_to'
-                          defaultMessage='Receive to'
-                        />
+                        <FormattedMessage id='copy.receive_to' defaultMessage='Receive to' />
                       </OptionValue>
                       <OptionTitle data-e2e='swapToWallet' color='grey900'>
                         {values.COUNTER.label}
@@ -222,10 +199,7 @@ class InitSwapForm extends PureComponent<InjectedFormProps<{}, Props> & Props> {
                   <>
                     <div>
                       <Text color='grey600' weight={500} size='14px'>
-                        <FormattedMessage
-                          id='copy.receive_to'
-                          defaultMessage='Receive to'
-                        />
+                        <FormattedMessage id='copy.receive_to' defaultMessage='Receive to' />
                       </Text>
                       <>
                         <OptionTitle>Select a Wallet</OptionTitle>
@@ -253,10 +227,7 @@ class InitSwapForm extends PureComponent<InjectedFormProps<{}, Props> & Props> {
               size='16px'
               disabled={!values?.BASE || !values?.COUNTER}
             >
-              <FormattedMessage
-                id='buttons.continue'
-                defaultMessage='Continue'
-              />
+              <FormattedMessage id='buttons.continue' defaultMessage='Continue' />
             </Button>
             <Text
               size='12px'
@@ -268,8 +239,7 @@ class InitSwapForm extends PureComponent<InjectedFormProps<{}, Props> & Props> {
                 marginTop: '12px',
                 display: 'flex',
                 justifyContent: 'center',
-                visibility:
-                  values?.BASE && values.COUNTER ? 'visible' : 'hidden'
+                visibility: values?.BASE && values.COUNTER ? 'visible' : 'hidden',
               }}
               onClick={() => this.props.formActions.destroy('initSwap')}
             >
@@ -284,13 +254,10 @@ class InitSwapForm extends PureComponent<InjectedFormProps<{}, Props> & Props> {
               style={{
                 margin: '0 0 0 40px',
                 display: 'flex',
-                alignItems: 'flex-end'
+                alignItems: 'flex-end',
               }}
             >
-              <FormattedMessage
-                id='copy.suggested'
-                defaultMessage='Suggested'
-              />
+              <FormattedMessage id='copy.suggested' defaultMessage='Suggested' />
               <SuggestedTextCustomBorder />
             </Text>
             <Field
@@ -315,11 +282,7 @@ class InitSwapForm extends PureComponent<InjectedFormProps<{}, Props> & Props> {
                         style={{ marginRight: '16px' }}
                       />
                       <IconBackground size='24px' position='absolute'>
-                        <Icon
-                          name='arrows-horizontal'
-                          size='10px'
-                          color='blue600'
-                        />
+                        <Icon name='arrows-horizontal' size='10px' color='blue600' />
                       </IconBackground>
                       <Icon color='eth' name='eth-circle-filled' size='32px' />
                     </TrendingIconRow>
@@ -354,11 +317,7 @@ class InitSwapForm extends PureComponent<InjectedFormProps<{}, Props> & Props> {
                         style={{ marginRight: '16px' }}
                       />
                       <IconBackground size='24px' position='absolute'>
-                        <Icon
-                          name='arrows-horizontal'
-                          size='10px'
-                          color='blue600'
-                        />
+                        <Icon name='arrows-horizontal' size='10px' color='blue600' />
                       </IconBackground>
                       <Icon color='btc' name='btc-circle-filled' size='32px' />
                     </TrendingIconRow>
@@ -393,11 +352,7 @@ class InitSwapForm extends PureComponent<InjectedFormProps<{}, Props> & Props> {
                         style={{ marginRight: '16px' }}
                       />
                       <IconBackground size='24px' position='absolute'>
-                        <Icon
-                          name='arrows-horizontal'
-                          size='10px'
-                          color='blue600'
-                        />
+                        <Icon name='arrows-horizontal' size='10px' color='blue600' />
                       </IconBackground>
                       <Icon color='usd-d' name='usd-d' size='32px' />
                     </TrendingIconRow>
@@ -420,14 +375,10 @@ class InitSwapForm extends PureComponent<InjectedFormProps<{}, Props> & Props> {
   }
 }
 
-const mapStateToProps = state => ({
-  latestPendingSwapTrade: selectors.components.swap.getLatestPendingSwapTrade(
-    state
-  ),
-  values: selectors.form.getFormValues('initSwap')(
-    state
-  ) as InitSwapFormValuesType,
-  ...getData(state)
+const mapStateToProps = (state) => ({
+  latestPendingSwapTrade: selectors.components.swap.getLatestPendingSwapTrade(state),
+  values: selectors.form.getFormValues('initSwap')(state) as InitSwapFormValuesType,
+  ...getData(state),
 })
 
 const connector = connect(mapStateToProps)

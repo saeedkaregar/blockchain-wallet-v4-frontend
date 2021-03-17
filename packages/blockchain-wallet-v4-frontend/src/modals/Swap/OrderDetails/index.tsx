@@ -27,10 +27,7 @@ class OrderDetails extends PureComponent<InjectedFormProps<{}, Props> & Props> {
         <FlyoutWrapper>
           <TopText spaceBetween marginBottom>
             <Text size='20px' color='grey900' weight={600}>
-              <FormattedMessage
-                id='copy.swap_details'
-                defaultMessage='Swap Details'
-              />
+              <FormattedMessage id='copy.swap_details' defaultMessage='Swap Details' />
             </Text>
             <Icon
               onClick={handleClose}
@@ -44,19 +41,13 @@ class OrderDetails extends PureComponent<InjectedFormProps<{}, Props> & Props> {
         </FlyoutWrapper>
         <Row>
           <Title>
-            <FormattedMessage
-              id='modals.exchangeresults.orderid'
-              defaultMessage='Order ID'
-            />
+            <FormattedMessage id='modals.exchangeresults.orderid' defaultMessage='Order ID' />
           </Title>
           <Value>{order.id}</Value>
         </Row>
         <Row>
           <Title>
-            <FormattedMessage
-              id='components.txlistitem.status'
-              defaultMessage='Status'
-            />
+            <FormattedMessage id='components.txlistitem.status' defaultMessage='Status' />
           </Title>
           <Value>{order.state}</Value>
         </Row>
@@ -66,11 +57,8 @@ class OrderDetails extends PureComponent<InjectedFormProps<{}, Props> & Props> {
           </Title>
           <Value>
             {coinToString({
-              value: convertBaseToStandard(
-                baseCoin,
-                order.priceFunnel.inputMoney
-              ),
-              unit: { symbol: coins[baseCoin].coinTicker }
+              value: convertBaseToStandard(baseCoin, order.priceFunnel.inputMoney),
+              unit: { symbol: coins[baseCoin].coinTicker },
             })}
           </Value>
         </Row>
@@ -80,11 +68,8 @@ class OrderDetails extends PureComponent<InjectedFormProps<{}, Props> & Props> {
           </Title>
           <Value>
             {coinToString({
-              value: convertBaseToStandard(
-                counterCoin,
-                this.props.order.priceFunnel.outputMoney
-              ),
-              unit: { symbol: coins[counterCoin].coinTicker }
+              value: convertBaseToStandard(counterCoin, this.props.order.priceFunnel.outputMoney),
+              unit: { symbol: coins[counterCoin].coinTicker },
             })}
           </Value>
         </Row>
@@ -104,10 +89,7 @@ class OrderDetails extends PureComponent<InjectedFormProps<{}, Props> & Props> {
                 fullwidth
                 jumbo
               >
-                <FormattedMessage
-                  id='buttons.cancel_order'
-                  defaultMessage='Cancel Order'
-                />
+                <FormattedMessage id='buttons.cancel_order' defaultMessage='Cancel Order' />
               </Button>
             </Form>
           </FlyoutWrapper>
@@ -117,8 +99,7 @@ class OrderDetails extends PureComponent<InjectedFormProps<{}, Props> & Props> {
   }
 }
 
-type OwnProps = BaseProps &
-  SuccessStateType & { handleClose: () => void; order?: SwapOrderType }
+type OwnProps = BaseProps & SuccessStateType & { handleClose: () => void; order?: SwapOrderType }
 export type Props = OwnProps
 
 export default reduxForm<{}, Props>({ form: 'swapOrderDetails' })(OrderDetails)

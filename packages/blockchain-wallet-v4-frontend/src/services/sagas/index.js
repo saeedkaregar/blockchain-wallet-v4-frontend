@@ -4,8 +4,8 @@ import { call, put, race, select, take } from 'redux-saga/effects'
 import { Types } from 'blockchain-wallet-v4/src'
 import { actions, actionTypes, selectors } from 'data'
 
-export const askSecondPasswordEnhancer = coreSaga =>
-  function * (args) {
+export const askSecondPasswordEnhancer = (coreSaga) =>
+  function* (args) {
     let enhancedArgs = args
     const wallet = yield select(selectors.core.wallet.getWallet)
     if (Types.Wallet.isDoubleEncrypted(wallet)) {
@@ -17,13 +17,13 @@ export const askSecondPasswordEnhancer = coreSaga =>
     return yield call(coreSaga, enhancedArgs)
   }
 
-export const promptForSecondPassword = function * (purposes) {
+export const promptForSecondPassword = function* (purposes) {
   const wallet = yield select(selectors.core.wallet.getWallet)
   if (Types.Wallet.isDoubleEncrypted(wallet)) {
     yield put(actions.modals.showModal('SecondPassword', { purposes }))
-    let { canceled, response } = yield race({
+    const { canceled, response } = yield race({
       response: take(actionTypes.wallet.SUBMIT_SECOND_PASSWORD),
-      canceled: take(actionTypes.modals.CLOSE_MODAL)
+      canceled: take(actionTypes.modals.CLOSE_MODAL),
     })
     if (canceled) {
       throw new Error('PROMPT_FOR_SEC_PW_CANCEL')
@@ -33,12 +33,12 @@ export const promptForSecondPassword = function * (purposes) {
   }
 }
 
-export const promptForInput = function * ({
+export const promptForInput = function* ({
   title,
   secret = false,
   initial = '',
   maxLength,
-  validations = []
+  validations = [],
 }) {
   yield put(
     actions.modals.showModal('PromptInput', {
@@ -46,12 +46,12 @@ export const promptForInput = function * ({
       secret,
       initial,
       maxLength,
-      validations
+      validations,
     })
   )
-  let { canceled, response } = yield race({
+  const { canceled, response } = yield race({
     response: take(actionTypes.wallet.SUBMIT_PROMPT_INPUT),
-    canceled: take(actionTypes.modals.CLOSE_MODAL)
+    canceled: take(actionTypes.modals.CLOSE_MODAL),
   })
   if (canceled) {
     throw new Error('PROMPT_INPUT_CANCEL')
@@ -61,14 +61,14 @@ export const promptForInput = function * ({
   }
 }
 
-export const confirm = function * ({
+export const confirm = function* ({
   cancel,
   confirm,
   image,
   message,
   messageValues,
   nature,
-  title
+  title,
 }) {
   yield put(
     actions.modals.showModal('Confirm', {
@@ -78,12 +78,12 @@ export const confirm = function * ({
       confirm,
       nature,
       cancel,
-      messageValues
+      messageValues,
     })
   )
-  let { canceled, response } = yield race({
+  const { canceled, response } = yield race({
     response: take(actionTypes.wallet.SUBMIT_CONFIRMATION),
-    canceled: take(actionTypes.modals.CLOSE_MODAL)
+    canceled: take(actionTypes.modals.CLOSE_MODAL),
   })
   if (canceled) {
     throw new Error('CONFIRM_CANCELED')

@@ -30,8 +30,8 @@ const COUNTRIES_CURRENCIES = {
     SM: 'EUR',
     TF: 'EUR',
     VA: 'EUR',
-    YT: 'EUR'
-  }
+    YT: 'EUR',
+  },
 }
 
 export const guessCurrencyBasedOnCountry = (countryCode: string) =>

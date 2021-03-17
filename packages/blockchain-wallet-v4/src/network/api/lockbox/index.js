@@ -1,42 +1,42 @@
 export default ({ get, ledgerUrl, post }) => {
-  const getApplications = req =>
+  const getApplications = (req) =>
     post({
       url: ledgerUrl,
       endPoint: '/api/get_apps',
       contentType: 'application/json',
-      data: req
+      data: req,
     })
 
-  const getFinalFirmwareById = id =>
+  const getFinalFirmwareById = (id) =>
     get({
       url: ledgerUrl,
       endPoint: `/api/firmware_final_versions/${id}`,
       contentType: 'application/json',
-      ignoreQueryParams: true
+      ignoreQueryParams: true,
     })
 
-  const getDeviceVersion = req =>
+  const getDeviceVersion = (req) =>
     post({
       url: ledgerUrl,
       endPoint: '/api/get_device_version',
       contentType: 'application/json',
-      data: req
+      data: req,
     })
 
-  const getCurrentFirmware = req =>
+  const getCurrentFirmware = (req) =>
     post({
       url: ledgerUrl,
       endPoint: '/api/get_firmware_version',
       contentType: 'application/json',
-      data: req
+      data: req,
     })
 
-  const getLatestFirmware = req =>
+  const getLatestFirmware = (req) =>
     post({
       url: ledgerUrl,
       endPoint: '/api/get_latest_firmware',
       contentType: 'application/json',
-      data: req
+      data: req,
     })
 
   const getCurrentOsu = () =>
@@ -44,7 +44,7 @@ export default ({ get, ledgerUrl, post }) => {
       url: ledgerUrl,
       endPoint: '/api/get_osu_version',
       contentType: 'application/json',
-      data: {}
+      data: {},
     })
 
   const getMcus = () =>
@@ -52,17 +52,17 @@ export default ({ get, ledgerUrl, post }) => {
       url: ledgerUrl,
       endPoint: '/api/mcu_versions',
       contentType: 'application/json',
-      ignoreQueryParams: true
+      ignoreQueryParams: true,
     })
 
-  const getNextMcu = bootLoaderVersion =>
+  const getNextMcu = (bootLoaderVersion) =>
     post({
       url: ledgerUrl,
       endPoint: '/api/mcu_versions_bootloader',
       contentType: 'application/json',
       data: {
-        bootloader_version: bootLoaderVersion
-      }
+        bootloader_version: bootLoaderVersion,
+      },
     })
 
   return {
@@ -73,6 +73,6 @@ export default ({ get, ledgerUrl, post }) => {
     getCurrentOsu,
     getLatestFirmware,
     getMcus,
-    getNextMcu
+    getNextMcu,
   }
 }

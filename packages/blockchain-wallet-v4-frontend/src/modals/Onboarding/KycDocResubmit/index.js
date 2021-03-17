@@ -91,15 +91,11 @@ class KycDocResubmit extends React.PureComponent {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   closeModal: () => dispatch(actions.modals.closeModal()),
-  verifyIdentity: () =>
-    dispatch(actions.components.identityVerification.verifyIdentity(2))
+  verifyIdentity: () => dispatch(actions.components.identityVerification.verifyIdentity(2)),
 })
 
-const enhance = compose(
-  connect(null, mapDispatchToProps),
-  modalEnhancer('KycDocResubmit')
-)
+const enhance = compose(connect(null, mapDispatchToProps), modalEnhancer('KycDocResubmit'))
 
 export default enhance(KycDocResubmit)

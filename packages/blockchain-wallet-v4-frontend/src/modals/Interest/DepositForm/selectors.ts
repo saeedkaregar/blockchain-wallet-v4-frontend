@@ -7,13 +7,13 @@ import {
   FiatType,
   InterestAfterTransactionType,
   InterestFormErrorsType,
-  RemoteDataType
+  RemoteDataType,
 } from 'blockchain-wallet-v4/src/types'
 import { selectors } from 'data'
 import { convertBaseToStandard } from 'data/components/exchange/services'
 import { RootState } from 'data/rootReducer'
 
-export const getCurrency = state => {
+export const getCurrency = (state) => {
   return selectors.core.settings.getCurrency(state)
 }
 
@@ -30,18 +30,17 @@ export const getData = (state: RootState) => {
   const ethRatesR = selectors.core.data.misc.getRatesSelector('ETH', state)
   const paymentR = selectors.components.interest.getPayment(state)
   const supportedCoinsR = selectors.core.walletOptions.getSupportedCoins(state)
-  const walletCurrencyR = selectors.core.settings.getCurrency(
-    state
-  ) as RemoteDataType<string, FiatType>
+  const walletCurrencyR = selectors.core.settings.getCurrency(state) as RemoteDataType<
+    string,
+    FiatType
+  >
 
   const afterTransaction = selectors.components.interest
     .getAfterTransaction(state)
     .getOrElse({} as InterestAfterTransactionType)
   const isFromBuySell = selectors.components.interest.getIsFromBuySell(state)
 
-  const prefillAmount = afterTransaction?.show
-    ? afterTransaction.amount
-    : undefined
+  const prefillAmount = afterTransaction?.show ? afterTransaction.amount : undefined
 
   return lift(
     (
@@ -84,16 +83,8 @@ export const getData = (state: RootState) => {
         rates,
         supportedCoins,
         prefillAmount,
-        isFromBuySell
+        isFromBuySell,
       }
     }
-  )(
-    ratesR,
-    interestLimitsR,
-    interestRateR,
-    ethRatesR,
-    paymentR,
-    supportedCoinsR,
-    walletCurrencyR
-  )
+  )(ratesR, interestLimitsR, interestRateR, ethRatesR, paymentR, supportedCoinsR, walletCurrencyR)
 }

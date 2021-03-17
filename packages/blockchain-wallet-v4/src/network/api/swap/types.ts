@@ -44,11 +44,7 @@ export type ProcessedSwapOrderType = SwapOrderType & {
   insertedAt: string
 }
 
-export type SwapOrderDirectionType =
-  | 'INTERNAL'
-  | 'ON_CHAIN'
-  | 'FROM_USERKEY'
-  | 'TO_USERKEY'
+export type SwapOrderDirectionType = 'INTERNAL' | 'ON_CHAIN' | 'FROM_USERKEY' | 'TO_USERKEY'
 
 export type SwapOrderStateType =
   | 'PENDING_EXECUTION'

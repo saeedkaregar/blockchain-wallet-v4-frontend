@@ -12,7 +12,7 @@ const { TRANSACTION_EVENTS } = model.analytics
 class EditTxDescriptionContainer extends React.PureComponent {
   componentDidMount() {
     this.props.formActions.initialize('editTransactionDescription', {
-      description: this.props.value
+      description: this.props.value,
     })
   }
 
@@ -27,17 +27,14 @@ class EditTxDescriptionContainer extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  description: formValueSelector('editTransactionDescription')(
-    state,
-    'description'
-  )
+const mapStateToProps = (state) => ({
+  description: formValueSelector('editTransactionDescription')(state, 'description'),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   analyticsActions: bindActionCreators(actions.analytics, dispatch),
   formActions: bindActionCreators(actions.form, dispatch),
-  actions: bindActionCreators(actions.modules.settings, dispatch)
+  actions: bindActionCreators(actions.modules.settings, dispatch),
 })
 
 const enhance = compose(

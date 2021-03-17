@@ -40,16 +40,13 @@ class SoftwareDownloadContainer extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  setupType: selectors.components.lockbox.getNewDeviceSetupType(state)
+const mapStateToProps = (state) => ({
+  setupType: selectors.components.lockbox.getNewDeviceSetupType(state),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   analyticsActions: bindActionCreators(actions.analytics, dispatch),
-  lockboxActions: bindActionCreators(actions.components.lockbox, dispatch)
+  lockboxActions: bindActionCreators(actions.components.lockbox, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SoftwareDownloadContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(SoftwareDownloadContainer)

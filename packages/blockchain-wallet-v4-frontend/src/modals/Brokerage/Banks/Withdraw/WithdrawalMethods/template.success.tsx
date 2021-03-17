@@ -6,14 +6,14 @@ import { Icon, Image, Text } from 'blockchain-info-components'
 import {
   SBPaymentMethodsType,
   SBPaymentMethodType,
-  WalletFiatType
+  WalletFiatType,
 } from 'blockchain-wallet-v4/src/types'
 import { FlyoutWrapper } from 'components/Flyout'
 import {
   AddBankStepType,
   BrokerageModalOriginType,
   UserDataType,
-  WithdrawStepEnum
+  WithdrawStepEnum,
 } from 'data/types'
 
 // TODO: move to somewhere more generic
@@ -39,14 +39,14 @@ const TopText = styled(Text)`
 `
 
 const MethodList = styled.section`
-  border-top: 1px solid ${props => props.theme.grey000};
+  border-top: 1px solid ${(props) => props.theme.grey000};
 `
 
 const IconContainer = styled.div`
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: ${props => props.theme.blue000};
+  background-color: ${(props) => props.theme.blue000};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,19 +72,9 @@ const getType = (value: SBPaymentMethodType) => {
     case 'BANK_TRANSFER':
     case 'LINK_BANK':
     default:
-      return (
-        <FormattedMessage
-          id='modals.simplebuy.banklink'
-          defaultMessage='Link a Bank'
-        />
-      )
+      return <FormattedMessage id='modals.simplebuy.banklink' defaultMessage='Link a Bank' />
     case 'BANK_ACCOUNT':
-      return (
-        <FormattedMessage
-          id='modals.simplebuy.bankwire'
-          defaultMessage='Wire Transfer'
-        />
-      )
+      return <FormattedMessage id='modals.simplebuy.bankwire' defaultMessage='Wire Transfer' />
   }
 }
 
@@ -95,14 +85,10 @@ const Success = ({
   paymentMethods,
   simpleBuyActions,
   userData,
-  withdrawActions
+  withdrawActions,
 }: Props) => {
-  const bankTransfer = paymentMethods.methods.find(
-    method => method.type === 'BANK_TRANSFER'
-  )
-  const bankWire = paymentMethods.methods.find(
-    method => method.type === 'BANK_ACCOUNT'
-  )
+  const bankTransfer = paymentMethods.methods.find((method) => method.type === 'BANK_TRANSFER')
+  const bankWire = paymentMethods.methods.find((method) => method.type === 'BANK_ACCOUNT')
 
   return (
     <Wrapper>
@@ -132,16 +118,13 @@ const Success = ({
           <BankTransfer
             icon={getIcon(bankTransfer)}
             onClick={() => {
-              brokerageActions.showModal(
-                BrokerageModalOriginType.ADD_BANK,
-                'ADD_BANK_MODAL'
-              )
+              brokerageActions.showModal(BrokerageModalOriginType.ADD_BANK, 'ADD_BANK_MODAL')
               brokerageActions.setAddBankStep({
-                addBankStep: AddBankStepType.ADD_BANK
+                addBankStep: AddBankStepType.ADD_BANK,
               })
               withdrawActions.setStep({
                 fiatCurrency,
-                step: WithdrawStepEnum.ENTER_AMOUNT
+                step: WithdrawStepEnum.ENTER_AMOUNT,
               })
             }}
             text={getType(bankTransfer)}
@@ -159,17 +142,17 @@ const Success = ({
                   step: 'BANK_WIRE_DETAILS',
                   fiatCurrency: fiatCurrency,
                   displayBack: false,
-                  addBank: true
+                  addBank: true,
                 })
               } else {
                 simpleBuyActions.setStep({
-                  step: 'KYC_REQUIRED'
+                  step: 'KYC_REQUIRED',
                 })
               }
 
               withdrawActions.setStep({
                 fiatCurrency,
-                step: WithdrawStepEnum.ENTER_AMOUNT
+                step: WithdrawStepEnum.ENTER_AMOUNT,
               })
             }}
             text={getType(bankWire)}

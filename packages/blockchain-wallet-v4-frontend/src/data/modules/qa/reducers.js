@@ -3,7 +3,7 @@ import { assoc } from 'ramda'
 import * as AT from './actionTypes'
 
 const INITIAL_STATE = {
-  qaSellAddress: null
+  qaSellAddress: null,
 }
 
 const qa = (state = INITIAL_STATE, action) => {

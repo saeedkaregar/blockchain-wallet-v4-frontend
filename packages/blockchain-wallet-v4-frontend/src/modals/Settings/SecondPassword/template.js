@@ -12,7 +12,7 @@ import {
   ModalFooter,
   ModalHeader,
   PasswordInput,
-  Text
+  Text,
 } from 'blockchain-info-components'
 import { Form, FormLabel } from 'components/Form'
 
@@ -33,10 +33,10 @@ const PURPOSES = {
         defaultMessage='Our next airdrop is here. Enter your second password to reserve an address for the Blockstack Airdrop.'
       />
     </Text>
-  )
+  ),
 }
 
-const SecondPassword = props => {
+const SecondPassword = (props) => {
   const { close, position, total, ...rest } = props
   const { handleSubmit, handleChange, purposes = [], value } = rest
 
@@ -52,9 +52,7 @@ const SecondPassword = props => {
           </Text>
         </SecPasswordHeader>
         {purposes && purposes.length ? (
-          <PurposeContainer>
-            {purposes.map(purpose => PURPOSES[purpose])}
-          </PurposeContainer>
+          <PurposeContainer>{purposes.map((purpose) => PURPOSES[purpose])}</PurposeContainer>
         ) : null}
         <ModalBody>
           <FormLabel>
@@ -70,12 +68,7 @@ const SecondPassword = props => {
           />
         </ModalBody>
         <ModalFooter align='spaced'>
-          <Link
-            size='13px'
-            weight={400}
-            onClick={close}
-            data-e2e='secondPasswordModalCancelButton'
-          >
+          <Link size='13px' weight={400} onClick={close} data-e2e='secondPasswordModalCancelButton'>
             <FormattedMessage id='buttons.cancel' defaultMessage='Cancel' />
           </Link>
           <Button
@@ -84,10 +77,7 @@ const SecondPassword = props => {
             onClick={handleSubmit}
             data-e2e='secondPasswordModalConfirmButton'
           >
-            <FormattedMessage
-              id='modals.secondpassword.confirm'
-              defaultMessage='Confirm'
-            />
+            <FormattedMessage id='modals.secondpassword.confirm' defaultMessage='Confirm' />
           </Button>
         </ModalFooter>
       </Form>
@@ -97,7 +87,7 @@ const SecondPassword = props => {
 
 SecondPassword.propTypes = {
   secondPassword: PropTypes.string,
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
 }
 
 export default reduxForm({ form: 'secondPassword' })(SecondPassword)

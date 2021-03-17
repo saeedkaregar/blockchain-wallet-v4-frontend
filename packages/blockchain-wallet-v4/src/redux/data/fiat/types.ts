@@ -6,10 +6,7 @@ import * as AT from './actionTypes'
 // state
 export type FiatStateType = {
   [key in WalletFiatType]?: {
-    nextSbTxId: RemoteDataType<
-      string | undefined,
-      FiatTransactionPageResponseType['nextSbTxId']
-    >
+    nextSbTxId: RemoteDataType<string | undefined, FiatTransactionPageResponseType['nextSbTxId']>
     nextSbTxTimestamp: RemoteDataType<
       string | undefined,
       FiatTransactionPageResponseType['nextSbTxTimestamp']

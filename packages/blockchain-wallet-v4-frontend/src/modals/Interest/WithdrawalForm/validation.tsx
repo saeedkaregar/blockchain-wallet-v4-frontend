@@ -45,12 +45,7 @@ export const minimumWithdrawalAmount = (
       defaultMessage='Amount is below the minimum withdrawal amount of {withdrawalMin} {currency}.'
       values={{
         withdrawalMin,
-        currency:
-          displayCoin && coin === 'PAX'
-            ? 'USD-D'
-            : displayCoin
-            ? coin
-            : walletCurrency
+        currency: displayCoin && coin === 'PAX' ? 'USD-D' : displayCoin ? coin : walletCurrency,
       }}
     />
   ) : (

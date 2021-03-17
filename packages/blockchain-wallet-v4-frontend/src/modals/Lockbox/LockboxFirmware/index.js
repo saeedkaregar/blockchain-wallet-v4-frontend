@@ -22,7 +22,7 @@ class LockboxFirmwareContainer extends React.PureComponent {
   componentWillUnmount() {
     this.props.lockboxActions.resetConnectionStatus()
     this.props.lockboxActions.changeFirmwareUpdateStep({
-      step: 'connect-device'
+      step: 'connect-device',
     })
   }
 
@@ -38,7 +38,7 @@ class LockboxFirmwareContainer extends React.PureComponent {
       'check-versions': 2,
       'uninstall-apps': 3,
       'install-firmware': 4,
-      'install-complete': 5
+      'install-complete': 5,
     }
     const step = currentStep ? steps[currentStep.step] : 1
     const status = prop('status', currentStep)
@@ -64,15 +64,15 @@ class LockboxFirmwareContainer extends React.PureComponent {
 LockboxFirmwareContainer.propTypes = {
   deviceIndex: PropTypes.string.isRequired,
   position: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired
+  total: PropTypes.number.isRequired,
 }
 
-const mapStateToProps = state => ({
-  currentStep: selectors.components.lockbox.getFirmwareUpdateStep(state)
+const mapStateToProps = (state) => ({
+  currentStep: selectors.components.lockbox.getFirmwareUpdateStep(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-  lockboxActions: bindActionCreators(actions.components.lockbox, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  lockboxActions: bindActionCreators(actions.components.lockbox, dispatch),
 })
 
 const enhance = compose(

@@ -4,19 +4,14 @@ import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
 import styled from 'styled-components'
 
-import {
-  Button,
-  ButtonGroup,
-  Text,
-  TextGroup
-} from 'blockchain-info-components'
+import { Button, ButtonGroup, Text, TextGroup } from 'blockchain-info-components'
 import { Types } from 'blockchain-wallet-v4/src'
 import { FormGroup, FormItem, FormLabel, PasswordBox } from 'components/Form'
 import { SettingForm, SettingWrapper } from 'components/Setting'
 import { required, validPasswordConfirmation } from 'services/forms'
 
 const SecondPasswordWrapper = styled(SettingWrapper)`
-  width: ${props => (props.toggled ? '150%' : 'initial')};
+  width: ${(props) => (props.toggled ? '150%' : 'initial')};
 `
 const ButtonWrapper = styled(ButtonGroup)`
   display: flex;
@@ -48,7 +43,7 @@ const isMainPassword = (value, allValues, { mainPassword }) =>
     />
   )
 
-const Settings = props => {
+const Settings = (props) => {
   const {
     handleCancel,
     handleSubmit,
@@ -56,17 +51,13 @@ const Settings = props => {
     invalid,
     secondPasswordEnabled,
     submitting,
-    updateToggled
+    updateToggled,
   } = props
   if (secondPasswordEnabled) {
     return (
       <SettingWrapper>
         {!updateToggled && (
-          <Button
-            nature='primary'
-            onClick={handleToggle}
-            data-e2e='removeSecondPasswordButton'
-          >
+          <Button nature='primary' onClick={handleToggle} data-e2e='removeSecondPasswordButton'>
             <FormattedMessage
               id='scenes.securitysettings.advanced.secondpasswordwallet.settings.remove'
               defaultMessage='Remove Second Password'
@@ -117,11 +108,7 @@ const Settings = props => {
     return (
       <SecondPasswordWrapper toggled={updateToggled}>
         {!updateToggled && (
-          <Button
-            nature='primary'
-            onClick={handleToggle}
-            data-e2e='setSecondPasswordButton'
-          >
+          <Button nature='primary' onClick={handleToggle} data-e2e='setSecondPasswordButton'>
             <FormattedMessage
               id='scenes.securitysettings.advanced.secondpasswordwallet.settings.set'
               defaultMessage='Set Second Password'
@@ -212,7 +199,7 @@ const Settings = props => {
 Settings.propTypes = {
   updateToggled: PropTypes.bool.isRequired,
   handleToggle: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
 }
 
 export default reduxForm({ form: 'settingSecondPassword' })(Settings)

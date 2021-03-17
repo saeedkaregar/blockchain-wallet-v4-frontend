@@ -3,31 +3,31 @@ import * as StellarSDK from 'stellar-sdk'
 
 export default ({ apiUrl, get, horizonUrl }) => {
   const server = new StellarSDK.Server(horizonUrl)
-  const createXlmAccount = publicKey =>
+  const createXlmAccount = (publicKey) =>
     get({
       url: `https://friendbot.stellar.org`,
       endPoint: '',
-      data: { addr: publicKey }
+      data: { addr: publicKey },
     })
 
-  const getXlmAccount = publicKey => server.loadAccount(publicKey)
+  const getXlmAccount = (publicKey) => server.loadAccount(publicKey)
 
-  const getTimebounds = waitTime => server.fetchTimebounds(waitTime)
+  const getTimebounds = (waitTime) => server.fetchTimebounds(waitTime)
 
   const getXlmFees = () =>
     get({
       url: apiUrl,
-      endPoint: '/mempool/fees/xlm'
+      endPoint: '/mempool/fees/xlm',
     })
 
-  const pushXlmTx = tx => server.submitTransaction(tx)
+  const pushXlmTx = (tx) => server.submitTransaction(tx)
 
   const getXlmTransactions = ({
     limit,
     order = 'desc',
     pagingToken,
     publicKey,
-    reset = false
+    reset = false,
   }: {
     limit?: number
     order?: 'asc' | 'desc'
@@ -35,10 +35,7 @@ export default ({ apiUrl, get, horizonUrl }) => {
     publicKey: string
     reset?: boolean
   }) => {
-    const txCallBuilder = server
-      .transactions()
-      .forAccount(publicKey)
-      .order(order)
+    const txCallBuilder = server.transactions().forAccount(publicKey).order(order)
 
     if (pagingToken && !reset) txCallBuilder.cursor(pagingToken)
     if (limit) txCallBuilder.limit(limit)
@@ -64,7 +61,7 @@ export default ({ apiUrl, get, horizonUrl }) => {
     get({
       url: apiUrl,
       endPoint: '/ticker',
-      data: { base: 'XLM' }
+      data: { base: 'XLM' },
     })
 
   return {
@@ -75,6 +72,6 @@ export default ({ apiUrl, get, horizonUrl }) => {
     getXlmTransactions,
     getXlmTicker,
     getTimebounds,
-    pushXlmTx
+    pushXlmTx,
   }
 }

@@ -53,10 +53,7 @@ const Help = () => {
     <Wrapper>
       <Header>
         <Text size='20px' color='blue900' weight={600} capitalize>
-          <FormattedMessage
-            id='scenes.help.needsomehelp'
-            defaultMessage='Need some help?'
-          />
+          <FormattedMessage id='scenes.help.needsomehelp' defaultMessage='Need some help?' />
         </Text>
       </Header>
       <Row>
@@ -77,10 +74,7 @@ const Help = () => {
         <Right>
           <LinkContainer to='/reminder'>
             <Button data-e2e='linkToReminder' nature='light'>
-              <FormattedMessage
-                id='scenes.help.remind'
-                defaultMessage='Remind Me'
-              />
+              <FormattedMessage id='scenes.help.remind' defaultMessage='Remind Me' />
             </Button>
           </LinkContainer>
         </Right>
@@ -103,10 +97,7 @@ const Help = () => {
         <Right>
           <LinkContainer to='/recover'>
             <Button data-e2e='linkToRecover' nature='light'>
-              <FormattedMessage
-                id='scenes.help.recover'
-                defaultMessage='Recover Funds'
-              />
+              <FormattedMessage id='scenes.help.recover' defaultMessage='Recover Funds' />
             </Button>
           </LinkContainer>
         </Right>
@@ -114,10 +105,7 @@ const Help = () => {
       <Row>
         <Left>
           <Text size='14px' color='grey800' weight={600}>
-            <FormattedMessage
-              id='scenes.help.2falost'
-              defaultMessage='Lost your 2FA device?'
-            />
+            <FormattedMessage id='scenes.help.2falost' defaultMessage='Lost your 2FA device?' />
           </Text>
           <Text size='12px' color='grey800' weight={400}>
             <FormattedMessage
@@ -129,22 +117,14 @@ const Help = () => {
         <Right>
           <LinkContainer to='/reset-2fa'>
             <Button data-e2e='linkToReset2fa' nature='light'>
-              <FormattedMessage
-                id='scenes.help.reset'
-                defaultMessage='Reset 2FA'
-              />
+              <FormattedMessage id='scenes.help.reset' defaultMessage='Reset 2FA' />
             </Button>
           </LinkContainer>
         </Right>
       </Row>
       <Footer>
         <LinkContainer to='/login'>
-          <Button
-            data-e2e='linkToLogin'
-            nature='primary'
-            height='56px'
-            fullwidth
-          >
+          <Button data-e2e='linkToLogin' nature='primary' height='56px' fullwidth>
             <Text size='16px' color='white' weight={500}>
               <FormattedMessage id='buttons.go_back' defaultMessage='Go Back' />
             </Text>
@@ -157,16 +137,8 @@ const Help = () => {
               defaultMessage='Still need help?'
             />
           </Text>
-          <Link
-            href='https://support.blockchain.com/'
-            target='_blank'
-            size='13px'
-            weight={500}
-          >
-            <FormattedMessage
-              id='buttons.contact_support'
-              defaultMessage='Contact Support'
-            />
+          <Link href='https://support.blockchain.com/' target='_blank' size='13px' weight={500}>
+            <FormattedMessage id='buttons.contact_support' defaultMessage='Contact Support' />
           </Link>
         </TextGroup>
       </Footer>

@@ -32,6 +32,4 @@ interface CreateABTestActionType {
   type: typeof AT.CREATE_AB_TEST
 }
 
-export type AnalyticsActionTypes =
-  | CreateABTestActionType
-  | CreateABTestSuccessActionType
+export type AnalyticsActionTypes = CreateABTestActionType | CreateABTestSuccessActionType

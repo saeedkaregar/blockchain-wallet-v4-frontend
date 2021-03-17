@@ -58,7 +58,7 @@ const TermsText = styled(Text)`
 const Success: React.FC<InjectedFormProps<{}, Props, ErrorType> & Props> = ({
   handleBack,
   handleSubmit,
-  submitting
+  submitting,
 }) => {
   return (
     <CustomFlyoutWrapper>
@@ -72,10 +72,7 @@ const Success: React.FC<InjectedFormProps<{}, Props, ErrorType> & Props> = ({
           style={{ marginRight: '24px' }}
           onClick={handleBack}
         />
-        <FormattedMessage
-          id='buttons.link_bank'
-          defaultMessage='Link a Bank Account'
-        />
+        <FormattedMessage id='buttons.link_bank' defaultMessage='Link a Bank Account' />
       </NavText>
       <Form onSubmit={handleSubmit}>
         <FormGroup margin='24px'>
@@ -85,11 +82,7 @@ const Success: React.FC<InjectedFormProps<{}, Props, ErrorType> & Props> = ({
               defaultMessage='Blockchain.com uses Yodlee to verify your bank credentials & securely link your accounts.'
             />
           </HeaderText>
-          <Image
-            width='297px'
-            style={{ margin: '90px auto 50px' }}
-            name='yodlee-connect'
-          />
+          <Image width='297px' style={{ margin: '90px auto 50px' }} name='yodlee-connect' />
           <BodyText color='grey600'>
             <StyledHeading color='grey900'>
               <FormattedMessage
@@ -140,10 +133,7 @@ const Success: React.FC<InjectedFormProps<{}, Props, ErrorType> & Props> = ({
               defaultMessage='Terms and Conditions'
             />
           </Link>{' '}
-          <FormattedMessage
-            id='scenes.securitycenter.2fa.tip.two'
-            defaultMessage='and'
-          />{' '}
+          <FormattedMessage id='scenes.securitycenter.2fa.tip.two' defaultMessage='and' />{' '}
           <Link
             href='https://www.yodlee.com/legal/privacy-notice'
             rel='noopener noreferrer'
@@ -166,5 +156,5 @@ export type ErrorType = SBAddCardErrorType
 
 export default reduxForm<{}, Props, ErrorType>({
   form: 'linkBankForm',
-  destroyOnUnmount: false
+  destroyOnUnmount: false,
 })(Success)

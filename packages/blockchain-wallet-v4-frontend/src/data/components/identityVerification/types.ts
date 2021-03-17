@@ -4,12 +4,7 @@ import * as AT from './actionTypes'
 
 export type EmailSmsStepType = 'edit' | 'verify'
 
-export type StepsType =
-  | 'personal'
-  | 'moreInfo'
-  | 'mobile'
-  | 'verify'
-  | 'submitted'
+export type StepsType = 'personal' | 'moreInfo' | 'mobile' | 'verify' | 'submitted'
 
 export type KycStatesType =
   | 'NONE'

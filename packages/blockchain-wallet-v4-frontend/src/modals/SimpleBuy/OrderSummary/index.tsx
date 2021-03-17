@@ -8,7 +8,7 @@ import {
   ExtractSuccess,
   RemoteDataType,
   SBOrderType,
-  SupportedWalletCurrenciesType
+  SupportedWalletCurrenciesType,
 } from 'blockchain-wallet-v4/src/types'
 import DataError from 'components/DataError'
 import { actions, selectors } from 'data'
@@ -29,12 +29,11 @@ class OrderSummary extends PureComponent<Props> {
 
     if (
       this.props.order.state === 'PENDING_DEPOSIT' &&
-      this.props.order.attributes?.everypay?.paymentState ===
-        'WAITING_FOR_3DS_RESPONSE'
+      this.props.order.attributes?.everypay?.paymentState === 'WAITING_FOR_3DS_RESPONSE'
     ) {
       this.props.simpleBuyActions.setStep({
         step: '3DS_HANDLER',
-        order: this.props.order
+        order: this.props.order,
       })
     }
     this.props.interestActions.fetchAfterTransaction()
@@ -46,7 +45,7 @@ class OrderSummary extends PureComponent<Props> {
 
   render() {
     return this.props.data.cata({
-      Success: val => {
+      Success: (val) => {
         return val.userData?.tiers?.current !== 2 ? (
           <SuccessSdd {...val} {...this.props} />
         ) : (
@@ -55,7 +54,7 @@ class OrderSummary extends PureComponent<Props> {
       },
       Failure: () => <DataError onClick={this.handleRefresh} />,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
@@ -65,13 +64,13 @@ const mapStateToProps = (state: RootState): LinkStatePropsType => ({
   supportedCoins: selectors.core.walletOptions
     .getSupportedCoins(state)
     .getOrFail('Supported coins missing'),
-  isGoldVerified: equals(selectors.modules.profile.getCurrentTier(state), 2)
+  isGoldVerified: equals(selectors.modules.profile.getCurrentTier(state), 2),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
   sendActions: bindActionCreators(actions.components.send, dispatch),
-  interestActions: bindActionCreators(actions.components.interest, dispatch)
+  interestActions: bindActionCreators(actions.components.interest, dispatch),
 })
 const connector = connect(mapStateToProps, mapDispatchToProps)
 

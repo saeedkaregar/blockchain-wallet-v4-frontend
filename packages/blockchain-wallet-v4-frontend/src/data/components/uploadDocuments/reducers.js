@@ -7,7 +7,7 @@ import * as AT from './actionTypes'
 export const INITIAL_STATE = {
   data: null,
   reference: null,
-  uploaded: Remote.NotAsked
+  uploaded: Remote.NotAsked,
 }
 
 export default (state = INITIAL_STATE, action) => {

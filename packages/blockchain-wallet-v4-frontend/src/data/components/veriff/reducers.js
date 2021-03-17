@@ -7,7 +7,7 @@ import * as AT from './actionTypes'
 export const INITIAL_STATE = {
   veriffUrl: Remote.NotAsked,
   veriffSyncStatus: Remote.NotAsked,
-  applicantId: ''
+  applicantId: '',
 }
 
 export default (state = INITIAL_STATE, action) => {

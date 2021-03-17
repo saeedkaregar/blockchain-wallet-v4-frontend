@@ -12,8 +12,8 @@ class WalletLanguageContainer extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  data: getData(state)
+const mapStateToProps = (state) => ({
+  data: getData(state),
 })
 
 export default connect(mapStateToProps)(WalletLanguageContainer)

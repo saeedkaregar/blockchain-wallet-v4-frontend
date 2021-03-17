@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import ServiceAnnouncement from './Service'
 import StaticAnnouncement from './Static'
 
-const Announcements = props => {
+const Announcements = (props) => {
   return props.type === 'service' ? (
     <ServiceAnnouncement {...props} />
   ) : (
@@ -13,7 +13,7 @@ const Announcements = props => {
 }
 
 Announcements.propTypes = {
-  type: PropTypes.string.isRequired
+  type: PropTypes.string.isRequired,
 }
 
 export default Announcements

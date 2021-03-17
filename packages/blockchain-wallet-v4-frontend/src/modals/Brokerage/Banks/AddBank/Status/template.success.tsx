@@ -42,7 +42,7 @@ const Subcontent = styled(Text)`
   text-align: center;
 `
 
-const Success: React.FC<Props> = props => {
+const Success: React.FC<Props> = (props) => {
   return (
     <Top>
       <CloseIcon
@@ -56,10 +56,7 @@ const Success: React.FC<Props> = props => {
       <Container>
         <Image width='100px' name='bank-success' />
         <Title color='grey800' size='20px' weight={600}>
-          <FormattedMessage
-            id='copy.bank_linked_title'
-            defaultMessage='Bank Linked'
-          />
+          <FormattedMessage id='copy.bank_linked_title' defaultMessage='Bank Linked' />
         </Title>
         <Subcontent color='grey600' weight={500}>
           <FormattedMessage

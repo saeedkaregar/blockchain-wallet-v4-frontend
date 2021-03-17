@@ -20,7 +20,7 @@ export default () => {
    * @desc initialize priceChart component and fetches price data based on coin and time
    * @property {action} foo this is description.
    */
-  const initialized = function * (action) {
+  const initialized = function* (action) {
     try {
       const settingsR = yield select(selectors.core.settings.getSettings)
       if (!Remote.Success.is(settingsR)) {
@@ -31,14 +31,7 @@ export default () => {
       const { coin, time } = action.payload
       const start = calculateStart(coin, time)
       const scale = calculateScale(coin, time)
-      yield put(
-        actions.core.data.misc.fetchPriceIndexSeries(
-          coin,
-          currency,
-          start,
-          scale
-        )
-      )
+      yield put(actions.core.data.misc.fetchPriceIndexSeries(coin, currency, start, scale))
       yield put(actions.core.data.misc.fetchPriceChange(coin, currency, time))
     } catch (e) {
       yield put(actions.logs.logErrorMessage(logLocation, 'initialized', e))
@@ -49,7 +42,7 @@ export default () => {
    * @desc click handler for priceChart component that fetches price data for new coin
    * @property {action} foo this is description.
    */
-  const coinClicked = function * (action) {
+  const coinClicked = function* (action) {
     try {
       const { coin } = action.payload
       const currencyR = yield select(selectors.core.settings.getCurrency)
@@ -57,14 +50,7 @@ export default () => {
       const time = yield select(S.getTime)
       const start = calculateStart(coin, time)
       const scale = calculateScale(coin, time)
-      yield put(
-        actions.core.data.misc.fetchPriceIndexSeries(
-          coin,
-          currency,
-          start,
-          scale
-        )
-      )
+      yield put(actions.core.data.misc.fetchPriceIndexSeries(coin, currency, start, scale))
       yield put(actions.core.data.misc.fetchPriceChange(coin, currency, time))
     } catch (e) {
       yield put(actions.logs.logErrorMessage(logLocation, 'coinClicked', e))
@@ -75,7 +61,7 @@ export default () => {
    * @desc click handler for priceChart component that fetches price data for when time is changed
    * @property {action} foo this is description.
    */
-  const timeClicked = function * (action) {
+  const timeClicked = function* (action) {
     try {
       const { time } = action.payload
       const currencyR = yield select(selectors.core.settings.getCurrency)
@@ -83,14 +69,7 @@ export default () => {
       const coin = yield select(S.getCoin)
       const start = calculateStart(coin, time)
       const scale = calculateScale(coin, time)
-      yield put(
-        actions.core.data.misc.fetchPriceIndexSeries(
-          coin,
-          currency,
-          start,
-          scale
-        )
-      )
+      yield put(actions.core.data.misc.fetchPriceIndexSeries(coin, currency, start, scale))
       yield put(actions.core.data.misc.fetchPriceChange(coin, currency, time))
     } catch (e) {
       yield put(actions.logs.logErrorMessage(logLocation, 'timeClicked', e))
@@ -100,6 +79,6 @@ export default () => {
   return {
     initialized,
     coinClicked,
-    timeClicked
+    timeClicked,
   }
 }

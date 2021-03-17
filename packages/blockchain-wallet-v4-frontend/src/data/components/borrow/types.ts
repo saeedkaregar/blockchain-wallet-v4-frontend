@@ -6,7 +6,7 @@ import {
   NabuApiErrorType,
   OfferType,
   PaymentValue,
-  RemoteDataType
+  RemoteDataType,
 } from 'blockchain-wallet-v4/src/types'
 
 import * as AT from './actionTypes'
@@ -32,7 +32,7 @@ export enum BorrowSteps {
   'CONFIRM',
   'DETAILS',
   'ADD_COLLATERAL',
-  'REPAY_LOAN'
+  'REPAY_LOAN',
 }
 
 export type RepayLoanFormType = {
@@ -47,10 +47,7 @@ export interface BorrowState {
   coin: CoinType
   limits: BorrowMinMaxType
   loan?: LoanType
-  loanTransactions: RemoteDataType<
-    NabuApiErrorType,
-    Array<LoanTransactionsType>
-  >
+  loanTransactions: RemoteDataType<NabuApiErrorType, Array<LoanTransactionsType>>
   offer?: OfferType
   offers: RemoteDataType<NabuApiErrorType, Array<OfferType>>
   payment: RemoteDataType<string | Error, PaymentValue>

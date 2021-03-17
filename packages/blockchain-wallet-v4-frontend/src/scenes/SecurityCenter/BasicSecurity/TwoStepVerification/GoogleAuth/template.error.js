@@ -8,20 +8,17 @@ import {
   SecurityContainer,
   SecurityDescription,
   SecurityHeader,
-  SecuritySummary
+  SecuritySummary,
 } from '../../../components'
 
-const EmailAddress = props => {
+const EmailAddress = (props) => {
   const { message } = props
 
   return (
     <SecurityContainer>
       <SecuritySummary>
         <SecurityHeader>
-          <FormattedMessage
-            id='scenes.preferences.email.title'
-            defaultMessage='Email address'
-          />
+          <FormattedMessage id='scenes.preferences.email.title' defaultMessage='Email address' />
           <Text>{message}</Text>
         </SecurityHeader>
         <SecurityDescription>

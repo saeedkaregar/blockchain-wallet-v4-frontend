@@ -9,13 +9,13 @@ import Converter from './template'
 const convertFiatToCoin = (value, unit, currency, rates) => ({
   coinCode: unit,
   coin: Exchange.convertFiatToCoin(value, unit, currency, rates),
-  fiat: value
+  fiat: value,
 })
 
 const convertCoinToFiat = (value, unit, currency, rates) => ({
   coinCode: unit,
   coin: value,
-  fiat: Exchange.convertCoinToFiat(value, unit, currency, rates)
+  fiat: Exchange.convertCoinToFiat(value, unit, currency, rates),
 })
 
 class ConverterContainer extends React.PureComponent {
@@ -28,19 +28,17 @@ class ConverterContainer extends React.PureComponent {
     return null
   }
 
-  handleCoinChange = e => {
+  handleCoinChange = (e) => {
     const { currency, rates, unit } = this.props
     const nextProps = convertCoinToFiat(e.target.value, unit, currency, rates)
     this.props.onChange(nextProps)
   }
 
-  handleFiatChange = e => {
+  handleFiatChange = (e) => {
     const { currency, rates, unit } = this.props
     const decimals = e.target.value.split('.')[1]
     const needsFormatting = decimals && decimals.length > 2
-    const val = needsFormatting
-      ? Number(e.target.value).toFixed(2)
-      : e.target.value
+    const val = needsFormatting ? Number(e.target.value).toFixed(2) : e.target.value
 
     const nextProps = convertFiatToCoin(val, unit, currency, rates)
     this.props.onChange(nextProps)
@@ -64,7 +62,7 @@ class ConverterContainer extends React.PureComponent {
       errorBottom,
       marginTop,
       meta,
-      unit
+      unit,
     } = this.props
     return (
       <Converter
@@ -95,7 +93,7 @@ ConverterContainer.propTypes = {
   onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
 }
 
 export default ConverterContainer

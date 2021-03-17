@@ -14,15 +14,15 @@ const Wrapper = styled.div`
   z-index: 10;
 `
 const Iframe = styled.iframe<{ widgetOpen: State['widgetOpen'] }>`
-  height: ${props => (props.widgetOpen ? '580px' : '60px')};
-  width: ${props => (props.widgetOpen ? '400px' : '190px')};
+  height: ${(props) => (props.widgetOpen ? '580px' : '60px')};
+  width: ${(props) => (props.widgetOpen ? '400px' : '190px')};
   border: none;
 `
 
 class ZendeskWidget extends React.PureComponent<Props, State> {
   state = {
     chatEnabled: false,
-    widgetOpen: false
+    widgetOpen: false,
   }
 
   componentDidMount() {
@@ -30,14 +30,11 @@ class ZendeskWidget extends React.PureComponent<Props, State> {
     window.addEventListener('message', this.updateWidgetState, false)
   }
 
-  updateWidgetState = e => {
+  updateWidgetState = (e) => {
     const message = e.data
     // HMR/zendesk combo sends empty messages sometimes that result in widget state
     // being set to close when it really is still open
-    if (
-      message &&
-      (message.widgetOpen === false || message.widgetOpen === true)
-    ) {
+    if (message && (message.widgetOpen === false || message.widgetOpen === true)) {
       this.setState({ widgetOpen: e.data.widgetOpen })
     }
   }
@@ -51,7 +48,7 @@ class ZendeskWidget extends React.PureComponent<Props, State> {
       frame.contentWindow.postMessage(
         {
           method: methodName,
-          messageData: data
+          messageData: data,
         },
         '*'
       )
@@ -73,7 +70,7 @@ class ZendeskWidget extends React.PureComponent<Props, State> {
           userData.firstName && userData.lastName
             ? `${userData.firstName} ${userData.lastName}`
             : '',
-        email: userData.email
+        email: userData.email,
       })
     }
 
@@ -91,11 +88,9 @@ class ZendeskWidget extends React.PureComponent<Props, State> {
 
 const mapStateToProps = (state: RootState): LinkStatePropsType => ({
   domains: selectors.core.walletOptions.getDomains(state).getOrElse({
-    walletHelper: 'https://wallet-helper.blockchain.com'
+    walletHelper: 'https://wallet-helper.blockchain.com',
   } as WalletOptionsType['domains']),
-  userData: selectors.modules.profile
-    .getUserData(state)
-    .getOrElse({} as UserDataType)
+  userData: selectors.modules.profile.getUserData(state).getOrElse({} as UserDataType),
 })
 
 const connector = connect(mapStateToProps)

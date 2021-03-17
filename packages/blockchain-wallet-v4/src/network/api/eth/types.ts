@@ -34,11 +34,11 @@ type EthRawPendingTxType = {
 export type EthRawTxType = EthRawConfirmedTxType | EthRawPendingTxType
 
 export enum Erc20ListEnum {
-  '0x8e870d67f660d95d5be530380d0ec0bd388289e1' = 'PAX'
+  '0x8e870d67f660d95d5be530380d0ec0bd388289e1' = 'PAX',
 }
 
 export enum Erc20CoinsEnum {
   PAX = 'PAX',
   USDT = 'USDT',
-  WDGLD = 'WDGLD'
+  WDGLD = 'WDGLD',
 }

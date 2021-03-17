@@ -5,19 +5,19 @@ export default ({ authorizedGet, authorizedPost, get, nabuUrl, post }) => {
     get({
       url: nabuUrl,
       endPoint: '/countries',
-      data: { scope: 'kyc' }
+      data: { scope: 'kyc' },
     })
 
-  const getSupportedDocuments = countryCode =>
+  const getSupportedDocuments = (countryCode) =>
     authorizedGet({
       url: nabuUrl,
-      endPoint: `/kyc/supported-documents/${countryCode}`
+      endPoint: `/kyc/supported-documents/${countryCode}`,
     })
 
   const getStates = () =>
     get({
       url: nabuUrl,
-      endPoint: '/countries/US/states'
+      endPoint: '/countries/US/states',
     })
 
   const fetchKycAddresses = (filter, cancelToken) =>
@@ -25,36 +25,36 @@ export default ({ authorizedGet, authorizedPost, get, nabuUrl, post }) => {
       url: nabuUrl,
       endPoint: `/addresses/find`,
       data: { ...filter },
-      cancelToken
+      cancelToken,
     })
 
-  const fetchUploadData = token =>
+  const fetchUploadData = (token) =>
     get({
       url: nabuUrl,
-      endPoint: `/upload/data/${token}`
+      endPoint: `/upload/data/${token}`,
     })
 
   const fetchSDDEligible = (): SDDEligibleType =>
     get({
       url: nabuUrl,
       endPoint: `/sdd/eligible`,
-      ignoreQueryParams: true
+      ignoreQueryParams: true,
     })
 
   const fetchVeriffUrl = () =>
     authorizedGet({
       url: nabuUrl,
       endPoint: '/kyc/credentials/veriff',
-      headers: { 'x-client-type': 'WEB' }
+      headers: { 'x-client-type': 'WEB' },
     })
 
-  const syncVeriff = applicantId =>
+  const syncVeriff = (applicantId) =>
     authorizedPost({
       url: nabuUrl,
       endPoint: '/kyc/verifications',
       contentType: 'application/json',
       data: { applicantId },
-      headers: { 'x-client-type': 'WEB' }
+      headers: { 'x-client-type': 'WEB' },
     })
 
   const uploadDocuments = (token, data) =>
@@ -62,7 +62,7 @@ export default ({ authorizedGet, authorizedPost, get, nabuUrl, post }) => {
       contentType: 'application/json',
       data: { data },
       endPoint: `/upload/${token}`,
-      url: nabuUrl
+      url: nabuUrl,
     })
 
   const fetchKycConfig = () =>
@@ -70,37 +70,37 @@ export default ({ authorizedGet, authorizedPost, get, nabuUrl, post }) => {
       url: nabuUrl,
       contentType: 'application/json',
       endPoint: '/kyc/configuration',
-      headers: { 'x-client-type': 'WEB' }
+      headers: { 'x-client-type': 'WEB' },
     })
 
   const fetchPreIdvData = () =>
     authorizedGet({
       url: nabuUrl,
       contentType: 'application/json',
-      endPoint: '/kyc/sift/session'
+      endPoint: '/kyc/sift/session',
     })
 
   const fetchTiers = () =>
     authorizedGet({
       url: nabuUrl,
       contentType: 'application/json',
-      endPoint: '/kyc/tiers'
+      endPoint: '/kyc/tiers',
     })
 
-  const selectTier = selectedTier =>
+  const selectTier = (selectedTier) =>
     authorizedPost({
       url: nabuUrl,
       contentType: 'application/json',
       endPoint: '/kyc/tiers',
       ignoreQueryParams: true,
-      data: { selectedTier }
+      data: { selectedTier },
     })
 
   const sendDeeplink = () =>
     authorizedPost({
       url: nabuUrl,
       contentType: 'application/json',
-      endPoint: '/kyc/verifications/mobile-email'
+      endPoint: '/kyc/verifications/mobile-email',
     })
 
   const fetchSDDVerified = (): SDDVerifiedType =>
@@ -108,7 +108,7 @@ export default ({ authorizedGet, authorizedPost, get, nabuUrl, post }) => {
       url: nabuUrl,
       endPoint: `/sdd/verified`,
       contentType: 'application/json',
-      ignoreQueryParams: true
+      ignoreQueryParams: true,
     })
 
   return {
@@ -126,6 +126,6 @@ export default ({ authorizedGet, authorizedPost, get, nabuUrl, post }) => {
     sendDeeplink,
     syncVeriff,
     fetchSDDVerified,
-    uploadDocuments
+    uploadDocuments,
   }
 }

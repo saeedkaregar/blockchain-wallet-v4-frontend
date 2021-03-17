@@ -20,27 +20,25 @@ class LockTimeContainer extends React.PureComponent<Props> {
     const { data, ...rest } = this.props
 
     return data.cata({
-      Success: val => (
+      Success: (val) => (
         <LockTime
           {...rest}
-          lockTime={moment
-            .duration(val.withdrawLockCheck.lockTime, 'seconds')
-            .days()}
+          lockTime={moment.duration(val.withdrawLockCheck.lockTime, 'seconds').days()}
         />
       ),
       Failure: () => null,
       NotAsked: () => null,
-      Loading: () => null
+      Loading: () => null,
     })
   }
 }
 
 const mapStateToProps = (state: RootState) => ({
-  data: getData(state)
+  data: getData(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-  sendActions: bindActionCreators(actions.components.send, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  sendActions: bindActionCreators(actions.components.send, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

@@ -35,35 +35,35 @@ class LinkBankHandler extends PureComponent<Props, State> {
         'BANK_LINK_FAILED',
         error.additionalStatus,
         error.providerName,
-        error.providerId
+        error.providerId,
       ])
       this.props.brokerageActions.setAddBankStep({
-        addBankStep: AddBankStepType.ADD_BANK
+        addBankStep: AddBankStepType.ADD_BANK,
       })
     } else {
       this.props.brokerageActions.setAddBankStep({
-        addBankStep: AddBankStepType.ADD_BANK
+        addBankStep: AddBankStepType.ADD_BANK,
       })
     }
   }
 
   render() {
     return this.props.data.cata({
-      Success: val => <Success {...val} {...this.props} {...this.state} />,
-      Failure: e => <DataError message={{ message: e }} />,
+      Success: (val) => <Success {...val} {...this.props} {...this.state} />,
+      Failure: (e) => <DataError message={{ message: e }} />,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state: RootState): LinkStatePropsType => ({
-  data: getData(state)
+  data: getData(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   brokerageActions: bindActionCreators(actions.components.brokerage, dispatch),
-  analyticsActions: bindActionCreators(actions.analytics, dispatch)
+  analyticsActions: bindActionCreators(actions.analytics, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

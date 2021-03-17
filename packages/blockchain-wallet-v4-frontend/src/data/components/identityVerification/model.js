@@ -9,7 +9,7 @@ export const STEPS = {
   moreInfo: 'moreInfo',
   additionalInfo: 'additionalInfo',
   verify: 'verify',
-  submitted: 'submitted'
+  submitted: 'submitted',
 }
 
 export const STEP_TIERS = {
@@ -17,17 +17,17 @@ export const STEP_TIERS = {
   moreInfo: TIERS[2],
   additionalInfo: TIERS[2],
   verify: TIERS[2],
-  submitted: TIERS[2]
+  submitted: TIERS[2],
 }
 
 export const SMS_STEPS = {
   edit: 'edit',
-  verify: 'verify'
+  verify: 'verify',
 }
 
 export const EMAIL_STEPS = {
   edit: 'edit',
-  verify: 'verify'
+  verify: 'verify',
 }
 
 export const PERSONAL_FORM = '@KYC.personalForm'
@@ -45,26 +45,26 @@ export const UPDATE_FAILURE = 'UPDATE_FAILURE'
 export const SUPPORTED_DOCUMENTS = {
   PASSPORT: 'PASSPORT',
   DRIVING_LICENCE: 'DRIVING_LICENCE',
-  NATIONAL_IDENTITY_CARD: 'NATIONAL_IDENTITY_CARD'
+  NATIONAL_IDENTITY_CARD: 'NATIONAL_IDENTITY_CARD',
 }
 
 export const isStateSupported = compose(includes('KYC'), propOr([], 'scopes'))
 
 export const FLOW_TYPES = {
   HIGH: 'HIGH',
-  LOW: 'LOW'
+  LOW: 'LOW',
 }
 
 export const ERROR_TYPES = {
   55: 'INVALID_CAMPAIGN_USER',
   56: 'USER_ALREADY_REGISTERED_CAMPAIGN',
   57: 'CAMPAIGN_EXPIRED',
-  58: 'INVALID_CAMPAIGN_INFO'
+  58: 'INVALID_CAMPAIGN_INFO',
 }
 
 export const CAMPAIGNS = {
   sunriver: {
     coinCode: 'XLM',
-    coinName: 'Stellar'
-  }
+    coinName: 'Stellar',
+  },
 }

@@ -23,14 +23,14 @@ export default class Type extends eImmutable.Map<{}, {}> {
   }
 
   static define(prop) {
-    let defineProp = prop => compose(this.lens, iLensProp(prop))
-    let propLens = defineProp(prop)
+    const defineProp = (prop) => compose(this.lens, iLensProp(prop))
+    const propLens = defineProp(prop)
     Object.defineProperty(this.prototype, prop, {
       configurable: false,
       enumerable: true,
       get() {
         return view(propLens, this)
-      }
+      },
     })
     return propLens
   }

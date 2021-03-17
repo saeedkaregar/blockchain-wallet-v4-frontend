@@ -1,10 +1,6 @@
 import BigNumber from 'bignumber.js'
 
-import {
-  CoinType,
-  SwapOrderDirectionType,
-  SwapQuoteType
-} from 'blockchain-wallet-v4/src/types'
+import { CoinType, SwapOrderDirectionType, SwapQuoteType } from 'blockchain-wallet-v4/src/types'
 import { errorHandler } from 'blockchain-wallet-v4/src/utils'
 
 import { convertBaseToStandard } from '../exchange/services'
@@ -41,14 +37,12 @@ export const getRate = (
   minor?: boolean
 ): number => {
   try {
-    for (var index = 0; index <= priceTiers.length; index++) {
+    for (let index = 0; index <= priceTiers.length; index++) {
       const priceTier = priceTiers[index]
       if (index === priceTiers.length - 1)
         return minor
           ? Number(priceTier.price)
-          : new BigNumber(
-              convertBaseToStandard(coin, priceTier.price)
-            ).toNumber()
+          : new BigNumber(convertBaseToStandard(coin, priceTier.price)).toNumber()
 
       const nextTier = priceTiers[index + 1]
       const thisVol = new BigNumber(priceTier.volume)
@@ -65,9 +59,7 @@ export const getRate = (
 
         if (typeof price === 'string') throw price
 
-        return minor
-          ? price
-          : new BigNumber(convertBaseToStandard(coin, price)).toNumber()
+        return minor ? price : new BigNumber(convertBaseToStandard(coin, price)).toNumber()
       }
     }
 

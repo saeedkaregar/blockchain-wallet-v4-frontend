@@ -19,7 +19,7 @@ class WalletBalanceContainer extends React.PureComponent<Props> {
         handleToggle={() =>
           preferencesActions.setTotalBalancesDropdown({
             key: 'wallet',
-            val: !isActive
+            val: !isActive,
           })
         }
       />
@@ -27,16 +27,16 @@ class WalletBalanceContainer extends React.PureComponent<Props> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   totalBalancesDropdown: selectors.preferences.getTotalBalancesDropdown(state),
   coins: selectors.components.utils
     .getSupportedCoinsWithMethodAndOrder(state)
     // @ts-ignore
-    .getOrElse({})
+    .getOrElse({}),
 })
 
-const mapDispatchToProps = dispatch => ({
-  preferencesActions: bindActionCreators(actions.preferences, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  preferencesActions: bindActionCreators(actions.preferences, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

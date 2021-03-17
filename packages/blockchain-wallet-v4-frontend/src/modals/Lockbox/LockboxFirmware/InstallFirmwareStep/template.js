@@ -17,7 +17,7 @@ const Content = styled.div`
   align-items: center;
 `
 
-const InstallFirmware = props => {
+const InstallFirmware = (props) => {
   return (
     <React.Fragment>
       <Title>
@@ -34,11 +34,7 @@ const InstallFirmware = props => {
               defaultMessage='Finalizing the update on your Lockbox. Enter your device pin when prompted.'
             />
           </Text>
-          <BlockchainLoader
-            height='75px'
-            width='75px'
-            style={{ marginTop: '45px' }}
-          />
+          <BlockchainLoader height='75px' width='75px' style={{ marginTop: '45px' }} />
         </Content>
       </Title>
     </React.Fragment>

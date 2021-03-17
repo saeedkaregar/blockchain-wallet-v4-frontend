@@ -14,25 +14,20 @@ const InterestBanner: React.FC<Props> = ({
   analyticsActions,
   interestActions,
   interestRate,
-  supportedCoins
+  supportedCoins,
 }) => {
   const { amount, currency } = afterTransaction
   const { displayName } = supportedCoins[currency]
   return (
     <CustomBoxRightOriented>
       <div>
-        <Text
-          size='16px'
-          color='grey900'
-          weight={600}
-          style={{ marginTop: '16px' }}
-        >
+        <Text size='16px' color='grey900' weight={600} style={{ marginTop: '16px' }}>
           <FormattedMessage
             id='modals.simplebuy.interest_banner.title'
             defaultMessage='Earn {interestRate}% on this {displayName} Purchase'
             values={{
               displayName,
-              interestRate: interestRate[currency]
+              interestRate: interestRate[currency],
             }}
           />
         </Text>
@@ -48,7 +43,7 @@ const InterestBanner: React.FC<Props> = ({
             values={{
               amount,
               currency,
-              displayName
+              displayName,
             }}
           />
         </Text>

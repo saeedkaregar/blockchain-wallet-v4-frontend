@@ -14,15 +14,7 @@ class SecondStepContainer extends React.PureComponent {
   }
 
   onSubmit() {
-    const {
-      captcha,
-      code,
-      email,
-      guid,
-      message,
-      newEmail,
-      secretPhrase
-    } = this.props
+    const { captcha, code, email, guid, message, newEmail, secretPhrase } = this.props
     const { sessionToken } = captcha.getOrElse({})
 
     this.props.authActions.reset2fa(
@@ -38,14 +30,14 @@ class SecondStepContainer extends React.PureComponent {
 
   render() {
     const { data } = this.props
-    let busy = data.cata({
+    const busy = data.cata({
       Success: () => {
         this.props.nextStep()
         return false
       },
       Failure: () => false,
       Loading: () => true,
-      NotAsked: () => false
+      NotAsked: () => false,
     })
 
     return (
@@ -59,7 +51,7 @@ class SecondStepContainer extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   guid: formValueSelector('reset2FA')(state, 'guid'),
   email: formValueSelector('reset2FA')(state, 'email'),
   newEmail: formValueSelector('reset2FA')(state, 'newEmail'),
@@ -67,12 +59,12 @@ const mapStateToProps = state => ({
   message: formValueSelector('reset2FA')(state, 'message'),
   code: formValueSelector('reset2FA')(state, 'code'),
   captcha: selectors.core.data.misc.getCaptcha(state),
-  data: selectors.auth.getReset2fa(state)
+  data: selectors.auth.getReset2fa(state),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   authActions: bindActionCreators(actions.auth, dispatch),
-  alertActions: bindActionCreators(actions.alerts, dispatch)
+  alertActions: bindActionCreators(actions.alerts, dispatch),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SecondStepContainer)

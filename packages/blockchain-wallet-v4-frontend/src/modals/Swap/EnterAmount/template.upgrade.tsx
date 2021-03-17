@@ -13,22 +13,16 @@ const UpgradeRow = styled.div`
   justify-content: space-between;
 `
 
-const Upgrade: React.FC<Props> = props => {
+const Upgrade: React.FC<Props> = (props) => {
   return (
     <FlyoutWrapper>
       <UpgradeRow>
         <div>
           <Text size='14px' weight={500} color='grey600' lineHeight='150%'>
-            <FormattedMessage
-              id='copy.upgrade'
-              defaultMessage='Upgrade To Gold'
-            />
+            <FormattedMessage id='copy.upgrade' defaultMessage='Upgrade To Gold' />
           </Text>
           <Text size='16px' color='grey800' weight={600} lineHeight='150%'>
-            <FormattedMessage
-              id='copy.swap_up_to'
-              defaultMessage='Swap Up to $10,000 a Day'
-            />
+            <FormattedMessage id='copy.swap_up_to' defaultMessage='Swap Up to $10,000 a Day' />
           </Text>
         </div>
         <Button
@@ -36,17 +30,14 @@ const Upgrade: React.FC<Props> = props => {
           nature='light'
           onClick={() =>
             props.swapActions.setStep({
-              step: 'UPGRADE_PROMPT'
+              step: 'UPGRADE_PROMPT',
             })
           }
           height='32px'
           width='90px'
           size='14px'
         >
-          <FormattedMessage
-            id='buttons.learn_more'
-            defaultMessage='Learn More'
-          />
+          <FormattedMessage id='buttons.learn_more' defaultMessage='Learn More' />
         </Button>
       </UpgradeRow>
     </FlyoutWrapper>

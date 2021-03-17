@@ -10,7 +10,7 @@ import {
   SBOrderType,
   SBPairType,
   SBPaymentMethodType,
-  SwapOrderType
+  SwapOrderType,
 } from 'blockchain-wallet-v4/src/types'
 import Flyout, { duration, FlyoutChild } from 'components/Flyout'
 import { actions, selectors } from 'data'
@@ -57,9 +57,7 @@ class SimpleBuy extends PureComponent<Props, State> {
 
   componentDidUpdate(prevProps: Props) {
     if (this.props.step === prevProps.step) return
-    if (
-      SimpleBuyStepType[this.props.step] > SimpleBuyStepType[prevProps.step]
-    ) {
+    if (SimpleBuyStepType[this.props.step] > SimpleBuyStepType[prevProps.step]) {
       /* eslint-disable */
       this.setState({ direction: 'left' })
     } else {
@@ -88,13 +86,11 @@ class SimpleBuy extends PureComponent<Props, State> {
 
   render() {
     return this.props.data.cata({
-      Success: val => {
+      Success: (val) => {
         const { userData } = val
         const { kycState } = userData
-        const isUserRejectedOrExpired =
-          kycState === 'REJECTED' || kycState === 'EXPIRED'
-        const isUserPending =
-          kycState === 'UNDER_REVIEW' || kycState === 'PENDING'
+        const isUserRejectedOrExpired = kycState === 'REJECTED' || kycState === 'EXPIRED'
+        const isUserPending = kycState === 'UNDER_REVIEW' || kycState === 'PENDING'
 
         return isUserRejectedOrExpired ? (
           <Flyout
@@ -137,26 +133,17 @@ class SimpleBuy extends PureComponent<Props, State> {
             )}
             {this.props.step === 'CRYPTO_SELECTION' && (
               <FlyoutChild>
-                <CryptoSelection
-                  {...this.props}
-                  handleClose={this.handleClose}
-                />
+                <CryptoSelection {...this.props} handleClose={this.handleClose} />
               </FlyoutChild>
             )}
             {this.props.step === 'PAYMENT_METHODS' && (
               <FlyoutChild>
-                <PaymentMethods
-                  {...this.props}
-                  handleClose={this.handleClose}
-                />
+                <PaymentMethods {...this.props} handleClose={this.handleClose} />
               </FlyoutChild>
             )}
             {this.props.step === 'LINKED_PAYMENT_ACCOUNTS' && (
               <FlyoutChild>
-                <LinkedPaymentAccounts
-                  {...this.props}
-                  handleClose={this.handleClose}
-                />
+                <LinkedPaymentAccounts {...this.props} handleClose={this.handleClose} />
               </FlyoutChild>
             )}
             {this.props.step === 'ADD_CARD' && (
@@ -166,26 +153,17 @@ class SimpleBuy extends PureComponent<Props, State> {
             )}
             {this.props.step === 'CC_BILLING_ADDRESS' && (
               <FlyoutChild>
-                <BillingAddress
-                  {...this.props}
-                  handleClose={this.handleClose}
-                />
+                <BillingAddress {...this.props} handleClose={this.handleClose} />
               </FlyoutChild>
             )}
             {this.props.step === '3DS_HANDLER' && (
               <FlyoutChild>
-                <ThreeDSHandler
-                  {...this.props}
-                  handleClose={this.handleClose}
-                />
+                <ThreeDSHandler {...this.props} handleClose={this.handleClose} />
               </FlyoutChild>
             )}
             {this.props.step === 'CHECKOUT_CONFIRM' && (
               <FlyoutChild>
-                <CheckoutConfirm
-                  {...this.props}
-                  handleClose={this.handleClose}
-                />
+                <CheckoutConfirm {...this.props} handleClose={this.handleClose} />
               </FlyoutChild>
             )}
             {this.props.step === 'ORDER_SUMMARY' && (
@@ -204,18 +182,12 @@ class SimpleBuy extends PureComponent<Props, State> {
             )}
             {this.props.step === 'SELL_ORDER_SUMMARY' && (
               <FlyoutChild>
-                <SellOrderSummary
-                  {...this.props}
-                  handleClose={this.handleClose}
-                />
+                <SellOrderSummary {...this.props} handleClose={this.handleClose} />
               </FlyoutChild>
             )}
             {this.props.step === 'BANK_WIRE_DETAILS' && (
               <FlyoutChild>
-                <BankWireDetails
-                  {...this.props}
-                  handleClose={this.handleClose}
-                />
+                <BankWireDetails {...this.props} handleClose={this.handleClose} />
               </FlyoutChild>
             )}
             {this.props.step === 'KYC_REQUIRED' && (
@@ -258,7 +230,7 @@ class SimpleBuy extends PureComponent<Props, State> {
         >
           <Loading />
         </Flyout>
-      )
+      ),
     })
   }
 }
@@ -277,7 +249,7 @@ const mapStateToProps = (state: RootState) => ({
   goals: selectors.goals.getGoals(state),
   localCurrency: selectors.core.settings.getCurrency(state).getOrElse('USD'),
   data: getData(state),
-  isFirstLogin: selectors.auth.getFirstLogin(state)
+  isFirstLogin: selectors.auth.getFirstLogin(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -287,15 +259,12 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   preferenceActions: bindActionCreators(actions.preferences, dispatch),
   profileActions: bindActionCreators(actions.modules.profile, dispatch),
   settingsActions: bindActionCreators(actions.modules.settings, dispatch),
-  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch)
+  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)
 
-const enhance = compose(
-  ModalEnhancer('SIMPLE_BUY_MODAL', { transition: duration }),
-  connector
-)
+const enhance = compose(ModalEnhancer('SIMPLE_BUY_MODAL', { transition: duration }), connector)
 
 type OwnProps = ModalPropsType
 export type LinkDispatchPropsType = {

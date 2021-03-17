@@ -8,6 +8,6 @@ export const getData = (state: RootState) => {
   const bankStatusR = selectors.components.brokerage.getAddBankStatus(state)
 
   return lift((bankStatus: ExtractSuccess<typeof bankStatusR>) => ({
-    bankStatus
+    bankStatus,
   }))(bankStatusR)
 }

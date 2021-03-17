@@ -2,11 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 
-import {
-  ExtractSuccess,
-  RemoteDataType,
-  WalletFiatType
-} from 'blockchain-wallet-v4/src/types'
+import { ExtractSuccess, RemoteDataType, WalletFiatType } from 'blockchain-wallet-v4/src/types'
 import { actions, selectors } from 'data'
 import { RootState } from 'data/rootReducer'
 
@@ -23,24 +19,24 @@ class LinkedBanks extends PureComponent<Props> {
 
   render() {
     return this.props.data.cata({
-      Success: val => <Success {...this.props} {...val} />,
+      Success: (val) => <Success {...this.props} {...val} />,
       Loading: () => <Loading />,
       Failure: () => null,
-      NotAsked: () => null
+      NotAsked: () => null,
     })
   }
 }
 
 const mapStateToProps = (state: RootState): LinkStatePropsType => ({
   data: getData(state),
-  fiatCurrency: selectors.components.withdraw.getFiatCurrency(state)
+  fiatCurrency: selectors.components.withdraw.getFiatCurrency(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   brokerageActions: bindActionCreators(actions.components.brokerage, dispatch),
   custodialActions: bindActionCreators(actions.custodial, dispatch),
   simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
-  withdrawActions: bindActionCreators(actions.components.withdraw, dispatch)
+  withdrawActions: bindActionCreators(actions.components.withdraw, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

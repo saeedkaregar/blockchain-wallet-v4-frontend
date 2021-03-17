@@ -17,10 +17,8 @@ const PARAM_APN = 'piuk.blockchain.android'
 
 class VerifyEmailToken extends React.PureComponent {
   state = {
-    token: decodeURIComponent(
-      this.props.location.pathname.split('/verify-email/')[1]
-    ),
-    context: new URLSearchParams(this.props.location.search).get('context')
+    token: decodeURIComponent(this.props.location.pathname.split('/verify-email/')[1]),
+    context: new URLSearchParams(this.props.location.search).get('context'),
   }
 
   componentDidMount() {
@@ -56,24 +54,24 @@ class VerifyEmailToken extends React.PureComponent {
   render() {
     const { data } = this.props
 
-    let VerifyEmailStatus = data.cata({
+    const VerifyEmailStatus = data.cata({
       Success: () => <Success mobileLinkOut={this.getMobileLinkOut()} />,
-      Failure: error => <Error error={error} />,
+      Failure: (error) => <Error error={error} />,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
 
     return <Wrapper>{VerifyEmailStatus}</Wrapper>
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: selectors.core.data.misc.verifyEmailToken(state),
-  appEnv: selectors.core.walletOptions.getAppEnv(state).getOrElse('prod')
+  appEnv: selectors.core.walletOptions.getAppEnv(state).getOrElse('prod'),
 })
 
-const mapDispatchToProps = dispatch => ({
-  miscActions: bindActionCreators(actions.core.data.misc, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  miscActions: bindActionCreators(actions.core.data.misc, dispatch),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(VerifyEmailToken)

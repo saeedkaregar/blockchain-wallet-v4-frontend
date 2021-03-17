@@ -54,7 +54,7 @@ export const traverseWallet = curry((of, f, wrapper) =>
 )
 
 // fromJS :: JSON -> wrapper
-export const fromJS = x => {
+export const fromJS = (x) => {
   if (isWrapper(x)) {
     return x
   }
@@ -63,49 +63,40 @@ export const fromJS = x => {
 }
 
 // toJS :: wrapper -> JSON
-export const toJS = pipe(Wrapper.guard, wrapper => {
+export const toJS = pipe(Wrapper.guard, (wrapper) => {
   const wrapperDecons = over(wallet, Wallet.toJS)
   return wrapperDecons(wrapper).toJS()
 })
 
-export const reviver = jsObject => {
+export const reviver = (jsObject) => {
   return new Wrapper(jsObject)
 }
 
 // computeChecksum :: encJSON -> String
 export const computeChecksum = compose(
-  payload => crypto.sha256(payload).toString('hex'),
+  (payload) => crypto.sha256(payload).toString('hex'),
   prop('payload')
 )
 
 // fromEncJSON :: String -> JSON -> Task Error Wrapper
 export const fromEncJSON = curry((password, json) => {
-  let payloadL = lensProp('payload')
-  let payloadJsonE = Either.try(JSON.parse)(json.payload)
+  const payloadL = lensProp('payload')
+  const payloadJsonE = Either.try(JSON.parse)(json.payload)
 
   // assocIterations :: Number -> Wrapper
-  let assocIterations = wrapper =>
+  const assocIterations = (wrapper) =>
     payloadJsonE
-      .map(payload =>
-        assoc('pbkdf2_iterations', payload.pbkdf2_iterations, wrapper)
-      )
+      .map((payload) => assoc('pbkdf2_iterations', payload.pbkdf2_iterations, wrapper))
       .getOrElse(wrapper)
 
   // assocVersion :: Wrapper -> Wrapper
-  let assocVersion = wrapper =>
-    payloadJsonE
-      .map(payload => assoc('version', payload.version, wrapper))
-      .getOrElse(wrapper)
+  const assocVersion = (wrapper) =>
+    payloadJsonE.map((payload) => assoc('version', payload.version, wrapper)).getOrElse(wrapper)
 
-  return traverseOf(
-    payloadL,
-    Task.of,
-    Wallet.fromEncryptedPayload(password),
-    json
-  )
+  return traverseOf(payloadL, Task.of, Wallet.fromEncryptedPayload(password), json)
     .map(assocVersion)
     .map(assocIterations)
-    .map(o => assoc('wallet', o.payload, o))
+    .map((o) => assoc('wallet', o.payload, o))
     .map(dissoc('payload'))
     .map(assoc('password', password))
     .map(dissoc('extra_seed'))
@@ -125,37 +116,32 @@ export const fromEncPayload = curry((password, payload) => {
     password,
     payload: JSON.stringify(payload),
     pbkdf2Iterations,
-    version
+    version,
   }
-  return traverseOf(
-    lensProp('payload'),
-    Task.of,
-    Wallet.fromEncryptedPayload(password),
-    wrapper
-  )
-    .map(o => assoc('wallet', o.payload, o))
+  return traverseOf(lensProp('payload'), Task.of, Wallet.fromEncryptedPayload(password), wrapper)
+    .map((o) => assoc('wallet', o.payload, o))
     .map(dissoc('payload'))
     .map(fromJS)
 })
 
 // toEncJSON :: Wrapper -> Either Error JSON
-export const toEncJSON = wrapper => {
+export const toEncJSON = (wrapper) => {
   const plens = lensProp('payload')
   const response = {
     guid: compose(Wallet.selectGuid, selectWallet)(wrapper),
     sharedKey: compose(Wallet.selectSharedKey, selectWallet)(wrapper),
     payload: selectWallet(wrapper),
     old_checksum: selectPayloadChecksum(wrapper),
-    language: selectLanguage(wrapper)
+    language: selectLanguage(wrapper),
   }
   const encrypt = Wallet.toEncryptedPayload(
     selectPassword(wrapper),
     selectPbkdf2Iterations(wrapper) || 5000
   )
-  const hash = x => crypto.sha256(x).toString('hex')
+  const hash = (x) => crypto.sha256(x).toString('hex')
   return traverseOf(plens, Task.of, encrypt, response)
-    .map(r => assoc('length', view(plens, r).length, r))
-    .map(r => assoc('checksum', hash(view(plens, r)), r))
+    .map((r) => assoc('length', view(plens, r).length, r))
+    .map((r) => assoc('checksum', hash(view(plens, r)), r))
 }
 
 export const js = (
@@ -177,7 +163,7 @@ export const js = (
   wallet: Wallet.js(guid, sharedKey, label, mnemonic, xpub, nAccounts, network),
   war_checksum: '',
   password: password,
-  pbkdf2_iterations: 5000
+  pbkdf2_iterations: 5000,
 })
 
 export const setBothPbkdf2Iterations = curry((iterations, wrapper) =>
@@ -211,7 +197,5 @@ export const createNew = (
     )
   )
 
-export const createNewReadOnly = (
-  xpub,
-  firstAccountName = 'My read-only Wallet'
-) => fromJS(js('', '', '', firstAccountName, undefined, xpub, 1))
+export const createNewReadOnly = (xpub, firstAccountName = 'My read-only Wallet') =>
+  fromJS(js('', '', '', firstAccountName, undefined, xpub, 1))

@@ -34,25 +34,19 @@ const Footer = styled(FormGroup)`
   margin-top: 6px;
 `
 
-const SecondStep = props => {
+const SecondStep = (props) => {
   const { busy, handleSubmit, invalid, previousStep } = props
 
   return (
     <Wrapper>
       <Header>
         <Text size='20px' color='blue900' weight={600} capitalize>
-          <FormattedMessage
-            id='scenes.reset2fa.secondstep.reset2fa'
-            defaultMessage='Reset 2FA'
-          />
+          <FormattedMessage id='scenes.reset2fa.secondstep.reset2fa' defaultMessage='Reset 2FA' />
         </Text>
       </Header>
       <SecondStepForm onSubmit={handleSubmit}>
         <CaptchaText size='14px' weight={500}>
-          <FormattedMessage
-            id='scenes.reset2fa.secondstep.captcha'
-            defaultMessage='Captcha'
-          />
+          <FormattedMessage id='scenes.reset2fa.secondstep.captcha' defaultMessage='Captcha' />
         </CaptchaText>
         <Field
           bgColor='grey000'
@@ -87,6 +81,4 @@ const SecondStep = props => {
   )
 }
 
-export default reduxForm({ form: 'reset2FA', destroyOnUnmount: false })(
-  SecondStep
-)
+export default reduxForm({ form: 'reset2FA', destroyOnUnmount: false })(SecondStep)

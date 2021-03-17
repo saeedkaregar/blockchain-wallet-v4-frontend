@@ -8,14 +8,11 @@ import { Palette } from 'blockchain-info-components'
 import { createDeepEqualSelector } from 'blockchain-wallet-v4/src/utils'
 import { selectors } from 'data'
 
-const mapStateToProps = createDeepEqualSelector(
-  [selectors.preferences.getTheme],
-  themeName => {
-    const oldTheme = Palette(themeName)
-    const newTheme = merge(theme, oldTheme)
-    return { theme: newTheme }
-  }
-)
+const mapStateToProps = createDeepEqualSelector([selectors.preferences.getTheme], (themeName) => {
+  const oldTheme = Palette(themeName)
+  const newTheme = merge(theme, oldTheme)
+  return { theme: newTheme }
+})
 
 const CustomThemeProvider = ({ children, theme }) => (
   <ThemeProvider theme={theme}>{children}</ThemeProvider>

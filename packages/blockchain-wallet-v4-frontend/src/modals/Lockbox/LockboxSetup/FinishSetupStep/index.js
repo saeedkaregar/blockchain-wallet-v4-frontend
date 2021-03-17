@@ -12,7 +12,7 @@ class FinishSetupStepContainer extends React.PureComponent {
     this.props.lockboxActions.saveNewDeviceKvStore()
   }
 
-  onFinishSetup = showTour => {
+  onFinishSetup = (showTour) => {
     this.props.lockboxActions.routeNewDeviceToDashboard(showTour)
     this.props.onClose()
   }
@@ -23,11 +23,11 @@ class FinishSetupStepContainer extends React.PureComponent {
 }
 
 FinishSetupStepContainer.propTypes = {
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 }
 
-const mapDispatchToProps = dispatch => ({
-  lockboxActions: bindActionCreators(actions.components.lockbox, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  lockboxActions: bindActionCreators(actions.components.lockbox, dispatch),
 })
 
 export default connect(null, mapDispatchToProps)(FinishSetupStepContainer)

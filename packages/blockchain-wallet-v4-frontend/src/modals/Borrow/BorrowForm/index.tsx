@@ -8,7 +8,7 @@ import {
   PaymentValue,
   RatesType,
   RemoteDataType,
-  SupportedWalletCurrenciesType
+  SupportedWalletCurrenciesType,
 } from 'blockchain-wallet-v4/src/types'
 import DataError from 'components/DataError'
 import { actions } from 'data'
@@ -32,29 +32,27 @@ class BorrowForm extends PureComponent<Props> {
   handleSubmit = () => {
     this.props.borrowActions.setStep({
       step: 'CONFIRM',
-      offer: this.props.offer
+      offer: this.props.offer,
     })
   }
 
   render() {
     const { data } = this.props
     return data.cata({
-      Success: val => (
-        <Success {...val} {...this.props} onSubmit={this.handleSubmit} />
-      ),
+      Success: (val) => <Success {...val} {...this.props} onSubmit={this.handleSubmit} />,
       Failure: () => <DataError onClick={this.handleRefresh} />,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state): LinkStatePropsType => ({
-  data: getData(state)
+  data: getData(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch): LinkDispatchPropsType => ({
-  borrowActions: bindActionCreators(actions.components.borrow, dispatch)
+  borrowActions: bindActionCreators(actions.components.borrow, dispatch),
 })
 
 export type OwnProps = {

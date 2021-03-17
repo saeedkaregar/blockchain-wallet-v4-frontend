@@ -11,8 +11,7 @@ class SimpleDropdown extends React.PureComponent {
     this.state = {
       toggled: props.opened,
       selectedItem:
-        props.items.filter(item => item.value === props.selectedValue)[0] ||
-        props.items[0]
+        props.items.filter((item) => item.value === props.selectedValue)[0] || props.items[0],
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleCallback = this.handleCallback.bind(this)
@@ -54,7 +53,7 @@ SimpleDropdown.defaultProps = {
   selectedValue: 0,
   uppercase: true,
   down: false,
-  size: '14px'
+  size: '14px',
 }
 
 SimpleDropdown.propTypes = {
@@ -62,14 +61,14 @@ SimpleDropdown.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
       text: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
+      value: PropTypes.string.isRequired,
     })
   ),
   callback: PropTypes.func.isRequired,
   opened: PropTypes.bool,
   uppercase: PropTypes.bool,
   down: PropTypes.bool,
-  size: PropTypes.string
+  size: PropTypes.string,
 }
 
 export default onClickOutside(SimpleDropdown)

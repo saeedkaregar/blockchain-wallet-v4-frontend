@@ -16,7 +16,7 @@ export {
   RadioButtonInput,
   SelectInput,
   TextAreaInput,
-  TextInput
+  TextInput,
 } from './Form'
 export { ConfirmationGauge, PasswordGauge, SecurityGauge } from './Gauges'
 export { Icon } from './Icons'
@@ -27,7 +27,7 @@ export {
   FlatLoader,
   FlatLoader2,
   HeartbeatLoader,
-  SpinningLoader
+  SpinningLoader,
 } from './Loaders'
 export { TabMenu, TabMenuItem } from './Menus'
 export { Modal, ModalBody, ModalFooter, ModalHeader } from './Modals'

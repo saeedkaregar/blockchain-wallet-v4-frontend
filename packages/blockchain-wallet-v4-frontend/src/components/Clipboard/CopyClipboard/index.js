@@ -28,7 +28,7 @@ class CopyClipboardContainer extends React.PureComponent {
     }, 2000)
     if (coin) {
       alertActions.displaySuccess(C.COPY_ADDRESS_CLIPBOARD_SUCCESS, {
-        coinName: supportedCoins[coin].displayName
+        coinName: supportedCoins[coin].displayName,
       })
     } else {
       alertActions.displaySuccess(C.COPY_LINK_CLIPBOARD_SUCCESS)
@@ -48,20 +48,15 @@ class CopyClipboardContainer extends React.PureComponent {
 }
 
 CopyClipboardContainer.propTypes = {
-  address: PropTypes.string.isRequired
+  address: PropTypes.string.isRequired,
 }
 
-const mapStateToProps = state => ({
-  supportedCoins: selectors.core.walletOptions
-    .getSupportedCoins(state)
-    .getOrFail()
+const mapStateToProps = (state) => ({
+  supportedCoins: selectors.core.walletOptions.getSupportedCoins(state).getOrFail(),
 })
 
-const mapDispatchToProps = dispatch => ({
-  alertActions: bindActionCreators(actions.alerts, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  alertActions: bindActionCreators(actions.alerts, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CopyClipboardContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(CopyClipboardContainer)

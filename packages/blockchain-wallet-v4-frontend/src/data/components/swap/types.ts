@@ -5,7 +5,7 @@ import {
   RemoteDataType,
   SwapOrderType,
   SwapQuoteType,
-  SwapUserLimitsType
+  SwapUserLimitsType,
 } from 'blockchain-wallet-v4/src/types'
 
 import * as AT from './actionTypes'
@@ -24,9 +24,7 @@ export type SwapAccountType = {
   type: 'ACCOUNT' | 'CUSTODIAL'
 }
 
-export type SwapAmountFormValues =
-  | { amount?: string; cryptoAmount?: string }
-  | undefined
+export type SwapAmountFormValues = { amount?: string; cryptoAmount?: string } | undefined
 
 export type InitSwapFormValuesType =
   | {
@@ -45,7 +43,7 @@ export enum SwapStepType {
   'UPGRADE_PROMPT',
   'PREVIEW_SWAP',
   'SUCCESSFUL_SWAP',
-  'ORDER_DETAILS'
+  'ORDER_DETAILS',
 }
 
 export type SwapSideType = 'BASE' | 'COUNTER'

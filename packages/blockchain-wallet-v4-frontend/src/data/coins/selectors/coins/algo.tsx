@@ -23,7 +23,7 @@ export const getTransactionPageHeaderText = () => (
 export const getAccounts = createDeepEqualSelector(
   [
     (state, { coin }) => getTradingBalance(coin, state), // custodial accounts
-    (state, ownProps) => ownProps // selector config
+    (state, ownProps) => ownProps, // selector config
   ],
   (sbBalanceR, ownProps) => {
     const transform = (sbBalance: ExtractSuccess<typeof sbBalanceR>) => {

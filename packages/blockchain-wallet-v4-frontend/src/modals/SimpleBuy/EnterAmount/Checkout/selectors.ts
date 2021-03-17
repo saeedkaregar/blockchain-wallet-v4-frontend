@@ -8,9 +8,7 @@ import { OwnProps } from '.'
 
 export const getData = (state: RootState, ownProps: OwnProps) => {
   const coin = selectors.components.simpleBuy.getCryptoCurrency(state) || 'BTC'
-  const formErrors = selectors.form.getFormSyncErrors('simpleBuyCheckout')(
-    state
-  )
+  const formErrors = selectors.form.getFormSyncErrors('simpleBuyCheckout')(state)
   // used for sell only now, eventually buy as well
   // TODO: use swap2 quote for buy AND sell
   const paymentR = selectors.components.simpleBuy.getPayment(state)
@@ -23,13 +21,8 @@ export const getData = (state: RootState, ownProps: OwnProps) => {
   const userDataR = selectors.modules.profile.getUserData(state)
   const sddEligibleR = selectors.components.simpleBuy.getSddEligible(state)
   const supportedCoinsR = selectors.core.walletOptions.getSupportedCoins(state)
-  const userSDDTierR = selectors.components.simpleBuy.getUserSddEligibleTier(
-    state
-  )
-  const sddLimitR = selectors.components.simpleBuy.getUserLimit(
-    state,
-    'PAYMENT_CARD'
-  )
+  const userSDDTierR = selectors.components.simpleBuy.getUserSddEligibleTier(state)
+  const sddLimitR = selectors.components.simpleBuy.getUserLimit(state, 'PAYMENT_CARD')
   const cardsR = selectors.components.simpleBuy.getSBCards(state) || []
   const bankTransferAccounts = selectors.components.brokerage
     .getBankTransferAccounts(state)
@@ -54,8 +47,7 @@ export const getData = (state: RootState, ownProps: OwnProps) => {
       coinModel: supportedCoins[coin],
       formErrors,
       hasFiatBalance,
-      hasPaymentAccount:
-        hasFiatBalance || cards.length > 0 || bankTransferAccounts.length > 0,
+      hasPaymentAccount: hasFiatBalance || cards.length > 0 || bankTransferAccounts.length > 0,
       isSddFlow: sddEligible.eligible || userSDDTier === 3,
       payment: paymentR.getOrElse(undefined),
       quote,
@@ -65,7 +57,7 @@ export const getData = (state: RootState, ownProps: OwnProps) => {
       sddLimit,
       supportedCoins,
       userData,
-      limits: limitsR.getOrElse(undefined)
+      limits: limitsR.getOrElse(undefined),
     })
   )(
     cardsR,

@@ -40,15 +40,15 @@ export const AddressButton = styled.div`
   width: 40px;
   height: 40px;
   box-sizing: border-box;
-  border: 1px solid ${props => props.theme.grey200};
+  border: 1px solid ${(props) => props.theme.grey200};
 
   &:hover {
-    background-color: ${props => props.theme.grey000};
+    background-color: ${(props) => props.theme.grey000};
   }
 `
 export const FeeFormContainer = styled.div<{ toggled: boolean }>`
   display: flex;
-  flex-direction: ${props => (props.toggled ? 'column' : 'row')};
+  flex-direction: ${(props) => (props.toggled ? 'column' : 'row')};
   align-items: center;
   justify-content: space-between;
   width: 100%;
@@ -93,7 +93,7 @@ export const CustomBlueCartridge = styled(BlueCartridge)`
 
 export const CustodyToAccountMessage = ({
   account,
-  coin
+  coin,
 }: {
   account: CustodialFromType
   amount?: {
@@ -103,15 +103,11 @@ export const CustodyToAccountMessage = ({
   }
   coin: CoinType
 }) => {
-  const isAvailableNone = new BigNumber(account.available).isLessThanOrEqualTo(
-    '0'
-  )
-  const isWithdrawableNone = new BigNumber(
+  const isAvailableNone = new BigNumber(account.available).isLessThanOrEqualTo('0')
+  const isWithdrawableNone = new BigNumber(account.withdrawable).isLessThanOrEqualTo('0')
+  const isAvailableEqualToWithdrawable = new BigNumber(account.available).isEqualTo(
     account.withdrawable
-  ).isLessThanOrEqualTo('0')
-  const isAvailableEqualToWithdrawable = new BigNumber(
-    account.available
-  ).isEqualTo(account.withdrawable)
+  )
 
   switch (true) {
     // all funds are 'locked'
@@ -119,10 +115,7 @@ export const CustodyToAccountMessage = ({
       return <LockTime coin={coin} />
     case !isWithdrawableNone && !isAvailableEqualToWithdrawable:
       return (
-        <LockTime
-          coin={coin}
-          withdrawable={convertBaseToStandard(coin, account.withdrawable)}
-        />
+        <LockTime coin={coin} withdrawable={convertBaseToStandard(coin, account.withdrawable)} />
       )
     default:
       return (

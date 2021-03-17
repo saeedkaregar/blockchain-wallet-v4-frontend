@@ -9,13 +9,13 @@ import * as C from 'services/alerts'
 import MobileLogin from './template'
 
 const MobileLoginContainer = (props: Props) => {
-  const handleScan = result => {
+  const handleScan = (result) => {
     if (!isNil(result) && !isEmpty(result)) {
       props.authActions.mobileLogin(result)
     }
   }
 
-  const handleError = error => {
+  const handleError = (error) => {
     if (isNil(error) && isEmpty(error)) {
       props.alertsActions.displayError(C.MOBILE_LOGIN_SCAN_ERROR)
     }
@@ -31,14 +31,14 @@ const MobileLoginContainer = (props: Props) => {
   )
 }
 
-const mapStateToProps = state => ({
-  logginStarted: selectors.auth.getMobileLoginStarted(state)
+const mapStateToProps = (state) => ({
+  logginStarted: selectors.auth.getMobileLoginStarted(state),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   alertsActions: bindActionCreators(actions.alerts, dispatch),
   authActions: bindActionCreators(actions.auth, dispatch),
-  modalActions: bindActionCreators(actions.modals, dispatch)
+  modalActions: bindActionCreators(actions.modals, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

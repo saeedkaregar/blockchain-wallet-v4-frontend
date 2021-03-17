@@ -17,31 +17,31 @@ class ImportedAddressesContainer extends React.Component<Props> {
 
   handleClickVerify = () => {
     this.props.modalActions.showModal('VerifyMessage', {
-      origin: 'SettingsPage'
+      origin: 'SettingsPage',
     })
   }
 
-  handleShowPriv = address => {
+  handleShowPriv = (address) => {
     this.props.modalActions.showModal('ShowBtcPrivateKey', {
       addr: address.addr,
       balance: address.info.final_balance,
-      origin: 'SettingsPage'
+      origin: 'SettingsPage',
     })
   }
 
-  handleSignMessage = address => {
+  handleSignMessage = (address) => {
     this.props.modalActions.showModal('SignMessage', {
       address: address.addr,
-      origin: 'SettingsPage'
+      origin: 'SettingsPage',
     })
   }
 
-  handleEditLabel = address => {
+  handleEditLabel = (address) => {
     this.props.componentActions.editImportedAddressLabel(address.addr)
   }
 
-  handleToggleArchived = address => {
-    let isArchived = address.tag === 2
+  handleToggleArchived = (address) => {
+    const isArchived = address.tag === 2
     this.props.coreActions.setAddressArchived(address.addr, !isArchived)
   }
 
@@ -49,14 +49,14 @@ class ImportedAddressesContainer extends React.Component<Props> {
     this.props.modalActions.showModal(model.components.sendBtc.MODAL, {
       from: 'allImportedAddresses',
       excludeHDWallets: true,
-      origin: 'SettingsPage'
+      origin: 'SettingsPage',
     })
   }
 
   render() {
     const { addressesWithoutRemoteData, search } = this.props
     return this.props.activeAddresses.cata({
-      Success: value => (
+      Success: (value) => (
         <ImportedAddresses
           importedAddresses={value}
           onClickVerify={this.handleClickVerify}
@@ -82,24 +82,21 @@ class ImportedAddressesContainer extends React.Component<Props> {
         />
       ),
       Loading: () => <div />,
-      NotAsked: () => <div />
+      NotAsked: () => <div />,
     })
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   activeAddresses: selectors.core.common.btc.getActiveAddresses(state),
   search: formValueSelector(WALLET_TX_SEARCH)(state, 'search'),
-  addressesWithoutRemoteData: selectors.core.wallet.getAddresses(state)
+  addressesWithoutRemoteData: selectors.core.wallet.getAddresses(state),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   coreActions: bindActionCreators(actions.core.wallet, dispatch),
   modalActions: bindActionCreators(actions.modals, dispatch),
-  componentActions: bindActionCreators(
-    actions.components.manageAddresses,
-    dispatch
-  )
+  componentActions: bindActionCreators(actions.components.manageAddresses, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

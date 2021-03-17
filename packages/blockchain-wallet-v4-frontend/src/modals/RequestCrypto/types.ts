@@ -5,7 +5,7 @@ export enum RequestSteps {
   'COIN_SELECT',
   'SHOW_ADDRESS',
   'BUILD_LINK',
-  'SHARE_LINK'
+  'SHARE_LINK',
 }
 
 export type RequestFormType = {

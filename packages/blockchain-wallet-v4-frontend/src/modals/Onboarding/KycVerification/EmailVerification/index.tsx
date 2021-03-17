@@ -25,7 +25,7 @@ class VerifyEmail extends PureComponent<Props> {
       formValues,
       identityVerificationActions,
       securityCenterActions,
-      settingsActions
+      settingsActions,
     } = this.props
     if (formValues) {
       identityVerificationActions.updateEmail(formValues.email)
@@ -41,7 +41,7 @@ class VerifyEmail extends PureComponent<Props> {
 
   render() {
     return this.props.data.cata({
-      Success: val => (
+      Success: (val) => (
         <Success
           {...this.props}
           {...val}
@@ -51,19 +51,17 @@ class VerifyEmail extends PureComponent<Props> {
       ),
       Failure: () => null,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state: RootState) => ({
   data: getData(state),
-  isEmailVerified: selectors.core.settings
-    .getEmailVerified(state)
-    .getOrElse(false),
+  isEmailVerified: selectors.core.settings.getEmailVerified(state).getOrElse(false),
   formValues: selectors.form.getFormValues(VERIFY_EMAIL_FORM)(state) as
     | VerifyEmailFormValuesType
-    | undefined
+    | undefined,
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -71,13 +69,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     actions.components.identityVerification,
     dispatch
   ),
-  securityCenterActions: bindActionCreators(
-    actions.modules.securityCenter,
-    dispatch
-  ),
+  securityCenterActions: bindActionCreators(actions.modules.securityCenter, dispatch),
   settingsActions: bindActionCreators(actions.core.settings, dispatch),
   profileActions: bindActionCreators(actions.modules.profile, dispatch),
-  formActions: bindActionCreators(actions.form, dispatch)
+  formActions: bindActionCreators(actions.form, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

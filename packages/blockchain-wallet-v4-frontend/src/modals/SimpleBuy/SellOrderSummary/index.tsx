@@ -28,21 +28,21 @@ class SellOrderSummary extends PureComponent<Props> {
 
   render() {
     return this.props.data.cata({
-      Success: val => <Success {...this.props} {...val} />,
+      Success: (val) => <Success {...this.props} {...val} />,
       Failure: () => <DataError onClick={this.handleRefresh} />,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state: RootState): LinkStatePropsType => ({
-  data: getData(state)
+  data: getData(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
-  sendActions: bindActionCreators(actions.components.send, dispatch)
+  sendActions: bindActionCreators(actions.components.send, dispatch),
 })
 const connector = connect(mapStateToProps, mapDispatchToProps)
 

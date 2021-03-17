@@ -8,7 +8,7 @@ import UploadDocumentsSuccess from './template'
 
 class UploadDocumentsSuccessContainer extends Component {
   static propTypes = {
-    reference: PropTypes.string.isRequired
+    reference: PropTypes.string.isRequired,
   }
 
   render() {
@@ -16,8 +16,8 @@ class UploadDocumentsSuccessContainer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  reference: selectors.components.uploadDocuments.getReference(state)
+const mapStateToProps = (state) => ({
+  reference: selectors.components.uploadDocuments.getReference(state),
 })
 
 export default connect(mapStateToProps)(UploadDocumentsSuccessContainer)

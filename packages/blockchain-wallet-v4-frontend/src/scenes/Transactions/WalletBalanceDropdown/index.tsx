@@ -8,10 +8,7 @@ import { Field } from 'redux-form'
 import styled from 'styled-components'
 
 import { Icon, Text } from 'blockchain-info-components'
-import {
-  coinToString,
-  fiatToString
-} from 'blockchain-wallet-v4/src/exchange/currency'
+import { coinToString, fiatToString } from 'blockchain-wallet-v4/src/exchange/currency'
 import {
   AddressTypesType,
   CoinType,
@@ -20,7 +17,7 @@ import {
   FiatType,
   FiatTypeEnum,
   SupportedCoinType,
-  WalletFiatType
+  WalletFiatType,
 } from 'blockchain-wallet-v4/src/types'
 import CoinDisplay from 'components/Display/CoinDisplay'
 import FiatDisplay from 'components/Display/FiatDisplay'
@@ -45,10 +42,10 @@ const DisplayContainer = styled.div<{ coinType: any; isItem?: boolean }>`
   width: 100%;
   align-items: center;
   box-sizing: border-box;
-  height: ${props => (props.isItem ? 'auto' : '100%')};
-  padding: ${props => (props.isItem ? '0px 0px' : '15px 4px')};
+  height: ${(props) => (props.isItem ? 'auto' : '100%')};
+  padding: ${(props) => (props.isItem ? '0px 0px' : '15px 4px')};
   > span {
-    color: ${props => props.theme[props.coinType.colorCode]} !important;
+    color: ${(props) => props.theme[props.coinType.colorCode]} !important;
   }
   background-color: transparent;
 `
@@ -57,8 +54,8 @@ const AccountContainer = styled.div<{ isItem?: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left: ${props => (props.isItem ? '16px' : '12px')};
-  height: ${props => (props.isItem ? 'auto' : '100%')};
+  margin-left: ${(props) => (props.isItem ? '16px' : '12px')};
+  height: ${(props) => (props.isItem ? 'auto' : '100%')};
   padding: 12px 0;
   width: 100%;
   cursor: pointer;
@@ -75,13 +72,13 @@ const AccountContainer = styled.div<{ isItem?: boolean }>`
 
 const AmountContainer = styled.div<{ isItem?: boolean }>`
   display: flex;
-  margin-top: ${props => (props.isItem ? '4px' : '0px')};
+  margin-top: ${(props) => (props.isItem ? '4px' : '0px')};
 `
 
 const FiatContainer = styled.div`
   display: flex;
   font-size: 12px;
-  color: ${props => props.theme.grey400};
+  color: ${(props) => props.theme.grey400};
 `
 
 const CoinSelect = styled(SelectBox)`
@@ -108,7 +105,7 @@ const CoinSelect = styled(SelectBox)`
   .bc__group {
     &:not(:last-child) {
       ${AccountContainer} {
-        border-bottom: 1px solid ${props => props.theme.grey000};
+        border-bottom: 1px solid ${(props) => props.theme.grey000};
       }
     }
   }
@@ -133,7 +130,7 @@ class WalletBalanceDropdown extends Component<Props> {
     if (this.props.coin in FiatTypeEnum) return false
 
     const balance = this.coinBalance(this.props.coin)
-    const accounts = flatten(groups.map(group => group.options))
+    const accounts = flatten(groups.map((group) => group.options))
 
     if (balance > 0) {
       return true
@@ -150,18 +147,18 @@ class WalletBalanceDropdown extends Component<Props> {
     if (this.props.isCoinErc20) {
       this.props.modalActions.showModal('@MODAL.REQUEST.ETH', {
         coin: this.props.coin,
-        origin: 'WalletBalanceDropdown'
+        origin: 'WalletBalanceDropdown',
       })
     } else {
       const modal = `@MODAL.REQUEST.${this.props.coin}` as ModalNamesType
       this.props.modalActions.showModal(modal, {
         origin: 'WalletBalanceDropdown',
-        coin: this.props.coin
+        coin: this.props.coin,
       })
     }
   }
 
-  isTotalBalanceType = selectProps => {
+  isTotalBalanceType = (selectProps) => {
     // BTC/BCH
     if (selectProps.value === 'all') return true
     // ETH/PAX/STELLAR/ALGO
@@ -170,7 +167,7 @@ class WalletBalanceDropdown extends Component<Props> {
     return false
   }
 
-  coinBalance = selectProps => {
+  coinBalance = (selectProps) => {
     if (this.isTotalBalanceType(selectProps)) {
       // Total balance
       return this.props.data.getOrElse({
@@ -178,7 +175,7 @@ class WalletBalanceDropdown extends Component<Props> {
         balanceData: 0,
         currency: 'USD',
         currencySymbol: '$',
-        sbBalance: { available: '0', pending: '0', withdrawable: '0' }
+        sbBalance: { available: '0', pending: '0', withdrawable: '0' },
       } as SuccessStateType).balanceData
     } else if (selectProps.value) {
       // Account balance
@@ -193,7 +190,7 @@ class WalletBalanceDropdown extends Component<Props> {
     }
   }
 
-  accountLabel = selectProps => {
+  accountLabel = (selectProps) => {
     if (this.isTotalBalanceType(selectProps)) {
       // All label
       return this.props.coinModel.coinTicker
@@ -223,9 +220,7 @@ class WalletBalanceDropdown extends Component<Props> {
     }
 
     const hasPendingBalance = () => {
-      return (
-        data.sbBalance?.pending !== undefined && data.sbBalance?.pending !== '0'
-      )
+      return data.sbBalance?.pending !== undefined && data.sbBalance?.pending !== '0'
     }
 
     if (this.props.coin in CoinTypeEnum) {
@@ -240,7 +235,7 @@ class WalletBalanceDropdown extends Component<Props> {
                   this.props.coin as CoinType,
                   data.sbBalance?.pending || '0'
                 ),
-                unit: { symbol: this.props.coin }
+                unit: { symbol: this.props.coin },
               })}
             </Text>
           )
@@ -276,11 +271,8 @@ class WalletBalanceDropdown extends Component<Props> {
           <FormattedMessage id='copy.pending' defaultMessage='Pending' />
           {': '}
           {fiatToString({
-            value: convertBaseToStandard(
-              'FIAT',
-              data.sbBalance?.pending || '0'
-            ),
-            unit: this.props.coin as WalletFiatType
+            value: convertBaseToStandard('FIAT', data.sbBalance?.pending || '0'),
+            unit: this.props.coin as WalletFiatType,
           })}
         </Text>
       )
@@ -288,10 +280,7 @@ class WalletBalanceDropdown extends Component<Props> {
   }
 
   // FIXME: TypeScript use value: { AccountTypes }
-  renderDisplay = (
-    props: { selectProps: { options: Array<any> }; value },
-    children
-  ) => {
+  renderDisplay = (props: { selectProps: { options: Array<any> }; value }, children) => {
     const { coinCode } = this.props.coinModel
     const balance = this.coinBalance(props) || 0
     const account = this.accountLabel(props)
@@ -300,7 +289,7 @@ class WalletBalanceDropdown extends Component<Props> {
       balanceData: 0,
       currency: 'USD' as FiatType,
       currencySymbol: '$',
-      sbBalance: { available: '0', pending: '0', withdrawable: '0' }
+      sbBalance: { available: '0', pending: '0', withdrawable: '0' },
     } as SuccessStateType)
 
     return (
@@ -308,8 +297,7 @@ class WalletBalanceDropdown extends Component<Props> {
         <AccountContainer>
           {children && children.length && children[1]}
           <Text weight={500} color='grey400'>
-            {account}{' '}
-            <FormattedMessage id='copy.balance' defaultMessage='Balance' />
+            {account} <FormattedMessage id='copy.balance' defaultMessage='Balance' />
           </Text>
           <AmountContainer>
             <FiatDisplay
@@ -336,11 +324,7 @@ class WalletBalanceDropdown extends Component<Props> {
 
     return (
       <DisplayContainer coinType={coinType} isItem>
-        <Icon
-          color={coinType.colorCode}
-          name={coinType.icons.circleFilled}
-          size='32px'
-        />
+        <Icon color={coinType.colorCode} name={coinType.icons.circleFilled} size='32px' />
         <AccountContainer isItem>
           <Text weight={500} color='grey400' size='14px'>
             {account}{' '}
@@ -380,7 +364,7 @@ class WalletBalanceDropdown extends Component<Props> {
 
   render() {
     return this.props.data.cata({
-      Success: values => {
+      Success: (values) => {
         const { addressData } = values
         const options = addressData.data
         return (
@@ -400,19 +384,19 @@ class WalletBalanceDropdown extends Component<Props> {
           </Wrapper>
         )
       },
-      Failure: e => <Text>{typeof e === 'string' ? e : 'Unknown Error'}</Text>,
+      Failure: (e) => <Text>{typeof e === 'string' ? e : 'Unknown Error'}</Text>,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  data: getData(state, ownProps)
+  data: getData(state, ownProps),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  modalActions: bindActionCreators(actions.modals, dispatch)
+  modalActions: bindActionCreators(actions.modals, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

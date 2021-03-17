@@ -10,7 +10,7 @@ import {
   DisplayContainer,
   DisplayIcon,
   DisplaySubTitle,
-  DisplayTitle
+  DisplayTitle,
 } from 'components/SimpleBuy'
 
 const DisplayTitleBank = styled(DisplayTitle)`

@@ -1,13 +1,4 @@
-import {
-  append,
-  assoc,
-  assocPath,
-  compose,
-  dropLast,
-  lensProp,
-  over,
-  prepend
-} from 'ramda'
+import { append, assoc, assocPath, compose, dropLast, lensProp, over, prepend } from 'ramda'
 
 import Remote from '../../../remote'
 import * as AT from './actionTypes'
@@ -18,7 +9,7 @@ const INITIAL_STATE = {
   rates: Remote.NotAsked,
   transactions: [],
   transactions_at_bound: false,
-  transaction_history: Remote.NotAsked
+  transaction_history: Remote.NotAsked,
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -35,18 +26,10 @@ export default (state = INITIAL_STATE, action) => {
       return assoc('ledgerDetails', Remote.Failure(payload.e), state)
     }
     case AT.FETCH_ACCOUNT_SUCCESS: {
-      return assocPath(
-        ['data', payload.id],
-        Remote.Success(payload.account),
-        state
-      )
+      return assocPath(['data', payload.id], Remote.Success(payload.account), state)
     }
     case AT.FETCH_ACCOUNT_FAILURE: {
-      return assocPath(
-        ['data', payload.id],
-        Remote.Failure(payload.error),
-        state
-      )
+      return assocPath(['data', payload.id], Remote.Failure(payload.error), state)
     }
     case AT.FETCH_ACCOUNT_LOADING: {
       return assocPath(['data', payload.id], Remote.Loading, state)
@@ -70,11 +53,7 @@ export default (state = INITIAL_STATE, action) => {
       const { reset, txs } = payload
       return reset
         ? assoc('transactions', [Remote.Success(txs)], state)
-        : over(
-            lensProp('transactions'),
-            compose(append(Remote.Success(txs)), dropLast(1)),
-            state
-          )
+        : over(lensProp('transactions'), compose(append(Remote.Success(txs)), dropLast(1)), state)
     }
     case AT.FETCH_TRANSACTIONS_FAILURE: {
       return assoc('transactions', [Remote.Failure(payload)], state)

@@ -11,6 +11,6 @@ export const getData = (state: RootState, ownProps: OwnProps) => {
   const price24HrR = selectors.core.data.misc.getPriceChange(coin, 'day', state)
 
   return lift((price24Hr: ExtractSuccess<typeof price24HrR>) => ({
-    price24Hr
+    price24Hr,
   }))(price24HrR)
 }

@@ -6,17 +6,12 @@ import { Text } from 'blockchain-info-components'
 
 const Wrapper = styled.div``
 
-const Success = props => {
+const Success = (props) => {
   const { fiat } = props
 
   return (
     <Wrapper>
-      <Text
-        size='36px'
-        weight={400}
-        color='blue900'
-        data-e2e={props['data-e2e']}
-      >
+      <Text size='36px' weight={400} color='blue900' data-e2e={props['data-e2e']}>
         {fiat}
       </Text>
     </Wrapper>
@@ -24,7 +19,7 @@ const Success = props => {
 }
 
 Success.propTypes = {
-  fiat: PropTypes.string.isRequired
+  fiat: PropTypes.string.isRequired,
 }
 
 export default Success

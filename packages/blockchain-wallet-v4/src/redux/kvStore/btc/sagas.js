@@ -10,23 +10,22 @@ import { getMetadataXpriv } from '../root/selectors'
 import * as A from './actions'
 
 export default ({ api, networks }) => {
-  const createMetadataBtc = function * () {
+  const createMetadataBtc = function* () {
     yield delay(1000)
     const addressLabels = {}
 
     const wallet = yield select(getWallet)
     const accounts = Wallet.selectHDAccounts(wallet)
 
-    accounts.map(account => {
+    accounts.map((account) => {
       const hd = accounts.get(account.index)
-      account.address_labels.map(label => {
-        addressLabels[HDAccount.getReceiveAddress(hd, label.index)] =
-          label.label
+      account.address_labels.map((label) => {
+        addressLabels[HDAccount.getReceiveAddress(hd, label.index)] = label.label
       })
     })
 
     const newBtcEntry = {
-      address_labels: addressLabels
+      address_labels: addressLabels,
     }
 
     const typeId = derivationMap[BTC]
@@ -37,21 +36,21 @@ export default ({ api, networks }) => {
     yield put(A.createMetadataBtc(newkv))
   }
 
-  const getAddressLabelSize = function * () {
+  const getAddressLabelSize = function* () {
     const wallet = yield select(getWallet)
     const accounts = Wallet.selectHDAccounts(wallet)
 
     let labelSize = 0
     accounts
-      .map(account => account.address_labels)
-      .map(l => {
+      .map((account) => account.address_labels)
+      .map((l) => {
         labelSize += l.size
       })
 
     return labelSize
   }
 
-  const fetchMetadataBtc = function * () {
+  const fetchMetadataBtc = function* () {
     try {
       const typeId = derivationMap[BTC]
       const mxpriv = yield select(getMetadataXpriv)
@@ -71,6 +70,6 @@ export default ({ api, networks }) => {
 
   return {
     fetchMetadataBtc,
-    createMetadataBtc
+    createMetadataBtc,
   }
 }

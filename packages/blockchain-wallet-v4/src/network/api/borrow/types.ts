@@ -39,11 +39,7 @@ export type LoanTransactionsType = {
   }
 }
 
-export type LoanTransactionsStatusType =
-  | 'CONFIRMED'
-  | 'REQUESTED'
-  | 'UNCONFIRMED'
-  | 'FAILED'
+export type LoanTransactionsStatusType = 'CONFIRMED' | 'REQUESTED' | 'UNCONFIRMED' | 'FAILED'
 
 export type LoanType = {
   borrowerId: string

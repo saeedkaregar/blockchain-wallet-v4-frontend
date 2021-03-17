@@ -17,7 +17,7 @@ const Iframe = styled.iframe`
   margin-top: 16px;
 `
 
-const Success: React.FC<Props> = props => {
+const Success: React.FC<Props> = (props) => {
   return props.threeDSCallbackReceived ? (
     <Loading polling order={props.type === 'ORDER'} />
   ) : (
@@ -33,10 +33,10 @@ const Success: React.FC<Props> = props => {
             props.type === 'ORDER'
               ? props.simpleBuyActions.setStep({
                   step: 'ORDER_SUMMARY',
-                  order: props.order
+                  order: props.order,
                 })
               : props.simpleBuyActions.setStep({
-                  step: 'ADD_CARD'
+                  step: 'ADD_CARD',
                 })
           }}
         />

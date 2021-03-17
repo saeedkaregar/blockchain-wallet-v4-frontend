@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   balancesTable: 'total',
   menuOpened: true,
   settingsOpened: false,
-  lockboxOpened: false
+  lockboxOpened: false,
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -25,7 +25,7 @@ export default (state = INITIAL_STATE, action) => {
         trayContent: '',
         menuOpened: false,
         settingsOpened,
-        lockboxOpened
+        lockboxOpened,
       })
     }
     case AT.LAYOUT_WALLET_MENU_TOGGLE_CLICKED: {

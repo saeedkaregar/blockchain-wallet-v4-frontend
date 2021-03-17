@@ -31,7 +31,7 @@ class TwoStepSetupContainer extends React.PureComponent {
       this.props.modalActions.showModal('MobileNumberChange')
     } else if (!smsVerified) {
       this.props.modalActions.showModal('MobileNumberVerify', {
-        mobileNumber: smsNumber
+        mobileNumber: smsNumber,
       })
     } else {
       this.props.settingsActions.enableTwoStepMobile()
@@ -55,20 +55,17 @@ class TwoStepSetupContainer extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   authType: selectors.core.settings.getAuthType(state),
   smsNumber: selectors.core.settings.getSmsNumber(state),
-  smsVerified: selectors.core.settings.getSmsVerified(state)
+  smsVerified: selectors.core.settings.getSmsVerified(state),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   modalActions: bindActionCreators(actions.modals, dispatch),
-  settingsActions: bindActionCreators(actions.modules.settings, dispatch)
+  settingsActions: bindActionCreators(actions.modules.settings, dispatch),
 })
 
-const enhance = compose(
-  modalEnhancer('TwoStepSetup'),
-  connect(mapStateToProps, mapDispatchToProps)
-)
+const enhance = compose(modalEnhancer('TwoStepSetup'), connect(mapStateToProps, mapDispatchToProps))
 
 export default enhance(TwoStepSetupContainer)

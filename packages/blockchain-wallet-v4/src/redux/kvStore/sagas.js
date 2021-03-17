@@ -15,5 +15,5 @@ export default ({ api, networks }) => ({
   root: root({ api, networks }),
   userCredentials: userCredentials({ api, networks }),
   xlm: xlm({ api, networks }),
-  walletCredentials: walletCredentials({ api, networks })
+  walletCredentials: walletCredentials({ api, networks }),
 })

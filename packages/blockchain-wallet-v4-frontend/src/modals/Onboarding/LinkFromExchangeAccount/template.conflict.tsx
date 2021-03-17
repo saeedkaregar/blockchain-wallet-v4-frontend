@@ -70,21 +70,19 @@ class Conflict extends PureComponent<
     super(props)
 
     const { address, email } = props.error
-    const isEmail =
-      email && email.wallet !== 'null' && email.exchange !== 'null'
-    const isAddress =
-      address && address.wallet !== 'null' && address.exchange !== 'null'
+    const isEmail = email && email.wallet !== 'null' && email.exchange !== 'null'
+    const isAddress = address && address.wallet !== 'null' && address.exchange !== 'null'
 
     this.state = {
       allowSubmit: false,
       selectedAddress: null,
       selectedEmail: null,
       considerEmail: isEmail,
-      considerAddress: isAddress
+      considerAddress: isAddress,
     }
   }
 
-  handleAddress = event => {
+  handleAddress = (event) => {
     const { allowSubmit, considerEmail, selectedEmail } = this.state
     this.setState({ selectedAddress: event.target.value })
     if (!allowSubmit && (selectedEmail !== null || !considerEmail)) {
@@ -92,7 +90,7 @@ class Conflict extends PureComponent<
     }
   }
 
-  handleEmail = event => {
+  handleEmail = (event) => {
     const { allowSubmit, considerAddress, selectedAddress } = this.state
     this.setState({ selectedEmail: event.target.value })
     if (!allowSubmit && (selectedAddress !== null || !considerAddress)) {
@@ -122,9 +120,7 @@ class Conflict extends PureComponent<
     // determine which address to use, if any
     switch (true) {
       case !!selectedAddress:
-        chosenAddress = JSON.parse(
-          selectedAddress && error.address[selectedAddress]
-        )
+        chosenAddress = JSON.parse(selectedAddress && error.address[selectedAddress])
         break
       case error.address && error.address.wallet !== 'null':
         chosenAddress = JSON.parse(error.address.wallet)
@@ -171,7 +167,7 @@ class Conflict extends PureComponent<
       considerAddress,
       considerEmail,
       selectedAddress,
-      selectedEmail
+      selectedEmail,
     } = this.state
     const { address, email } = this.props.error
 
@@ -182,12 +178,7 @@ class Conflict extends PureComponent<
             <Icon cursor name='user' size='22px' color='blue600' />
           </FullWidthWrapper>
           <TitleWrapper>
-            <Text
-              color='grey900'
-              size='24px'
-              weight={600}
-              style={{ justifyContent: 'flex-start' }}
-            >
+            <Text color='grey900' size='24px' weight={600} style={{ justifyContent: 'flex-start' }}>
               <FormattedMessage
                 id='modals.onboarding.linkfromexchange.conflict'
                 defaultMessage='Profile Details'
@@ -224,9 +215,7 @@ class Conflict extends PureComponent<
                   <RadioInput type='radio' value='wallet' name='address' />
                   {this.printAddress(
                     address.wallet,
-                    !selectedAddress || selectedAddress === 'wallet'
-                      ? 'grey900'
-                      : 'grey600'
+                    !selectedAddress || selectedAddress === 'wallet' ? 'grey900' : 'grey600'
                   )}
                 </RadioInputLabel>
               </FullWidthWrapper>
@@ -236,9 +225,7 @@ class Conflict extends PureComponent<
                   <RadioInput type='radio' value='exchange' name='address' />
                   {this.printAddress(
                     address.exchange,
-                    !selectedAddress || selectedAddress === 'exchange'
-                      ? 'grey900'
-                      : 'grey600'
+                    !selectedAddress || selectedAddress === 'exchange' ? 'grey900' : 'grey600'
                   )}
                 </RadioInputLabel>
               </FullWidthWrapper>
@@ -276,14 +263,12 @@ class Conflict extends PureComponent<
                   <EmailContainer>
                     <Text
                       color={
-                        !selectedEmail || selectedEmail === email.wallet
-                          ? 'grey900'
-                          : 'grey600'
+                        !selectedEmail || selectedEmail === email.wallet ? 'grey900' : 'grey600'
                       }
                       weight={500}
                       style={{
                         justifyContent: 'flex-start',
-                        lineHeight: '32px'
+                        lineHeight: '32px',
                       }}
                     >
                       {email.wallet}
@@ -293,22 +278,16 @@ class Conflict extends PureComponent<
               </FullWidthWrapper>
               <FullWidthWrapper>
                 <RadioInputLabel>
-                  <RadioInput
-                    type='radio'
-                    value={email.exchange}
-                    name='email'
-                  />
+                  <RadioInput type='radio' value={email.exchange} name='email' />
                   <EmailContainer>
                     <Text
                       color={
-                        !selectedEmail || selectedEmail === email.exchange
-                          ? 'grey900'
-                          : 'grey600'
+                        !selectedEmail || selectedEmail === email.exchange ? 'grey900' : 'grey600'
                       }
                       weight={500}
                       style={{
                         justifyContent: 'flex-start',
-                        lineHeight: '32px'
+                        lineHeight: '32px',
                       }}
                     >
                       {email.exchange}
@@ -325,7 +304,7 @@ class Conflict extends PureComponent<
                 weight={500}
                 style={{
                   textAlign: 'left',
-                  marginTop: '34px'
+                  marginTop: '34px',
                 }}
               >
                 <FormattedHTMLMessage
@@ -342,7 +321,7 @@ class Conflict extends PureComponent<
                 weight={500}
                 style={{
                   textAlign: 'left',
-                  marginTop: '16px'
+                  marginTop: '16px',
                 }}
               >
                 <FormattedHTMLMessage
@@ -365,10 +344,7 @@ class Conflict extends PureComponent<
             disabled={!allowSubmit}
           >
             <Text color='white' size='16px' weight={500}>
-              <FormattedMessage
-                id='modals.prompt.button'
-                defaultMessage='Submit'
-              />
+              <FormattedMessage id='modals.prompt.button' defaultMessage='Submit' />
             </Text>
           </Button>
         </ButtonWrapper>

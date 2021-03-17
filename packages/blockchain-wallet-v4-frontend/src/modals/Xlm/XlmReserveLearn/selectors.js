@@ -4,43 +4,33 @@ import { mapObjIndexed } from 'ramda'
 import { Exchange } from 'blockchain-wallet-v4/src'
 import Currencies from 'blockchain-wallet-v4/src/exchange/currencies'
 
-const currencySymbolMap = mapObjIndexed(
-  (value, code) => value.units[code].symbol,
-  Currencies
-)
+const currencySymbolMap = mapObjIndexed((value, code) => value.units[code].symbol, Currencies)
 
-const convertXlmToFiat = (rates, currency) => amount =>
+const convertXlmToFiat = (rates, currency) => (amount) =>
   Exchange.convertXlmToFiat({
     value: amount,
     fromUnit: 'XLM',
     toCurrency: currency,
-    rates: rates
+    rates: rates,
   }).value
 
 export const getData = (state, props) => {
   const { currency, effectiveBalanceXlm, fee, rates, reserveXlm } = props
   const convertToFiat = convertXlmToFiat(rates, currency)
-  const totalAmountXlm = new BigNumber.sum(
-    effectiveBalanceXlm,
-    reserveXlm
-  ).toString()
+  const totalAmountXlm = new BigNumber.sum(effectiveBalanceXlm, reserveXlm).toString()
   const totalAmountFiat = convertToFiat(totalAmountXlm)
   const reserveFiat = convertToFiat(reserveXlm)
   const feeXlm = Exchange.convertXlmToXlm({
     value: fee,
     fromUnit: 'STROOP',
-    toUnit: 'XLM'
+    toUnit: 'XLM',
   }).value
   const feeFiat = convertToFiat(feeXlm)
-  const effectiveBalanceMinusFeeBig = new BigNumber(effectiveBalanceXlm).minus(
-    feeXlm
-  )
+  const effectiveBalanceMinusFeeBig = new BigNumber(effectiveBalanceXlm).minus(feeXlm)
   const effectiveBalanceMinusFeeXlm = effectiveBalanceMinusFeeBig.lt(0)
     ? '0'
     : effectiveBalanceMinusFeeBig.toString()
-  const effectiveBalanceMinusFeeFiat = convertToFiat(
-    effectiveBalanceMinusFeeXlm
-  )
+  const effectiveBalanceMinusFeeFiat = convertToFiat(effectiveBalanceMinusFeeXlm)
   const currencySymbol = currencySymbolMap[currency]
 
   return {
@@ -52,6 +42,6 @@ export const getData = (state, props) => {
     reserveFiat,
     reserveXlm,
     totalAmountFiat,
-    totalAmountXlm
+    totalAmountXlm,
   }
 }

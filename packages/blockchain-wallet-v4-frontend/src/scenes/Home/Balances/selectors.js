@@ -3,5 +3,5 @@ import { selectors } from 'data'
 
 export const getData = createDeepEqualSelector(
   [selectors.components.layoutWallet.getBalancesTable],
-  currentTab => ({ currentTab })
+  (currentTab) => ({ currentTab })
 )

@@ -8,7 +8,7 @@ import { actions, model } from 'data'
 import { getData } from './selectors'
 import Template from './template.success'
 
-const InterestBanner: React.FC<Props> = props => {
+const InterestBanner: React.FC<Props> = (props) => {
   useEffect(() => {
     props.interestActions.fetchInterestRate()
     props.analyticsActions.logEvent(model.analytics.ONE_CLICK_INTEREST.SEEN)
@@ -17,22 +17,22 @@ const InterestBanner: React.FC<Props> = props => {
   return (
     <>
       {props.data.cata({
-        Success: val => <Template {...props} {...val} />,
+        Success: (val) => <Template {...props} {...val} />,
         Failure: () => null,
         Loading: () => null,
-        NotAsked: () => null
+        NotAsked: () => null,
       })}
     </>
   )
 }
 
 const mapStateToProps = (state): LinkStatePropsType => ({
-  data: getData(state)
+  data: getData(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   interestActions: bindActionCreators(actions.components.interest, dispatch),
-  analyticsActions: bindActionCreators(actions.analytics, dispatch)
+  analyticsActions: bindActionCreators(actions.analytics, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

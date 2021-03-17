@@ -4,8 +4,8 @@ describe('goals selectors', () => {
   const mockState = {
     goals: {
       goals: { name: 'referral' },
-      initialModals: { key: '123' }
-    }
+      initialModals: { key: '123' },
+    },
   }
 
   it('getGoals should return goals', () => {
@@ -13,8 +13,6 @@ describe('goals selectors', () => {
   })
 
   it('getInitialModals should return modal', () => {
-    expect(selectors.getInitialModals(mockState)).toEqual(
-      mockState.goals.initialModals
-    )
+    expect(selectors.getInitialModals(mockState)).toEqual(mockState.goals.initialModals)
   })
 })

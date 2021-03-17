@@ -15,85 +15,82 @@ const INITIAL_STATE: SwapState = {
   step: 'INIT_SWAP',
   trades: {
     status: Remote.NotAsked,
-    list: []
-  }
+    list: [],
+  },
 }
 
-export function swapReducer(
-  state = INITIAL_STATE,
-  action: SwapActionTypes
-): SwapState {
+export function swapReducer(state = INITIAL_STATE, action: SwapActionTypes): SwapState {
   switch (action.type) {
     case AT.FETCH_CUSTODIAL_ELIGIBILITY_FAILURE: {
       return {
         ...state,
-        custodialEligibility: Remote.Failure(action.payload.error)
+        custodialEligibility: Remote.Failure(action.payload.error),
       }
     }
     case AT.FETCH_CUSTODIAL_ELIGIBILITY_LOADING: {
       return {
         ...state,
-        custodialEligibility: Remote.Loading
+        custodialEligibility: Remote.Loading,
       }
     }
     case AT.FETCH_CUSTODIAL_ELIGIBILITY_SUCCESS: {
       return {
         ...state,
-        custodialEligibility: Remote.Success(action.payload.eligibility)
+        custodialEligibility: Remote.Success(action.payload.eligibility),
       }
     }
     case AT.FETCH_LIMITS_FAILURE: {
       return {
         ...state,
-        limits: Remote.Failure(action.payload.error)
+        limits: Remote.Failure(action.payload.error),
       }
     }
     case AT.FETCH_LIMITS_LOADING: {
       return {
         ...state,
-        limits: Remote.Loading
+        limits: Remote.Loading,
       }
     }
     case AT.FETCH_LIMITS_SUCCESS: {
       return {
         ...state,
-        limits: Remote.Success(action.payload.limits)
+        limits: Remote.Success(action.payload.limits),
       }
     }
     case AT.FETCH_PAIRS_FAILURE: {
       return {
         ...state,
-        pairs: Remote.Failure(action.payload.error)
+        pairs: Remote.Failure(action.payload.error),
       }
     }
     case AT.FETCH_PAIRS_LOADING: {
       return {
         ...state,
-        pairs: Remote.Loading
+        pairs: Remote.Loading,
       }
     }
     case AT.FETCH_PAIRS_SUCCESS: {
       return {
         ...state,
-        pairs: Remote.Success(action.payload.pairs)
+        pairs: Remote.Success(action.payload.pairs),
       }
     }
     case AT.FETCH_QUOTE_FAILURE: {
       return {
         ...state,
-        quote: Remote.Failure(action.payload.error)
+        quote: Remote.Failure(action.payload.error),
       }
     }
     case AT.FETCH_QUOTE_LOADING: {
       return {
         ...state,
-        quote: Remote.Loading
+        quote: Remote.Loading,
       }
     }
     case AT.FETCH_QUOTE_SUCCESS: {
       return {
         ...state,
-        quote: Remote.Success(action.payload)
+        quote: Remote.Success(action.payload),
       }
     }
     case AT.FETCH_TRADES_FAILURE: {
@@ -101,8 +98,8 @@ export function swapReducer(
         ...state,
         trades: {
           ...state.trades,
-          status: Remote.Failure(action.payload.error)
-        }
+          status: Remote.Failure(action.payload.error),
+        },
       }
     }
     case AT.FETCH_TRADES_LOADING: {
@@ -110,8 +107,8 @@ export function swapReducer(
         ...state,
         trades: {
           ...state.trades,
-          status: Remote.Loading
-        }
+          status: Remote.Loading,
+        },
       }
     }
     case AT.FETCH_TRADES_SUCCESS: {
@@ -120,32 +117,32 @@ export function swapReducer(
         trades: {
           ...state.trades,
           status: Remote.Success('Success'),
-          list: [...state.trades.list, ...action.payload.trades]
-        }
+          list: [...state.trades.list, ...action.payload.trades],
+        },
       }
     }
     case AT.SET_CHECKOUT_FIX: {
       return {
         ...state,
-        fix: action.payload.fix
+        fix: action.payload.fix,
       }
     }
     case AT.UPDATE_PAYMENT_FAILURE: {
       return {
         ...state,
-        payment: Remote.Failure(action.payload.error)
+        payment: Remote.Failure(action.payload.error),
       }
     }
     case AT.UPDATE_PAYMENT_LOADING: {
       return {
         ...state,
-        payment: Remote.Loading
+        payment: Remote.Loading,
       }
     }
     case AT.UPDATE_PAYMENT_SUCCESS: {
       return {
         ...state,
-        payment: Remote.Success(action.payload.payment)
+        payment: Remote.Success(action.payload.payment),
       }
     }
     case AT.SET_STEP:
@@ -154,19 +151,19 @@ export function swapReducer(
           return {
             ...state,
             step: action.payload.step,
-            side: action.payload.options.side
+            side: action.payload.options.side,
           }
         case 'SUCCESSFUL_SWAP':
         case 'ORDER_DETAILS':
           return {
             ...state,
             step: action.payload.step,
-            order: action.payload.options.order
+            order: action.payload.options.order,
           }
         default: {
           return {
             ...state,
-            step: action.payload.step
+            step: action.payload.step,
           }
         }
       }

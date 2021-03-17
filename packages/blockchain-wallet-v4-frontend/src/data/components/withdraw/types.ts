@@ -5,7 +5,7 @@ import {
   WalletFiatType,
   WithdrawalLockResponseType,
   WithdrawalMinsAndFeesResponse,
-  WithdrawResponseType
+  WithdrawResponseType,
 } from 'blockchain-wallet-v4/src/types'
 
 import * as AT from './actionTypes'
@@ -22,7 +22,7 @@ export enum WithdrawStepEnum {
   INELIGIBLE = 'INELIGIBLE',
   LOADING = 'LOADING',
   WITHDRAWAL_DETAILS = 'WITHDRAWAL_DETAILS',
-  WITHDRAWAL_METHODS = 'WITHDRAWAL_METHODS'
+  WITHDRAWAL_METHODS = 'WITHDRAWAL_METHODS',
 }
 
 export type WithdrawStepActionsPayload =

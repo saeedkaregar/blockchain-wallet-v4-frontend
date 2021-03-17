@@ -4,17 +4,9 @@ import { path } from 'ramda'
 import styled from 'styled-components'
 
 import { Icon as BCIcon, Text } from 'blockchain-info-components'
-import {
-  CoinType,
-  CoinTypeEnum,
-  WalletFiatEnum
-} from 'blockchain-wallet-v4/src/types'
+import { CoinType, CoinTypeEnum, WalletFiatEnum } from 'blockchain-wallet-v4/src/types'
 
-import {
-  IconTx as SharedIconTx,
-  IconWrapper,
-  Timestamp as SharedTimestamp
-} from '../components'
+import { IconTx as SharedIconTx, IconWrapper, Timestamp as SharedTimestamp } from '../components'
 import Confirmations from '../NonCustodialTx/Confirmations'
 import { Props } from '.'
 
@@ -150,9 +142,7 @@ export const TransactionType = (props: Props) => {
       case 'SELL':
         return <FormattedMessage id='copy.sold' defaultMessage='Sold' />
       case 'WITHDRAWAL':
-        return (
-          <FormattedMessage id='buttons.withdrew' defaultMessage='Withdrew' />
-        )
+        return <FormattedMessage id='buttons.withdrew' defaultMessage='Withdrew' />
       default:
         return <></>
     }
@@ -175,9 +165,7 @@ export const Origin = (props: Props) => {
         <>{getSymbolDisplayName(props)} Trading Wallet</>
       )
     case 'WITHDRAWAL':
-      return (
-        <>{path([props.coin, 'displayName'], props.supportedCoins)} Wallet</>
-      )
+      return <>{path([props.coin, 'displayName'], props.supportedCoins)} Wallet</>
     default:
       return <></>
   }
@@ -205,10 +193,7 @@ export const Status = (props: Props) => {
   switch (props.tx.state) {
     case 'COMPLETE':
     case 'FINISHED':
-      if (
-        props.tx.amount.symbol in CoinTypeEnum &&
-        props.tx.extraAttributes?.confirmations
-      ) {
+      if (props.tx.amount.symbol in CoinTypeEnum && props.tx.extraAttributes?.confirmations) {
         return (
           <Confirmations
             coin={props.tx.amount.symbol}

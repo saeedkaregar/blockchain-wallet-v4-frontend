@@ -8,17 +8,11 @@ import {
   SBPaymentMethodType,
   SupportedFiatType,
   WalletCurrencyType,
-  WalletFiatEnum
+  WalletFiatEnum,
 } from 'blockchain-wallet-v4/src/types'
 import { FlyoutWrapper } from 'components/Flyout'
-import {
-  CARD_TYPES,
-  DEFAULT_CARD_SVG_LOGO
-} from 'components/Form/CreditCardBox/model'
-import {
-  getCoinFromPair,
-  getFiatFromPair
-} from 'data/components/simpleBuy/model'
+import { CARD_TYPES, DEFAULT_CARD_SVG_LOGO } from 'components/Form/CreditCardBox/model'
+import { getCoinFromPair, getFiatFromPair } from 'data/components/simpleBuy/model'
 import { getBankLogoImageName } from 'services/images'
 
 import { Props as OwnProps, SuccessStateType } from '../index'
@@ -38,7 +32,7 @@ const TopText = styled(Text)`
   margin-bottom: 7px;
 `
 const PaymentsWrapper = styled.div`
-  border-top: 1px solid ${props => props.theme.grey000};
+  border-top: 1px solid ${(props) => props.theme.grey000};
 `
 const NoMethods = styled(FlyoutWrapper)`
   text-align: center;
@@ -47,7 +41,7 @@ const IconContainer = styled.div`
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: ${props => props.theme.blue000};
+  background-color: ${(props) => props.theme.blue000};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,19 +54,9 @@ class Methods extends PureComponent<InjectedFormProps<{}, Props> & Props> {
     switch (value.type) {
       case 'BANK_TRANSFER':
       case 'LINK_BANK':
-        return (
-          <FormattedMessage
-            id='modals.simplebuy.banklink'
-            defaultMessage='Link a Bank'
-          />
-        )
+        return <FormattedMessage id='modals.simplebuy.banklink' defaultMessage='Link a Bank' />
       case 'BANK_ACCOUNT':
-        return (
-          <FormattedMessage
-            id='modals.simplebuy.bankwire'
-            defaultMessage='Wire Transfer'
-          />
-        )
+        return <FormattedMessage id='modals.simplebuy.bankwire' defaultMessage='Wire Transfer' />
       case 'PAYMENT_CARD':
         return (
           <FormattedMessage
@@ -128,21 +112,13 @@ class Methods extends PureComponent<InjectedFormProps<{}, Props> & Props> {
         if (!card) {
           return <></>
         }
-        const cardType = CARD_TYPES.find(cc => cc.type === card.type)
+        const cardType = CARD_TYPES.find((cc) => cc.type === card.type)
         return (
-          <img
-            height='18px'
-            width='auto'
-            src={cardType ? cardType.logo : DEFAULT_CARD_SVG_LOGO}
-          />
+          <img height='18px' width='auto' src={cardType ? cardType.logo : DEFAULT_CARD_SVG_LOGO} />
         )
       case 'FUNDS':
         return (
-          <Icon
-            size='32px'
-            color='fiat'
-            name={value.currency.toLowerCase() as 'eur' | 'gbp'}
-          />
+          <Icon size='32px' color='fiat' name={value.currency.toLowerCase() as 'eur' | 'gbp'} />
         )
       default:
         return <Image name='blank-card' />
@@ -168,40 +144,37 @@ class Methods extends PureComponent<InjectedFormProps<{}, Props> & Props> {
   render() {
     const { fiatCurrency, orderType } = this.props
     const availableCards = this.props.cards.filter(
-      card => card.state === 'ACTIVE' && orderType === 'BUY'
+      (card) => card.state === 'ACTIVE' && orderType === 'BUY'
     )
 
-    const defaultMethods = this.props.paymentMethods.methods.map(value => ({
+    const defaultMethods = this.props.paymentMethods.methods.map((value) => ({
       text: this.getType(value),
-      value
+      value,
     }))
 
     const defaultCardMethod = this.props.paymentMethods.methods.find(
-      m => m.type === 'PAYMENT_CARD' && orderType === 'BUY'
+      (m) => m.type === 'PAYMENT_CARD' && orderType === 'BUY'
     )
 
     const funds = defaultMethods.filter(
-      method =>
+      (method) =>
         method.value.type === 'FUNDS' &&
         method.value.currency in WalletFiatEnum &&
         (orderType === 'SELL' ||
-          Number(
-            this.props.balances[method.value.currency as WalletCurrencyType]
-              ?.available
-          ) > 0)
+          Number(this.props.balances[method.value.currency as WalletCurrencyType]?.available) > 0)
     )
 
     const paymentCard = defaultMethods.find(
-      method => method.value.type === 'PAYMENT_CARD' && orderType === 'BUY'
+      (method) => method.value.type === 'PAYMENT_CARD' && orderType === 'BUY'
     )
     const bankAccount = defaultMethods.find(
-      method => method.value.type === 'BANK_ACCOUNT' && orderType === 'BUY'
+      (method) => method.value.type === 'BANK_ACCOUNT' && orderType === 'BUY'
     )
     const bankTransfer = defaultMethods.find(
-      method => method.value.type === 'BANK_TRANSFER' && orderType === 'BUY'
+      (method) => method.value.type === 'BANK_TRANSFER' && orderType === 'BUY'
     )
 
-    const cardMethods = availableCards.map(card => ({
+    const cardMethods = availableCards.map((card) => ({
       text: card.card
         ? card.card.label
           ? card.card.label
@@ -215,20 +188,16 @@ class Methods extends PureComponent<InjectedFormProps<{}, Props> & Props> {
         limits:
           defaultCardMethod && defaultCardMethod.limits
             ? defaultCardMethod.limits
-            : { min: '1000', max: '500000' }
-      } as SBPaymentMethodType
+            : { min: '1000', max: '500000' },
+      } as SBPaymentMethodType,
     }))
 
     const availableMethods =
-      funds.length ||
-      cardMethods.length ||
-      paymentCard !== undefined ||
-      bankAccount !== undefined
+      funds.length || cardMethods.length || paymentCard !== undefined || bankAccount !== undefined
 
     const canDeposit =
       fiatCurrency &&
-      (this.props.supportedCoins[fiatCurrency] as SupportedFiatType)
-        ?.availability?.deposit
+      (this.props.supportedCoins[fiatCurrency] as SupportedFiatType)?.availability?.deposit
 
     return (
       <Wrapper>
@@ -248,7 +217,7 @@ class Methods extends PureComponent<InjectedFormProps<{}, Props> & Props> {
                     pair: this.props.pair,
                     orderType: this.props.orderType,
                     cryptoCurrency: getCoinFromPair(this.props.pair.pair),
-                    fiatCurrency: getFiatFromPair(this.props.pair.pair)
+                    fiatCurrency: getFiatFromPair(this.props.pair.pair),
                   })
                 }
               />
@@ -291,7 +260,7 @@ class Methods extends PureComponent<InjectedFormProps<{}, Props> & Props> {
                 onClick={() =>
                   this.handleSubmit({
                     ...bankTransfer.value,
-                    type: 'LINK_BANK'
+                    type: 'LINK_BANK',
                   })
                 }
               />
@@ -314,5 +283,5 @@ class Methods extends PureComponent<InjectedFormProps<{}, Props> & Props> {
 
 export default reduxForm<{}, Props>({
   form: 'sbPaymentMethods',
-  destroyOnUnmount: false
+  destroyOnUnmount: false,
 })(Methods)

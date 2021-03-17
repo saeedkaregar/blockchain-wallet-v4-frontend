@@ -25,17 +25,14 @@ class PromptContainer extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  value: formValueSelector('promptInputModal')(state, 'value')
+const mapStateToProps = (state) => ({
+  value: formValueSelector('promptInputModal')(state, 'value'),
 })
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions.wallet, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions.wallet, dispatch),
 })
 
-const enhance = compose(
-  modalEnhancer('PromptInput'),
-  connect(mapStateToProps, mapDispatchToProps)
-)
+const enhance = compose(modalEnhancer('PromptInput'), connect(mapStateToProps, mapDispatchToProps))
 
 export default enhance(PromptContainer)

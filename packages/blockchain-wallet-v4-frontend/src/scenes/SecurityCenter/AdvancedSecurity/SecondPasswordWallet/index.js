@@ -11,8 +11,8 @@ class SecondPasswordWalletContainer extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  secondPasswordEnabled: selectors.core.wallet.isSecondPasswordOn(state)
+const mapStateToProps = (state) => ({
+  secondPasswordEnabled: selectors.core.wallet.isSecondPasswordOn(state),
 })
 
 export default connect(mapStateToProps)(SecondPasswordWalletContainer)

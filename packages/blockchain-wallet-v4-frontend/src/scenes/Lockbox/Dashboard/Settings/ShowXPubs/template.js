@@ -7,10 +7,10 @@ import {
   SettingContainer,
   SettingDescription,
   SettingHeader,
-  SettingSummary
+  SettingSummary,
 } from 'components/Setting'
 
-const ShowXPubs = props => {
+const ShowXPubs = (props) => {
   const { onShowXPubs } = props
 
   return (

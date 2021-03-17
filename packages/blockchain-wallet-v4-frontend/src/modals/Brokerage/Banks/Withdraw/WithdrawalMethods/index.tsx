@@ -11,7 +11,7 @@ import Failure from './template.failure'
 import Loading from './template.loading'
 import Success from './template.success'
 
-const WithdrawalMethods = props => {
+const WithdrawalMethods = (props) => {
   useEffect(() => {
     if (props.fiatCurrency && !Remote.Success.is(props.data)) {
       props.simpleBuyActions.fetchSBFiatEligible(props.fiatCurrency)
@@ -21,16 +21,16 @@ const WithdrawalMethods = props => {
   }, [])
 
   return props.data.cata({
-    Success: val => <Success {...val} {...props} />,
+    Success: (val) => <Success {...val} {...props} />,
     Failure: () => <Failure {...props} />,
     Loading: () => <Loading />,
-    NotAsked: () => <Loading />
+    NotAsked: () => <Loading />,
   })
 }
 
 const mapStateToProps = (state: RootState) => ({
   addNew: state.components.brokerage.addNew,
-  data: getData(state)
+  data: getData(state),
 })
 
 export const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -38,7 +38,7 @@ export const mapDispatchToProps = (dispatch: Dispatch) => ({
   brokerageActions: bindActionCreators(actions.components.brokerage, dispatch),
   formActions: bindActionCreators(actions.form, dispatch),
   simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
-  withdrawActions: bindActionCreators(actions.components.withdraw, dispatch)
+  withdrawActions: bindActionCreators(actions.components.withdraw, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

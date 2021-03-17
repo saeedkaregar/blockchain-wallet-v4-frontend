@@ -32,5 +32,5 @@ export {
   modules,
   preferences,
   session,
-  wallet
+  wallet,
 }

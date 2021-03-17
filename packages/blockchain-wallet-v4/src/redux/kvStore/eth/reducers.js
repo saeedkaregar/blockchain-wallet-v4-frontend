@@ -26,42 +26,30 @@ export default (state = INITIAL_STATE, action) => {
     }
     case AT.SET_TRANSACTION_NOTE_ETH: {
       let valueLens = compose(mapped, KVStoreEntry.value)
-      let setNote = assocPath(
-        ['ethereum', 'tx_notes', payload.txHash],
-        payload.txNote
-      )
+      let setNote = assocPath(['ethereum', 'tx_notes', payload.txHash], payload.txNote)
       return over(valueLens, setNote, state)
     }
     case AT.SET_TRANSACTION_NOTE_ERC20: {
       let valueLens = compose(mapped, KVStoreEntry.value)
       let setNote = assocPath(
-        [
-          'ethereum',
-          'erc20',
-          toLower(payload.token),
-          'tx_notes',
-          payload.txHash
-        ],
+        ['ethereum', 'erc20', toLower(payload.token), 'tx_notes', payload.txHash],
         payload.txNote
       )
       return over(valueLens, setNote, state)
     }
     case AT.SET_LATEST_TX_ETH: {
       let valueLens = compose(mapped, KVStoreEntry.value)
-      let setTx = assocPath(['ethereum', 'last_tx'], payload)
+      const setTx = assocPath(['ethereum', 'last_tx'], payload)
       return over(valueLens, setTx, state)
     }
     case AT.SET_LATEST_TX_TIMESTAMP_ETH: {
       let valueLens = compose(mapped, KVStoreEntry.value)
-      let setTxTimestamp = assocPath(['ethereum', 'last_tx_timestamp'], payload)
+      const setTxTimestamp = assocPath(['ethereum', 'last_tx_timestamp'], payload)
       return over(valueLens, setTxTimestamp, state)
     }
     case AT.SET_ERC0_HAS_SEEN: {
       let valueLens = compose(mapped, KVStoreEntry.value)
-      let setHasSeen = assocPath(
-        ['ethereum', 'erc20', toLower(payload.token), 'has_seen'],
-        true
-      )
+      const setHasSeen = assocPath(['ethereum', 'erc20', toLower(payload.token), 'has_seen'], true)
       return over(valueLens, setHasSeen, state)
     }
     default:

@@ -12,7 +12,7 @@ const { EXCHANGE_EVENTS } = model.analytics
 class ExchangeContainer extends React.PureComponent<Props> {
   onSignup = () => {
     this.props.modalActions.showModal('LinkToExchangeAccount', {
-      origin: 'TheExchangePage'
+      origin: 'TheExchangePage',
     })
     this.props.analyticsActions.logEvent(EXCHANGE_EVENTS.CONNECT_NOW)
   }
@@ -28,21 +28,21 @@ class ExchangeContainer extends React.PureComponent<Props> {
 
 const mapStateToProps = (state): LinkStatePropsType => ({
   domains: selectors.core.walletOptions.getDomains(state).getOrElse({
-    exchange: 'https://exchange.blockchain.com'
+    exchange: 'https://exchange.blockchain.com',
   } as WalletOptionsType['domains']),
   isExchangeAccountLinked: selectors.modules.profile
     .isExchangeAccountLinked(state)
     .getOrElse(false),
   isExchangeRelinkRequired: selectors.modules.profile
     .isExchangeRelinkRequired(state)
-    .getOrElse(false)
+    .getOrElse(false),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   analyticsActions: bindActionCreators(actions.analytics, dispatch),
   modalActions: bindActionCreators(actions.modals, dispatch),
   preferencesActions: bindActionCreators(actions.preferences, dispatch),
-  profileActions: bindActionCreators(actions.modules.profile, dispatch)
+  profileActions: bindActionCreators(actions.modules.profile, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

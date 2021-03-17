@@ -14,7 +14,7 @@ class SmsAuthContainer extends React.PureComponent {
     this.state = {
       changeNumberToggled: false,
       verifyMobileNumberStep: false,
-      successToggled: false
+      successToggled: false,
     }
     this.handleMount = this.handleMount.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
@@ -41,12 +41,12 @@ class SmsAuthContainer extends React.PureComponent {
   }
   handleMount() {
     this.setState({
-      changeNumberToggled: !this.state.changeNumberToggled
+      changeNumberToggled: !this.state.changeNumberToggled,
     })
   }
   handleUpdate() {
     this.setState({
-      successToggled: !this.state.successToggled
+      successToggled: !this.state.successToggled,
     })
   }
 
@@ -58,11 +58,9 @@ class SmsAuthContainer extends React.PureComponent {
     const { smsNumber, smsVerified } = this.props.data.getOrElse({})
 
     if (this.state.changeNumberToggled || (!smsNumber && !smsVerified)) {
-      this.props.securityCenterActions.sendMobileVerificationCode(
-        this.props.mobileNumber
-      )
+      this.props.securityCenterActions.sendMobileVerificationCode(this.props.mobileNumber)
       this.setState({
-        changeNumberToggled: false
+        changeNumberToggled: false,
       })
     } else {
       this.props.securityCenterActions.verifyMobile(this.props.verificationCode)
@@ -73,7 +71,7 @@ class SmsAuthContainer extends React.PureComponent {
     const { data, goBack, verificationCode } = this.props
 
     return data.cata({
-      Success: value => (
+      Success: (value) => (
         <Sms
           data={value}
           handleClick={this.handleClick}
@@ -86,24 +84,21 @@ class SmsAuthContainer extends React.PureComponent {
       ),
       Failure: () => null,
       Loading: () => null,
-      NotAsked: () => null
+      NotAsked: () => null,
     })
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   mobileNumber: formValueSelector('securitySms')(state, 'mobileNumber'),
   verificationCode: formValueSelector('securitySms')(state, 'verificationCode'),
-  data: getData(state)
+  data: getData(state),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   modalActions: bindActionCreators(actions.modals, dispatch),
   settingsActions: bindActionCreators(actions.core.settings, dispatch),
-  securityCenterActions: bindActionCreators(
-    actions.modules.securityCenter,
-    dispatch
-  )
+  securityCenterActions: bindActionCreators(actions.modules.securityCenter, dispatch),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SmsAuthContainer)

@@ -11,27 +11,27 @@ export const languages = [
   { cultureCode: 'it-IT', language: 'it', name: 'Italian' },
   { cultureCode: 'pt-PT', language: 'pt', name: 'Portuguese' },
   { cultureCode: 'ru-RU', language: 'ru', name: 'Russian' },
-  { cultureCode: 'tr-TR', language: 'tr', name: 'Turkish' }
+  { cultureCode: 'tr-TR', language: 'tr', name: 'Turkish' },
 ]
 
 export const languagesSortedByName = sortBy(prop('name'))(languages)
 
 export function getLanguageName(cultureCode) {
-  let selectedLanguage = find(propEq('cultureCode', cultureCode))(languages)
+  const selectedLanguage = find(propEq('cultureCode', cultureCode))(languages)
   if (isNil(selectedLanguage)) return Maybe.Nothing()
 
   return Maybe.Just(selectedLanguage.name)
 }
 
 export function convertLanguageToCultureCode(language) {
-  let selectedLanguage = find(propEq('language', language))(languages)
+  const selectedLanguage = find(propEq('language', language))(languages)
   if (isNil(selectedLanguage)) return Maybe.Nothing()
 
   return Maybe.Just(selectedLanguage.cultureCode)
 }
 
 export function convertCultureCodeToLanguage(cultureCode) {
-  let selectedLanguage = find(propEq('cultureCode', cultureCode))(languages)
+  const selectedLanguage = find(propEq('cultureCode', cultureCode))(languages)
   if (isNil(selectedLanguage)) return Maybe.Nothing()
 
   return Maybe.Just(selectedLanguage.language)
@@ -60,12 +60,8 @@ export const loadLocaleData = (locale, callback) => {
   switch (locale) {
     case 'de':
       require.ensure(
-        [
-          'moment/locale/de.js',
-          'react-intl/locale-data/de.js',
-          '../../assets/locales/de.json'
-        ],
-        require => {
+        ['moment/locale/de.js', 'react-intl/locale-data/de.js', '../../assets/locales/de.json'],
+        (require) => {
           require('moment/locale/de.js')
           setLocaleData(
             require('react-intl/locale-data/de.js'),
@@ -77,12 +73,8 @@ export const loadLocaleData = (locale, callback) => {
       break
     case 'en':
       require.ensure(
-        [
-          'moment/locale/en-gb.js',
-          'react-intl/locale-data/en.js',
-          '../../assets/locales/en.json'
-        ],
-        require => {
+        ['moment/locale/en-gb.js', 'react-intl/locale-data/en.js', '../../assets/locales/en.json'],
+        (require) => {
           require('moment/locale/en-gb.js')
           setLocaleData(
             require('react-intl/locale-data/en.js'),
@@ -94,12 +86,8 @@ export const loadLocaleData = (locale, callback) => {
       break
     case 'es':
       require.ensure(
-        [
-          'moment/locale/es.js',
-          'react-intl/locale-data/es.js',
-          '../../assets/locales/es.json'
-        ],
-        require => {
+        ['moment/locale/es.js', 'react-intl/locale-data/es.js', '../../assets/locales/es.json'],
+        (require) => {
           require('moment/locale/es.js')
           setLocaleData(
             require('react-intl/locale-data/es.js'),
@@ -111,12 +99,8 @@ export const loadLocaleData = (locale, callback) => {
       break
     case 'fr':
       require.ensure(
-        [
-          'moment/locale/fr.js',
-          'react-intl/locale-data/fr.js',
-          '../../assets/locales/fr.json'
-        ],
-        require => {
+        ['moment/locale/fr.js', 'react-intl/locale-data/fr.js', '../../assets/locales/fr.json'],
+        (require) => {
           require('moment/locale/fr.js')
           setLocaleData(
             require('react-intl/locale-data/fr.js'),
@@ -128,12 +112,8 @@ export const loadLocaleData = (locale, callback) => {
       break
     case 'it':
       require.ensure(
-        [
-          'moment/locale/it.js',
-          'react-intl/locale-data/it.js',
-          '../../assets/locales/it.json'
-        ],
-        require => {
+        ['moment/locale/it.js', 'react-intl/locale-data/it.js', '../../assets/locales/it.json'],
+        (require) => {
           require('moment/locale/it.js')
           setLocaleData(
             require('react-intl/locale-data/it.js'),
@@ -145,12 +125,8 @@ export const loadLocaleData = (locale, callback) => {
       break
     case 'pt':
       require.ensure(
-        [
-          'moment/locale/pt.js',
-          'react-intl/locale-data/pt.js',
-          '../../assets/locales/pt.json'
-        ],
-        require => {
+        ['moment/locale/pt.js', 'react-intl/locale-data/pt.js', '../../assets/locales/pt.json'],
+        (require) => {
           require('moment/locale/pt.js')
           setLocaleData(
             require('react-intl/locale-data/pt.js'),
@@ -162,12 +138,8 @@ export const loadLocaleData = (locale, callback) => {
       break
     case 'ru':
       require.ensure(
-        [
-          'moment/locale/ru.js',
-          'react-intl/locale-data/ru.js',
-          '../../assets/locales/ru.json'
-        ],
-        require => {
+        ['moment/locale/ru.js', 'react-intl/locale-data/ru.js', '../../assets/locales/ru.json'],
+        (require) => {
           require('moment/locale/ru.js')
           setLocaleData(
             require('react-intl/locale-data/ru.js'),
@@ -179,12 +151,8 @@ export const loadLocaleData = (locale, callback) => {
       break
     case 'tr':
       require.ensure(
-        [
-          'moment/locale/tr.js',
-          'react-intl/locale-data/tr.js',
-          '../../assets/locales/tr.json'
-        ],
-        require => {
+        ['moment/locale/tr.js', 'react-intl/locale-data/tr.js', '../../assets/locales/tr.json'],
+        (require) => {
           require('moment/locale/tr.js')
           setLocaleData(
             require('react-intl/locale-data/tr.js'),
@@ -196,12 +164,8 @@ export const loadLocaleData = (locale, callback) => {
       break
     default:
       require.ensure(
-        [
-          'moment/locale/en-gb.js',
-          'react-intl/locale-data/en.js',
-          '../../assets/locales/en.json'
-        ],
-        require => {
+        ['moment/locale/en-gb.js', 'react-intl/locale-data/en.js', '../../assets/locales/en.json'],
+        (require) => {
           require('moment/locale/en-gb.js')
           setLocaleData(
             require('react-intl/locale-data/en.js'),
@@ -273,10 +237,10 @@ const stateList = {
   WA: 'Washington',
   WV: 'West Virginia',
   WI: 'Wisconsin',
-  WY: 'Wyoming'
+  WY: 'Wyoming',
 }
 
-export const getStateNameFromAbbreviation = abbreviation => {
+export const getStateNameFromAbbreviation = (abbreviation) => {
   return abbreviation && stateList[toUpper(abbreviation)]
     ? stateList[toUpper(abbreviation)]
     : abbreviation

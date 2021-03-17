@@ -5,7 +5,7 @@ import { LOG_LEVELS } from './model'
 
 const INITIAL_STATE = {
   logLevel: LOG_LEVELS.OFF,
-  logs: []
+  logs: [],
 }
 
 const logger = (state = INITIAL_STATE, action) => {
@@ -17,7 +17,7 @@ const logger = (state = INITIAL_STATE, action) => {
       file: payload.file,
       method: payload.method,
       timestamp: Date.now(),
-      message: payload.message
+      message: payload.message,
     }
   }
 

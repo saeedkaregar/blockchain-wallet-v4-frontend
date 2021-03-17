@@ -20,20 +20,20 @@ class FiatAtTime extends React.PureComponent<Props> {
     const { data } = this.props
 
     return data.cata({
-      Success: value => <Success fiatAtTime={value} />,
-      Failure: message => <Error>{message}</Error>,
+      Success: (value) => <Success fiatAtTime={value} />,
+      Failure: (message) => <Error>{message}</Error>,
       Loading: () => <Loading />,
-      NotAsked: () => null
+      NotAsked: () => null,
     })
   }
 }
 
 const mapStateToProps = (state, ownProps: OwnProps) => ({
-  data: getData(ownProps.hash, ownProps.currency, state)
+  data: getData(ownProps.hash, ownProps.currency, state),
 })
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions.core.data.btc, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions.core.data.btc, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

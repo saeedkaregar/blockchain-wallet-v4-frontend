@@ -9,7 +9,7 @@ const INITIAL_STATE: SendEthState = {
   step: 1,
   isContract: Remote.NotAsked,
   payment: Remote.NotAsked,
-  feeToggled: false
+  feeToggled: false,
 }
 
 export function sendEthReducer(state = INITIAL_STATE, action) {

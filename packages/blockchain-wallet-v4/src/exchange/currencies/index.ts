@@ -53,7 +53,7 @@ const FiatCurrencies = {
   SGD,
   THB,
   TRY,
-  TWD
+  TWD,
 }
 
 const CryptoCurrencies = {
@@ -64,18 +64,18 @@ const CryptoCurrencies = {
   PAX,
   XLM,
   USDT,
-  WDGLD
+  WDGLD,
 }
 
 const ERC20Currencies = {
   PAX,
   USDT,
-  WDGLD
+  WDGLD,
 }
 
 const Currencies = {
   ...CryptoCurrencies,
-  ...FiatCurrencies
+  ...FiatCurrencies,
 }
 
 export type FiatCurrenciesType = typeof FiatCurrencies

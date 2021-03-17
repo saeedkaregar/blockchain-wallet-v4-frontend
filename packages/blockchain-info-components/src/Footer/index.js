@@ -38,7 +38,7 @@ const GlobalFooter = styled.div`
 `
 
 const Container = styled.div.attrs({
-  className: 'flex-container'
+  className: 'flex-container',
 })`
   flex-direction: column;
   max-width: var(--siteMaxWidth);
@@ -154,7 +154,7 @@ const SocialLinksWrap = styled.div`
 `
 
 const SocialLinks = styled.a.attrs({
-  target: '_blank'
+  target: '_blank',
 })`
   display: flex;
   height: 2.5rem;
@@ -198,18 +198,18 @@ const BlueLogo = styled(Image)`
   }
 `
 
-let supportedLanguages = {
+const supportedLanguages = {
   da: 'Danish',
   de: 'German',
   en: 'English',
   es: 'Spanish',
-  fr: 'French'
+  fr: 'French',
 }
 
-let langItems = Object.keys(supportedLanguages).map(langKey => {
+const langItems = Object.keys(supportedLanguages).map((langKey) => {
   return {
     text: supportedLanguages[langKey],
-    value: langKey
+    value: langKey,
   }
 })
 
@@ -220,8 +220,8 @@ class Footer extends PureComponent {
 
     this.lang = this.cookies.get('clang') || 'en'
 
-    let langPathMatch = window.location.pathname.match(/^\/([a-z]{2})\//)
-    let langPath = langPathMatch && langPathMatch[1]
+    const langPathMatch = window.location.pathname.match(/^\/([a-z]{2})\//)
+    const langPath = langPathMatch && langPathMatch[1]
     if (langPath && langPath in supportedLanguages) {
       this.lang = langPath
     }
@@ -237,13 +237,10 @@ class Footer extends PureComponent {
     }
 
     let toLocation = window.location
-    let pathname = window.location.pathname
-    let langPathMatch = pathname.match(/^\/([a-z]{2})\/(.*)/)
+    const pathname = window.location.pathname
+    const langPathMatch = pathname.match(/^\/([a-z]{2})\/(.*)/)
     if (langPathMatch && langPathMatch[1] in supportedLanguages) {
-      toLocation =
-        value === 'en'
-          ? '/' + langPathMatch[2]
-          : '/' + value + '/' + langPathMatch[2]
+      toLocation = value === 'en' ? '/' + langPathMatch[2] : '/' + value + '/' + langPathMatch[2]
     } else {
       toLocation = value === 'en' ? pathname : '/' + value + pathname
     }
@@ -320,18 +317,12 @@ class Footer extends PureComponent {
                 <h5>Learn</h5>
                 <ul>
                   <li>
-                    <Link
-                      locale={this.lang}
-                      href={'/learning-portal/bitcoin-faq'}
-                    >
+                    <Link locale={this.lang} href={'/learning-portal/bitcoin-faq'}>
                       What is Bitcoin
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      locale={this.lang}
-                      href={'/learning-portal/ether-basics'}
-                    >
+                    <Link locale={this.lang} href={'/learning-portal/ether-basics'}>
                       What is Ethereum
                     </Link>
                   </li>
@@ -390,18 +381,14 @@ class Footer extends PureComponent {
                     <Link href='https://support.blockchain.com'>Support</Link>
                   </li>
                   <li>
-                    <Link href='https://www.blockchain-status.com/'>
-                      Status
-                    </Link>
+                    <Link href='https://www.blockchain-status.com/'>Status</Link>
                   </li>
                 </ul>
               </Column>
 
               <Column>
                 <BlueLogo name='blockchain-icon' height='44px' />
-                <Copyright>
-                  © {new Date().getFullYear()} BLOCKCHAIN LUXEMBOURG S.A.
-                </Copyright>
+                <Copyright>© {new Date().getFullYear()} BLOCKCHAIN LUXEMBOURG S.A.</Copyright>
               </Column>
             </SiteNav>
             <LangNav>

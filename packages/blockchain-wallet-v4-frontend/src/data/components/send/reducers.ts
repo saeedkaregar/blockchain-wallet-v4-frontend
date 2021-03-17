@@ -12,7 +12,7 @@ const INITIAL_STATE: SendState = {
     XLM: Remote.NotAsked,
     USDT: Remote.NotAsked,
     WDGLD: Remote.NotAsked,
-    ALGO: Remote.NotAsked
+    ALGO: Remote.NotAsked,
   },
   tradingPaymentsAccount: {
     BTC: Remote.NotAsked,
@@ -22,9 +22,9 @@ const INITIAL_STATE: SendState = {
     XLM: Remote.NotAsked,
     USDT: Remote.NotAsked,
     WDGLD: Remote.NotAsked,
-    ALGO: Remote.NotAsked
+    ALGO: Remote.NotAsked,
   },
-  withdrawLockCheck: Remote.NotAsked
+  withdrawLockCheck: Remote.NotAsked,
 }
 
 export function sendReducer(state = INITIAL_STATE, action) {
@@ -37,8 +37,8 @@ export function sendReducer(state = INITIAL_STATE, action) {
         ...state,
         exchangePaymentsAccount: {
           ...state.exchangePaymentsAccount,
-          [currency]: Remote.Success(data)
-        }
+          [currency]: Remote.Success(data),
+        },
       }
     }
     case AT.FETCH_PAYMENTS_ACCOUNT_EXCHANGE_LOADING: {
@@ -47,8 +47,8 @@ export function sendReducer(state = INITIAL_STATE, action) {
         ...state,
         exchangePaymentsAccount: {
           ...state.exchangePaymentsAccount,
-          [currency]: Remote.Loading
-        }
+          [currency]: Remote.Loading,
+        },
       }
     }
     case AT.FETCH_PAYMENTS_ACCOUNT_EXCHANGE_FAILURE: {
@@ -57,8 +57,8 @@ export function sendReducer(state = INITIAL_STATE, action) {
         ...state,
         exchangePaymentsAccount: {
           ...state.exchangePaymentsAccount,
-          [currency]: Remote.Failure(e)
-        }
+          [currency]: Remote.Failure(e),
+        },
       }
     }
     case AT.FETCH_PAYMENTS_TRADING_ACCOUNTS_SUCCESS: {
@@ -67,8 +67,8 @@ export function sendReducer(state = INITIAL_STATE, action) {
         ...state,
         tradingPaymentsAccount: {
           ...state.tradingPaymentsAccount,
-          [currency]: Remote.Success(tradingAccount)
-        }
+          [currency]: Remote.Success(tradingAccount),
+        },
       }
     }
     case AT.FETCH_PAYMENTS_TRADING_ACCOUNTS_LOADING: {
@@ -77,8 +77,8 @@ export function sendReducer(state = INITIAL_STATE, action) {
         ...state,
         tradingPaymentsAccount: {
           ...state.tradingPaymentsAccount,
-          [currency]: Remote.Loading
-        }
+          [currency]: Remote.Loading,
+        },
       }
     }
     case AT.FETCH_PAYMENTS_TRADING_ACCOUNTS_FAILURE: {
@@ -87,28 +87,26 @@ export function sendReducer(state = INITIAL_STATE, action) {
         ...state,
         tradingPaymentsAccount: {
           ...state.tradingPaymentsAccount,
-          [currency]: Remote.Failure(e)
-        }
+          [currency]: Remote.Failure(e),
+        },
       }
     }
     case AT.GET_LOCK_RULE_LOADING: {
       return {
         ...state,
-        withdrawLockCheck: Remote.Loading
+        withdrawLockCheck: Remote.Loading,
       }
     }
     case AT.GET_LOCK_RULE_SUCCESS: {
       return {
         ...state,
-        withdrawLockCheck: Remote.Success(
-          action.payload.withdrawalLockCheckResponse
-        )
+        withdrawLockCheck: Remote.Success(action.payload.withdrawalLockCheckResponse),
       }
     }
     case AT.GET_LOCK_RULE_FAILURE: {
       return {
         ...state,
-        withdrawLockCheck: Remote.Failure(action.payload.error)
+        withdrawLockCheck: Remote.Failure(action.payload.error),
       }
     }
     default:

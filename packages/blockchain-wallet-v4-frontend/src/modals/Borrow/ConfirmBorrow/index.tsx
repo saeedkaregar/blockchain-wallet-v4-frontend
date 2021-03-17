@@ -2,12 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators, compose, Dispatch } from 'redux'
 
-import {
-  OfferType,
-  PaymentValue,
-  RatesType,
-  RemoteDataType
-} from 'blockchain-wallet-v4/src/types'
+import { OfferType, PaymentValue, RatesType, RemoteDataType } from 'blockchain-wallet-v4/src/types'
 import DataError from 'components/DataError'
 import { actions } from 'data'
 import { RootState } from 'data/rootReducer'
@@ -25,31 +20,29 @@ class ConfirmBorrow extends PureComponent<Props> {
 
   render() {
     return this.props.data.cata({
-      Success: val => (
-        <Success {...val} {...this.props} onSubmit={this.handleSubmit} />
-      ),
+      Success: (val) => <Success {...val} {...this.props} onSubmit={this.handleSubmit} />,
       Failure: () => (
         <DataError
           onClick={() =>
             this.props.borrowActions.setStep({
               step: 'CHECKOUT',
-              offer: this.props.offer
+              offer: this.props.offer,
             })
           }
         />
       ),
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state: RootState): LinkStatePropsType => ({
-  data: getData(state)
+  data: getData(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch): LinkDispatchPropsType => ({
-  borrowActions: bindActionCreators(actions.components.borrow, dispatch)
+  borrowActions: bindActionCreators(actions.components.borrow, dispatch),
 })
 
 const enhance = compose(connect(mapStateToProps, mapDispatchToProps))

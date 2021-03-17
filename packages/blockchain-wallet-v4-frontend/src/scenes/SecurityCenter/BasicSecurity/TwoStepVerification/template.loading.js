@@ -9,7 +9,7 @@ import {
   SecurityDescription,
   SecurityHeader,
   SecurityIcon,
-  SecuritySummary
+  SecuritySummary,
 } from '../../components'
 
 const TwoStepVerification = () => {

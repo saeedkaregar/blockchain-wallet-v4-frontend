@@ -1,8 +1,4 @@
-import {
-  BankTransferAccountType,
-  RemoteDataType,
-  WalletFiatType
-} from 'core/types'
+import { BankTransferAccountType, RemoteDataType, WalletFiatType } from 'core/types'
 
 import * as AT from './actionTypes'
 
@@ -34,7 +30,7 @@ export enum BankDWStepType {
   ENTER_AMOUNT = 'ENTER_AMOUNT',
   INELIGIBLE = 'INELIGIBLE',
   LOADING = 'LOADING',
-  WIRE_INSTRUCTIONS = 'WIRE_INSTRUCTIONS'
+  WIRE_INSTRUCTIONS = 'WIRE_INSTRUCTIONS',
 }
 
 export type BrokerageDWStepPayload =
@@ -69,7 +65,7 @@ export type BankDetailsPayload = {
 export enum AddBankStepType {
   ADD_BANK = 'ADD_BANK',
   ADD_BANK_HANDLER = 'ADD_BANK_HANDLER',
-  ADD_BANK_STATUS = 'ADD_BANK_STATUS'
+  ADD_BANK_STATUS = 'ADD_BANK_STATUS',
 }
 
 export enum BrokerageModalOriginType {
@@ -77,7 +73,7 @@ export enum BrokerageModalOriginType {
   BANK = 'BankDetailsModal',
   DEPOSIT_BUTTON = 'BankDeposit',
   DW = 'DepositWithdrawalModal',
-  WITHDRAWAL = 'WithdrawModal'
+  WITHDRAWAL = 'WithdrawModal',
 }
 
 // State

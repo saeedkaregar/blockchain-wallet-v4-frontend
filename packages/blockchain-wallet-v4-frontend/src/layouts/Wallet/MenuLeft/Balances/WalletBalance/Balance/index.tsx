@@ -26,7 +26,7 @@ class Balance extends React.PureComponent<Props> {
     const { coin, coinTicker, data, large } = this.props
 
     return data.cata({
-      Success: value => (
+      Success: (value) => (
         <Success
           {...this.props}
           balance={value}
@@ -37,22 +37,22 @@ class Balance extends React.PureComponent<Props> {
       ),
       Failure: () => <Error onRefresh={this.handleRefresh} />,
       Loading: () => <LoadingBalance large={large} coinTicker={coinTicker} />,
-      NotAsked: () => <LoadingBalance large={large} coinTicker={coinTicker} />
+      NotAsked: () => <LoadingBalance large={large} coinTicker={coinTicker} />,
     })
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
   data: getData(state, ownProps),
-  erc20List: selectors.core.walletOptions.getErc20CoinList(state).getOrElse([])
+  erc20List: selectors.core.walletOptions.getErc20CoinList(state).getOrElse([]),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   bchActions: bindActionCreators(actions.core.data.bch, dispatch),
   btcActions: bindActionCreators(actions.core.data.btc, dispatch),
   ethActions: bindActionCreators(actions.core.data.eth, dispatch),
   stxActions: bindActionCreators(actions.core.data.stx, dispatch),
-  xlmActions: bindActionCreators(actions.core.data.xlm, dispatch)
+  xlmActions: bindActionCreators(actions.core.data.xlm, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

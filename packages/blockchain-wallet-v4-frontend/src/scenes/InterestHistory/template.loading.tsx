@@ -17,12 +17,7 @@ const Loading: React.FC<Props> = () => {
     <SceneWrapper centerContent>
       <Wrapper>
         <SpinningLoader width='36px' height='36px' />
-        <Text
-          size='18px'
-          weight={600}
-          color='grey600'
-          style={{ marginTop: '16px' }}
-        >
+        <Text size='18px' weight={600} color='grey600' style={{ marginTop: '16px' }}>
           Doing Work...
         </Text>
       </Wrapper>

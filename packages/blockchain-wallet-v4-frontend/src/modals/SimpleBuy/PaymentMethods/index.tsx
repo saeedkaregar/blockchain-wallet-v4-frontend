@@ -8,7 +8,7 @@ import {
   RemoteDataType,
   SBOrderActionType,
   SBOrderType,
-  SBPairType
+  SBPairType,
 } from 'blockchain-wallet-v4/src/types'
 import { actions, selectors } from 'data'
 import { RootState } from 'data/rootReducer'
@@ -30,24 +30,24 @@ class PaymentMethods extends PureComponent<Props> {
 
   render() {
     return this.props.data.cata({
-      Success: val => <Success {...val} {...this.props} />,
+      Success: (val) => <Success {...val} {...this.props} />,
       Failure: () => <Failure {...this.props} />,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state: RootState): LinkStatePropsType => ({
   data: getData(state),
-  fiatCurrency: selectors.components.simpleBuy.getFiatCurrency(state)
+  fiatCurrency: selectors.components.simpleBuy.getFiatCurrency(state),
 })
 
 export const mapDispatchToProps = (dispatch: Dispatch) => ({
   analyticsActions: bindActionCreators(actions.analytics, dispatch),
   brokerageActions: bindActionCreators(actions.components.brokerage, dispatch),
   formActions: bindActionCreators(actions.form, dispatch),
-  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch)
+  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

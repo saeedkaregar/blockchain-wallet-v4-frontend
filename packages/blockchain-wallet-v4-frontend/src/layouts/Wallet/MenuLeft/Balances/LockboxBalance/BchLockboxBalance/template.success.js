@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import { CoinBalanceWrapper } from '../../model'
 
-const Success = props => (
+const Success = (props) => (
   <LinkContainer to='/lockbox'>
     <div data-e2e='balanceDropdown-lockbox-bch'>
       <CoinBalanceWrapper coin='BCH' balance={props.balance} />
@@ -13,7 +13,7 @@ const Success = props => (
 )
 
 Success.propTypes = {
-  balance: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired
+  balance: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 }
 
 export default Success

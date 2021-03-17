@@ -10,12 +10,12 @@ import ArchivedAddresses from './template'
 const { WALLET_TX_SEARCH } = model.form
 
 class ArchivedAddressesContainer extends React.PureComponent<Props> {
-  handleToggleArchived = address => {
-    let isArchived = Types.Address.isArchived(address)
+  handleToggleArchived = (address) => {
+    const isArchived = Types.Address.isArchived(address)
     this.props.coreActions.setAddressArchived(address.addr, !isArchived)
   }
 
-  handleDelete = address => {
+  handleDelete = (address) => {
     this.props.coreActions.deleteLegacyAddress(address.addr)
   }
 
@@ -38,14 +38,14 @@ const selectArchived = compose(
   selectors.core.wallet.getWallet
 )
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   // @ts-ignore
   archivedAddresses: selectArchived(state).toArray(),
-  search: formValueSelector(WALLET_TX_SEARCH)(state, 'search')
+  search: formValueSelector(WALLET_TX_SEARCH)(state, 'search'),
 })
 
-const mapDispatchToProps = dispatch => ({
-  coreActions: bindActionCreators(actions.core.wallet, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  coreActions: bindActionCreators(actions.core.wallet, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

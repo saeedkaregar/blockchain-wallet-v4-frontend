@@ -11,18 +11,18 @@ import {
   SettingContainer,
   SettingDescription,
   SettingHeader,
-  SettingSummary
+  SettingSummary,
 } from 'components/Setting'
 import { actions, model } from 'data'
 
 const browser = Bowser.getParser(window.navigator.userAgent)
 const isSafari = browser.satisfies({
-  safari: '>8'
+  safari: '>8',
 })
 
 const TextWrapper = styled(Text)`
   a {
-    color: ${props => props.theme.blue600};
+    color: ${(props) => props.theme.blue600};
     text-decoration: none;
   }
 `
@@ -34,17 +34,9 @@ class CryptoLinkHandlingContainer extends React.PureComponent {
   onEnableClick = () => {
     this.setState({ warningDisplayed: !this.state.warningDisplayed })
     // Register BTC links
-    window.navigator.registerProtocolHandler(
-      'bitcoin',
-      '/#/open/%s',
-      'Blockchain'
-    )
+    window.navigator.registerProtocolHandler('bitcoin', '/#/open/%s', 'Blockchain')
     // Register BCH links
-    window.navigator.registerProtocolHandler(
-      'web+bitcoincash',
-      '/#/open/%s',
-      'Blockchain'
-    )
+    window.navigator.registerProtocolHandler('web+bitcoincash', '/#/open/%s', 'Blockchain')
     this.props.analyticsActions.logEvent(ENABLE_BTC_LINKS)
   }
 
@@ -97,8 +89,8 @@ class CryptoLinkHandlingContainer extends React.PureComponent {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  analyticsActions: bindActionCreators(actions.analytics, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  analyticsActions: bindActionCreators(actions.analytics, dispatch),
 })
 
 export default connect(null, mapDispatchToProps)(CryptoLinkHandlingContainer)

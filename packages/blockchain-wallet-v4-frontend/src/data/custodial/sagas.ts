@@ -6,7 +6,7 @@ import { errorHandler } from 'blockchain-wallet-v4/src/utils'
 import * as A from './actions'
 
 export default ({ api }: { api: APIType }) => {
-  const fetchBeneficiaries = function * () {
+  const fetchBeneficiaries = function* () {
     try {
       yield put(A.fetchCustodialBeneficiariesLoading())
 
@@ -22,6 +22,6 @@ export default ({ api }: { api: APIType }) => {
   }
 
   return {
-    fetchBeneficiaries
+    fetchBeneficiaries,
   }
 }

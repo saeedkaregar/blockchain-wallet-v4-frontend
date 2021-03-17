@@ -9,7 +9,7 @@ import {
   TableRow,
   Text,
   TooltipHost,
-  TooltipIcon
+  TooltipIcon,
 } from 'blockchain-info-components'
 import CoinDisplay from 'components/Display/CoinDisplay'
 
@@ -29,10 +29,7 @@ const UsedTable = ({ children }) => (
           />
         </Text>
       </TableCell>
-      <TableCell
-        width='20%'
-        style={{ display: 'flex', justifyContent: 'flex-end' }}
-      >
+      <TableCell width='20%' style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Text size='13px' weight={500} style={{ marginRight: '8px' }}>
           <FormattedMessage id='copy.balance' defaultMessage='Balance' />
         </Text>
@@ -50,8 +47,7 @@ const UsedTableEntry = ({ address, search }) => {
     return (
       !search ||
       address.address.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
-      (address.label &&
-        address.label.toLowerCase().indexOf(search.toLowerCase()) > -1)
+      (address.label && address.label.toLowerCase().indexOf(search.toLowerCase()) > -1)
     )
   }
 
@@ -71,10 +67,7 @@ const UsedTableEntry = ({ address, search }) => {
       <TableCell width='40%'>
         <Text size='13px'>{address.label}</Text>
       </TableCell>
-      <TableCell
-        width='20%'
-        style={{ display: 'flex', justifyContent: 'flex-end' }}
-      >
+      <TableCell width='20%' style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Text size='13px'>
           <CoinDisplay coin={'BTC'} size='13px' weight={400}>
             {address.final_balance}

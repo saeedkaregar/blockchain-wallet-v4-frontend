@@ -22,7 +22,7 @@ class Add extends PureComponent<Props> {
 
   handleSubmit = () => {
     this.props.brokerageActions.setAddBankStep({
-      addBankStep: AddBankStepType.ADD_BANK_HANDLER
+      addBankStep: AddBankStepType.ADD_BANK_HANDLER,
     })
   }
 
@@ -37,7 +37,7 @@ class Add extends PureComponent<Props> {
 
   render() {
     return this.props.data.cata({
-      Success: val => (
+      Success: (val) => (
         <Success
           {...this.props}
           {...val}
@@ -45,26 +45,26 @@ class Add extends PureComponent<Props> {
           handleBack={this.handleBack}
         />
       ),
-      Failure: e => (
+      Failure: (e) => (
         <DataError
           message={{ message: e }}
           onClick={this.props.simpleBuyActions.fetchSBPaymentMethods}
         />
       ),
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state: RootState) => ({
   data: getData(state),
-  fiatCurrency: selectors.components.simpleBuy.getFiatCurrency(state) || 'USD'
+  fiatCurrency: selectors.components.simpleBuy.getFiatCurrency(state) || 'USD',
 })
 
 const mapDispatchToProps = (dispatch: Dispatch): LinkDispatchPropsType => ({
   simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
-  brokerageActions: bindActionCreators(actions.components.brokerage, dispatch)
+  brokerageActions: bindActionCreators(actions.components.brokerage, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

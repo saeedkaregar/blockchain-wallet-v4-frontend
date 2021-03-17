@@ -5,7 +5,7 @@ export default ({ apiUrl, get, post, rootUrl }) => {
     get({
       url: apiUrl,
       endPoint: '/ticker',
-      data: { base: 'BTC' }
+      data: { base: 'BTC' },
     })
 
   const getBtcUnspents = (fromAddresses, confirmations = 0) =>
@@ -15,21 +15,21 @@ export default ({ apiUrl, get, post, rootUrl }) => {
       data: {
         active: fromAddresses.join('|'),
         confirmations: Math.max(confirmations, -1),
-        format: 'json'
-      }
+        format: 'json',
+      },
     })
 
   const getBtcFees = () =>
     get({
       url: apiUrl,
-      endPoint: '/mempool/fees'
+      endPoint: '/mempool/fees',
     })
 
-  const pushBtcTx = txHex =>
+  const pushBtcTx = (txHex) =>
     post({
       url: rootUrl,
       endPoint: '/pushtx',
-      data: { tx: txHex, format: 'plain' }
+      data: { tx: txHex, format: 'plain' },
     })
 
   const getBtcFiatAtTime = (amount, currency, time) =>
@@ -41,34 +41,34 @@ export default ({ apiUrl, get, post, rootUrl }) => {
         currency: toUpper(currency),
         time,
         textual: false,
-        nosavecurrency: true
-      }
+        nosavecurrency: true,
+      },
     })
 
   const getLatestBlock = () =>
     get({
       url: rootUrl,
-      endPoint: '/latestblock'
+      endPoint: '/latestblock',
     })
 
-  const getRawTx = txHex =>
+  const getRawTx = (txHex) =>
     get({
       url: rootUrl,
       endPoint: '/rawtx/' + txHex,
       data: {
         format: 'hex',
-        cors: 'true'
-      }
+        cors: 'true',
+      },
     })
 
-  const getBalances = addresses =>
+  const getBalances = (addresses) =>
     post({
       url: rootUrl,
       endPoint: '/balance',
       data: {
         active: addresses.join('|'),
-        format: 'json'
-      }
+        format: 'json',
+      },
     })
 
   return {
@@ -79,6 +79,6 @@ export default ({ apiUrl, get, post, rootUrl }) => {
     getBtcFiatAtTime,
     getLatestBlock,
     getRawTx,
-    getBalances
+    getBalances,
   }
 }

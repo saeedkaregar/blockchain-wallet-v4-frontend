@@ -2,59 +2,59 @@ import * as AT from './actionTypes'
 
 export const subscribeToAdvice = (pair, volume, fix, fiatCurrency) => ({
   type: AT.SUBSCRIBE_TO_ADVICE,
-  payload: { pair, volume, fix, fiatCurrency }
+  payload: { pair, volume, fix, fiatCurrency },
 })
-export const unsubscribeFromAdvice = pair => ({
+export const unsubscribeFromAdvice = (pair) => ({
   type: AT.UNSUBSCRIBE_FROM_ADVICE,
-  payload: { pair }
+  payload: { pair },
 })
-export const updateAdvice = quote => ({
+export const updateAdvice = (quote) => ({
   type: AT.UPDATE_ADVICE,
-  payload: { quote }
+  payload: { quote },
 })
 
 export const updatePairConfig = (pair, volume, fix, fiatCurrency) => ({
   type: AT.UPDATE_PAIR_CONFIG,
-  payload: { pair, config: { volume, fix, fiatCurrency } }
+  payload: { pair, config: { volume, fix, fiatCurrency } },
 })
 export const setPairQuote = (pair, quote) => ({
   type: AT.SET_PAIR_QUOTE,
-  payload: { pair, quote }
+  payload: { pair, quote },
 })
-export const pairUpdated = pair => ({
+export const pairUpdated = (pair) => ({
   type: AT.PAIR_UPDATED,
-  payload: { pair }
+  payload: { pair },
 })
 
 export const fetchAvailablePairs = () => ({
-  type: AT.FETCH_AVAILABLE_PAIRS
+  type: AT.FETCH_AVAILABLE_PAIRS,
 })
 export const availablePairsLoading = () => ({
-  type: AT.AVAILABLE_PAIRS_LOADING
+  type: AT.AVAILABLE_PAIRS_LOADING,
 })
-export const availablePairsSuccess = pairs => ({
+export const availablePairsSuccess = (pairs) => ({
   type: AT.AVAILABLE_PAIRS_SUCCESS,
-  payload: { pairs }
+  payload: { pairs },
 })
-export const availablePairsError = error => ({
+export const availablePairsError = (error) => ({
   type: AT.AVAILABLE_PAIRS_ERROR,
-  payload: { error }
+  payload: { error },
 })
 
-export const subscribeToRates = pairs => ({
+export const subscribeToRates = (pairs) => ({
   type: AT.SUBSCRIBE_TO_RATES,
-  payload: { pairs }
+  payload: { pairs },
 })
 export const unsubscribeFromRates = () => ({
-  type: AT.UNSUBSCRIBE_FROM_RATES
+  type: AT.UNSUBSCRIBE_FROM_RATES,
 })
 
-export const updateBestRates = rates => ({
+export const updateBestRates = (rates) => ({
   type: AT.UPDATE_BEST_RATES,
-  payload: { rates }
+  payload: { rates },
 })
 
-export const removeAdvice = pair => ({
+export const removeAdvice = (pair) => ({
   type: AT.REMOVE_ADVICE,
-  payload: { pair }
+  payload: { pair },
 })

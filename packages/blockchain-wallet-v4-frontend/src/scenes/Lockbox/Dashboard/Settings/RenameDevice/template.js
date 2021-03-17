@@ -11,7 +11,7 @@ import {
   SettingContainer,
   SettingDescription,
   SettingHeader,
-  SettingSummary
+  SettingSummary,
 } from 'components/Setting'
 import { required } from 'services/forms'
 
@@ -25,24 +25,14 @@ const ButtonWrapper = styled.div`
   }
 `
 
-const RenameDevice = props => {
-  const {
-    deviceName,
-    handleCancel,
-    handleSubmit,
-    handleToggle,
-    invalid,
-    updateToggled
-  } = props
+const RenameDevice = (props) => {
+  const { deviceName, handleCancel, handleSubmit, handleToggle, invalid, updateToggled } = props
 
   return (
     <SettingContainer>
       <SettingSummary>
         <SettingHeader>
-          <FormattedMessage
-            id='scenes.lockbox.settings.renamedevice.title'
-            defaultMessage='Name'
-          />
+          <FormattedMessage id='scenes.lockbox.settings.renamedevice.title' defaultMessage='Name' />
         </SettingHeader>
         <SettingDescription>
           <FormattedMessage
@@ -79,12 +69,7 @@ const RenameDevice = props => {
               <Button nature='empty' capitalize onClick={handleCancel}>
                 <FormattedMessage id='buttons.cancel' defaultMessage='Cancel' />
               </Button>
-              <Button
-                type='submit'
-                nature='primary'
-                capitalize
-                disabled={invalid}
-              >
+              <Button type='submit' nature='primary' capitalize disabled={invalid}>
                 <FormattedMessage
                   id='scenes.lockbox.settings.renamedevice.settings.save'
                   defaultMessage='Save'
@@ -101,9 +86,9 @@ const RenameDevice = props => {
 RenameDevice.propTypes = {
   updateToggled: PropTypes.bool.isRequired,
   handleToggle: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
 }
 
 export default reduxForm({
-  form: 'RenameDevice'
+  form: 'RenameDevice',
 })(RenameDevice)

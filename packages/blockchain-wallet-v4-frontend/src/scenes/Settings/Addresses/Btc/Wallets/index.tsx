@@ -17,22 +17,21 @@ class BtcWalletsContainer extends React.Component<Props> {
     return !Remote.Loading.is(nextProps.data)
   }
 
-  onAddNewWallet = wallets => {
-    const allWalletLabels = wallets.map(wallet => wallet.label)
+  onAddNewWallet = (wallets) => {
+    const allWalletLabels = wallets.map((wallet) => wallet.label)
     this.props.modalActions.showModal('AddBtcWallet', {
-      uniqueWalletName: value =>
-        requireUniqueWalletName(value, allWalletLabels),
-      origin: 'SettingsPage'
+      uniqueWalletName: (value) => requireUniqueWalletName(value, allWalletLabels),
+      origin: 'SettingsPage',
     })
   }
 
-  onUnarchive = i => {
+  onUnarchive = (i) => {
     this.props.coreActions.setAccountArchived(i, false)
   }
 
   onClickImport = () => {
     this.props.modalActions.showModal('ImportBtcAddress', {
-      origin: 'SettingsPage'
+      origin: 'SettingsPage',
     })
   }
 
@@ -40,7 +39,7 @@ class BtcWalletsContainer extends React.Component<Props> {
     const { data, search, walletsWithoutRemoteData, ...rest } = this.props
 
     return data.cata({
-      Success: value => (
+      Success: (value) => (
         <Template
           wallets={value}
           search={search && search.toLowerCase()}
@@ -52,7 +51,7 @@ class BtcWalletsContainer extends React.Component<Props> {
           {...rest}
         />
       ),
-      Failure: message => (
+      Failure: (message) => (
         <Template
           failure
           message={message}
@@ -67,21 +66,21 @@ class BtcWalletsContainer extends React.Component<Props> {
         />
       ),
       Loading: () => <div />,
-      NotAsked: () => <div />
+      NotAsked: () => <div />,
     })
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   modalActions: bindActionCreators(actions.modals, dispatch),
   coreActions: bindActionCreators(actions.core.wallet, dispatch),
-  actions: bindActionCreators(actions.core.data.btc, dispatch)
+  actions: bindActionCreators(actions.core.data.btc, dispatch),
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: getData(state),
   search: formValueSelector(WALLET_TX_SEARCH)(state, 'search'),
-  walletsWithoutRemoteData: getWalletsWithoutRemoteData(state)
+  walletsWithoutRemoteData: getWalletsWithoutRemoteData(state),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

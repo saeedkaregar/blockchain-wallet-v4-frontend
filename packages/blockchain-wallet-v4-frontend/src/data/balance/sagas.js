@@ -7,13 +7,13 @@ import { actions, actionTypes, selectors } from 'data'
 export const logLocation = 'balances'
 export const balancePath = ['payload', 'info', 'final_balance']
 
-export const getEthBalance = function * () {
+export const getEthBalance = function* () {
   try {
     const ethBalanceR = yield select(selectors.core.data.eth.getBalance)
     if (!Remote.Success.is(ethBalanceR)) {
       const ethData = yield take([
         actionTypes.core.data.eth.FETCH_ETH_DATA_SUCCESS,
-        actionTypes.core.data.eth.FETCH_ETH_DATA_FAILURE
+        actionTypes.core.data.eth.FETCH_ETH_DATA_FAILURE,
       ])
       return pathOr(0, balancePath, ethData)
     }
@@ -23,23 +23,18 @@ export const getEthBalance = function * () {
   }
 }
 
-export const getErc20Balance = function * (token) {
+export const getErc20Balance = function* (token) {
   try {
-    const erc20BalanceR = yield select(
-      selectors.core.data.eth.getErc20Balance,
-      token
-    )
+    const erc20BalanceR = yield select(selectors.core.data.eth.getErc20Balance, token)
     if (!Remote.Success.is(erc20BalanceR)) {
       yield put(actions.core.data.eth.fetchErc20Data(token))
       const erc20Data = yield take([
-        action =>
-          action.type ===
-            actionTypes.core.data.eth.FETCH_ERC20_TOKEN_DATA_SUCCESS &&
+        (action) =>
+          action.type === actionTypes.core.data.eth.FETCH_ERC20_TOKEN_DATA_SUCCESS &&
           action.payload.token === token,
-        action =>
-          action.type ===
-            actionTypes.core.data.eth.FETCH_ERC20_TOKEN_DATA_FAILURE &&
-          action.payload.token === token
+        (action) =>
+          action.type === actionTypes.core.data.eth.FETCH_ERC20_TOKEN_DATA_FAILURE &&
+          action.payload.token === token,
       ])
       return pathOr(0, balancePath, erc20Data)
     }
@@ -49,13 +44,13 @@ export const getErc20Balance = function * (token) {
   }
 }
 
-export const getBtcBalance = function * () {
+export const getBtcBalance = function* () {
   try {
     const btcBalanceR = yield select(selectors.core.data.btc.getBalance)
     if (!Remote.Success.is(btcBalanceR)) {
       const btcData = yield take([
         actionTypes.core.data.btc.FETCH_BTC_DATA_SUCCESS,
-        actionTypes.core.data.btc.FETCH_BTC_DATA_FAILURE
+        actionTypes.core.data.btc.FETCH_BTC_DATA_FAILURE,
       ])
       return pathOr(0, balancePath, btcData)
     }
@@ -65,13 +60,13 @@ export const getBtcBalance = function * () {
   }
 }
 
-export const getBchBalance = function * () {
+export const getBchBalance = function* () {
   try {
     const bchBalanceR = yield select(selectors.core.data.bch.getBalance)
     if (!Remote.Success.is(bchBalanceR)) {
       const bchData = yield take([
         actionTypes.core.data.bch.FETCH_BCH_DATA_SUCCESS,
-        actionTypes.core.data.bch.FETCH_BCH_DATA_FAILURE
+        actionTypes.core.data.bch.FETCH_BCH_DATA_FAILURE,
       ])
       return pathOr(0, balancePath, bchData)
     }
@@ -81,7 +76,7 @@ export const getBchBalance = function * () {
   }
 }
 
-export const getXlmBalance = function * () {
+export const getXlmBalance = function* () {
   try {
     const xlmBalanceR = yield select(selectors.core.data.xlm.getTotalBalance)
     if (!Remote.Success.is(xlmBalanceR)) {
@@ -94,7 +89,7 @@ export const getXlmBalance = function * () {
   }
 }
 
-export const waitForAllBalances = function * () {
+export const waitForAllBalances = function* () {
   const btcT = yield fork(getBtcBalance)
   const bchT = yield fork(getBchBalance)
   const ethT = yield fork(getEthBalance)

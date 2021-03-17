@@ -14,7 +14,7 @@ describe('kvStore bch reducers', () => {
   const accounts = [
     { label: 'a', archived: false },
     { label: 'b', archived: false },
-    { label: 'c', archived: true }
+    { label: 'c', archived: true },
   ]
 
   const bchMetadata = set(
@@ -23,8 +23,8 @@ describe('kvStore bch reducers', () => {
       accounts,
       default_account_idx: 2,
       tx_notes: {
-        dadadece41f18f717c2910d0c7a4bb2ad27465d58f855c2d8b1a32fc764fa7b2: 'tx'
-      }
+        dadadece41f18f717c2910d0c7a4bb2ad27465d58f855c2d8b1a32fc764fa7b2: 'tx',
+      },
     },
     KVStoreEntry.createEmpty(typeId)
   )
@@ -74,15 +74,8 @@ describe('kvStore bch reducers', () => {
     const accountIdx = 1
     const archived = true
     const action = actions.setAccountArchived(accountIdx, archived)
-    const setAccountArchived = assocPath(
-      ['accounts', accountIdx, 'archived'],
-      archived
-    )
-    const expectedState = over(
-      valueLens,
-      setAccountArchived,
-      bchMetadataSuccess
-    )
+    const setAccountArchived = assocPath(['accounts', accountIdx, 'archived'], archived)
+    const expectedState = over(valueLens, setAccountArchived, bchMetadataSuccess)
     expect(reducer(bchMetadataSuccess, action)).toEqual(expectedState)
   })
 
@@ -90,15 +83,8 @@ describe('kvStore bch reducers', () => {
     const accountIdx = 2
     const archived = false
     const action = actions.setAccountArchived(accountIdx, archived)
-    const setAccountArchived = assocPath(
-      ['accounts', accountIdx, 'archived'],
-      archived
-    )
-    const expectedState = over(
-      valueLens,
-      setAccountArchived,
-      bchMetadataSuccess
-    )
+    const setAccountArchived = assocPath(['accounts', accountIdx, 'archived'], archived)
+    const expectedState = over(valueLens, setAccountArchived, bchMetadataSuccess)
     expect(reducer(bchMetadataSuccess, action)).toEqual(expectedState)
   })
 
@@ -106,17 +92,12 @@ describe('kvStore bch reducers', () => {
     const index = 0
     const action = actions.setDefaultAccountIdx(index)
     const setDefaultBchAccount = assocPath(['default_account_idx'], index)
-    const expectedState = over(
-      valueLens,
-      setDefaultBchAccount,
-      bchMetadataSuccess
-    )
+    const expectedState = over(valueLens, setDefaultBchAccount, bchMetadataSuccess)
     expect(reducer(bchMetadataSuccess, action)).toEqual(expectedState)
   })
 
   it('should handle SET_TRANSACTION_NOTE_BCH', () => {
-    const txHash =
-      'cadadece41f18f717c2910d0c7a4bb2ad27465d58f855c2d8b1a32fc764fa7b2'
+    const txHash = 'cadadece41f18f717c2910d0c7a4bb2ad27465d58f855c2d8b1a32fc764fa7b2'
     const txNote = 'Hello, World!'
     const action = actions.setTxNotesBch(txHash, txNote)
     const setTxNote = assocPath(['tx_notes', txHash], txNote)

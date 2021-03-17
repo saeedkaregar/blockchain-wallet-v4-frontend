@@ -26,8 +26,8 @@ const AddressWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 16px 40px;
-  border-top: ${props => `1px solid ${props.theme.grey000}`};
-  border-bottom: ${props => `1px solid ${props.theme.grey000}`};
+  border-top: ${(props) => `1px solid ${props.theme.grey000}`};
+  border-bottom: ${(props) => `1px solid ${props.theme.grey000}`};
 `
 const AddressDisplay = styled.div`
   display: flex;
@@ -60,13 +60,7 @@ const ButtonsWrapper = styled.div`
 
 class RequestShowAddress extends React.PureComponent<Props> {
   render() {
-    const {
-      formValues,
-      handleClose,
-      setStep,
-      supportedCoins,
-      walletCurrency
-    } = this.props
+    const { formValues, handleClose, setStep, supportedCoins, walletCurrency } = this.props
     const { selectedAccount } = formValues
 
     const receiveAddress =
@@ -110,19 +104,11 @@ class RequestShowAddress extends React.PureComponent<Props> {
             </Text>
           </AddressDisplay>
           <ClipboardWrapper>
-            <CopyClipboardButton
-              textToCopy={receiveAddress}
-              color='blue600'
-              size='24px'
-            />
+            <CopyClipboardButton textToCopy={receiveAddress} color='blue600' size='24px' />
           </ClipboardWrapper>
         </AddressWrapper>
         <QRCodeContainer>
-          <QRCodeWrapper
-            data-e2e='requestAddressQrCode'
-            size={280}
-            value={receiveAddress}
-          />
+          <QRCodeWrapper data-e2e='requestAddressQrCode' size={280} value={receiveAddress} />
         </QRCodeContainer>
         <ButtonsWrapper>
           {selectedAccount.coin === 'BTC' && (
@@ -158,10 +144,10 @@ class RequestShowAddress extends React.PureComponent<Props> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   supportedCoins: selectors.core.walletOptions
     .getSupportedCoins(state)
-    .getOrElse({} as SupportedWalletCurrenciesType)
+    .getOrElse({} as SupportedWalletCurrenciesType),
 })
 
 const connector = connect(mapStateToProps)

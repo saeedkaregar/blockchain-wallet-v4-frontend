@@ -12,11 +12,7 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
 `
-const UsedAddressesTemplate = ({
-  onShowUsedAddresses,
-  usedAddressesVisible,
-  walletIndex
-}) => {
+const UsedAddressesTemplate = ({ onShowUsedAddresses, usedAddressesVisible, walletIndex }) => {
   return (
     <React.Fragment>
       <Wrapper>
@@ -52,9 +48,7 @@ const UsedAddressesTemplate = ({
           </Link>
         )}
       </Wrapper>
-      {usedAddressesVisible ? (
-        <UsedAddressesTable walletIndex={walletIndex} />
-      ) : null}
+      {usedAddressesVisible ? <UsedAddressesTable walletIndex={walletIndex} /> : null}
     </React.Fragment>
   )
 }

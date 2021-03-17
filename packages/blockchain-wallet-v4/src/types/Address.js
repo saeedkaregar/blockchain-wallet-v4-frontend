@@ -11,9 +11,8 @@ import { parseBIP38toECPair } from '../walletCrypto/importExport'
 import Type from './Type'
 import { iToJS } from './util'
 
-const eitherToTask = e => e.fold(Task.rejected, Task.of)
-const wrapPromiseInTask = fP =>
-  new Task((reject, resolve) => fP().then(resolve, reject))
+const eitherToTask = (e) => e.fold(Task.rejected, Task.of)
+const wrapPromiseInTask = (fP) => new Task((reject, resolve) => fP().then(resolve, reject))
 
 /* Address :: {
   priv :: String
@@ -50,11 +49,11 @@ export const isActive = compose(not, isArchived)
 export const isWatchOnly = compose(isNil, view(priv))
 export const isNotWatchOnly = compose(not, isWatchOnly)
 
-export const fromJS = x => (is(Address, x) ? x : new Address(x))
+export const fromJS = (x) => (is(Address, x) ? x : new Address(x))
 
 export const toJS = pipe(Address.guard, iToJS)
 
-export const reviver = jsObject => {
+export const reviver = (jsObject) => {
   return new Address(jsObject)
 }
 
@@ -67,9 +66,7 @@ export const archive = set(tag, 2)
 // unArchive :: Address -> Address
 export const unArchive = set(tag, 0)
 
-export const setArchived = curry((archived, address) =>
-  set(tag, archived ? 2 : 0, address)
-)
+export const setArchived = curry((archived, address) => set(tag, archived ? 2 : 0, address))
 
 // encrypt :: Number -> String -> String -> Address -> Task Error Address
 export const encrypt = curry((iterations, sharedKey, password, address) => {
@@ -85,14 +82,14 @@ export const decrypt = curry((iterations, sharedKey, password, address) => {
 
 // importAddress :: String|ECPair -> String? -> Number -> Network -> Address
 export const importAddress = (key, createdTime, label, network) => {
-  let object = {
+  const object = {
     priv: null,
     addr: null,
     label: label,
     tag: 0,
     created_time: createdTime,
     created_device_name: 'wallet-web',
-    created_device_version: 'v4'
+    created_device_version: 'v4',
   }
 
   switch (true) {
@@ -117,27 +114,19 @@ export const importAddress = (key, createdTime, label, network) => {
 }
 
 // fromString :: String -> Number -> String? -> String? -> { Network, API } -> Task Error Address
-export const fromString = (
-  keyOrAddr,
-  createdTime,
-  label,
-  bipPass,
-  { api, network }
-) => {
+export const fromString = (keyOrAddr, createdTime, label, bipPass, { api, network }) => {
   if (utils.btc.isValidBtcAddress(keyOrAddr)) {
     return Task.of(importAddress(keyOrAddr, createdTime, label, network))
   } else {
-    let format = utils.btc.detectPrivateKeyFormat(keyOrAddr)
-    let okFormats = ['base58', 'base64', 'hex', 'mini', 'sipa', 'compsipa']
+    const format = utils.btc.detectPrivateKeyFormat(keyOrAddr)
+    const okFormats = ['base58', 'base64', 'hex', 'mini', 'sipa', 'compsipa']
     if (format === 'bip38') {
       if (bipPass == null || bipPass === '') {
         return Task.rejected(new Error('needs_bip38'))
       }
-      let tryParseBIP38toECPair = Either.try(parseBIP38toECPair)
-      let keyE = tryParseBIP38toECPair(keyOrAddr, bipPass, network)
-      return eitherToTask(keyE).map(key =>
-        importAddress(key, createdTime, label, network)
-      )
+      const tryParseBIP38toECPair = Either.try(parseBIP38toECPair)
+      const keyE = tryParseBIP38toECPair(keyOrAddr, bipPass, network)
+      return eitherToTask(keyE).map((key) => importAddress(key, createdTime, label, network))
     } else if (format === 'mini' || format === 'base58') {
       let key
       try {
@@ -146,17 +135,17 @@ export const fromString = (
         return Task.rejected(e)
       }
       key.compressed = true
-      let cad = key.getAddress()
+      const cad = key.getAddress()
       key.compressed = false
-      let uad = key.getAddress()
+      const uad = key.getAddress()
       return wrapPromiseInTask(() => api.getBalances([cad, uad])).fold(
-        e => {
+        (e) => {
           key.compressed = true
           return importAddress(key, createdTime, label, network)
         },
-        o => {
-          let compBalance = o[cad].final_balance
-          let ucompBalance = o[uad].final_balance
+        (o) => {
+          const compBalance = o[cad].final_balance
+          const ucompBalance = o[uad].final_balance
           key.compressed = !(compBalance === 0 && ucompBalance > 0)
           return importAddress(key, createdTime, label, network)
         }

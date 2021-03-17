@@ -8,13 +8,13 @@ export default {
       rate: '1',
       symbol: '¢HK$',
       decimal_digits: 0,
-      currency: 'HKD'
+      currency: 'HKD',
     },
     HKD: {
       rate: '100',
       symbol: 'HK$',
       decimal_digits: 2,
-      currency: 'HKD'
-    }
-  }
+      currency: 'HKD',
+    },
+  },
 }

@@ -6,12 +6,12 @@ import {
   SettingContainer,
   SettingDescription,
   SettingHeader,
-  SettingSummary
+  SettingSummary,
 } from 'components/Setting'
 
 import Settings from './Settings'
 
-const WalletLanguage = props => {
+const WalletLanguage = (props) => {
   const { language } = props
 
   return (

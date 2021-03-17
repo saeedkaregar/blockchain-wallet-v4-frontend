@@ -11,13 +11,13 @@ import ErrorModal from './template'
 class ErrorBoundary extends React.Component {
   state = {
     error: null,
-    errorInfo: null
+    errorInfo: null,
   }
 
   componentDidCatch(error, info) {
     this.setState({
       error: error,
-      errorInfo: info
+      errorInfo: info,
     })
   }
 
@@ -46,15 +46,13 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  isAuthenticated: selectors.auth.isAuthenticated(state)
+const mapStateToProps = (state) => ({
+  isAuthenticated: selectors.auth.isAuthenticated(state),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   authActions: bindActionCreators(actions.auth, dispatch),
-  routerActions: bindActionCreators(actions.router, dispatch)
+  routerActions: bindActionCreators(actions.router, dispatch),
 })
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(ErrorBoundary)
-)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ErrorBoundary))

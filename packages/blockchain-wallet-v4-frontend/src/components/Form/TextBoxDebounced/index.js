@@ -17,10 +17,10 @@ const Error = styled(Text)`
   position: absolute;
   display: block;
   height: 15px;
-  top: ${props => (props.errorBottom ? '48px' : '-20px')};
+  top: ${(props) => (props.errorBottom ? '48px' : '-20px')};
   right: 0;
 `
-const getErrorState = meta => {
+const getErrorState = (meta) => {
   return meta.touched && meta.invalid ? 'invalid' : 'initial'
 }
 
@@ -38,13 +38,13 @@ class TextBoxDebounced extends React.Component {
     if (!equals(prevState.updatedValue, prevState.value)) {
       return {
         updatedValue: prevState.updatedValue,
-        value: prevState.updatedValue
+        value: prevState.updatedValue,
       }
     }
     if (!equals(nextProps.input.value, prevState.value)) {
       return {
         updatedValue: nextProps.input.value,
-        value: nextProps.input.value
+        value: nextProps.input.value,
       }
     }
     return null

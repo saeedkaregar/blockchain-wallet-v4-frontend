@@ -11,43 +11,37 @@ import {
   InterestRateType,
   InterestTransactionResponseType,
   InterestWithdrawalResponseType,
-  WithdrawalMinimumType
+  WithdrawalMinimumType,
 } from './types'
 
 export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
   // TODO - consider removing parameters since we never pass anything here
-  const getInterestAccountBalance = (
-    ccy?: CoinType,
-    din?: FiatType
-  ): InterestAccountBalanceType =>
+  const getInterestAccountBalance = (ccy?: CoinType, din?: FiatType): InterestAccountBalanceType =>
     authorizedGet({
       url: nabuUrl,
       endPoint: '/accounts/savings',
       data: {
         ccy,
-        din
-      }
+        din,
+      },
     })
 
   const getInterestEligible = (): InterestEligibleType =>
     authorizedGet({
       url: nabuUrl,
-      endPoint: '/savings/eligible'
+      endPoint: '/savings/eligible',
     })
 
   const getInterestInstruments = (): InterestInstrumentsType =>
     authorizedGet({
       url: nabuUrl,
-      endPoint: '/savings/instruments'
+      endPoint: '/savings/instruments',
     })
 
-  const getInterestLimits = (
-    ccy: CoinType,
-    currency: FiatType
-  ): { limits: InterestLimitsType } =>
+  const getInterestLimits = (ccy: CoinType, currency: FiatType): { limits: InterestLimitsType } =>
     authorizedGet({
       url: nabuUrl,
-      endPoint: `/savings/limits?ccy=${ccy}&currency=${currency}&`
+      endPoint: `/savings/limits?ccy=${ccy}&currency=${currency}&`,
     })
 
   const getInterestTransactions = (
@@ -57,7 +51,7 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
     nextPageUrl
       ? authorizedGet({
           url: nabuUrl,
-          endPoint: nextPageUrl + '&pending=true&'
+          endPoint: nextPageUrl + '&pending=true&',
         })
       : authorizedGet({
           url: nabuUrl,
@@ -65,28 +59,28 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
           data: {
             currency,
             product: 'SAVINGS',
-            pending: true
-          }
+            pending: true,
+          },
         })
 
   const getInterestSavingsRate = (): InterestRateType =>
     authorizedGet({
       url: nabuUrl,
-      endPoint: '/savings/rates'
+      endPoint: '/savings/rates',
     })
 
   const getInterestAccount = (ccy: CoinType): InterestAccountType =>
     authorizedGet({
       url: nabuUrl,
       ignoreQueryParams: true,
-      endPoint: `/payments/accounts/savings?ccy=${ccy}`
+      endPoint: `/payments/accounts/savings?ccy=${ccy}`,
     })
 
   const getWithdrawalMinsAndFees = (): WithdrawalMinimumType =>
     authorizedGet({
       url: nabuUrl,
       ignoreQueryParams: true,
-      endPoint: '/payments/withdrawals/fees?product=SAVINGS'
+      endPoint: '/payments/withdrawals/fees?product=SAVINGS',
     })
 
   const initiateInterestWithdrawal = (
@@ -99,10 +93,10 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
       data: {
         amount,
         currency,
-        withdrawalAddress
+        withdrawalAddress,
       },
       endPoint: '/savings/withdrawals',
-      url: nabuUrl
+      url: nabuUrl,
     })
 
   const transferFromCustodial = (
@@ -116,14 +110,14 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
         amount,
         currency,
         origin: 'SIMPLEBUY',
-        destination: 'SAVINGS'
-      }
+        destination: 'SAVINGS',
+      },
     })
 
   const getInterestCtaAfterTransaction = (): InterestAfterTransactionType =>
     authorizedGet({
       url: nabuUrl,
-      endPoint: '/savings/cta/after-transaction'
+      endPoint: '/savings/cta/after-transaction',
     })
 
   return {
@@ -137,6 +131,6 @@ export default ({ authorizedGet, authorizedPost, nabuUrl }) => {
     getInterestTransactions,
     getWithdrawalMinsAndFees,
     initiateInterestWithdrawal,
-    transferFromCustodial
+    transferFromCustodial,
   }
 }

@@ -14,35 +14,26 @@ import PendingSBTransactions from './PendingSBTransactions'
 const Title = styled(Text)`
   display: flex;
   flex-direction: row;
-  color: ${props => props.theme.grey800};
+  color: ${(props) => props.theme.grey800};
   font-weight: 600;
   font-size: 16px;
   line-height: 150%;
 `
 
-const Template = props => {
+const Template = (props) => {
   const { coins } = props
 
   return (
     <Wrapper>
       <Header onClick={props.handleToggle} data-e2e='balanceDropdown-wallet'>
         <Title>
-          <Image
-            name='wallet-blue'
-            size='22px'
-            style={{ marginRight: '14px' }}
-          />
+          <Image name='wallet-blue' size='22px' style={{ marginRight: '14px' }} />
           <FormattedMessage
             id='layouts.wallet.menutop.balance.walletbalance.wallet'
             defaultMessage='Wallet'
           />
         </Title>
-        <Icon
-          color='grey600'
-          name='caret'
-          size='10px'
-          className={props.isActive ? 'active' : ''}
-        />
+        <Icon color='grey600' name='caret' size='10px' className={props.isActive ? 'active' : ''} />
       </Header>
       <PendingSBTransactions />
       <BalancesWrapper className={props.isActive ? 'active' : ''}>
@@ -51,11 +42,7 @@ const Template = props => {
             (coin: SupportedWalletCurrencyType) =>
               coin.method &&
               coin.invited && (
-                <Balance
-                  coin={coin.coinCode}
-                  coinTicker={coin.coinTicker}
-                  key={coin.coinCode}
-                />
+                <Balance coin={coin.coinCode} coinTicker={coin.coinTicker} key={coin.coinCode} />
               ),
             coins
           )

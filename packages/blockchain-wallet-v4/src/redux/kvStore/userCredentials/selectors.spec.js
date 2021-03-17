@@ -6,13 +6,13 @@ describe('kvstore userCredentials selectors', () => {
   const lifetime_token = 'd753109e-23jd-42bd-82f1-cc904702asdfkjf'
 
   const userCredentialsMetadata = {
-    value: { user_id, lifetime_token }
+    value: { user_id, lifetime_token },
   }
 
   const successState = {
     kvStorePath: {
-      userCredentials: Remote.Success(userCredentialsMetadata)
-    }
+      userCredentials: Remote.Success(userCredentialsMetadata),
+    },
   }
 
   it('getMetadata should return success of metadata', () => {
@@ -32,8 +32,8 @@ describe('kvstore userCredentials selectors', () => {
 
   const loadingState = {
     kvStorePath: {
-      userCredentials: Remote.Loading
-    }
+      userCredentials: Remote.Loading,
+    },
   }
 
   it('getMetadata should return loading', () => {
@@ -53,8 +53,8 @@ describe('kvstore userCredentials selectors', () => {
 
   const failureState = {
     kvStorePath: {
-      userCredentials: Remote.Failure('Error in userCredentials metadata')
-    }
+      userCredentials: Remote.Failure('Error in userCredentials metadata'),
+    },
   }
 
   it('getMetadata should return failure', () => {

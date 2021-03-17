@@ -23,20 +23,20 @@ class EthLockboxBalance extends React.PureComponent {
     const { data } = this.props
 
     return data.cata({
-      Success: value => <Success balance={value} />,
+      Success: (value) => <Success balance={value} />,
       Failure: () => <Error onRefresh={this.handleRefresh} />,
       Loading: () => <LoadingBalance coin='ETH' />,
-      NotAsked: () => <LoadingBalance coin='ETH' />
+      NotAsked: () => <LoadingBalance coin='ETH' />,
     })
   }
 }
 
-const mapStateToProps = state => ({
-  data: getData(state)
+const mapStateToProps = (state) => ({
+  data: getData(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions.core.data.btc, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions.core.data.btc, dispatch),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EthLockboxBalance)

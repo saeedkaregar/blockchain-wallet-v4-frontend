@@ -8,12 +8,12 @@ import {
   SettingDescription,
   SettingHeader,
   SettingStatus,
-  SettingSummary
+  SettingSummary,
 } from 'components/Setting'
 
 import Settings from './Settings'
 
-const TwoStepVerificationRemember = props => {
+const TwoStepVerificationRemember = (props) => {
   const { authTypeNeverSave } = props
 
   return (
@@ -57,7 +57,7 @@ const TwoStepVerificationRemember = props => {
 }
 
 TwoStepVerificationRemember.propTypes = {
-  authTypeNeverSave: PropTypes.number.isRequired
+  authTypeNeverSave: PropTypes.number.isRequired,
 }
 
 export default TwoStepVerificationRemember

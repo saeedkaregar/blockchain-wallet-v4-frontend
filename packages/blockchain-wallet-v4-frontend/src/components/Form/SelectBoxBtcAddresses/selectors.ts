@@ -16,7 +16,7 @@ import {
   // @ts-ignore
   sequence,
   set,
-  sort
+  sort,
 } from 'ramda'
 
 import { Exchange, Remote } from 'blockchain-wallet-v4/src'
@@ -30,9 +30,9 @@ const allWallets = {
   options: [
     {
       label: 'All Bitcoin Wallets',
-      value: 'all'
-    }
-  ]
+      value: 'all',
+    },
+  ],
 }
 
 const allImportedAddresses = {
@@ -40,9 +40,9 @@ const allImportedAddresses = {
   options: [
     {
       label: 'All Imported Bitcoin Addresses',
-      value: 'allImportedAddresses'
-    }
-  ]
+      value: 'allImportedAddresses',
+    },
+  ],
 }
 
 export const getData = (
@@ -68,28 +68,28 @@ export const getData = (
     includeCustodial,
     includeExchangeAddress,
     includeInterest,
-    forceCustodialFirst
+    forceCustodialFirst,
   } = ownProps
 
-  const buildDisplay = wallet => {
+  const buildDisplay = (wallet) => {
     const label = collapse(wallet.label)
     if (has('balance', wallet)) {
-      let btcDisplay = Exchange.displayBtcToBtc({
+      const btcDisplay = Exchange.displayBtcToBtc({
         value: wallet.balance,
         fromUnit: 'SAT',
-        toUnit: 'BTC'
+        toUnit: 'BTC',
       })
       return label + ` (${btcDisplay})`
     }
     return label
   }
-  const buildCustodialDisplay = x => {
+  const buildCustodialDisplay = (x) => {
     return (
       `BTC Trading Wallet` +
       ` (${Exchange.displayBtcToBtc({
         value: x ? x.available : 0,
         fromUnit: 'SAT',
-        toUnit: 'BTC'
+        toUnit: 'BTC',
       })})`
     )
   }
@@ -99,51 +99,44 @@ export const getData = (
       ` (${Exchange.displayBtcToBtc({
         value: x ? x.balance : 0,
         fromUnit: 'SAT',
-        toUnit: 'BTC'
+        toUnit: 'BTC',
       })})`
     )
   }
   // @ts-ignore
-  const excluded = filter(x => !exclude.includes(x.label))
-  const toDropdown = map(x => ({ label: buildDisplay(x), value: x }))
+  const excluded = filter((x) => !exclude.includes(x.label))
+  const toDropdown = map((x) => ({ label: buildDisplay(x), value: x }))
   const toGroup = curry((label, options) => [{ label, options }])
-  const toExchange = x => [{ label: `Exchange BTC Address`, value: x }]
-  const toCustodialDropdown = currencyDetails => [
+  const toExchange = (x) => [{ label: `Exchange BTC Address`, value: x }]
+  const toCustodialDropdown = (currencyDetails) => [
     {
       label: buildCustodialDisplay(currencyDetails),
       value: {
         ...currencyDetails,
         type: ADDRESS_TYPES.CUSTODIAL,
-        label: 'BTC Trading Wallet'
-      }
-    }
+        label: 'BTC Trading Wallet',
+      },
+    },
   ]
-  const toInterestDropdown = x => [
+  const toInterestDropdown = (x) => [
     {
       label: buildInterestDisplay(x),
       value: {
         ...x,
         type: ADDRESS_TYPES.INTEREST,
-        label: 'BTC Interest Wallet'
-      }
-    }
+        label: 'BTC Interest Wallet',
+      },
+    },
   ]
 
-  const exchangeAddress = selectors.components.send.getPaymentsAccountExchange(
-    'BTC',
-    state
-  )
+  const exchangeAddress = selectors.components.send.getPaymentsAccountExchange('BTC', state)
   const hasExchangeAddress = Remote.Success.is(exchangeAddress)
 
-  const accountAddress = selectors.components.send.getPaymentsTradingAccountAddress(
-    'BTC',
-    state
-  )
+  const accountAddress = selectors.components.send.getPaymentsTradingAccountAddress('BTC', state)
   const hasAccountAddress = Remote.Success.is(accountAddress)
 
   const showCustodial = includeCustodial && !forceCustodialFirst
-  const showCustodialWithAddress =
-    includeCustodial && forceCustodialFirst && hasAccountAddress
+  const showCustodialWithAddress = includeCustodial && forceCustodialFirst && hasAccountAddress
 
   const getAddressesData = () => {
     return sequence(Remote.of, [
@@ -158,9 +151,9 @@ export const getData = (
       showCustodial || showCustodialWithAddress
         ? selectors.components.simpleBuy
             .getSBBalances(state)
-            .map(x => ({
+            .map((x) => ({
               ...x.BTC,
-              address: accountAddress ? accountAddress.data : null
+              address: accountAddress ? accountAddress.data : null,
             }))
             .map(toCustodialDropdown)
             .map(toGroup('Custodial Wallet'))
@@ -168,7 +161,7 @@ export const getData = (
       includeInterest
         ? selectors.components.interest
             .getInterestAccountBalance(state)
-            .map(x => x.BTC)
+            .map((x) => x.BTC)
             .map(toInterestDropdown)
             .map(toGroup('Interest Wallet'))
         : Remote.of([]),
@@ -178,7 +171,7 @@ export const getData = (
             .getAddressesBalances(state)
             .map(toDropdown)
             .map(toGroup('Imported Addresses'))
-            .map(x =>
+            .map((x) =>
               set(
                 // @ts-ignore
                 compose(lensIndex(0), lensProp('options')),
@@ -196,11 +189,9 @@ export const getData = (
             .getLockboxBtcBalances(state)
             .map(excluded)
             .map(toDropdown)
-            .map(toGroup('Lockbox'))
+            .map(toGroup('Lockbox')),
     ]).map(([b1, b2, b3, b4, b5]) => {
-      const orderArray = forceCustodialFirst
-        ? [b3, b1, b2, b4, b5]
-        : [b1, b2, b3, b4, b5]
+      const orderArray = forceCustodialFirst ? [b3, b1, b2, b4, b5] : [b1, b2, b3, b4, b5]
       // @ts-ignore
       const data = reduce(concat, [], orderArray) as array
 

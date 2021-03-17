@@ -8,13 +8,13 @@ export default {
       rate: '1',
       symbol: '¢NZ$',
       decimal_digits: 0,
-      currency: 'NZD'
+      currency: 'NZD',
     },
     NZD: {
       rate: '100',
       symbol: 'NZ$',
       decimal_digits: 2,
-      currency: 'NZD'
-    }
-  }
+      currency: 'NZD',
+    },
+  },
 }

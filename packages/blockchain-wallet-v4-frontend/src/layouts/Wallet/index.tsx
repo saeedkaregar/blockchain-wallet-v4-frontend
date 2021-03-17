@@ -9,18 +9,12 @@ import WalletLayout from './template'
 
 class WalletLayoutContainer extends React.PureComponent<Props> {
   render() {
-    const {
-      component: Component,
-      computedMatch,
-      isAuthenticated,
-      path,
-      ...rest
-    } = this.props
+    const { component: Component, computedMatch, isAuthenticated, path, ...rest } = this.props
 
     return isAuthenticated ? (
       <Route
         path={path}
-        render={props => (
+        render={(props) => (
           <WalletLayout location={props.location} coin={this.props.coin}>
             <Component computedMatch={computedMatch} {...rest} />
           </WalletLayout>
@@ -32,8 +26,8 @@ class WalletLayoutContainer extends React.PureComponent<Props> {
   }
 }
 
-const mapStateToProps = state => ({
-  isAuthenticated: selectors.auth.isAuthenticated(state)
+const mapStateToProps = (state) => ({
+  isAuthenticated: selectors.auth.isAuthenticated(state),
 })
 
 const connector = connect(mapStateToProps)

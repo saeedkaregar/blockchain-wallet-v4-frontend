@@ -12,13 +12,13 @@ export const DEFAULT_PRICE_CHANGE: PriceChangeType = {
   overallChange: {
     percentChange: '0',
     diff: '0',
-    movement: 'none'
+    movement: 'none',
   },
   positionChange: {
     diff: '0',
     percentChange: '0',
-    movement: 'none'
-  }
+    movement: 'none',
+  },
 }
 
 export const initialPriceChange = {
@@ -32,7 +32,7 @@ export const initialPriceChange = {
   WDGLD: Remote.NotAsked,
   EUR: Remote.Success(DEFAULT_PRICE_CHANGE),
   GBP: Remote.Success(DEFAULT_PRICE_CHANGE),
-  USD: Remote.Success(DEFAULT_PRICE_CHANGE)
+  USD: Remote.Success(DEFAULT_PRICE_CHANGE),
 }
 
 export const start: { [key in CoinType]: number } = {
@@ -43,26 +43,15 @@ export const start: { [key in CoinType]: number } = {
   ALGO: 0,
   USDT: 0,
   PAX: 0,
-  WDGLD: 0
+  WDGLD: 0,
 }
 
-export const calculateStart = (
-  coin: CoinType,
-  time: PriceChangeTimeRangeType
-) => {
+export const calculateStart = (coin: CoinType, time: PriceChangeTimeRangeType) => {
   const coinStart = prop(coin, start)
-  const dayStart = moment()
-    .subtract(1, 'day')
-    .format('X')
-  const weekStart = moment()
-    .subtract(7, 'day')
-    .format('X')
-  const monthStart = moment()
-    .subtract(1, 'month')
-    .format('X')
-  const yearStart = moment()
-    .subtract(1, 'year')
-    .format('X')
+  const dayStart = moment().subtract(1, 'day').format('X')
+  const weekStart = moment().subtract(7, 'day').format('X')
+  const monthStart = moment().subtract(1, 'month').format('X')
+  const yearStart = moment().subtract(1, 'year').format('X')
 
   switch (time) {
     case 'all':

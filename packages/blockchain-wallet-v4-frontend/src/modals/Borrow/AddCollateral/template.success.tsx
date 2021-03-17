@@ -5,20 +5,9 @@ import { compose } from 'redux'
 import { BaseFieldProps, Field, InjectedFormProps, reduxForm } from 'redux-form'
 import styled from 'styled-components'
 
-import {
-  Button,
-  HeartbeatLoader,
-  Icon,
-  Text,
-  TooltipHost
-} from 'blockchain-info-components'
+import { Button, HeartbeatLoader, Icon, Text, TooltipHost } from 'blockchain-info-components'
 import { FlyoutWrapper } from 'components/Flyout'
-import {
-  CoinBalanceDropdown,
-  Form,
-  FormLabel,
-  NumberBox
-} from 'components/Form'
+import { CoinBalanceDropdown, Form, FormLabel, NumberBox } from 'components/Form'
 import QRCodeWrapper from 'components/QRCode/Wrapper'
 import { model, selectors } from 'data'
 import { BorrowFormValuesType } from 'data/components/borrow/types'
@@ -89,7 +78,7 @@ const QRCodeBox = styled.div`
   display: flex;
   padding: 16px;
   border-radius: 8px;
-  border: 1px solid ${props => props.theme.grey000};
+  border: 1px solid ${(props) => props.theme.grey000};
 `
 const IconContainer = styled.div`
   display: flex;
@@ -105,10 +94,10 @@ const FiatContainer = styled.div`
   display: inline-block;
   padding: 4px 8px;
   border-radius: 20px;
-  background-color: ${props => props.theme.grey000};
+  background-color: ${(props) => props.theme.grey000};
 `
 
-const Success: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
+const Success: React.FC<InjectedFormProps<{}, Props> & Props> = (props) => {
   const collateralRequired = getCollateralAmtRequired(props.loan, props.offer)
   const isPositiveAmtRequired = Number(collateralRequired) > 0
 
@@ -126,7 +115,7 @@ const Success: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
               props.borrowActions.setStep({
                 step: 'DETAILS',
                 loan: props.loan,
-                offer: props.offer
+                offer: props.offer,
               })
             }
           />
@@ -138,15 +127,8 @@ const Success: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
         <MaxAmountContainer>
           {isPositiveAmtRequired ? (
             <Text color='grey600' weight={500} size='14px'>
-              <FormattedMessage
-                id='modals.borrow.needtoadd'
-                defaultMessage='You need to add'
-              />{' '}
-              <FiatContainer
-                onClick={() =>
-                  props.borrowActions.handleAddCollateralRequiredClick()
-                }
-              >
+              <FormattedMessage id='modals.borrow.needtoadd' defaultMessage='You need to add' />{' '}
+              <FiatContainer onClick={() => props.borrowActions.handleAddCollateralRequiredClick()}>
                 <Text cursor='pointer' color='blue600' size='14px' weight={500}>
                   {'$' + getCollateralAmtRequired(props.loan, props.offer)}
                 </Text>
@@ -173,11 +155,7 @@ const Success: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
             />
           </Text>
         </CustomFormLabel>
-        <CoinBalanceDropdown
-          {...props}
-          includeCustodial={false}
-          name='collateral'
-        />
+        <CoinBalanceDropdown {...props} includeCustodial={false} name='collateral' />
         <CustomFormLabel>
           <Text color='grey600' weight={500} size='14px'>
             <FormattedMessage
@@ -195,7 +173,7 @@ const Success: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
             {...{
               errorBottom: true,
               errorLeft: true,
-              errorIcon: 'alert-filled'
+              errorIcon: 'alert-filled',
             }}
           />
           <PrincipalCcyAbsolute>
@@ -221,20 +199,12 @@ const Success: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
           {props.showQrCode && (
             <QRCodeBox>
               <QRCodeWrapper
-                value={
-                  props.loan.collateral.depositAddresses[
-                    props.offer.terms.collateralCcy
-                  ]
-                }
+                value={props.loan.collateral.depositAddresses[props.offer.terms.collateralCcy]}
                 size={160}
               />
               <div style={{ width: '100%' }}>
                 <IconContainer>
-                  <Icon
-                    onClick={() => props.onToggleQrCode()}
-                    name='close'
-                    color='grey600'
-                  />
+                  <Icon onClick={() => props.onToggleQrCode()} name='close' color='grey600' />
                 </IconContainer>
                 <Note>
                   <Text size='12px' weight={600} color='grey700'>
@@ -250,16 +220,13 @@ const Success: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
                       id='modals.borrow.addcollateralform.sendcollateral'
                       defaultMessage='You can send any amount of {ccy} to this address.'
                       values={{
-                        ccy: props.offer.terms.collateralCcy
+                        ccy: props.offer.terms.collateralCcy,
                       }}
                     />
                   </Text>
                   {props.isAddrCopied ? (
                     <TooltipHost id='copied'>
-                      <Button
-                        nature='light'
-                        data-e2e='addCollateralCopyAddress'
-                      >
+                      <Button nature='light' data-e2e='addCollateralCopyAddress'>
                         <FormattedMessage
                           id='modals.borrow.addcollateralform.copy'
                           defaultMessage='Copy Address'
@@ -308,8 +275,8 @@ const Success: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
   )
 }
 
-const mapStateToProps = state => ({
-  values: selectors.form.getFormValues('borrowForm')(state)
+const mapStateToProps = (state) => ({
+  values: selectors.form.getFormValues('borrowForm')(state),
 })
 
 const connector = connect(mapStateToProps)

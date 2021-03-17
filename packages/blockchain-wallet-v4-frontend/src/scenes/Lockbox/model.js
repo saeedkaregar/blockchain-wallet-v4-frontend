@@ -8,21 +8,20 @@ const TooltipBody = styled.div`
   position: relative;
   min-width: 300px;
   max-width: 400px;
-  background-color: ${props => props.theme.white};
+  background-color: ${(props) => props.theme.white};
   border-radius: 4px;
 `
 const TooltipContent = styled.div`
-  color: ${props => props.theme.white};
+  color: ${(props) => props.theme.white};
   padding: 20px;
 `
 const TooltipFooter = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: ${props =>
-    props.isLastStep ? 'flex-end' : 'space-between'};
+  justify-content: ${(props) => (props.isLastStep ? 'flex-end' : 'space-between')};
   align-content: center;
   align-items: center;
-  color: ${props => props.theme.white};
+  color: ${(props) => props.theme.white};
   padding: 6px 20px 20px;
 `
 const StepChangeWrapper = styled.div`
@@ -46,7 +45,7 @@ export const TourTooltip = ({
   primaryProps,
   skipProps,
   step,
-  tooltipProps
+  tooltipProps,
 }) => {
   return (
     <div {...tooltipProps}>
@@ -55,10 +54,7 @@ export const TourTooltip = ({
         <TooltipFooter isLastStep={isLastStep}>
           {!isLastStep && (
             <ClickableText size='13px' weight={400} {...skipProps}>
-              <FormattedMessage
-                id='scenes.lockbox.tour.skip'
-                defaultMessage='Skip Tour'
-              />
+              <FormattedMessage id='scenes.lockbox.tour.skip' defaultMessage='Skip Tour' />
             </ClickableText>
           )}
           <StepChangeWrapper>
@@ -73,22 +69,11 @@ export const TourTooltip = ({
                 <FormattedMessage id='buttons.back' defaultMessage='Back' />
               </Button>
             )}
-            <Button
-              width='110px'
-              height='38px'
-              nature='primary'
-              {...primaryProps}
-            >
+            <Button width='110px' height='38px' nature='primary' {...primaryProps}>
               {isLastStep ? (
-                <FormattedMessage
-                  id='scenes.lockbox.tour.finish'
-                  defaultMessage='Finish Tour'
-                />
+                <FormattedMessage id='scenes.lockbox.tour.finish' defaultMessage='Finish Tour' />
               ) : (
-                <FormattedMessage
-                  id='scenes.lockbox.tour.next'
-                  defaultMessage='Next'
-                />
+                <FormattedMessage id='scenes.lockbox.tour.next' defaultMessage='Next' />
               )}
             </Button>
           </StepChangeWrapper>
@@ -122,17 +107,14 @@ export const TOUR_STEPS = [
     disableBeacon: true,
     disableOverlayClose: true,
     hideCloseButton: true,
-    showSkipButton: true
+    showSkipButton: true,
   },
   {
     target: '.tour-step2',
     content: (
       <React.Fragment>
         <StepTitle weight={500}>
-          <FormattedMessage
-            id='scenes.lockbox.tour.steptwo.title'
-            defaultMessage='Asset List'
-          />
+          <FormattedMessage id='scenes.lockbox.tour.steptwo.title' defaultMessage='Asset List' />
         </StepTitle>
         <Text size='14px' weight={400}>
           <FormattedMessage
@@ -147,7 +129,7 @@ export const TOUR_STEPS = [
     disableBeacon: true,
     disableOverlayClose: true,
     hideCloseButton: true,
-    showSkipButton: true
+    showSkipButton: true,
   },
   {
     target: '.tour-step3',
@@ -172,17 +154,14 @@ export const TOUR_STEPS = [
     disableBeacon: true,
     disableOverlayClose: true,
     hideCloseButton: true,
-    showSkipButton: true
+    showSkipButton: true,
   },
   {
     target: '.tour-step4',
     content: (
       <React.Fragment>
         <StepTitle weight={500}>
-          <FormattedMessage
-            id='scenes.lockbox.tour.stepfour.title'
-            defaultMessage='App Manager'
-          />
+          <FormattedMessage id='scenes.lockbox.tour.stepfour.title' defaultMessage='App Manager' />
         </StepTitle>
         <Text size='14px' weight={400}>
           <FormattedMessage
@@ -197,7 +176,7 @@ export const TOUR_STEPS = [
     disableBeacon: true,
     disableOverlayClose: true,
     hideCloseButton: true,
-    showSkipButton: true
+    showSkipButton: true,
   },
   {
     target: '.tour-step5',
@@ -222,6 +201,6 @@ export const TOUR_STEPS = [
     disableBeacon: true,
     disableOverlayClose: true,
     hideCloseButton: true,
-    showSkipButton: true
-  }
+    showSkipButton: true,
+  },
 ]

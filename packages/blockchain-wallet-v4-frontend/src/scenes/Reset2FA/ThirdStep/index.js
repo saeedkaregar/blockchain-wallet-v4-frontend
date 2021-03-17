@@ -22,10 +22,7 @@ class ThirdStep extends React.PureComponent {
       <Wrapper>
         <Header>
           <Text size='20px' color='blue900' weight={600} capitalize>
-            <FormattedMessage
-              id='scenes.reset2fa.thirdstep.title'
-              defaultMessage='Reset 2FA'
-            />
+            <FormattedMessage id='scenes.reset2fa.thirdstep.title' defaultMessage='Reset 2FA' />
           </Text>
         </Header>
         <TextGroup inline>

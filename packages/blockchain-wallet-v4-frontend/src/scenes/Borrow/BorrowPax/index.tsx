@@ -1,13 +1,7 @@
 import React, { PureComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import {
-  Button,
-  Icon,
-  Link,
-  SkeletonRectangle,
-  Text
-} from 'blockchain-info-components'
+import { Button, Icon, Link, SkeletonRectangle, Text } from 'blockchain-info-components'
 import { CustomBox } from 'components/Layout'
 
 import { Props, State } from '..'
@@ -18,12 +12,7 @@ class BorrowPax extends PureComponent<Props & State> {
       <CustomBox>
         <div>
           <Icon name='usd-d' color='usd-d' size='32px' />
-          <Text
-            size='20px'
-            color='grey800'
-            weight={600}
-            style={{ marginTop: '16px' }}
-          >
+          <Text size='20px' color='grey800' weight={600} style={{ marginTop: '16px' }}>
             <FormattedMessage
               id='scenes.borrow.borrowusdd'
               defaultMessage='Borrow USD Digital Today'
@@ -43,29 +32,20 @@ class BorrowPax extends PureComponent<Props & State> {
         </div>
         {this.props.isDisabled ? (
           this.props.userDataR.cata({
-            Success: val => (
+            Success: (val) => (
               <Button
                 nature='primary'
                 data-e2e='verifyIdentityBorrow'
                 disabled={val.kycState !== 'NONE'}
-                onClick={() =>
-                  this.props.identityVerificationActions.verifyIdentity(
-                    2,
-                    false
-                  )
-                }
+                onClick={() => this.props.identityVerificationActions.verifyIdentity(2, false)}
               >
-                {val.kycState === 'UNDER_REVIEW' ||
-                val.kycState === 'PENDING' ? (
+                {val.kycState === 'UNDER_REVIEW' || val.kycState === 'PENDING' ? (
                   <FormattedMessage
                     id='scenes.borrow.kycunderreview'
                     defaultMessage='Gold Verification In Review'
                   />
                 ) : (
-                  <FormattedMessage
-                    id='scenes.borrow.verifyid'
-                    defaultMessage='Upgrade Now'
-                  />
+                  <FormattedMessage id='scenes.borrow.verifyid' defaultMessage='Upgrade Now' />
                 )}
               </Button>
             ),
@@ -76,15 +56,12 @@ class BorrowPax extends PureComponent<Props & State> {
                 href='https://support.blockchain.com/'
               >
                 <Button fullwidth nature='primary' data-e2e='contactSupport'>
-                  <FormattedMessage
-                    id='buttons.contact_support'
-                    defaultMessage='Contact Support'
-                  />
+                  <FormattedMessage id='buttons.contact_support' defaultMessage='Contact Support' />
                 </Button>
               </Link>
             ),
             Loading: () => <SkeletonRectangle width='100%' height='40px' />,
-            NotAsked: () => <SkeletonRectangle width='100%' height='40px' />
+            NotAsked: () => <SkeletonRectangle width='100%' height='40px' />,
           })
         ) : (
           <Link
@@ -92,16 +69,8 @@ class BorrowPax extends PureComponent<Props & State> {
             target='_blank'
             href='https://support.blockchain.com/hc/en-us/articles/360040444691'
           >
-            <Button
-              style={{ marginTop: '16px' }}
-              nature='light'
-              fullwidth
-              data-e2e='paxLearnMore'
-            >
-              <FormattedMessage
-                id='buttons.learn_more'
-                defaultMessage='Learn More'
-              />
+            <Button style={{ marginTop: '16px' }} nature='light' fullwidth data-e2e='paxLearnMore'>
+              <FormattedMessage id='buttons.learn_more' defaultMessage='Learn More' />
             </Button>
           </Link>
         )}

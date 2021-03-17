@@ -26,11 +26,11 @@ class RecoverContainer extends React.PureComponent {
       Success: () => false,
       Failure: () => false,
       Loading: () => true,
-      NotAsked: () => false
+      NotAsked: () => false,
     })
 
     return metadataRestore.cata({
-      Success: val => (
+      Success: (val) => (
         <Recover
           previousStep={previousStep}
           onSubmit={this.onSubmit}
@@ -48,23 +48,23 @@ class RecoverContainer extends React.PureComponent {
         />
       ),
       Loading: () => <SpinningLoader width='36px' height='36px' />,
-      NotAsked: () => <SpinningLoader width='36px' height='36px' />
+      NotAsked: () => <SpinningLoader width='36px' height='36px' />,
     })
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   email: formValueSelector('recover')(state, 'email'),
   registering: selectors.auth.getRegistering(state),
   metadataRestore: selectors.auth.getMetadataRestore(state),
   language: selectors.preferences.getLanguage(state),
   mnemonic: formValueSelector('recover')(state, 'mnemonic'),
-  password: formValueSelector('recover')(state, 'password') || ''
+  password: formValueSelector('recover')(state, 'password') || '',
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   alertActions: bindActionCreators(actions.alerts, dispatch),
-  authActions: bindActionCreators(actions.auth, dispatch)
+  authActions: bindActionCreators(actions.auth, dispatch),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecoverContainer)

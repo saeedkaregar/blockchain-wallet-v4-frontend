@@ -17,7 +17,7 @@ const INITIAL_STATE = {
   remindGuid: Remote.NotAsked,
   registering: Remote.NotAsked,
   registerEmail: undefined,
-  secureChannelLogin: Remote.NotAsked
+  secureChannelLogin: Remote.NotAsked,
 }
 
 const auth = (state = INITIAL_STATE, action) => {
@@ -107,7 +107,7 @@ const auth = (state = INITIAL_STATE, action) => {
       const { email } = payload
       return {
         ...state,
-        registerEmail: email
+        registerEmail: email,
       }
     }
     case AT.RESTORE_FROM_METADATA_LOADING: {

@@ -7,7 +7,7 @@ function Success({ handleVeriffMessage, url }) {
     if (!isActive && !document.getElementById('veriffFrame')) {
       createVeriffFrame({
         url,
-        onEvent: handleVeriffMessage
+        onEvent: handleVeriffMessage,
       })
       setIsActive(true)
     }

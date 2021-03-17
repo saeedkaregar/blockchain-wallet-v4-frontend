@@ -6,7 +6,7 @@ import { reduxForm } from 'redux-form'
 import { Modal, ModalBody, Text } from 'blockchain-info-components'
 import { Form } from 'components/Form'
 
-const UpgradeAddressLabels = props => {
+const UpgradeAddressLabels = (props) => {
   const { duration, position, total } = props
 
   return (
@@ -28,8 +28,8 @@ const UpgradeAddressLabels = props => {
 
 UpgradeAddressLabels.propTypes = {
   payload: PropTypes.shape({
-    duration: PropTypes.number.isRequired
-  })
+    duration: PropTypes.number.isRequired,
+  }),
 }
 
 export default reduxForm({ form: 'upgradeAddressLabels' })(UpgradeAddressLabels)

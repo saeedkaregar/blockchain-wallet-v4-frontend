@@ -13,5 +13,5 @@ export default ({ api, networks }) => ({
   eth: eth({ api }),
   fiat: fiat({ api }),
   stx: stx(),
-  xlm: xlm({ api, networks })
+  xlm: xlm({ api, networks }),
 })

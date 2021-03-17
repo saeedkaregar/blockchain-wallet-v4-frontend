@@ -25,9 +25,7 @@ const CustomImage = styled(Image)`
   display: block;
 `
 
-const Loading = () => (
-  <CustomImage name='chart-placeholder' width='450px' height='100px' />
-)
+const Loading = () => <CustomImage name='chart-placeholder' width='450px' height='100px' />
 
 export class CoinPerformanceContainer extends React.PureComponent<Props> {
   componentDidMount() {
@@ -44,15 +42,10 @@ export class CoinPerformanceContainer extends React.PureComponent<Props> {
     const { currency } = this.props
 
     return this.props.data.cata({
-      Success: value => (
-        <Chart
-          currency={currency}
-          coin={value.coin}
-          time={value.time}
-          data={value.data}
-        />
+      Success: (value) => (
+        <Chart currency={currency} coin={value.coin} time={value.time} data={value.data} />
       ),
-      Failure: error => (
+      Failure: (error) => (
         <ErrorWrapper>
           <Text size='12px' weight={400} color='red600'>
             {error}
@@ -60,15 +53,15 @@ export class CoinPerformanceContainer extends React.PureComponent<Props> {
         </ErrorWrapper>
       ),
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state, ownProps) => getData(state, ownProps)
 
-const mapDispatchToProps = dispatch => ({
-  priceChartActions: bindActionCreators(actions.components.priceChart, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  priceChartActions: bindActionCreators(actions.components.priceChart, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

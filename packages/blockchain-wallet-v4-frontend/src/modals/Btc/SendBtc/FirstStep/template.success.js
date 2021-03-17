@@ -12,7 +12,7 @@ import {
   Link,
   Text,
   TooltipHost,
-  TooltipIcon
+  TooltipIcon,
 } from 'blockchain-info-components'
 import ComboDisplay from 'components/Display/ComboDisplay'
 import {
@@ -27,7 +27,7 @@ import {
   SelectBoxBtcAddresses,
   SelectBoxCoin,
   TextAreaDebounced,
-  TextBox
+  TextBox,
 } from 'components/Form'
 import QRCodeCapture from 'components/QRCode/Capture'
 import {
@@ -40,7 +40,7 @@ import {
   FeeFormLabel,
   FeeOptionsContainer,
   FeePerByteContainer,
-  Row
+  Row,
 } from 'components/Send'
 import ExchangePromo from 'components/Send/ExchangePromo'
 import MnemonicRequiredForCustodySend from 'components/Send/RecoveryPhrase'
@@ -58,7 +58,7 @@ import {
   minimumFeePerByte,
   minimumOneSatoshi,
   shouldError,
-  shouldWarn
+  shouldWarn,
 } from './validation'
 
 const WarningBanners = styled(Banner)`
@@ -84,7 +84,7 @@ const ImageInInputContainer = styled.div`
   right: 10px;
 `
 
-const FirstStep = props => {
+const FirstStep = (props) => {
   const {
     handleBitPayInvoiceExpiration,
     handleFeePerByteToggle,
@@ -108,15 +108,13 @@ const FirstStep = props => {
     payPro,
     priorityFeePerByte,
     regularFeePerByte,
-    totalFee
+    totalFee,
   } = rest
   const isPayPro = !!payPro
   const isFromLockbox = from && from.type === 'LOCKBOX'
   const isFromCustody = from && from.type === 'CUSTODIAL'
   const browser = Bowser.getParser(window.navigator.userAgent)
-  const isBrowserSupported = browser.satisfies(
-    model.components.lockbox.supportedBrowsers
-  )
+  const isBrowserSupported = browser.satisfies(model.components.lockbox.supportedBrowsers)
   const disableLockboxSend = isFromLockbox && !isBrowserSupported
   const disableCustodySend = isFromCustody && !isMnemonicVerified
 
@@ -125,17 +123,9 @@ const FirstStep = props => {
       <FormGroup inline margin='15px' style={{ zIndex: 3 }}>
         <FormItem width={'40%'}>
           <FormLabel htmlFor='coin'>
-            <FormattedMessage
-              id='modals.sendbtc.firststep.currency'
-              defaultMessage='Currency'
-            />
+            <FormattedMessage id='modals.sendbtc.firststep.currency' defaultMessage='Currency' />
           </FormLabel>
-          <Field
-            name='coin'
-            component={SelectBoxCoin}
-            type='send'
-            validate={[required]}
-          />
+          <Field name='coin' component={SelectBoxCoin} type='send' validate={[required]} />
         </FormItem>
         <FormItem width='60%'>
           <FormLabel htmlFor='from'>
@@ -175,10 +165,7 @@ const FirstStep = props => {
       <FormGroup margin={isFromCustody ? '15px' : '8px'}>
         <FormItem>
           <FormLabel htmlFor='to'>
-            <FormattedMessage
-              id='modals.sendbtc.firststep.towallet'
-              defaultMessage='To'
-            />
+            <FormattedMessage id='modals.sendbtc.firststep.towallet' defaultMessage='To' />
             {isPayPro && (
               <TimerContainer>
                 <CountdownTimer
@@ -208,9 +195,7 @@ const FirstStep = props => {
                   openMenuOnClick={!!isFromCustody}
                   noOptionsMessage={() => null}
                   placeholder='Paste, scan, or select destination'
-                  validate={
-                    isFromCustody ? [required] : [required, validBtcAddress]
-                  }
+                  validate={isFromCustody ? [required] : [required, validBtcAddress]}
                 />
                 {!isFromCustody && (
                   <QRCodeCapture
@@ -245,13 +230,7 @@ const FirstStep = props => {
           <Field
             name='amount'
             component={FiatConverter}
-            validate={[
-              required,
-              invalidAmount,
-              insufficientFunds,
-              minimumAmount,
-              maximumAmount
-            ]}
+            validate={[required, invalidAmount, insufficientFunds, minimumAmount, maximumAmount]}
             coin='BTC'
             data-e2e='sendBtc'
             disabled={isPayPro}
@@ -262,10 +241,7 @@ const FirstStep = props => {
       <FormGroup margin={'15px'}>
         <FormItem>
           <FormLabel>
-            <FormattedMessage
-              id='modals.sendbtc.firststep.desc'
-              defaultMessage='Description'
-            />
+            <FormattedMessage id='modals.sendbtc.firststep.desc' defaultMessage='Description' />
             <TooltipHost id='sendbtc.firststep.sharetooltip'>
               <TooltipIcon name='info' size='12px' />
             </TooltipHost>
@@ -352,10 +328,7 @@ const FirstStep = props => {
                   data-e2e='sendBtcCustomFeeLink'
                 >
                   {feePerByteToggled ? (
-                    <FormattedMessage
-                      id='buttons.cancel'
-                      defaultMessage='Cancel'
-                    />
+                    <FormattedMessage id='buttons.cancel' defaultMessage='Cancel' />
                   ) : (
                     <FormattedMessage
                       id='modals.sendbtc.firststep.customizefee'
@@ -408,21 +381,14 @@ const FirstStep = props => {
         )}
       </FormGroup>
       {isPayPro && invalid && (
-        <Text
-          size='13px'
-          color='error'
-          weight={500}
-          style={{ textAlign: 'center' }}
-        >
+        <Text size='13px' color='error' weight={500} style={{ textAlign: 'center' }}>
           <FormattedMessage
             id='modals.sendbtc.firststep.bitpay.insufficientfunds'
             defaultMessage='Insufficient funds to complete BitPay transaction'
           />
         </Text>
       )}
-      {isFromCustody && !isMnemonicVerified ? (
-        <MnemonicRequiredForCustodySend />
-      ) : null}
+      {isFromCustody && !isMnemonicVerified ? <MnemonicRequiredForCustodySend /> : null}
       <SubmitFormGroup>
         <Button
           type='submit'
@@ -454,12 +420,12 @@ FirstStep.propTypes = {
   priorityFeePerByte: PropTypes.number.isRequired,
   handleFeePerByteToggle: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  totalFee: PropTypes.string
+  totalFee: PropTypes.string,
 }
 
 export default reduxForm({
   form: model.components.sendBtc.FORM,
   destroyOnUnmount: false,
   shouldError,
-  shouldWarn
+  shouldWarn,
 })(FirstStep)

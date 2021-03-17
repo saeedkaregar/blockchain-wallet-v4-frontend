@@ -17,7 +17,7 @@ export const getData = createDeepEqualSelector(
     selectors.form.getFormValues(model.components.sendXlm.FORM),
     selectors.form.getActiveField(model.components.sendXlm.FORM),
     selectors.components.sendXlm.showNoAccountForm,
-    selectors.core.walletOptions.getCoinAvailability
+    selectors.core.walletOptions.getCoinAvailability,
   ],
   (
     paymentR,
@@ -35,21 +35,14 @@ export const getData = createDeepEqualSelector(
   ) => {
     const amount = prop('amount', formValues)
     const destination = prop('to', formValues)
-    const excludeLockbox = !prop(
-      'lockbox',
-      coinAvailabilityR('XLM').getOrElse({})
-    )
+    const excludeLockbox = !prop('lockbox', coinAvailabilityR('XLM').getOrElse({}))
     const from = prop('from', formValues)
     const isDestinationExchange = isDestinationExchangeR.getOrElse(false)
 
     const transform = (payment, currency, rates) => {
       const effectiveBalance = propOr('0', 'effectiveBalance', payment)
       const reserve = propOr('0', 'reserve', payment)
-      const destinationAccountExists = propOr(
-        false,
-        'destinationAccountExists',
-        payment
-      )
+      const destinationAccountExists = propOr(false, 'destinationAccountExists', payment)
       const fee = propOr('0', 'fee', payment)
       const isDestinationChecked = Remote.Success.is(checkDestinationR)
 
@@ -69,7 +62,7 @@ export const getData = createDeepEqualSelector(
         isMnemonicVerified,
         noAccount,
         rates,
-        reserve
+        reserve,
       }
     }
     return lift(transform)(paymentR, currencyR, ratesR)

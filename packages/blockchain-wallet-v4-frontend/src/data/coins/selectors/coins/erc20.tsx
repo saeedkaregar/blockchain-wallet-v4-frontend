@@ -13,7 +13,7 @@ import { generateTradingAccount } from 'data/coins/utils'
 import { getTradingBalance } from '../'
 
 // retrieves introduction text for coin on its transaction page
-export const getTransactionPageHeaderText = coin => {
+export const getTransactionPageHeaderText = (coin) => {
   switch (coin) {
     case 'PAX':
     case 'USDD':
@@ -50,14 +50,10 @@ export const getAccounts = createDeepEqualSelector(
   [
     coreSelectors.data.eth.getDefaultAddress,
     (state, { coin }) =>
-      coreSelectors.kvStore.eth.getErc20Account(
-        state,
-        toLower(coin) as CoinType
-      ), // non-custodial accounts
-    (state, { coin }) =>
-      coreSelectors.data.eth.getErc20Balance(state, toLower(coin) as CoinType), // non-custodial metadata
+      coreSelectors.kvStore.eth.getErc20Account(state, toLower(coin) as CoinType), // non-custodial accounts
+    (state, { coin }) => coreSelectors.data.eth.getErc20Balance(state, toLower(coin) as CoinType), // non-custodial metadata
     (state, { coin }) => getTradingBalance(coin, state), // custodial accounts
-    (state, ownProps) => ownProps // selector config
+    (state, ownProps) => ownProps, // selector config
   ],
   (ethAddressR, erc20AccountR, erc20BalanceR, sbBalanceR, ownProps) => {
     const transform = (
@@ -79,8 +75,8 @@ export const getAccounts = createDeepEqualSelector(
             label: prop('label', erc20Account),
             address: ethAddress,
             balance: erc20Balance,
-            type: ADDRESS_TYPES.ACCOUNT
-          }
+            type: ADDRESS_TYPES.ACCOUNT,
+          },
         ])
       }
 
@@ -94,11 +90,6 @@ export const getAccounts = createDeepEqualSelector(
       return accounts
     }
 
-    return lift(transform)(
-      ethAddressR,
-      erc20AccountR,
-      erc20BalanceR,
-      sbBalanceR
-    )
+    return lift(transform)(ethAddressR, erc20AccountR, erc20BalanceR, sbBalanceR)
   }
 )

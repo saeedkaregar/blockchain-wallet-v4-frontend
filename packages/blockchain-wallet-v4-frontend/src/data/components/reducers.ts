@@ -43,7 +43,7 @@ const componentReducer = combineReducers({
   swap: swapReducer,
   uploadDocuments,
   withdraw: withdrawReducer,
-  veriff
+  veriff,
 })
 
 export default componentReducer

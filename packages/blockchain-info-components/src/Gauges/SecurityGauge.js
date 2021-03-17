@@ -29,38 +29,26 @@ const SecurityIcon = styled(Icon)`
   margin-right: 5px;
 `
 
-const SecurityGauge = props => {
+const SecurityGauge = (props) => {
   const { score } = props
   const hide = score === 3
 
   if (hide) return null
   return (
     <Progress>
-      {score >= 1 ? (
-        <SecurityIcon name='checkmark-in-circle' size='16px' />
-      ) : (
-        <Empty />
-      )}
-      {score >= 2 ? (
-        <SecurityIcon name='checkmark-in-circle' size='16px' />
-      ) : (
-        <Empty />
-      )}
-      {score === 3 ? (
-        <SecurityIcon name='checkmark-in-circle' size='16px' />
-      ) : (
-        <Empty />
-      )}
+      {score >= 1 ? <SecurityIcon name='checkmark-in-circle' size='16px' /> : <Empty />}
+      {score >= 2 ? <SecurityIcon name='checkmark-in-circle' size='16px' /> : <Empty />}
+      {score === 3 ? <SecurityIcon name='checkmark-in-circle' size='16px' /> : <Empty />}
     </Progress>
   )
 }
 
 SecurityGauge.propTypes = {
-  score: PropTypes.oneOf([0, 1, 2, 3]).isRequired
+  score: PropTypes.oneOf([0, 1, 2, 3]).isRequired,
 }
 
 SecurityGauge.defaultProps = {
-  score: 0
+  score: 0,
 }
 
 export default SecurityGauge

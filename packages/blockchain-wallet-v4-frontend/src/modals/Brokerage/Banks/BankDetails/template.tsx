@@ -3,13 +3,7 @@ import { FormattedMessage } from 'react-intl'
 import { InjectedFormProps, reduxForm } from 'redux-form'
 import styled from 'styled-components'
 
-import {
-  Button,
-  HeartbeatLoader,
-  Icon,
-  Image,
-  Text
-} from 'blockchain-info-components'
+import { Button, HeartbeatLoader, Icon, Image, Text } from 'blockchain-info-components'
 import { BankTransferAccountType } from 'blockchain-wallet-v4/src/types'
 import { FlyoutWrapper } from 'components/Flyout'
 import { Form } from 'components/Form'
@@ -43,8 +37,8 @@ const CurrencyContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 16px 0 16px 40px;
-  border-top: 1px solid ${props => props.theme.grey000};
-  border-bottom: 1px solid ${props => props.theme.grey000};
+  border-top: 1px solid ${(props) => props.theme.grey000};
+  border-bottom: 1px solid ${(props) => props.theme.grey000};
 `
 const BankIconWrapper = styled.div`
   justify-content: left;
@@ -56,10 +50,9 @@ export const BankDetails = styled.div`
   margin-top: 24px;
 `
 
-type Props = OwnProps &
-  LinkDispatchPropsType & { account: BankTransferAccountType }
+type Props = OwnProps & LinkDispatchPropsType & { account: BankTransferAccountType }
 
-const Template: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
+const Template: React.FC<InjectedFormProps<{}, Props> & Props> = (props) => {
   const { account } = props
   return (
     <Wrapper>
@@ -85,10 +78,7 @@ const Template: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
           </Text>
           <Text size='24px' color='grey600' weight={500}>
             {account.details?.bankAccountType.toLowerCase()}{' '}
-            <FormattedMessage
-              id='scenes.settings.general.account'
-              defaultMessage='account'
-            />{' '}
+            <FormattedMessage id='scenes.settings.general.account' defaultMessage='account' />{' '}
             {account.details?.accountNumber}
           </Text>
         </BankDetails>

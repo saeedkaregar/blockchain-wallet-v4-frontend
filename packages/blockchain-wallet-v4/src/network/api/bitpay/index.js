@@ -15,22 +15,22 @@ export default ({ bitpayUrl }) => {
         'Content-Type': 'application/payment-request',
         BP_PARTNER: 'Blockchain',
         BP_PARTNER_VERSION: 'V6.28.0',
-        'x-paypro-version': 2
+        'x-paypro-version': 2,
       },
       data: {
-        chain
-      }
+        chain,
+      },
     })
-      .then(response => {
+      .then((response) => {
         if (response.status !== 200) {
           throw new Error(response.data.toString())
         }
         return {
           rawBody: JSON.stringify(response.data),
-          headers: response.headers
+          headers: response.headers,
         }
       })
-      .catch(error => {
+      .catch((error) => {
         if (error) {
           throw new Error(error)
         }
@@ -44,12 +44,12 @@ export default ({ bitpayUrl }) => {
         'Content-Type': 'application/payment-verification',
         BP_PARTNER: 'Blockchain',
         BP_PARTNER_VERSION: 'V6.28.0',
-        'x-paypro-version': 2
+        'x-paypro-version': 2,
       },
       data: {
         chain,
-        transactions: [{ tx, weightedSize }]
-      }
+        transactions: [{ tx, weightedSize }],
+      },
     })
 
   const submitPaymentRequest = (invoiceId, tx, weightedSize, chain) =>
@@ -60,17 +60,17 @@ export default ({ bitpayUrl }) => {
         'Content-Type': 'application/payment',
         BP_PARTNER: 'Blockchain',
         BP_PARTNER_VERSION: 'V6.28.0',
-        'x-paypro-version': 2
+        'x-paypro-version': 2,
       },
       data: {
         chain,
-        transactions: [{ tx, weightedSize }]
-      }
+        transactions: [{ tx, weightedSize }],
+      },
     })
 
   return {
     getRawPaymentRequest,
     verifyPaymentRequest,
-    submitPaymentRequest
+    submitPaymentRequest,
   }
 }

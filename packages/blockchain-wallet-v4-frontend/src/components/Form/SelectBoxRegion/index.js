@@ -8,15 +8,14 @@ import SelectBox from '../SelectBox'
 const countryRegionData = React.lazy(() => import('country-region-data'))
 const countriesWithStates = ['US']
 
-export const countryHasStates = countryCode =>
-  countriesWithStates.includes(countryCode)
+export const countryHasStates = (countryCode) => countriesWithStates.includes(countryCode)
 
 class SelectBoxRegion extends React.PureComponent {
   static propTypes = {
-    countryCode: PropTypes.string
+    countryCode: PropTypes.string,
   }
   static defaultProps = {
-    countryCode: null
+    countryCode: null,
   }
 
   render() {
@@ -52,7 +51,7 @@ class SelectBoxRegion extends React.PureComponent {
 }
 
 const emptyRegions = {
-  regions: []
+  regions: [],
 }
 
 export default SelectBoxRegion

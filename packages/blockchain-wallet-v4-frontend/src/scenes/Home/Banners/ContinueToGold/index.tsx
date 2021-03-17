@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid ${props => props.theme.grey000};
+  border: 1px solid ${(props) => props.theme.grey000};
   border-radius: 8px;
   padding: 20px;
 
@@ -88,12 +88,7 @@ const ContinueToGold = ({ verifyIdentity }: Props) => (
         </Copy>
       </Column>
     </Row>
-    <BannerButton
-      onClick={verifyIdentity}
-      jumbo
-      data-e2e='continueToGoldSDD'
-      nature='primary'
-    >
+    <BannerButton onClick={verifyIdentity} jumbo data-e2e='continueToGoldSDD' nature='primary'>
       <FormattedMessage
         id='scenes.home.banner.continue_to_gold.button'
         defaultMessage='Continue to Gold'
@@ -103,8 +98,7 @@ const ContinueToGold = ({ verifyIdentity }: Props) => (
 )
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  verifyIdentity: () =>
-    dispatch(actions.components.identityVerification.verifyIdentity(2, false))
+  verifyIdentity: () => dispatch(actions.components.identityVerification.verifyIdentity(2, false)),
 })
 
 const connector = connect(undefined, mapDispatchToProps)

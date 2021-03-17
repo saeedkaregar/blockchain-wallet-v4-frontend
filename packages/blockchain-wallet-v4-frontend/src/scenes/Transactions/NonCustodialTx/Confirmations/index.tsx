@@ -5,10 +5,7 @@ import { toString } from 'ramda'
 import styled from 'styled-components'
 
 import { Icon, Link, Tooltip, TooltipHost } from 'blockchain-info-components'
-import {
-  CoinType,
-  SupportedWalletCurrenciesType
-} from 'blockchain-wallet-v4/src/types'
+import { CoinType, SupportedWalletCurrenciesType } from 'blockchain-wallet-v4/src/types'
 import { selectors } from 'data'
 import { media } from 'services/styles'
 
@@ -51,7 +48,7 @@ const Confirmations = (props: Props) => {
     isConfirmed,
     onViewTxDetails,
     supportedCoins,
-    txBlockHeight = 0
+    txBlockHeight = 0,
   } = props
   const conf = blockHeight - txBlockHeight + 1
   const confirmations = conf > 0 && txBlockHeight ? conf : 0
@@ -73,18 +70,14 @@ const Confirmations = (props: Props) => {
             defaultMessage='Pending: {count}/{total} Confirmations'
             values={{
               count: toString(confirmations),
-              total: minConfirmations
+              total: minConfirmations,
             }}
           />
         </ConfirmationsText>
       )}
       <IconWrapper>
         {confirmations < minConfirmations && (
-          <TransactionTooltip
-            id='confirmations'
-            data-iscapture='true'
-            data-offset="{'left': 0.75}"
-          >
+          <TransactionTooltip id='confirmations' data-iscapture='true' data-offset="{'left': 0.75}">
             <Icon name='question-in-circle' />
           </TransactionTooltip>
         )}
@@ -94,12 +87,7 @@ const Confirmations = (props: Props) => {
           data-e2e='transactionListItemExplorerLink'
           onClick={() => onViewTxDetails(coin)}
         >
-          <Icon
-            name='open-in-new-tab'
-            color='marketing-primary'
-            cursor
-            size='17px'
-          />
+          <Icon name='open-in-new-tab' color='marketing-primary' cursor size='17px' />
         </Link>
       </IconWrapper>
       <Tooltip id='confirmations' offset={{ bottom: 8 }}>
@@ -127,7 +115,7 @@ const mapStateToProps = (state, ownProps) => ({
   blockHeight: getBlockHeight(state, ownProps.coin),
   supportedCoins: selectors.core.walletOptions
     .getSupportedCoins(state)
-    .getOrElse({} as SupportedWalletCurrenciesType)
+    .getOrElse({} as SupportedWalletCurrenciesType),
 })
 
 const connector = connect(mapStateToProps)

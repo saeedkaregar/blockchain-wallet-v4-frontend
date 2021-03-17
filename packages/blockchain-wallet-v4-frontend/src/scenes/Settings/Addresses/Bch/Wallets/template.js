@@ -10,7 +10,7 @@ import {
   TableCell,
   TableHeader,
   TableRow,
-  Text
+  Text,
 } from 'blockchain-info-components'
 import SwitchableDisplay from 'components/Display/SwitchableDisplay'
 import { SettingDescription, SettingHeader } from 'components/Setting'
@@ -55,7 +55,7 @@ const LabelCell = styled(Text)`
   font-weight: 500;
 `
 
-const WalletRow = props => {
+const WalletRow = (props) => {
   const { bchAccounts, defaultIndex, wallets } = props.data
   const {
     onEditBchAccountLabel,
@@ -63,10 +63,9 @@ const WalletRow = props => {
     onSetArchived,
     onShowChangeAddrs,
     onShowXPub,
-    search
+    search,
   } = props
-  const isMatch = wallet =>
-    !search || wallet.label.toLowerCase().indexOf(search) > -1
+  const isMatch = (wallet) => !search || wallet.label.toLowerCase().indexOf(search) > -1
   const matchedWallets = filter(isMatch, take(bchAccounts.length, wallets))
 
   const walletTableRows = matchedWallets.map((wallet, i) => {
@@ -88,11 +87,7 @@ const WalletRow = props => {
             </Banner>
           )}
           {isArchived && (
-            <Banner
-              label
-              type='informational'
-              data-e2e='bchArchivedWalletBadge'
-            >
+            <Banner label type='informational' data-e2e='bchArchivedWalletBadge'>
               <FormattedMessage
                 id='scenes.settings.addresses.bch.wallets.archivedlabel'
                 defaultMessage='Archived'
@@ -107,10 +102,7 @@ const WalletRow = props => {
             </SwitchableDisplay>
           )}
         </TableCell>
-        <TableCell
-          width='20%'
-          style={{ display: 'flex', justifyContent: 'flex-end' }}
-        >
+        <TableCell width='20%' style={{ display: 'flex', justifyContent: 'flex-end' }}>
           {isArchived ? (
             <Link
               weight={500}
@@ -134,10 +126,7 @@ const WalletRow = props => {
                 textAlign='end'
                 selectedComponent={
                   <Link weight={500} size='13px' data-e2e='bchManageWalletLink'>
-                    <FormattedMessage
-                      id='buttons.manage'
-                      defaultMessage='Manage'
-                    />
+                    <FormattedMessage id='buttons.manage' defaultMessage='Manage' />
                   </Link>
                 }
                 components={[
@@ -206,7 +195,7 @@ const WalletRow = props => {
                       id='scenes.settings.addresses.bch.showchangeaddrs'
                       defaultMessage='Show Change Addresses'
                     />
-                  </ClickableText>
+                  </ClickableText>,
                 ]}
               />
             </div>
@@ -245,10 +234,7 @@ const WalletRow = props => {
               <FormattedMessage id='copy.balance' defaultMessage='Balance' />
             </Text>
           </TableCell>
-          <TableCell
-            width='20%'
-            style={{ display: 'flex', justifyContent: 'flex-end' }}
-          >
+          <TableCell width='20%' style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Text color='grey900' size='14px' weight={500}>
               <FormattedMessage
                 id='scenes.settings.addresses.bch.wallets.actions'

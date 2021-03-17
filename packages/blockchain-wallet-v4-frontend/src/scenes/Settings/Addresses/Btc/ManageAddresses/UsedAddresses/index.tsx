@@ -9,14 +9,11 @@ import UsedAddressesShowTemplate from './template'
 class UsedAddressesContainer extends React.PureComponent<Props> {
   onShowUsedAddresses = () => {
     if (this.props.usedAddressesVisible) {
-      this.props.componentActions.toggleUsedAddresses(
-        this.props.walletIndex,
-        false
-      )
+      this.props.componentActions.toggleUsedAddresses(this.props.walletIndex, false)
     } else {
       this.props.modalsActions.showModal('ShowUsedAddresses', {
         walletIndex: this.props.walletIndex,
-        origin: 'SettingsPage'
+        origin: 'SettingsPage',
       })
     }
   }
@@ -38,15 +35,12 @@ const mapStateToProps = (state, ownProps) => ({
   usedAddressesVisible: selectors.components.manageAddresses.getWalletUsedAddressVisibility(
     state,
     ownProps.walletIndex
-  )
+  ),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   modalsActions: bindActionCreators(actions.modals, dispatch),
-  componentActions: bindActionCreators(
-    actions.components.manageAddresses,
-    dispatch
-  )
+  componentActions: bindActionCreators(actions.components.manageAddresses, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

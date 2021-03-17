@@ -27,7 +27,7 @@ class LogoutContainer extends React.PureComponent<Props, State> {
 
   tick() {
     this.setState({
-      secondsRemaining: this.state.secondsRemaining - 1
+      secondsRemaining: this.state.secondsRemaining - 1,
     })
     if (this.state.secondsRemaining <= 0) {
       this.props.authActions.logoutClearReduxStore()
@@ -53,9 +53,9 @@ class LogoutContainer extends React.PureComponent<Props, State> {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   authActions: bindActionCreators(actions.auth, dispatch),
-  routerActions: bindActionCreators(actions.router, dispatch)
+  routerActions: bindActionCreators(actions.router, dispatch),
 })
 
 const connector = connect(null, mapDispatchToProps)

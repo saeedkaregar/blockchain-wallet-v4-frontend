@@ -21,19 +21,10 @@ export default ({ coreSagas, networks }) => {
   let paymentTask
   let isSourceErc20
 
-  const calculatePaymentMemo = function * (
-    source,
-    amount,
-    fee: MempoolFeeType = 'priority'
-  ) {
-    if (
-      !equals(source, prevPaymentSource) ||
-      !equals(amount, prevPaymentAmount)
-    ) {
+  const calculatePaymentMemo = function* (source, amount, fee: MempoolFeeType = 'priority') {
+    if (!equals(source, prevPaymentSource) || !equals(amount, prevPaymentAmount)) {
       const coin = prop('coin', source)
-      const erc20List = (yield select(
-        selectors.core.walletOptions.getErc20CoinList
-      )).getOrElse([])
+      const erc20List = (yield select(selectors.core.walletOptions.getErc20CoinList)).getOrElse([])
       isSourceErc20 = includes(coin, erc20List)
       if (paymentTask) cancel(paymentTask)
       paymentTask = yield fork(calculateProvisionalPayment, source, amount, fee)
@@ -45,7 +36,7 @@ export default ({ coreSagas, networks }) => {
     return prevPayment
   }
 
-  const calculateProvisionalPayment = function * (
+  const calculateProvisionalPayment = function* (
     source: AccountTypes,
     amount,
     fee: MempoolFeeType = 'priority'
@@ -54,9 +45,7 @@ export default ({ coreSagas, networks }) => {
       const coin = prop('coin', source)
       const addressOrIndex = prop('address', source)
       const addressType = prop('type', source)
-      const erc20List = (yield select(
-        selectors.core.walletOptions.getErc20CoinList
-      )).getOrElse([])
+      const erc20List = (yield select(selectors.core.walletOptions.getErc20CoinList)).getOrElse([])
       isSourceErc20 = includes(coin, erc20List)
       const [network, provisionalScript] = isSourceErc20
         ? ethOptions
@@ -64,7 +53,7 @@ export default ({ coreSagas, networks }) => {
             BTC: btcOptions,
             BCH: bchOptions,
             ETH: ethOptions,
-            XLM: xlmOptions
+            XLM: xlmOptions,
           })
       const paymentType = isSourceErc20 ? 'eth' : toLower(coin)
       const payment = yield coreSagas.payment[paymentType]
@@ -93,6 +82,6 @@ export default ({ coreSagas, networks }) => {
 
   return {
     calculatePaymentMemo,
-    calculateProvisionalPayment
+    calculateProvisionalPayment,
   }
 }

@@ -13,7 +13,7 @@ import Register from './template'
 
 class RegisterContainer extends React.PureComponent<PropsType, StateType> {
   state = {
-    showForm: false
+    showForm: false,
   }
 
   onSubmit = () => {
@@ -27,11 +27,11 @@ class RegisterContainer extends React.PureComponent<PropsType, StateType> {
 
   render() {
     const { data, goals, password, search } = this.props
-    let busy = data.cata({
+    const busy = data.cata({
       Success: () => false,
       Failure: () => false,
       Loading: () => true,
-      NotAsked: () => false
+      NotAsked: () => false,
     })
 
     const passwordLength = (password && password.length) || 0
@@ -70,13 +70,13 @@ const mapStateToProps = (state: RootState): LinkStatePropsType => ({
   search: selectors.router.getSearch(state) as string,
   supportedCoins: selectors.core.walletOptions
     .getSupportedCoins(state)
-    .getOrElse({} as SupportedWalletCurrenciesType)
+    .getOrElse({} as SupportedWalletCurrenciesType),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   analyticsActions: bindActionCreators(actions.analytics, dispatch),
   alertActions: bindActionCreators(actions.alerts, dispatch),
-  authActions: bindActionCreators(actions.auth, dispatch)
+  authActions: bindActionCreators(actions.auth, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

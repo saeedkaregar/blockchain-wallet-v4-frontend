@@ -3,13 +3,7 @@ import { FormattedMessage } from 'react-intl'
 import moment from 'moment'
 import { pathOr } from 'ramda'
 
-import {
-  Button,
-  Icon,
-  Text,
-  TooltipHost,
-  TooltipIcon
-} from 'blockchain-info-components'
+import { Button, Icon, Text, TooltipHost, TooltipIcon } from 'blockchain-info-components'
 import { CoinType } from 'blockchain-wallet-v4/src/types'
 import FiatDisplay from 'components/Display/FiatDisplay'
 import { convertBaseToStandard } from 'data/components/exchange/services'
@@ -29,10 +23,10 @@ import {
   StatusWrapper,
   Top,
   TopText,
-  Wrapper
+  Wrapper,
 } from './model'
 
-const AccountSummary: React.FC<Props> = props => {
+const AccountSummary: React.FC<Props> = (props) => {
   const {
     accountBalances,
     coin,
@@ -43,29 +37,21 @@ const AccountSummary: React.FC<Props> = props => {
     interestLimits,
     interestRate,
     stepMetadata,
-    supportedCoins
+    supportedCoins,
   } = props
   const { coinTicker, colorCode, displayName, icons } = supportedCoins[coin]
   const account = accountBalances && accountBalances[coin]
 
-  const lockupPeriod =
-    pathOr(1, [coin, 'lockUpDuration'], interestLimits) / 86400
+  const lockupPeriod = pathOr(1, [coin, 'lockUpDuration'], interestLimits) / 86400
   const accountBalanceBase = account && account.balance
   const interestBalanceBase = account && account.totalInterest
   const pendingInterestBase = account && account.pendingInterest
 
-  const availToWithdraw =
-    account && parseInt(account.balance) - parseInt(account.locked)
+  const availToWithdraw = account && parseInt(account.balance) - parseInt(account.locked)
 
   const accountBalanceStandard = convertBaseToStandard(coin, accountBalanceBase)
-  const interestBalanceStandard = convertBaseToStandard(
-    coin,
-    interestBalanceBase
-  )
-  const pendingInterestStandard = convertBaseToStandard(
-    coin,
-    pendingInterestBase
-  )
+  const interestBalanceStandard = convertBaseToStandard(coin, interestBalanceBase)
+  const pendingInterestStandard = convertBaseToStandard(coin, pendingInterestBase)
   return (
     <Wrapper>
       <Top>
@@ -94,12 +80,7 @@ const AccountSummary: React.FC<Props> = props => {
         </TopText>
         <Row style={{ paddingBottom: '8px' }}>
           <Container>
-            <Text
-              color='grey600'
-              size='14px'
-              weight={500}
-              style={{ marginBottom: '5px' }}
-            >
+            <Text color='grey600' size='14px' weight={500} style={{ marginBottom: '5px' }}>
               <FormattedMessage
                 id='modals.interest.balance'
                 defaultMessage='Your {coin} Balance'
@@ -128,12 +109,7 @@ const AccountSummary: React.FC<Props> = props => {
             )}
           </Container>
           <Container>
-            <Text
-              color='grey600'
-              size='14px'
-              weight={500}
-              style={{ marginBottom: '5px' }}
-            >
+            <Text color='grey600' size='14px' weight={500} style={{ marginBottom: '5px' }}>
               <FormattedMessage
                 id='modals.interest.totalearned'
                 defaultMessage='Total Interest Earned'
@@ -168,12 +144,7 @@ const AccountSummary: React.FC<Props> = props => {
               <StatusIconWrapper color={`${colorCode}-light`}>
                 <Icon color={colorCode} name='timer' size='24px' />
               </StatusIconWrapper>
-              <Text
-                data-e2e='waitingConfirmation'
-                color='grey600'
-                size='14px'
-                weight={500}
-              >
+              <Text data-e2e='waitingConfirmation' color='grey600' size='14px' weight={500}>
                 <FormattedMessage
                   id='modals.interest.deposit.success.confirmtransfer'
                   defaultMessage='Waiting on your transfer to be confirmed by the network. Once it has a confirmation and our team has reviewed it, it will be displayed in Interest Account History. No action is required at this time.'
@@ -218,12 +189,7 @@ const AccountSummary: React.FC<Props> = props => {
                   defaultMessage='Something went wrong. Please try again later or contact support if the issue persists.'
                 />
               </Text>
-              <Text
-                color='red600'
-                size='14px'
-                style={{ marginTop: '8px' }}
-                weight={500}
-              >
+              <Text color='red600' size='14px' style={{ marginTop: '8px' }} weight={500}>
                 <FormattedMessage
                   id='modals.interest.deposit.failurereason'
                   defaultMessage='Error: {error}'
@@ -242,10 +208,7 @@ const AccountSummary: React.FC<Props> = props => {
             width='192px'
           >
             <Text weight={600} color='white'>
-              <FormattedMessage
-                id='buttons.transfer'
-                defaultMessage='Transfer'
-              />
+              <FormattedMessage id='buttons.transfer' defaultMessage='Transfer' />
             </Text>
           </Button>
           <Button
@@ -266,49 +229,30 @@ const AccountSummary: React.FC<Props> = props => {
         </ButtonContainer>
         <DetailsWrapper>
           <Text color='grey800' weight={600} style={{ marginBottom: '6px' }}>
-            <FormattedMessage
-              id='modals.interest.summary'
-              defaultMessage='Summary'
-            />
+            <FormattedMessage id='modals.interest.summary' defaultMessage='Summary' />
           </Text>
           <LineVectorDetails />
-          {stepMetadata &&
-            (stepMetadata.depositSuccess || stepMetadata.withdrawSuccess) && (
-              <>
-                <DetailsItemContainer>
-                  <Text color='grey600' size='14px' weight={500}>
-                    <FormattedMessage
-                      id='modals.interest.status'
-                      defaultMessage='Status'
-                    />
-                  </Text>
-                  <Text
-                    data-e2e='statusText'
-                    color='orange600'
-                    size='14px'
-                    weight={500}
-                  >
-                    <FormattedMessage
-                      id='modals.interest.statuspending'
-                      defaultMessage='Pending {action}'
-                      values={{
-                        action: stepMetadata.withdrawSuccess
-                          ? 'Withdrawal'
-                          : 'Transfer'
-                      }}
-                    />
-                  </Text>
-                </DetailsItemContainer>
-                <LineVectorDetails />
-              </>
-            )}
+          {stepMetadata && (stepMetadata.depositSuccess || stepMetadata.withdrawSuccess) && (
+            <>
+              <DetailsItemContainer>
+                <Text color='grey600' size='14px' weight={500}>
+                  <FormattedMessage id='modals.interest.status' defaultMessage='Status' />
+                </Text>
+                <Text data-e2e='statusText' color='orange600' size='14px' weight={500}>
+                  <FormattedMessage
+                    id='modals.interest.statuspending'
+                    defaultMessage='Pending {action}'
+                    values={{
+                      action: stepMetadata.withdrawSuccess ? 'Withdrawal' : 'Transfer',
+                    }}
+                  />
+                </Text>
+              </DetailsItemContainer>
+              <LineVectorDetails />
+            </>
+          )}
           <DetailsItemContainer>
-            <Text
-              data-e2e='nextPayment'
-              color='grey600'
-              size='14px'
-              weight={500}
-            >
+            <Text data-e2e='nextPayment' color='grey600' size='14px' weight={500}>
               <FormattedMessage
                 id='modals.interest.summary.next'
                 defaultMessage='Next interest payment'
@@ -316,12 +260,8 @@ const AccountSummary: React.FC<Props> = props => {
             </Text>
             {account ? (
               <Text color='grey600' size='14px' weight={500}>
-                {parseInt(account.balance) > 0 ||
-                (stepMetadata && stepMetadata.depositSuccess)
-                  ? moment()
-                      .add(1, 'month')
-                      .startOf('month')
-                      .format('MMMM D, YYYY')
+                {parseInt(account.balance) > 0 || (stepMetadata && stepMetadata.depositSuccess)
+                  ? moment().add(1, 'month').startOf('month').format('MMMM D, YYYY')
                   : '---'}
               </Text>
             ) : (
@@ -362,12 +302,7 @@ const AccountSummary: React.FC<Props> = props => {
                 <TooltipIcon name='info' size='12px' />
               </TooltipHost>
             </Text>
-            <Text
-              data-e2e='holdPeriod'
-              color='grey600'
-              size='14px'
-              weight={500}
-            >
+            <Text data-e2e='holdPeriod' color='grey600' size='14px' weight={500}>
               {lockupPeriod === 1 ? (
                 <FormattedMessage
                   id='modals.interest.summary.lockup.one'
@@ -386,20 +321,12 @@ const AccountSummary: React.FC<Props> = props => {
           <LineVectorDetails />
           <DetailsItemContainer>
             <Text color='grey600' size='14px' weight={500}>
-              <FormattedMessage
-                id='modals.interest.summary.rate'
-                defaultMessage='Interest rate'
-              />
+              <FormattedMessage id='modals.interest.summary.rate' defaultMessage='Interest rate' />
               <TooltipHost id='modals.interest.summary.moreinterestdetails.tooltip'>
                 <TooltipIcon name='info' size='12px' />
               </TooltipHost>
             </Text>
-            <Text
-              data-e2e='interestRate'
-              color='grey600'
-              size='14px'
-              weight={500}
-            >
+            <Text data-e2e='interestRate' color='grey600' size='14px' weight={500}>
               {interestRate[coin]}%
             </Text>
           </DetailsItemContainer>
@@ -413,15 +340,10 @@ const AccountSummary: React.FC<Props> = props => {
             fullwidth
             height='48px'
             nature='grey800'
-            onClick={() =>
-              interestActions.showInterestModal('WITHDRAWAL', coin)
-            }
+            onClick={() => interestActions.showInterestModal('WITHDRAWAL', coin)}
           >
             <Text color='white' size='16px' weight={600}>
-              <FormattedMessage
-                id='buttons.withdraw'
-                defaultMessage='Withdraw'
-              />
+              <FormattedMessage id='buttons.withdraw' defaultMessage='Withdraw' />
             </Text>
           </Button>
         </ButtonContainer>
@@ -437,8 +359,5 @@ type ParentProps = {
   stepMetadata: InterestStepMetadata
 }
 
-export type Props = OwnProps &
-  LinkDispatchPropsType &
-  DataSuccessStateType &
-  ParentProps
+export type Props = OwnProps & LinkDispatchPropsType & DataSuccessStateType & ParentProps
 export default AccountSummary

@@ -9,7 +9,7 @@ getInvitations.mockReturnValue(Remote.of({}))
 
 describe('walletOptions selectors', () => {
   const successState = {
-    walletOptionsPath: Remote.Success(MockWalletOptions)
+    walletOptionsPath: Remote.Success(MockWalletOptions),
   }
 
   it('getBtcNetwork should return correct network', () => {
@@ -27,11 +27,9 @@ describe('walletOptions selectors', () => {
       lockbox: true,
       exchangeFrom: true,
       exchangeTo: true,
-      syncToPit: true
+      syncToPit: true,
     }
-    expect(selectors.getCoinAvailability(successState, 'BTC')).toEqual(
-      Remote.of(expected)
-    )
+    expect(selectors.getCoinAvailability(successState, 'BTC')).toEqual(Remote.of(expected))
   })
 
   it('getCoinAvailability should return correct eth availability', () => {
@@ -41,10 +39,8 @@ describe('walletOptions selectors', () => {
       lockbox: true,
       exchangeFrom: true,
       exchangeTo: true,
-      syncToPit: true
+      syncToPit: true,
     }
-    expect(selectors.getCoinAvailability(successState, 'ETH')).toEqual(
-      Remote.of(expected)
-    )
+    expect(selectors.getCoinAvailability(successState, 'ETH')).toEqual(Remote.of(expected))
   })
 })

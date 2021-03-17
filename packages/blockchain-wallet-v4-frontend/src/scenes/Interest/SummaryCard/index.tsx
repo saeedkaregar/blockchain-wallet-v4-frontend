@@ -4,17 +4,10 @@ import { bindActionCreators, Dispatch } from 'redux'
 import styled from 'styled-components'
 
 import { SkeletonRectangle } from 'blockchain-info-components'
-import {
-  CoinType,
-  InterestRateType,
-  RemoteDataType
-} from 'blockchain-wallet-v4/src/types'
+import { CoinType, InterestRateType, RemoteDataType } from 'blockchain-wallet-v4/src/types'
 import { actions } from 'data'
 
-import {
-  StateType as ParentStateType,
-  SuccessStateType as ParentSuccessStateType
-} from '..'
+import { StateType as ParentStateType, SuccessStateType as ParentSuccessStateType } from '..'
 import { getData } from './selectors'
 import SummaryCard from './template.success'
 
@@ -26,21 +19,21 @@ const LoadingCard = () => <LoadingBox width='330px' height='275px' />
 class SummaryCardContainer extends PureComponent<Props> {
   render() {
     return this.props.data.cata({
-      Success: val => <SummaryCard {...this.props} {...val} />,
+      Success: (val) => <SummaryCard {...this.props} {...val} />,
       Failure: () => null,
       Loading: () => <LoadingCard />,
-      NotAsked: () => <LoadingCard />
+      NotAsked: () => <LoadingCard />,
     })
   }
 }
 
 const mapStateToProps = (state): LinkStatePropsType => ({
-  data: getData(state)
+  data: getData(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   interestActions: bindActionCreators(actions.components.interest, dispatch),
-  profileActions: bindActionCreators(actions.modules.profile, dispatch)
+  profileActions: bindActionCreators(actions.modules.profile, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

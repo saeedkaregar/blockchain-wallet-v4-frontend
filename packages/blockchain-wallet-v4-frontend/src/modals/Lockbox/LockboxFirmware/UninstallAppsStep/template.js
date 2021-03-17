@@ -16,7 +16,7 @@ const Content = styled.div`
   flex-direction: column;
   align-items: center;
 `
-const UninstallApps = props => {
+const UninstallApps = (props) => {
   const { status } = props
   return (
     <React.Fragment>
@@ -44,11 +44,7 @@ const UninstallApps = props => {
           <Text size='14px' weight={400} style={{ marginTop: '16px' }}>
             <b>{status}</b>
           </Text>
-          <BlockchainLoader
-            height='100px'
-            width='100px'
-            style={{ marginTop: '45px' }}
-          />
+          <BlockchainLoader height='100px' width='100px' style={{ marginTop: '45px' }} />
         </Content>
       </Title>
     </React.Fragment>

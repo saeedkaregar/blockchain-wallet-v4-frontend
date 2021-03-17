@@ -12,14 +12,10 @@ describe('kvStore root reducers', () => {
   const typeId = derivationMap[ROOT]
   const rootObject = {
     mdid: 'mdid value',
-    metadata: 'my xpriv'
+    metadata: 'my xpriv',
   }
 
-  const rootMetadata = set(
-    KVStoreEntry.value,
-    rootObject,
-    KVStoreEntry.createEmpty(typeId)
-  )
+  const rootMetadata = set(KVStoreEntry.value, rootObject, KVStoreEntry.createEmpty(typeId))
 
   const rootMetadataSuccess = Remote.Success(rootMetadata)
 

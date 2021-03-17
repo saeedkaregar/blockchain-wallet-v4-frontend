@@ -42,7 +42,7 @@ const EmailSentNotification = styled(Text)<{ className?: string }>`
   `}
 `
 
-const EmailReminder = props => {
+const EmailReminder = (props) => {
   const { email, emailReminded, onEmailResend } = props
 
   return (
@@ -100,7 +100,7 @@ const EmailReminder = props => {
 EmailReminder.propTypes = {
   email: PropTypes.string.isRequired,
   emailReminded: PropTypes.bool,
-  onEmailResend: PropTypes.func.isRequired
+  onEmailResend: PropTypes.func.isRequired,
 }
 
 export default EmailReminder

@@ -5,10 +5,7 @@ import { path } from 'ramda'
 import { Text } from 'blockchain-info-components'
 import { getInput, getOutput } from 'data/components/swap/model'
 
-import {
-  IconTx as SharedIconTx,
-  Timestamp as SharedTimestamp
-} from '../components'
+import { IconTx as SharedIconTx, Timestamp as SharedTimestamp } from '../components'
 import { Props } from '.'
 
 const getOutputCoinDisplayName = (props: Props) => {

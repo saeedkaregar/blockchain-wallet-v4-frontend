@@ -8,7 +8,7 @@ import { SendBtcState } from './types'
 const INITIAL_STATE: SendBtcState = {
   step: 1,
   feePerByteToggled: false,
-  payment: Remote.NotAsked
+  payment: Remote.NotAsked,
 }
 
 export function sendBtcReducer(state = INITIAL_STATE, action) {

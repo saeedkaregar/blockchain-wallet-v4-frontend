@@ -13,7 +13,7 @@ type Props = {
 } & OwnProps &
   SuccessStateType
 
-const ActionButton: React.FC<Props> = props => {
+const ActionButton: React.FC<Props> = (props) => {
   const disabled = props.invalid || props.submitting
   const disableInsufficientEth = props.isSufficientEthForErc20
   const dailyLimitExceeded = props.isDailyLimitExceeded
@@ -31,10 +31,7 @@ const ActionButton: React.FC<Props> = props => {
           fullwidth
           disabled
         >
-          <FormattedMessage
-            id='modals.simplebuy.failed'
-            defaultMessage='ID Verification Failed'
-          />
+          <FormattedMessage id='modals.simplebuy.failed' defaultMessage='ID Verification Failed' />
         </Button>
       )
     case 'UNDER_REVIEW':
@@ -61,10 +58,7 @@ const ActionButton: React.FC<Props> = props => {
             style={{ textAlign: 'center', marginTop: '24px', display: 'block' }}
             onClick={() => props.profileActions.fetchUser()}
           >
-            <FormattedMessage
-              id='modals.simplebuy.refresh'
-              defaultMessage='Refresh'
-            />
+            <FormattedMessage id='modals.simplebuy.refresh' defaultMessage='Refresh' />
           </Link>
         </div>
       )

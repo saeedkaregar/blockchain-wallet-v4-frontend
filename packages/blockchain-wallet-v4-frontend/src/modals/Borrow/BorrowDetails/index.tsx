@@ -20,20 +20,20 @@ class BorrowDetails extends PureComponent<Props> {
 
   render() {
     return this.props.data.cata({
-      Success: val => <Success {...val} {...this.props} />,
-      Failure: e => (typeof e === 'object' ? e.message : e),
+      Success: (val) => <Success {...val} {...this.props} />,
+      Failure: (e) => (typeof e === 'object' ? e.message : e),
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state: RootState) => ({
-  data: getData(state)
+  data: getData(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  borrowActions: bindActionCreators(actions.components.borrow, dispatch)
+  borrowActions: bindActionCreators(actions.components.borrow, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

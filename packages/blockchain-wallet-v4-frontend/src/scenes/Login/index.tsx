@@ -40,9 +40,9 @@ class LoginContainer extends React.PureComponent<Props> {
 
     const { busy, error } = data.cata({
       Success: () => ({ error: null, busy: false }),
-      Failure: val => ({ error: val.err, busy: false }),
+      Failure: (val) => ({ error: val.err, busy: false }),
       Loading: () => ({ error: null, busy: true }),
-      NotAsked: () => ({ error: null, busy: false })
+      NotAsked: () => ({ error: null, busy: false }),
     })
 
     const loginProps = {
@@ -50,11 +50,10 @@ class LoginContainer extends React.PureComponent<Props> {
       authType,
       loginError: error,
       onSubmit: this.onSubmit,
-      handleSmsResend: this.handleSmsResend
+      handleSmsResend: this.handleSmsResend,
     }
 
-    const path =
-      this.props.location.pathname && this.props.location.pathname.split('/')[2]
+    const path = this.props.location.pathname && this.props.location.pathname.split('/')[2]
     const guid = (isGuid(path) && path) || lastGuid
 
     return guid ? (
@@ -66,7 +65,7 @@ class LoginContainer extends React.PureComponent<Props> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   authType: selectors.auth.getAuthType(state),
   code: formValueSelector('login')(state, 'code'),
   data: selectors.auth.getLogin(state),
@@ -85,27 +84,23 @@ const mapStateToProps = state => ({
         type: 'login_wallet',
         channelId: selectors.cache.getChannelChannelId(state),
         pubkey: wCrypto
-          .derivePubFromPriv(
-            Buffer.from(selectors.cache.getChannelPrivKey(state), 'hex')
-          )
-          .toString('hex')
+          .derivePubFromPriv(Buffer.from(selectors.cache.getChannelPrivKey(state), 'hex'))
+          .toString('hex'),
       })
     : '',
-  showMobileAuth: selectors.core.walletOptions
-    .getMobileAuthFlag(state)
-    .getOrElse(false) as boolean,
+  showMobileAuth: selectors.core.walletOptions.getMobileAuthFlag(state).getOrElse(false) as boolean,
   supportedCoins: selectors.core.walletOptions
     .getSupportedCoins(state)
-    .getOrElse({} as SupportedWalletCurrenciesType)
+    .getOrElse({} as SupportedWalletCurrenciesType),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   alertActions: bindActionCreators(actions.alerts, dispatch),
   authActions: bindActionCreators(actions.auth, dispatch),
   cacheActions: bindActionCreators(actions.cache, dispatch),
   formActions: bindActionCreators(actions.form, dispatch),
   middlewareActions: bindActionCreators(actions.ws, dispatch),
-  modalActions: bindActionCreators(actions.modals, dispatch)
+  modalActions: bindActionCreators(actions.modals, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

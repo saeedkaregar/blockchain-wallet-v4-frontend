@@ -8,12 +8,7 @@ import styled from 'styled-components'
 import { Button, Icon, Text } from 'blockchain-info-components'
 import { fiatToString } from 'blockchain-wallet-v4/src/exchange/currency'
 import { FlyoutWrapper } from 'components/Flyout'
-import {
-  CoinBalanceDropdown,
-  Form,
-  FormLabel,
-  NumberBox
-} from 'components/Form'
+import { CoinBalanceDropdown, Form, FormLabel, NumberBox } from 'components/Form'
 import { selectors } from 'data'
 import { BorrowFormValuesType } from 'data/components/borrow/types'
 
@@ -78,7 +73,7 @@ const FiatContainer = styled.div`
   display: inline-block;
   padding: 4px 8px;
   border-radius: 20px;
-  background-color: ${props => props.theme.grey000};
+  background-color: ${(props) => props.theme.grey000};
 `
 
 const ButtonContainer = styled.div`
@@ -91,7 +86,7 @@ const ButtonContainer = styled.div`
   }
 `
 
-const Success: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
+const Success: React.FC<InjectedFormProps<{}, Props> & Props> = (props) => {
   // TODO: Borrow - make dynamic
   const displayName = props.supportedCoins['PAX'].displayName
 
@@ -115,17 +110,12 @@ const Success: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
         </TopText>
         <MaxAmountContainer>
           <Text color='grey600' weight={500} size='14px'>
-            <FormattedMessage
-              id='modals.borrow.canborrow'
-              defaultMessage='You can borrow up to'
-            />{' '}
-            <FiatContainer
-              onClick={() => props.borrowActions.handleMaxCollateralClick()}
-            >
+            <FormattedMessage id='modals.borrow.canborrow' defaultMessage='You can borrow up to' />{' '}
+            <FiatContainer onClick={() => props.borrowActions.handleMaxCollateralClick()}>
               <Text color='blue600' size='14px' weight={500}>
                 {fiatToString({
                   value: props.limits.maxFiat,
-                  unit: 'USD'
+                  unit: 'USD',
                 })}
               </Text>
             </FiatContainer>{' '}
@@ -144,17 +134,10 @@ const Success: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
             />
           </Text>
         </CustomFormLabel>
-        <CoinBalanceDropdown
-          includeCustodial={false}
-          {...props}
-          name='collateral'
-        />
+        <CoinBalanceDropdown includeCustodial={false} {...props} name='collateral' />
         <CustomFormLabel>
           <Text color='grey600' weight={500} size='14px'>
-            <FormattedMessage
-              id='modals.borrow.enterloanamt'
-              defaultMessage='Enter loan amount'
-            />
+            <FormattedMessage id='modals.borrow.enterloanamt' defaultMessage='Enter loan amount' />
           </Text>
         </CustomFormLabel>
         <AmountFieldContainer>
@@ -167,7 +150,7 @@ const Success: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
               autoFocus: true,
               errorBottom: true,
               errorLeft: true,
-              errorIcon: 'alert-filled'
+              errorIcon: 'alert-filled',
             }}
           />
           <PrincipalCcyAbsolute>
@@ -179,33 +162,16 @@ const Success: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
       </Top>
       <Bottom>
         <>
-          <Summary
-            {...props}
-            {...props.values}
-            collateral={0}
-            displayName={displayName}
-          />
+          <Summary {...props} {...props.values} collateral={0} displayName={displayName} />
           <ButtonContainer>
-            <Button
-              nature='empty'
-              data-e2e='borrowCancel'
-              onClick={props.handleClose}
-            >
+            <Button nature='empty' data-e2e='borrowCancel' onClick={props.handleClose}>
               <Text size='16px' weight={600} color='blue600'>
                 <FormattedMessage id='buttons.cancel' defaultMessage='Cancel' />
               </Text>
             </Button>
-            <Button
-              nature='primary'
-              type='submit'
-              data-e2e='borrowSubmit'
-              disabled={props.invalid}
-            >
+            <Button nature='primary' type='submit' data-e2e='borrowSubmit' disabled={props.invalid}>
               <Text size='16px' weight={600} color='white'>
-                <FormattedMessage
-                  id='buttons.continue'
-                  defaultMessage='Continue'
-                />
+                <FormattedMessage id='buttons.continue' defaultMessage='Continue' />
               </Text>
             </Button>
           </ButtonContainer>
@@ -215,8 +181,8 @@ const Success: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
   )
 }
 
-const mapStateToProps = state => ({
-  values: selectors.form.getFormValues('borrowForm')(state)
+const mapStateToProps = (state) => ({
+  values: selectors.form.getFormValues('borrowForm')(state),
 })
 
 const enhance = compose(

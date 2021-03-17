@@ -14,7 +14,7 @@ import {
   SettingContainer,
   SettingDescription,
   SettingHeader,
-  SettingSummary
+  SettingSummary,
 } from 'components/Setting'
 import { actions } from 'data'
 import * as C from 'services/alerts'
@@ -26,17 +26,17 @@ class DownloadUpdaterContainer extends React.PureComponent {
       case 'macos':
         return {
           extension: 'dmg',
-          updater: macUpdater
+          updater: macUpdater,
         }
       case 'linux':
         return {
           extension: 'AppImage',
-          updater: linuxUpdater
+          updater: linuxUpdater,
         }
       default:
         return {
           extension: 'exe',
-          updater: windowsUpdater
+          updater: windowsUpdater,
         }
     }
   }
@@ -45,7 +45,7 @@ class DownloadUpdaterContainer extends React.PureComponent {
     this.props.modalActions.showModal('Confirm', {
       hideCancel: true,
       title: C.LOCKBOX_SOFTWARE_DOWNLOAD_TITLE,
-      message: C.LOCKBOX_SOFTWARE_DOWNLOAD_MSG
+      message: C.LOCKBOX_SOFTWARE_DOWNLOAD_MSG,
     })
     this.props.preferencesActions.hideLockboxSoftwareDownload()
   }
@@ -70,10 +70,7 @@ class DownloadUpdaterContainer extends React.PureComponent {
         <SettingComponent>
           <Link
             href={prop('updater', this.getOsSpecificUpdater())}
-            download={`lockbox-updater-1.0.0.${prop(
-              'extension',
-              this.getOsSpecificUpdater()
-            )}`}
+            download={`lockbox-updater-1.0.0.${prop('extension', this.getOsSpecificUpdater())}`}
           >
             <Button nature='empty' onClick={this.onSoftwareDownload}>
               <FormattedMessage
@@ -88,8 +85,8 @@ class DownloadUpdaterContainer extends React.PureComponent {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  modalActions: bindActionCreators(actions.modals, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  modalActions: bindActionCreators(actions.modals, dispatch),
 })
 
 export default connect(null, mapDispatchToProps)(DownloadUpdaterContainer)

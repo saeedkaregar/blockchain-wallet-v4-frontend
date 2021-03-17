@@ -7,12 +7,7 @@ import constants from './constants'
 import firmware from './firmware'
 import utils from './utils'
 
-const promptForLockbox = function * (
-  coin,
-  deviceType,
-  marquees = [],
-  isTx = true
-) {
+const promptForLockbox = function* (coin, deviceType, marquees = [], isTx = true) {
   if (marquees && !Array.isArray(marquees)) {
     throw new Error('MARQUEES_NEEDS_TO_BE_ARRAY')
   }
@@ -20,13 +15,13 @@ const promptForLockbox = function * (
     actions.modals.showModal('LockboxConnectionPrompt', {
       coin,
       marquees,
-      isTx
+      isTx,
     })
   )
   yield put(actions.components.lockbox.pollForDeviceApp(coin, null, deviceType))
-  let { canceled } = yield race({
+  const { canceled } = yield race({
     response: take(actionTypes.components.lockbox.SET_CONNECTION_INFO),
-    canceled: take(actionTypes.modals.CLOSE_MODAL)
+    canceled: take(actionTypes.modals.CLOSE_MODAL),
   })
   if (canceled) {
     throw new Error('PROMPT_FOR_LOCKBOX_CANCELED')

@@ -2,7 +2,7 @@ import * as selectors from './selectors'
 describe('upload document selectors', () => {
   it('getData should return the data', () => {
     const state = {
-      components: { uploadDocuments: { data: '[45,457,78,65]' } }
+      components: { uploadDocuments: { data: '[45,457,78,65]' } },
     }
     expect(selectors.getData(state)).toEqual('[45,457,78,65]')
   })

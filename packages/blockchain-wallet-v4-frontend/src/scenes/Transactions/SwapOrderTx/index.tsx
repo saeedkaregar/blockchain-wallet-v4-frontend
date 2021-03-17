@@ -6,14 +6,11 @@ import { bindActionCreators, Dispatch } from 'redux'
 import styled from 'styled-components'
 
 import { Button, Icon, Link, Text } from 'blockchain-info-components'
-import {
-  coinToString,
-  fiatToString
-} from 'blockchain-wallet-v4/src/exchange/currency'
+import { coinToString, fiatToString } from 'blockchain-wallet-v4/src/exchange/currency'
 import {
   CoinType,
   ProcessedSwapOrderType,
-  SupportedWalletCurrenciesType
+  SupportedWalletCurrenciesType,
 } from 'blockchain-wallet-v4/src/types'
 import { actions, selectors } from 'data'
 import { convertBaseToStandard } from 'data/components/exchange/services'
@@ -32,7 +29,7 @@ import {
   StyledCoinDisplay,
   StyledFiatDisplay,
   TxRow,
-  TxRowContainer
+  TxRowContainer,
 } from '../components'
 import { getDestination, getOrigin, IconTx, Status, Timestamp } from './model'
 
@@ -58,13 +55,13 @@ class SwapOrderTx extends PureComponent<Props, State> {
 
   showModal = (order: ProcessedSwapOrderType) => {
     this.props.modalActions.showModal('SWAP_MODAL', {
-      origin: 'TransactionList'
+      origin: 'TransactionList',
     })
     this.props.swapActions.setStep({
       step: 'ORDER_DETAILS',
       options: {
-        order
-      }
+        order,
+      },
     })
   }
 
@@ -74,30 +71,19 @@ class SwapOrderTx extends PureComponent<Props, State> {
     const counter = getOutput(order)
     const { outputMoney } = this.props.order.priceFunnel
     return (
-      <TxRowContainer
-        className={this.state.isToggled ? 'active' : ''}
-        data-e2e='transactionRow'
-      >
+      <TxRowContainer className={this.state.isToggled ? 'active' : ''} data-e2e='transactionRow'>
         <TxRow onClick={this.handleToggle}>
           <Row width='30%' data-e2e='orderStatusColumn'>
             <IconTx {...this.props} />
             <StatusAndType>
-              <Text
-                size='16px'
-                color='grey800'
-                weight={600}
-                data-e2e='txTypeText'
-              >
+              <Text size='16px' color='grey800' weight={600} data-e2e='txTypeText'>
                 Swap {replace('PAX', 'USD-D', this.props.order.pair)}
               </Text>
               <Timestamp {...this.props} />
             </StatusAndType>
           </Row>
           <Col width='50%' data-e2e='orderToAndFrom'>
-            <Addresses
-              from={<>{getOrigin(this.props)}</>}
-              to={<>{getDestination(this.props)}</>}
-            />
+            <Addresses from={<>{getOrigin(this.props)}</>} to={<>{getDestination(this.props)}</>} />
           </Col>
           {order.state === 'PENDING_DEPOSIT' ? (
             <LastCol
@@ -111,7 +97,7 @@ class SwapOrderTx extends PureComponent<Props, State> {
                 height='35px'
                 nature='light'
                 // @ts-ignore
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault()
                   e.stopPropagation()
                   return this.showModal(order)
@@ -160,7 +146,7 @@ class SwapOrderTx extends PureComponent<Props, State> {
                 1 {base} ={' '}
                 {coinToString({
                   unit: { symbol: counter },
-                  value: order.priceFunnel.price
+                  value: order.priceFunnel.price,
                 })}
               </RowValue>
               {order.kind.depositTxHash && (
@@ -176,12 +162,7 @@ class SwapOrderTx extends PureComponent<Props, State> {
                     target='_blank'
                     data-e2e='swapOutgoingTransactionListItemExplorerLink'
                   >
-                    <Icon
-                      name='open-in-new-tab'
-                      color='marketing-primary'
-                      cursor
-                      size='14px'
-                    />
+                    <Icon name='open-in-new-tab' color='marketing-primary' cursor size='14px' />
                   </Link>
                 </ViewTxWrapper>
               )}
@@ -198,12 +179,7 @@ class SwapOrderTx extends PureComponent<Props, State> {
                     target='_blank'
                     data-e2e='swapIncomingTransactionListItemExplorerLink'
                   >
-                    <Icon
-                      name='open-in-new-tab'
-                      color='marketing-primary'
-                      cursor
-                      size='14px'
-                    />
+                    <Icon name='open-in-new-tab' color='marketing-primary' cursor size='14px' />
                   </Link>
                 </ViewTxWrapper>
               )}
@@ -211,27 +187,18 @@ class SwapOrderTx extends PureComponent<Props, State> {
             <DetailsColumn />
             <DetailsColumn>
               <RowHeader>
-                <FormattedMessage
-                  defaultMessage='Status'
-                  id='components.txlistitem.status'
-                />
+                <FormattedMessage defaultMessage='Status' id='components.txlistitem.status' />
               </RowHeader>
               <RowValue>
                 <Status {...this.props} />
               </RowValue>
               <RowHeader>
-                <FormattedMessage
-                  id='copy.amount_sent'
-                  defaultMessage='Amount Sent'
-                />
+                <FormattedMessage id='copy.amount_sent' defaultMessage='Amount Sent' />
               </RowHeader>
               <RowValue data-e2e='swapPurchasing'>
                 {fiatToString({
                   unit: this.props.order.fiatCurrency,
-                  value: convertBaseToStandard(
-                    'FIAT',
-                    this.props.order.fiatValue
-                  )
+                  value: convertBaseToStandard('FIAT', this.props.order.fiatValue),
                 })}
               </RowValue>
             </DetailsColumn>
@@ -244,13 +211,13 @@ class SwapOrderTx extends PureComponent<Props, State> {
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   modalActions: bindActionCreators(actions.modals, dispatch),
-  swapActions: bindActionCreators(actions.components.swap, dispatch)
+  swapActions: bindActionCreators(actions.components.swap, dispatch),
 })
 
 const mapStateToProps = (state: RootState) => ({
   supportedCoins: selectors.core.walletOptions
     .getSupportedCoins(state)
-    .getOrElse({} as SupportedWalletCurrenciesType)
+    .getOrElse({} as SupportedWalletCurrenciesType),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

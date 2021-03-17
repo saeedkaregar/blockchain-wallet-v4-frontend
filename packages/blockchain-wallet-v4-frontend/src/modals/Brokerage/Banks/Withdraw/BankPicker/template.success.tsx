@@ -20,7 +20,7 @@ const getLinkedBankIcon = (bankName: string): ReactElement => (
   <Image name={getBankLogoImageName(bankName)} height='48px' />
 )
 
-const Success: React.FC<Props> = props => {
+const Success: React.FC<Props> = (props) => {
   return (
     <div>
       <FlyoutWrapper>
@@ -36,19 +36,16 @@ const Success: React.FC<Props> = props => {
             onClick={() =>
               props.withdrawActions.setStep({
                 step: WithdrawStepEnum.ENTER_AMOUNT,
-                fiatCurrency: props.fiatCurrency
+                fiatCurrency: props.fiatCurrency,
               })
             }
           />
           <Text color='grey800' size='20px' weight={600}>
-            <FormattedMessage
-              id='scenes.settings.linked_banks'
-              defaultMessage='Linked Banks'
-            />
+            <FormattedMessage id='scenes.settings.linked_banks' defaultMessage='Linked Banks' />
           </Text>
         </Top>
       </FlyoutWrapper>
-      {props.bankTransferAccounts.map(account => {
+      {props.bankTransferAccounts.map((account) => {
         return (
           <Bank
             key={account.id}
@@ -61,13 +58,13 @@ const Success: React.FC<Props> = props => {
               props.withdrawActions.setStep({
                 beneficiary: undefined,
                 fiatCurrency: props.fiatCurrency,
-                step: WithdrawStepEnum.ENTER_AMOUNT
+                step: WithdrawStepEnum.ENTER_AMOUNT,
               })
             }}
           />
         )
       })}
-      {props.beneficiaries.map(beneficiary => {
+      {props.beneficiaries.map((beneficiary) => {
         return (
           <BankWire
             beneficiary={beneficiary}
@@ -77,7 +74,7 @@ const Success: React.FC<Props> = props => {
               props.withdrawActions.setStep({
                 beneficiary,
                 fiatCurrency: props.fiatCurrency,
-                step: WithdrawStepEnum.ENTER_AMOUNT
+                step: WithdrawStepEnum.ENTER_AMOUNT,
               })
             }}
             type={'WITHDRAWAL'}
@@ -89,7 +86,7 @@ const Success: React.FC<Props> = props => {
         onClick={() => {
           props.withdrawActions.setStep({
             fiatCurrency: props.fiatCurrency,
-            step: WithdrawStepEnum.WITHDRAWAL_METHODS
+            step: WithdrawStepEnum.WITHDRAWAL_METHODS,
           })
         }}
       >

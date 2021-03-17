@@ -20,7 +20,7 @@ class LockboxBalanceContainer extends React.PureComponent {
         handleToggle={() =>
           preferencesActions.setTotalBalancesDropdown({
             key,
-            val: !isActive
+            val: !isActive,
           })
         }
       />
@@ -28,15 +28,12 @@ class LockboxBalanceContainer extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  data: getData(state)
+const mapStateToProps = (state) => ({
+  data: getData(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-  preferencesActions: bindActionCreators(actions.preferences, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  preferencesActions: bindActionCreators(actions.preferences, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LockboxBalanceContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(LockboxBalanceContainer)

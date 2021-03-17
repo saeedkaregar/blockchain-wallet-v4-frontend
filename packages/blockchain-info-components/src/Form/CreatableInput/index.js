@@ -4,18 +4,18 @@ import { difference, equals, head, isNil, pathOr } from 'ramda'
 import CreatableInput from './template'
 
 const components = {
-  DropdownIndicator: null
+  DropdownIndicator: null,
 }
 
-const createOption = label => ({
+const createOption = (label) => ({
   label,
-  value: label
+  value: label,
 })
 
 class CreatableInputContainer extends React.PureComponent {
   state = {
     inputValue: '',
-    value: []
+    value: [],
   }
 
   componentDidMount() {
@@ -43,28 +43,28 @@ class CreatableInputContainer extends React.PureComponent {
     }
   }
 
-  handleChange = value => {
+  handleChange = (value) => {
     this.setState({ value })
     if (this.props.onChange) {
       !value ? this.props.onChange(value) : this.props.onChange({ value })
     }
   }
 
-  handleInputChange = inputValue => {
+  handleInputChange = (inputValue) => {
     this.setState({ inputValue })
   }
 
   handleMultiChange = (inputValue, value) => {
     this.setState({
       inputValue: '',
-      value: [...value, createOption(inputValue)]
+      value: [...value, createOption(inputValue)],
     })
     if (this.props.onChange) {
       this.props.onChange({ value: [...value, createOption(inputValue)] })
     }
   }
 
-  handleKeyDown = event => {
+  handleKeyDown = (event) => {
     const { inputValue, value } = this.state
     if (!inputValue || !this.props.isMulti) return
     switch (event.key) {
@@ -75,7 +75,7 @@ class CreatableInputContainer extends React.PureComponent {
     }
   }
 
-  handleBlur = event => {
+  handleBlur = (event) => {
     this.props.onBlur()
     const { inputValue, value } = this.state
     if (!inputValue) return
@@ -121,7 +121,7 @@ class CreatableInputContainer extends React.PureComponent {
 }
 
 CreatableInputContainer.defaultProps = {
-  height: '48px'
+  height: '48px',
 }
 
 export default CreatableInputContainer

@@ -7,14 +7,14 @@ export const getData = createDeepEqualSelector(
   [
     selectors.core.settings.getAuthType,
     selectors.core.settings.getSmsNumber,
-    selectors.core.settings.getSmsVerified
+    selectors.core.settings.getSmsVerified,
   ],
   (authTypeR, smsNumberR, smsVerifiedR) => {
     const transform = (authType, smsNumber, smsVerified) => {
       return {
         authType: parseInt(authType),
         smsVerified,
-        smsNumber
+        smsNumber,
       }
     }
     return lift(transform)(authTypeR, smsNumberR, smsVerifiedR)

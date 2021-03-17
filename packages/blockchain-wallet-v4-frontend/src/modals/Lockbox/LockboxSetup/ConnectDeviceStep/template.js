@@ -2,14 +2,7 @@ import React from 'react'
 import { FormattedHTMLMessage, FormattedMessage } from 'react-intl'
 import styled from 'styled-components'
 
-import {
-  Button,
-  Icon,
-  Image,
-  Link,
-  Text,
-  TextGroup
-} from 'blockchain-info-components'
+import { Button, Icon, Image, Link, Text, TextGroup } from 'blockchain-info-components'
 
 const Wrapper = styled.div`
   display: flex;
@@ -46,7 +39,7 @@ const TimeoutText = styled(Text)`
 const SupportText = styled(Link)`
   margin: 52px 0 12px;
 `
-const ConnectDeviceStep = props => {
+const ConnectDeviceStep = (props) => {
   const {
     connectTimeout,
     deviceType,
@@ -55,7 +48,7 @@ const ConnectDeviceStep = props => {
     isNewSetup,
     onNewDeviceContinue,
     onTimeoutAccept,
-    supportLink
+    supportLink,
   } = props
 
   return connectTimeout ? (
@@ -81,10 +74,7 @@ const ConnectDeviceStep = props => {
         />
       </Text>
       <SupportText href={supportLink} target='_blank' size='10px' weight={500}>
-        <FormattedMessage
-          id='buttons.contact_support'
-          defaultMessage='Contact Support'
-        />
+        <FormattedMessage id='buttons.contact_support' defaultMessage='Contact Support' />
       </SupportText>
       <Button fullwidth onClick={onTimeoutAccept} nature={'primary'}>
         <FormattedMessage
@@ -95,11 +85,7 @@ const ConnectDeviceStep = props => {
     </TimeoutWrapper>
   ) : (
     <Wrapper>
-      <Image
-        style={{ marginBottom: '18px' }}
-        name='lockbox-onboard-connect'
-        width='100%'
-      />
+      <Image style={{ marginBottom: '18px' }} name='lockbox-onboard-connect' width='100%' />
       {isNewSetup ? (
         <React.Fragment>
           <Row>
@@ -206,10 +192,7 @@ const ConnectDeviceStep = props => {
           </Row>
           <ButtonContainer>
             <Button fullwidth onClick={onNewDeviceContinue} nature='primary'>
-              <FormattedMessage
-                id='buttons.continue'
-                defaultMessage='Continue'
-              />
+              <FormattedMessage id='buttons.continue' defaultMessage='Continue' />
             </Button>
           </ButtonContainer>
         </React.Fragment>
@@ -251,12 +234,7 @@ const ConnectDeviceStep = props => {
             </TextGroup>
           </Instructions>
           <ButtonContainer>
-            <Button
-              fullwidth
-              disabled={!isConnected}
-              onClick={handleStepChange}
-              nature='primary'
-            >
+            <Button fullwidth disabled={!isConnected} onClick={handleStepChange} nature='primary'>
               {isConnected ? (
                 <FormattedMessage
                   id='modals.lockboxsetup.connectdevice.success'

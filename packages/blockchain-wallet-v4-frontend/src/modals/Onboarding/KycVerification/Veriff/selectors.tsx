@@ -14,7 +14,7 @@ export const getData = (state: RootState) => {
       veriffDomain: ExtractSuccess<typeof veriffDomainR>
     ) => ({
       veriffUrl,
-      veriffDomain
+      veriffDomain,
     })
   )(veriffUrlR, veriffDomainR)
 }

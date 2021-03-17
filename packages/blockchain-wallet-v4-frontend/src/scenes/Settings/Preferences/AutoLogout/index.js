@@ -6,7 +6,7 @@ import {
   SettingContainer,
   SettingDescription,
   SettingHeader,
-  SettingSummary
+  SettingSummary,
 } from 'components/Setting'
 
 import Settings from './Settings'
@@ -16,10 +16,7 @@ const AutoLogout = () => {
     <SettingContainer>
       <SettingSummary>
         <SettingHeader>
-          <FormattedMessage
-            id='scenes.preferences.autologout.title'
-            defaultMessage='Auto Logout'
-          />
+          <FormattedMessage id='scenes.preferences.autologout.title' defaultMessage='Auto Logout' />
         </SettingHeader>
         <SettingDescription>
           <FormattedMessage

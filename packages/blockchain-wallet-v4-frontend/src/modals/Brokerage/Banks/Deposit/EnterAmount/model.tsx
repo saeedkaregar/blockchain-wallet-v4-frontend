@@ -6,7 +6,7 @@ import { BankTransferAccountType } from 'blockchain-wallet-v4/src/types'
 // TODO: move this somewhere more generic
 import { renderBank } from '../../../../SimpleBuy/EnterAmount/Checkout/Payment/model'
 
-const getText = method => {
+const getText = (method) => {
   if (!method) {
     return (
       <FormattedMessage
@@ -19,10 +19,7 @@ const getText = method => {
   }
 }
 
-const getDefaultMethod = (
-  defaultMethod,
-  bankAccounts: BankTransferAccountType[]
-) => {
+const getDefaultMethod = (defaultMethod, bankAccounts: BankTransferAccountType[]) => {
   if (defaultMethod) {
     return { ...defaultMethod, type: 'BANK_TRANSFER' }
   } else if (bankAccounts.length === 1) {

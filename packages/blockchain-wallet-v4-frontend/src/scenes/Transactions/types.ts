@@ -2,7 +2,7 @@ import {
   FiatSBAndSwapTransactionType,
   ProcessedTxType,
   SBOrderType,
-  SBTransactionType
+  SBTransactionType,
 } from 'blockchain-wallet-v4/src/types'
 
 export type TransferType = 'sent' | 'received' | 'transferred' | ''

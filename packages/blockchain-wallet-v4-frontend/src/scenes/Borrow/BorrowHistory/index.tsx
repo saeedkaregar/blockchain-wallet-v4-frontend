@@ -20,7 +20,7 @@ class BorrowHistory extends Component<Props> {
   showLoanDetails = (loan: LoanType, offer: OfferType) => {
     this.props.borrowActions.setStep({ step: 'DETAILS', loan, offer })
     this.props.modalActions.showModal('BORROW_MODAL', {
-      origin: 'BorrowHistorySection'
+      origin: 'BorrowHistorySection',
     })
   }
 
@@ -28,25 +28,23 @@ class BorrowHistory extends Component<Props> {
     return (
       <History>
         {this.props.data.cata({
-          Success: val => (
-            <Success {...val} showLoanDetails={this.showLoanDetails} />
-          ),
+          Success: (val) => <Success {...val} showLoanDetails={this.showLoanDetails} />,
           Failure: () => null,
           Loading: () => null,
-          NotAsked: () => null
+          NotAsked: () => null,
         })}
       </History>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  data: getData(state)
+const mapStateToProps = (state) => ({
+  data: getData(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   borrowActions: bindActionCreators(actions.components.borrow, dispatch),
-  modalActions: bindActionCreators(actions.modals, dispatch)
+  modalActions: bindActionCreators(actions.modals, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

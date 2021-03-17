@@ -90,7 +90,7 @@ const Content = styled(Text)`
   width: 252px;
 `
 
-const Success = props => {
+const Success = (props) => {
   /* eslint-disable */
   const {
     approver_device_description,
@@ -111,23 +111,13 @@ const Success = props => {
         <Fragment>
           <Image name='blockchain-icon' width='50px' height='50px' />
           <InfoWrapper>
-            <Text
-              size='24px'
-              weight={500}
-              color='grey700'
-              style={{ marginTop: '24px' }}
-            >
+            <Text size='24px' weight={500} color='grey700' style={{ marginTop: '24px' }}>
               <FormattedMessage
                 id='scenes.authorizelogin.attemptfrombrowser'
                 defaultMessage='Login attempt from another browser'
               />
             </Text>
-            <Text
-              size='13px'
-              weight={400}
-              color='grey700'
-              style={{ marginTop: '10px' }}
-            >
+            <Text size='13px' weight={400} color='grey700' style={{ marginTop: '10px' }}>
               <FormattedMessage
                 id='scenes.authorizelogin.attemptfrombrowsermsg'
                 defaultMessage='Someone, hopefully you, is attempting to login to your wallet from a different browser.'
@@ -143,10 +133,7 @@ const Success = props => {
                 </Text>
                 &nbsp;
                 <Text size='16px' weight={500} color='grey700'>
-                  <FormattedMessage
-                    id='scenes.authorizelogin.vs'
-                    defaultMessage='vs.'
-                  />
+                  <FormattedMessage id='scenes.authorizelogin.vs' defaultMessage='vs.' />
                 </Text>
                 &nbsp;
                 <Text size='16px' weight={500} color='error'>
@@ -257,26 +244,17 @@ const Success = props => {
                 nature='warning'
                 onClick={props.onAccept}
               >
-                <FormattedMessage
-                  id='scenes.authorizelogin.accept'
-                  defaultMessage='Accept'
-                />
+                <FormattedMessage id='scenes.authorizelogin.accept' defaultMessage='Accept' />
               </ApproveRejectButtons>
               <OrText size='12px' weight={400}>
-                <FormattedMessage
-                  id='scenes.authorizelogin.or'
-                  defaultMessage='Or'
-                />
+                <FormattedMessage id='scenes.authorizelogin.or' defaultMessage='Or' />
               </OrText>
               <ApproveRejectButtons
                 data-e2e='rejectLogin'
                 nature='primary'
                 onClick={props.onReject}
               >
-                <FormattedMessage
-                  id='scenes.authorizelogin.reject'
-                  defaultMessage='Reject'
-                />
+                <FormattedMessage id='scenes.authorizelogin.reject' defaultMessage='Reject' />
               </ApproveRejectButtons>
             </ApproveWrapper>
           </InfoWrapper>

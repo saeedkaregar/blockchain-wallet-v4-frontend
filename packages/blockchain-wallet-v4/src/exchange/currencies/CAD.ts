@@ -8,13 +8,13 @@ export default {
       rate: '1',
       symbol: '¢C$',
       decimal_digits: 0,
-      currency: 'CAD'
+      currency: 'CAD',
     },
     CAD: {
       rate: '100',
       symbol: 'C$',
       decimal_digits: 2,
-      currency: 'CAD'
-    }
-  }
+      currency: 'CAD',
+    },
+  },
 }

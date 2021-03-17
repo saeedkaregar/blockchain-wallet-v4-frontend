@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import { Button } from 'blockchain-info-components'
 
-const Settings = props => {
+const Settings = (props) => {
   const { authTypeNeverSave, handleClick } = props
 
   return (
@@ -26,7 +26,7 @@ const Settings = props => {
 
 Settings.propTypes = {
   authTypeNeverSave: PropTypes.number.isRequired,
-  handleClick: PropTypes.func.isRequired
+  handleClick: PropTypes.func.isRequired,
 }
 
 export default Settings

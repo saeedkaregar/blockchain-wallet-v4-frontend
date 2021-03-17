@@ -39,5 +39,5 @@ export {
   session,
   wallet,
   wizard,
-  ws // TODO
+  ws, // TODO
 }

@@ -8,18 +8,18 @@ export default ({ get, nabuUrl, post, put }) => {
       data: {
         quote,
         destinationAddress,
-        refundAddress
+        refundAddress,
       },
       contentType: 'application/json',
-      ignoreQueryParams: true
+      ignoreQueryParams: true,
     })
 
-  const fetchTrade = id =>
+  const fetchTrade = (id) =>
     get({
       url: nabuUrl,
       endPoint: `/trades/${id}`,
       contentType: 'application/json',
-      ignoreQueryParams: true
+      ignoreQueryParams: true,
     })
 
   const fetchTrades = (limit, userFiatCurrency, before = null) => {
@@ -29,24 +29,24 @@ export default ({ get, nabuUrl, post, put }) => {
       url: nabuUrl,
       endPoint: '/trades',
       data,
-      contentType: 'application/json'
+      contentType: 'application/json',
     })
   }
 
-  const fetchLimits = currency =>
+  const fetchLimits = (currency) =>
     get({
       url: nabuUrl,
       endPoint: `/trades/limits?currency=${currency}`,
       contentType: 'application/json',
-      ignoreQueryParams: true
+      ignoreQueryParams: true,
     })
 
-  const fetchTradeCounterFees = currency =>
+  const fetchTradeCounterFees = (currency) =>
     get({
       url: nabuUrl,
       endPoint: `/fees/${currency}`,
       contentType: 'application/json',
-      ignoreQueryParams: true
+      ignoreQueryParams: true,
     })
 
   const failTrade = (tradeId, err, txHash = null) => {
@@ -60,15 +60,15 @@ export default ({ get, nabuUrl, post, put }) => {
       contentType: 'application/json',
       data: {
         txHash,
-        failureReason
-      }
+        failureReason,
+      },
     })
   }
 
   const requestTradeHistory = () => {
     return get({
       url: nabuUrl,
-      endPoint: '/trades/trade-history-csv'
+      endPoint: '/trades/trade-history-csv',
     })
   }
 
@@ -79,6 +79,6 @@ export default ({ get, nabuUrl, post, put }) => {
     fetchTrade,
     fetchTrades,
     fetchTradeCounterFees,
-    requestTradeHistory
+    requestTradeHistory,
   }
 }

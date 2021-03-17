@@ -9,10 +9,10 @@ import {
   SettingHeader,
   SettingStatus,
   SettingSummary,
-  SettingWrapper
+  SettingWrapper,
 } from 'components/Setting'
 
-const LoginIpRestriction = props => {
+const LoginIpRestriction = (props) => {
   const { handleClick, ipLockOn } = props
 
   return (

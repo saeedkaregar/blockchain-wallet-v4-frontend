@@ -10,7 +10,7 @@ import {
   ModalBody,
   ModalFooter,
   ModalHeader,
-  Text
+  Text,
 } from 'blockchain-info-components'
 
 const Slide = styled.div`
@@ -26,7 +26,7 @@ const Slide = styled.div`
   }
 `
 
-const UpgradeWallet = props => {
+const UpgradeWallet = (props) => {
   const { position, total, ...rest } = props
   const { handleContinue } = rest
 

@@ -4,7 +4,7 @@ import {
   FiatType,
   SBTransactionStateType,
   WalletCurrencyType,
-  WalletFiatType
+  WalletFiatType,
 } from 'core/types'
 
 export type BeneficiaryType = {

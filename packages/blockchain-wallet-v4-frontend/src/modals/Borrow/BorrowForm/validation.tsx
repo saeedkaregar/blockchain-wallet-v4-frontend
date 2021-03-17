@@ -9,10 +9,7 @@ import { BorrowFormValuesType, BorrowSteps } from 'data/types'
 import { Props as AddCollateralProps } from '../AddCollateral/template.success'
 import { Props as CheckoutProps } from './template.success'
 
-const {
-  getCollateralAmtRequired,
-  getCollateralizationDisplayName
-} = model.components.borrow
+const { getCollateralAmtRequired, getCollateralizationDisplayName } = model.components.borrow
 
 export const maximumAmount = (
   value: string,
@@ -34,9 +31,7 @@ export const maximumAmount = (
 export const minimumAmount = (
   value: string,
   allValues: BorrowFormValuesType,
-  props:
-    | ({ step: 'CHECKOUT' } & CheckoutProps)
-    | ({ step: 'ADD_COLLATERAL' } & AddCollateralProps)
+  props: ({ step: 'CHECKOUT' } & CheckoutProps) | ({ step: 'ADD_COLLATERAL' } & AddCollateralProps)
 ) => {
   if (!value) return true
   switch (props.step) {
@@ -48,8 +43,8 @@ export const minimumAmount = (
           values={{
             minFiat: fiatToString({
               value: props.limits.minFiat,
-              unit: 'USD'
-            })
+              unit: 'USD',
+            }),
           }}
         />
       ) : (
@@ -73,8 +68,8 @@ export const minimumAmount = (
               values={{
                 minFiat: fiatToString({
                   value: getCollateralAmtRequired(props.loan, props.offer),
-                  unit: 'USD'
-                })
+                  unit: 'USD',
+                }),
               }}
             />
           ) : (
@@ -88,8 +83,8 @@ export const minimumAmount = (
               values={{
                 minFiat: fiatToString({
                   value: 0,
-                  unit: 'USD'
-                })
+                  unit: 'USD',
+                }),
               }}
             />
           ) : (

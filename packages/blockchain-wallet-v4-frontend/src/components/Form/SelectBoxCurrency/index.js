@@ -14,7 +14,7 @@ class SelectBoxCurrency extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currency: selectors.core.settings.getCurrency(state),
   currencies: [
     { text: 'Australian Dollar', value: 'AUD' },
@@ -38,8 +38,8 @@ const mapStateToProps = state => ({
     { text: 'Swedish Krona', value: 'SEK' },
     { text: 'Swiss Franc', value: 'CHF' },
     { text: 'Thai Baht', value: 'THB' },
-    { text: 'U.S. Dollar', value: 'USD' }
-  ]
+    { text: 'U.S. Dollar', value: 'USD' },
+  ],
 })
 
 export default connect(mapStateToProps)(SelectBoxCurrency)

@@ -3,11 +3,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import { includes } from 'ramda'
 import { bindActionCreators } from 'redux'
 
-import {
-  CoinType,
-  FiatType,
-  ProcessedTxType
-} from 'blockchain-wallet-v4/src/types'
+import { CoinType, FiatType, ProcessedTxType } from 'blockchain-wallet-v4/src/types'
 import { actions, model, selectors } from 'data'
 
 import NonCustodialTx from './template'
@@ -21,7 +17,7 @@ class NonCustodialTxListItem extends React.PureComponent<Props> {
     this.setState({ isToggled: !this.state.isToggled })
   }
 
-  handleEditDescription = value => {
+  handleEditDescription = (value) => {
     const { coin, erc20List, transaction } = this.props
     // TODO: ERC20 make more generic
     switch (true) {
@@ -60,11 +56,8 @@ class NonCustodialTxListItem extends React.PureComponent<Props> {
     this.props.sendEthActions.retrySendEth(txHash, isErc20)
   }
 
-  onViewTxDetails = coin => {
-    this.props.analyticsActions.logEvent([
-      ...TRANSACTION_EVENTS.VIEW_TX_ON_EXPLORER,
-      coin
-    ])
+  onViewTxDetails = (coin) => {
+    this.props.analyticsActions.logEvent([...TRANSACTION_EVENTS.VIEW_TX_ON_EXPLORER, coin])
   }
 
   render() {
@@ -81,11 +74,11 @@ class NonCustodialTxListItem extends React.PureComponent<Props> {
   }
 }
 
-const mapStateToProps = state => ({
-  erc20List: selectors.core.walletOptions.getErc20CoinList(state).getOrElse([])
+const mapStateToProps = (state) => ({
+  erc20List: selectors.core.walletOptions.getErc20CoinList(state).getOrElse([]),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   analyticsActions: bindActionCreators(actions.analytics, dispatch),
   bchActions: bindActionCreators(actions.core.kvStore.bch, dispatch),
   ethActions: bindActionCreators(actions.core.kvStore.eth, dispatch),
@@ -94,7 +87,7 @@ const mapDispatchToProps = dispatch => ({
   preferencesActions: bindActionCreators(actions.preferences, dispatch),
   sendEthActions: bindActionCreators(actions.components.sendEth, dispatch),
   walletActions: bindActionCreators(actions.core.wallet, dispatch),
-  xlmActions: bindActionCreators(actions.core.kvStore.xlm, dispatch)
+  xlmActions: bindActionCreators(actions.core.kvStore.xlm, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

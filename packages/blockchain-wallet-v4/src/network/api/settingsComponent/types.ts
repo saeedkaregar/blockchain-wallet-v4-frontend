@@ -1,10 +1,5 @@
 import { CardNameType } from 'components/Form/CreditCardBox/model'
-import {
-  BeneficiaryType,
-  CoinType,
-  FiatType,
-  WalletCurrencyType
-} from 'core/types'
+import { BeneficiaryType, CoinType, FiatType, WalletCurrencyType } from 'core/types'
 
 export type Everypay3DSResponseType = {
   payment_state: null | 'waiting_for_3DS_response'
@@ -102,12 +97,7 @@ export type SBCardType = {
 
 export type SBCardPartnerType = 'EVERYPAY'
 
-export type SBCardStateType =
-  | 'PENDING'
-  | 'CREATED'
-  | 'ACTIVE'
-  | 'BLOCKED'
-  | 'FRAUD_REVIEW'
+export type SBCardStateType = 'PENDING' | 'CREATED' | 'ACTIVE' | 'BLOCKED' | 'FRAUD_REVIEW'
 
 export type SBPairsType = string
 
@@ -290,7 +280,7 @@ export enum SBPendingTransactionStateEnum {
   FRAUD_REVIEW = 'FRAUD_REVIEW',
   MANUAL_REVIEW = 'MANUAL_REVIEW',
   PENDING = 'PENDING',
-  PENDING_DEPOSIT = 'PENDING_DEPOSIT'
+  PENDING_DEPOSIT = 'PENDING_DEPOSIT',
 }
 
 export type FiatEligibleType = {

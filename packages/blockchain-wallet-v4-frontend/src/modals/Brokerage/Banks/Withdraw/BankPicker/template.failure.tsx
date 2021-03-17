@@ -20,7 +20,7 @@ const Title = styled(Text)`
   margin: 40px 0px 24px 0px;
 `
 
-const Failure: React.FC<Props> = props => {
+const Failure: React.FC<Props> = (props) => {
   return (
     <Wrapper>
       <div>
@@ -42,11 +42,7 @@ const Failure: React.FC<Props> = props => {
           data-e2e='withdrawReload'
           nature='primary'
           size='16px'
-          onClick={() =>
-            props.custodialActions.fetchCustodialBeneficiaries(
-              props.fiatCurrency
-            )
-          }
+          onClick={() => props.custodialActions.fetchCustodialBeneficiaries(props.fiatCurrency)}
         >
           <FormattedMessage id='buttons.tryagain' defaultMessage='Try Again' />
         </Button>

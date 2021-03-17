@@ -16,7 +16,7 @@ import {
   SupportedWalletCurrencyType,
   WalletCurrencyType,
   WalletFiatEnum,
-  WalletFiatType
+  WalletFiatType,
 } from 'blockchain-wallet-v4/src/types'
 import EmptyResults from 'components/EmptyResults'
 import { SceneWrapper } from 'components/Layout'
@@ -93,7 +93,7 @@ const ExplainerText = styled(Text)`
   margin-top: 15px;
   font-size: 16px;
   font-weight: 500;
-  color: ${props => props.theme.grey600};
+  color: ${(props) => props.theme.grey600};
 `
 const LearnMoreLink = styled(Link)`
   display: inline-flex;
@@ -103,7 +103,7 @@ const LearnMoreText = styled(Text)`
   margin-left: 3px;
   size: 16px;
   font-weight: 500;
-  color: ${props => props.theme.blue600};
+  color: ${(props) => props.theme.blue600};
 `
 
 class TransactionsContainer extends React.PureComponent<Props> {
@@ -118,10 +118,7 @@ class TransactionsContainer extends React.PureComponent<Props> {
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      path(['location', 'pathname'], prevProps) !==
-      path(['location', 'pathname'], this.props)
-    ) {
+    if (path(['location', 'pathname'], prevProps) !== path(['location', 'pathname'], this.props)) {
       this.props.initTxs()
     }
   }
@@ -131,7 +128,7 @@ class TransactionsContainer extends React.PureComponent<Props> {
     this.props.initTxs()
   }
 
-  handleArchive = address => {
+  handleArchive = (address) => {
     this.props.setAddressArchived && this.props.setAddressArchived(address)
   }
 
@@ -146,7 +143,7 @@ class TransactionsContainer extends React.PureComponent<Props> {
       isSearchEntered,
       loadMoreTxs,
       pages,
-      sourceType
+      sourceType,
     } = this.props
     const { coinTicker, colorCode, displayName, icons } = coinModel
     return (
@@ -176,10 +173,7 @@ class TransactionsContainer extends React.PureComponent<Props> {
                         )
                       }}
                     >
-                      <FormattedMessage
-                        id='buttons.sell'
-                        defaultMessage='Sell'
-                      />
+                      <FormattedMessage id='buttons.sell' defaultMessage='Sell' />
                     </Button>
                     <Button
                       nature='primary'
@@ -221,29 +215,20 @@ class TransactionsContainer extends React.PureComponent<Props> {
                           }
                         }}
                       >
-                        <FormattedMessage
-                          id='buttons.deposit'
-                          defaultMessage='Deposit'
-                        />
+                        <FormattedMessage id='buttons.deposit' defaultMessage='Deposit' />
                       </Button>
                     )}
-                    {(coinModel as SupportedFiatType).availability
-                      .withdrawal && (
+                    {(coinModel as SupportedFiatType).availability.withdrawal && (
                       <Button
                         nature='primary'
                         data-e2e='withdrawFiat'
                         style={{ minWidth: 'auto', marginLeft: '8px' }}
                         onClick={() => {
                           if (!this.props.withdrawActions) return
-                          this.props.withdrawActions.showModal(
-                            coin as WalletFiatType
-                          )
+                          this.props.withdrawActions.showModal(coin as WalletFiatType)
                         }}
                       >
-                        <FormattedMessage
-                          id='buttons.withdraw'
-                          defaultMessage='Withdraw'
-                        />
+                        <FormattedMessage id='buttons.withdraw' defaultMessage='Withdraw' />
                       </Button>
                     )}
                   </>
@@ -256,24 +241,15 @@ class TransactionsContainer extends React.PureComponent<Props> {
                 {!(coin in FiatTypeEnum) && (
                   <LearnMoreLink href={coinModel.learnMoreLink} target='_blank'>
                     <LearnMoreText size='16px'>
-                      <FormattedMessage
-                        id='buttons.learn_more'
-                        defaultMessage='Learn More'
-                      />
+                      <FormattedMessage id='buttons.learn_more' defaultMessage='Learn More' />
                     </LearnMoreText>
                   </LearnMoreLink>
                 )}
               </ExplainerText>
             </ExplainerWrapper>
             <StatsContainer>
-              <WalletBalanceDropdown
-                coin={coin}
-                coinModel={coinModel}
-                isCoinErc20={isCoinErc20}
-              />
-              {coin in CoinTypeEnum && (
-                <CoinPerformance coin={coin} coinModel={coinModel} />
-              )}
+              <WalletBalanceDropdown coin={coin} coinModel={coinModel} isCoinErc20={isCoinErc20} />
+              {coin in CoinTypeEnum && <CoinPerformance coin={coin} coinModel={coinModel} />}
             </StatsContainer>
           </Header>
           {(hasTxResults || isSearchEntered) && coin in CoinTypeEnum && (
@@ -321,59 +297,33 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps) => {
   if (isCoinErc20) {
     return {
       fetchData: () => dispatch(actions.core.data.eth.fetchErc20Data(coin)),
-      initTxs: () =>
-        dispatch(actions.components.ethTransactions.initializedErc20(coin)),
-      loadMoreTxs: () =>
-        dispatch(actions.components.ethTransactions.loadMoreErc20(coin)),
+      initTxs: () => dispatch(actions.components.ethTransactions.initializedErc20(coin)),
+      loadMoreTxs: () => dispatch(actions.components.ethTransactions.loadMoreErc20(coin)),
       miscActions: bindActionCreators(actions.core.data.misc, dispatch),
-      simpleBuyActions: bindActionCreators(
-        actions.components.simpleBuy,
-        dispatch
-      ),
-      brokerageActions: bindActionCreators(
-        actions.components.brokerage,
-        dispatch
-      )
+      simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
+      brokerageActions: bindActionCreators(actions.components.brokerage, dispatch),
     }
   }
   if (coin in WalletFiatEnum) {
     return {
       fetchData: () => {},
-      loadMoreTxs: () =>
-        dispatch(actions.components.fiatTransactions.loadMore(coin)),
-      initTxs: () =>
-        dispatch(actions.components.fiatTransactions.initialized(coin)),
+      loadMoreTxs: () => dispatch(actions.components.fiatTransactions.loadMore(coin)),
+      initTxs: () => dispatch(actions.components.fiatTransactions.initialized(coin)),
       miscActions: bindActionCreators(actions.core.data.misc, dispatch),
-      simpleBuyActions: bindActionCreators(
-        actions.components.simpleBuy,
-        dispatch
-      ),
-      withdrawActions: bindActionCreators(
-        actions.components.withdraw,
-        dispatch
-      ),
-      brokerageActions: bindActionCreators(
-        actions.components.brokerage,
-        dispatch
-      )
+      simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
+      withdrawActions: bindActionCreators(actions.components.withdraw, dispatch),
+      brokerageActions: bindActionCreators(actions.components.brokerage, dispatch),
     }
   }
   return {
     fetchData: () => dispatch(actions.core.data[toLower(coin)].fetchData()),
-    initTxs: () =>
-      dispatch(
-        actions.components[`${toLower(coin)}Transactions`].initialized()
-      ),
-    loadMoreTxs: () =>
-      dispatch(actions.components[`${toLower(coin)}Transactions`].loadMore()),
+    initTxs: () => dispatch(actions.components[`${toLower(coin)}Transactions`].initialized()),
+    loadMoreTxs: () => dispatch(actions.components[`${toLower(coin)}Transactions`].loadMore()),
     miscActions: bindActionCreators(actions.core.data.misc, dispatch),
-    setAddressArchived: address =>
+    setAddressArchived: (address) =>
       dispatch(actions.core.wallet.setAddressArchived(address, true)),
-    simpleBuyActions: bindActionCreators(
-      actions.components.simpleBuy,
-      dispatch
-    ),
-    brokerageActions: bindActionCreators(actions.components.brokerage, dispatch)
+    simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
+    brokerageActions: bindActionCreators(actions.components.brokerage, dispatch),
   }
 }
 
@@ -402,7 +352,7 @@ type Props = OwnProps & LinkStatePropsType & ConnectedProps<typeof connector>
 const enhance = compose<any>(
   reduxForm({
     form: model.form.WALLET_TX_SEARCH,
-    initialValues: { source: 'all' }
+    initialValues: { source: 'all' },
   }),
   connector
 )

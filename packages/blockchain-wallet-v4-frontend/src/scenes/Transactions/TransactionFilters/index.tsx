@@ -12,7 +12,7 @@ class TransactionFiltersContainer extends React.PureComponent<Props> {
     const { coin, modalActions } = this.props
     modalActions.showModal('TRANSACTION_REPORT', {
       coin,
-      origin: 'TransactionList'
+      origin: 'TransactionList',
     })
   }
 
@@ -21,8 +21,8 @@ class TransactionFiltersContainer extends React.PureComponent<Props> {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  modalActions: bindActionCreators(actions.modals, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  modalActions: bindActionCreators(actions.modals, dispatch),
 })
 
 const connector = connect(null, mapDispatchToProps)

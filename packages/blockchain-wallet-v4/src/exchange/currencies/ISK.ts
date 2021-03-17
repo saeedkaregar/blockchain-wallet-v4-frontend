@@ -8,13 +8,13 @@ export default {
       rate: '1',
       symbol: '¢Íkr',
       decimal_digits: 0,
-      currency: 'INR'
+      currency: 'INR',
     },
     ISK: {
       rate: '100',
       symbol: 'Íkr',
       decimal_digits: 2,
-      currency: 'ISK'
-    }
-  }
+      currency: 'ISK',
+    },
+  },
 }

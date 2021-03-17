@@ -8,15 +8,11 @@ import {
   BankTransferAccountType,
   BeneficiaryType,
   ExtractSuccess,
-  WalletFiatType
+  WalletFiatType,
 } from 'blockchain-wallet-v4/src/types'
 import { actions, selectors } from 'data'
 import { RootState } from 'data/rootReducer'
-import {
-  UserDataType,
-  WithdrawCheckoutFormValuesType,
-  WithdrawStepEnum
-} from 'data/types'
+import { UserDataType, WithdrawCheckoutFormValuesType, WithdrawStepEnum } from 'data/types'
 
 import { getData } from './selectors'
 import Failure from './template.failure'
@@ -37,17 +33,13 @@ class EnterAmount extends PureComponent<Props> {
 
     if (!Remote.Success.is(this.props.data)) {
       this.props.brokerageActions.fetchBankTransferAccounts()
-      this.props.custodialActions.fetchCustodialBeneficiaries(
-        this.props.fiatCurrency
-      )
+      this.props.custodialActions.fetchCustodialBeneficiaries(this.props.fiatCurrency)
       this.props.withdrawActions.fetchWithdrawalLock()
     }
   }
 
   handleSubmit = () => {
-    const { defaultBeneficiary } = this.props.data.getOrElse(
-      {} as SuccessStateType
-    )
+    const { defaultBeneficiary } = this.props.data.getOrElse({} as SuccessStateType)
     const { defaultMethod } = this.props
     const beneficiary = defaultBeneficiary || this.props.beneficiary
 
@@ -57,13 +49,13 @@ class EnterAmount extends PureComponent<Props> {
       this.props.withdrawActions.setStep({
         step: WithdrawStepEnum.CONFIRM_WITHDRAW,
         amount: this.props.formValues.amount,
-        defaultMethod
+        defaultMethod,
       })
     } else if (defaultBeneficiary || this.props.beneficiary) {
       this.props.withdrawActions.setStep({
         step: WithdrawStepEnum.CONFIRM_WITHDRAW,
         amount: this.props.formValues.amount,
-        beneficiary
+        beneficiary,
       })
     }
   }
@@ -79,24 +71,24 @@ class EnterAmount extends PureComponent<Props> {
           step: 'BANK_WIRE_DETAILS',
           fiatCurrency: this.props.fiatCurrency,
           displayBack: false,
-          addBank: true
+          addBank: true,
         })
       } else {
         return this.props.simpleBuyActions.setStep({
-          step: 'KYC_REQUIRED'
+          step: 'KYC_REQUIRED',
         })
       }
     }
 
     this.props.withdrawActions.setStep({
       step: WithdrawStepEnum.BANK_PICKER,
-      fiatCurrency: this.props.fiatCurrency
+      fiatCurrency: this.props.fiatCurrency,
     })
   }
 
   render() {
     return this.props.data.cata({
-      Success: val => (
+      Success: (val) => (
         <Success
           {...this.props}
           {...val}
@@ -106,7 +98,7 @@ class EnterAmount extends PureComponent<Props> {
       ),
       Failure: () => <Failure {...this.props} />,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
@@ -117,7 +109,7 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
     state
   ) as WithdrawCheckoutFormValuesType,
   defaultMethod: selectors.components.brokerage.getAccount(state),
-  isInvited: selectors.core.settings.getInvitations(state)
+  isInvited: selectors.core.settings.getInvitations(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -125,7 +117,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   custodialActions: bindActionCreators(actions.custodial, dispatch),
   formActions: bindActionCreators(actions.form, dispatch),
   simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
-  withdrawActions: bindActionCreators(actions.components.withdraw, dispatch)
+  withdrawActions: bindActionCreators(actions.components.withdraw, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

@@ -7,7 +7,7 @@ import { SendBchState } from './types'
 
 const INITIAL_STATE: SendBchState = {
   step: 1,
-  payment: Remote.NotAsked
+  payment: Remote.NotAsked,
 }
 
 export function sendBchReducer(state = INITIAL_STATE, action) {

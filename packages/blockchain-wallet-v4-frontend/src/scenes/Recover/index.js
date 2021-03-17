@@ -32,13 +32,10 @@ class RecoverContainer extends React.PureComponent {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  formActions: bindActionCreators(actions.form, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  formActions: bindActionCreators(actions.form, dispatch),
 })
 
-const enhance = compose(
-  connect(null, mapDispatchToProps),
-  wizardProvider('recover', 2)
-)
+const enhance = compose(connect(null, mapDispatchToProps), wizardProvider('recover', 2))
 
 export default enhance(RecoverContainer)

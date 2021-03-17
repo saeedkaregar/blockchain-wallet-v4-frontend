@@ -68,7 +68,7 @@ const Welcome = (props: OwnProps & { handleRequest: () => void }) => {
                 id='scenes.transaction.content.empty.cointxs'
                 defaultMessage='All your {coinName} transactions will show up here.'
                 values={{
-                  coinName: currentCoin.displayName
+                  coinName: currentCoin.displayName,
                 }}
               />
             </Content>

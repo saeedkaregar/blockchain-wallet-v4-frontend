@@ -7,7 +7,7 @@ import { actions } from 'data'
 
 import { getData } from './selectors'
 
-const MaximumAmountLink = props => (
+const MaximumAmountLink = (props) => (
   <Link
     data-e2e='xlmMaximumAmountLink'
     size='12px'
@@ -18,8 +18,8 @@ const MaximumAmountLink = props => (
   </Link>
 )
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions.components.sendXlm, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions.components.sendXlm, dispatch),
 })
 
 export default connect(getData, mapDispatchToProps)(MaximumAmountLink)

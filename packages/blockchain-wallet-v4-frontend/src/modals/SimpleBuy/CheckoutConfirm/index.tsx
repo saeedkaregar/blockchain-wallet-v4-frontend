@@ -10,17 +10,13 @@ import {
   SBOrderType,
   SupportedCoinType,
   SupportedWalletCurrenciesType,
-  WalletFiatType
+  WalletFiatType,
 } from 'blockchain-wallet-v4/src/types'
 import DataError from 'components/DataError'
 import { actions, selectors } from 'data'
 import { getFiatFromPair, getOrderType } from 'data/components/simpleBuy/model'
 import { RootState } from 'data/rootReducer'
-import {
-  AddBankStepType,
-  BrokerageModalOriginType,
-  UserDataType
-} from 'data/types'
+import { AddBankStepType, BrokerageModalOriginType, UserDataType } from 'data/types'
 
 import Loading from '../template.loading'
 import { getData } from './selectors'
@@ -45,16 +41,12 @@ class CheckoutConfirm extends PureComponent<Props> {
   }
 
   handleSubmit = () => {
-    const {
-      cards,
-      isSddFlow,
-      isUserSddVerified,
-      sbBalances,
-      userData
-    } = this.props.data.getOrElse({
-      userData: { tiers: { current: 0 } } as UserDataType,
-      isSddFlow: false
-    } as SuccessStateType)
+    const { cards, isSddFlow, isUserSddVerified, sbBalances, userData } = this.props.data.getOrElse(
+      {
+        userData: { tiers: { current: 0 } } as UserDataType,
+        isSddFlow: false,
+      } as SuccessStateType
+    )
 
     const userTier = userData?.tiers?.current
     const inputCurrency = this.props.order.inputCurrency as WalletFiatType
@@ -64,40 +56,33 @@ class CheckoutConfirm extends PureComponent<Props> {
       if (isUserSddVerified) {
         if (cards && cards.length > 0) {
           const card = cards[0]
-          return this.props.simpleBuyActions.confirmSBCreditCardOrder(
-            card.id,
-            this.props.order
-          )
+          return this.props.simpleBuyActions.confirmSBCreditCardOrder(card.id, this.props.order)
         }
         return this.props.simpleBuyActions.setStep({
-          step: 'ADD_CARD'
+          step: 'ADD_CARD',
         })
       }
       return this.props.simpleBuyActions.setStep({
-        step: 'KYC_REQUIRED'
+        step: 'KYC_REQUIRED',
       })
     }
 
     if (userTier < 2) {
       return this.props.simpleBuyActions.setStep({
-        step: 'KYC_REQUIRED'
+        step: 'KYC_REQUIRED',
       })
     }
 
     switch (this.props.order.paymentType) {
       case 'FUNDS':
         const available = sbBalances[inputCurrency]?.available || '0'
-        if (
-          new BigNumber(available).isGreaterThanOrEqualTo(
-            this.props.order.inputQuantity
-          )
-        ) {
+        if (new BigNumber(available).isGreaterThanOrEqualTo(this.props.order.inputQuantity)) {
           return this.props.simpleBuyActions.confirmSBFundsOrder()
         } else {
           return this.props.simpleBuyActions.setStep({
             step: 'BANK_WIRE_DETAILS',
             fiatCurrency: inputCurrency,
-            displayBack: false
+            displayBack: false,
           })
         }
       case 'PAYMENT_CARD':
@@ -116,49 +101,42 @@ class CheckoutConfirm extends PureComponent<Props> {
             this.props.order
           )
         } else {
-          this.props.brokerageActions.showModal(
-            BrokerageModalOriginType.ADD_BANK,
-            'ADD_BANK_MODAL'
-          )
+          this.props.brokerageActions.showModal(BrokerageModalOriginType.ADD_BANK, 'ADD_BANK_MODAL')
           return this.props.brokerageActions.setAddBankStep({
-            addBankStep: AddBankStepType.ADD_BANK_HANDLER
+            addBankStep: AddBankStepType.ADD_BANK_HANDLER,
           })
         }
       default:
         // Not a valid payment method type, go back to CRYPTO_SELECTION
         return this.props.simpleBuyActions.setStep({
           step: 'CRYPTO_SELECTION',
-          fiatCurrency: getFiatFromPair(this.props.order.pair)
+          fiatCurrency: getFiatFromPair(this.props.order.pair),
         })
     }
   }
 
   render() {
     return this.props.data.cata({
-      Success: val => (
-        <Success {...this.props} {...val} onSubmit={this.handleSubmit} />
-      ),
-      Failure: e => <DataError message={{ message: e }} />,
+      Success: (val) => <Success {...this.props} {...val} onSubmit={this.handleSubmit} />,
+      Failure: (e) => <DataError message={{ message: e }} />,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state: RootState) => ({
   data: getData(state),
-  supportedCoins: selectors.core.walletOptions
-    .getSupportedCoins(state)
-    .getOrElse({
-      ALGO: { colorCode: 'algo' } as SupportedCoinType,
-      BTC: { colorCode: 'btc' } as SupportedCoinType,
-      BCH: { colorCode: 'bch' } as SupportedCoinType,
-      ETH: { colorCode: 'eth' } as SupportedCoinType,
-      PAX: { colorCode: 'pax' } as SupportedCoinType,
-      USDT: { colorCode: 'usdt' } as SupportedCoinType,
-      WDGLD: { colorCode: 'wdgld' } as SupportedCoinType,
-      XLM: { colorCode: 'xlm' } as SupportedCoinType
-    } as Omit<SupportedWalletCurrenciesType, keyof FiatTypeEnum>)
+  supportedCoins: selectors.core.walletOptions.getSupportedCoins(state).getOrElse({
+    ALGO: { colorCode: 'algo' } as SupportedCoinType,
+    BTC: { colorCode: 'btc' } as SupportedCoinType,
+    BCH: { colorCode: 'bch' } as SupportedCoinType,
+    ETH: { colorCode: 'eth' } as SupportedCoinType,
+    PAX: { colorCode: 'pax' } as SupportedCoinType,
+    USDT: { colorCode: 'usdt' } as SupportedCoinType,
+    WDGLD: { colorCode: 'wdgld' } as SupportedCoinType,
+    XLM: { colorCode: 'xlm' } as SupportedCoinType,
+  } as Omit<SupportedWalletCurrenciesType, keyof FiatTypeEnum>),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -168,7 +146,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   ),
   simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
   sendActions: bindActionCreators(actions.components.send, dispatch),
-  brokerageActions: bindActionCreators(actions.components.brokerage, dispatch)
+  brokerageActions: bindActionCreators(actions.components.brokerage, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

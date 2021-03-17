@@ -6,12 +6,12 @@ import {
   SettingContainer,
   SettingDescription,
   SettingHeader,
-  SettingSummary
+  SettingSummary,
 } from 'components/Setting'
 
 import Settings from './Settings'
 
-const LocalCurrency = props => {
+const LocalCurrency = (props) => {
   const { currency } = props
 
   return (

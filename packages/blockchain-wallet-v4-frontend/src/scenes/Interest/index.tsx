@@ -5,18 +5,13 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { bindActionCreators, Dispatch } from 'redux'
 import styled from 'styled-components'
 
-import {
-  SkeletonRectangle,
-  TabMenu,
-  TabMenuItem,
-  Text
-} from 'blockchain-info-components'
+import { SkeletonRectangle, TabMenu, TabMenuItem, Text } from 'blockchain-info-components'
 import { Remote } from 'blockchain-wallet-v4/src'
 import {
   CoinType,
   InterestRateType,
   RemoteDataType,
-  SupportedWalletCurrenciesType
+  SupportedWalletCurrenciesType,
 } from 'blockchain-wallet-v4/src/types'
 import { Container } from 'components/Box'
 import { SceneWrapper } from 'components/Layout'
@@ -51,17 +46,14 @@ class Interest extends React.PureComponent<Props, StateType> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (
-      !Remote.Success.is(prevProps.data) &&
-      Remote.Success.is(this.props.data)
-    ) {
+    if (!Remote.Success.is(prevProps.data) && Remote.Success.is(this.props.data)) {
       this.checkUserData()
     }
   }
 
   checkUserData = () => {
     const data = this.props.data.getOrElse({
-      userData: { tiers: { current: 0 } } as UserDataType
+      userData: { tiers: { current: 0 } } as UserDataType,
     } as SuccessStateType)
     const tier = data.userData.tiers ? data.userData.tiers.current : 0
     const isGoldTier = tier >= 2
@@ -79,10 +71,7 @@ class Interest extends React.PureComponent<Props, StateType> {
             <TabMenu>
               <LinkContainer to='/interest' exact>
                 <TabMenuItem data-e2e='interestTabMenuAccounts'>
-                  <FormattedMessage
-                    id='scenes.interest.tab.accounts'
-                    defaultMessage='Accounts'
-                  />
+                  <FormattedMessage id='scenes.interest.tab.accounts' defaultMessage='Accounts' />
                 </TabMenuItem>
               </LinkContainer>
               <LinkContainer to='/interest/history'>
@@ -97,12 +86,12 @@ class Interest extends React.PureComponent<Props, StateType> {
           </TabRow>
         )}
         {data.cata({
-          Success: val => (
+          Success: (val) => (
             <>
               <ContainerStyled>
                 <IntroCard {...val} {...this.props} isGoldTier={isGoldTier} />
                 {isGoldTier &&
-                  val.instruments.map(instrument => {
+                  val.instruments.map((instrument) => {
                     return (
                       <SummaryCard
                         {...val}
@@ -123,7 +112,7 @@ class Interest extends React.PureComponent<Props, StateType> {
             </Text>
           ),
           Loading: () => <SkeletonRectangle width='275px' height='275px' />,
-          NotAsked: () => <SkeletonRectangle width='275px' height='275px' />
+          NotAsked: () => <SkeletonRectangle width='275px' height='275px' />,
         })}
       </SceneWrapper>
     )
@@ -131,15 +120,12 @@ class Interest extends React.PureComponent<Props, StateType> {
 }
 
 const mapStateToProps = (state): LinkStatePropsType => ({
-  data: getData(state)
+  data: getData(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch): LinkDispatchPropsType => ({
-  idvActions: bindActionCreators(
-    actions.components.identityVerification,
-    dispatch
-  ),
-  interestActions: bindActionCreators(actions.components.interest, dispatch)
+  idvActions: bindActionCreators(actions.components.identityVerification, dispatch),
+  interestActions: bindActionCreators(actions.components.interest, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

@@ -3,7 +3,7 @@ import { isNil, lift, mapObjIndexed, reject, values } from 'ramda'
 import {
   CoinTypeEnum,
   ExtractSuccess,
-  SupportedWalletCurrencyType
+  SupportedWalletCurrencyType,
 } from 'blockchain-wallet-v4/src/types'
 import { selectors } from 'data'
 import { RootState } from 'data/rootReducer'
@@ -28,7 +28,7 @@ export const getSupportedCoinsWithMethodAndOrder = (state: RootState) => {
       supportedCoins.WDGLD,
       supportedCoins.ALGO,
       supportedCoins.PAX,
-      supportedCoins.USDT
+      supportedCoins.USDT,
     ])
 
     return values(
@@ -38,9 +38,8 @@ export const getSupportedCoinsWithMethodAndOrder = (state: RootState) => {
           method:
             coin.coinCode in CoinTypeEnum ||
             !!paymentMethods.methods.find(
-              method =>
-                method.currency === coin.coinCode && method.type === 'FUNDS'
-            )
+              (method) => method.currency === coin.coinCode && method.type === 'FUNDS'
+            ),
         }
       }, coinOrder)
     )

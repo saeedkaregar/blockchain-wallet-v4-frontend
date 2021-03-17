@@ -5,7 +5,7 @@ export default ({ get, post, rootUrl }) => {
     post({
       url: rootUrl,
       endPoint: '/wallet',
-      data: { guid, sharedKey, method: 'wallet.aes.json', format: 'json' }
+      data: { guid, sharedKey, method: 'wallet.aes.json', format: 'json' },
     })
 
   const fetchPayloadWithSession = (guid, sessionToken) =>
@@ -13,7 +13,7 @@ export default ({ get, post, rootUrl }) => {
       url: rootUrl,
       endPoint: `/wallet/${guid}`,
       data: { format: 'json', resend_code: null },
-      sessionToken
+      sessionToken,
     })
 
   const fetchPayloadWithTwoFactorAuth = (guid, sessionToken, twoFactorCode) => {
@@ -25,31 +25,31 @@ export default ({ get, post, rootUrl }) => {
         payload: twoFactorCode,
         length: twoFactorCode.length,
         method: 'get-wallet',
-        format: 'plain'
+        format: 'plain',
       },
-      sessionToken
+      sessionToken,
     })
   }
 
-  const savePayload = data =>
+  const savePayload = (data) =>
     post({
       url: rootUrl,
       endPoint: '/wallet',
-      data: merge({ method: 'update', format: 'plain' }, data)
+      data: merge({ method: 'update', format: 'plain' }, data),
     }).then(() => data.checksum)
 
   const createPayload = (email, data) =>
     post({
       url: rootUrl,
       endPoint: '/wallet',
-      data: merge({ method: 'insert', format: 'plain', email }, data)
+      data: merge({ method: 'insert', format: 'plain', email }, data),
     }).then(() => data.checksum)
 
   // onlyShow is xpub or address to filter data with
   const fetchBlockchainData = (
     context,
     { n = 50, offset = 0, onlyShow = false } = {},
-    filter?: Number
+    filter?: number
   ) => {
     const data = {
       active: (Array.isArray(context) ? context : [context]).join('|'),
@@ -60,45 +60,43 @@ export default ({ get, post, rootUrl }) => {
       n: n,
       language: 'en',
       no_buttons: true,
-      filter: filter
+      filter: filter,
     }
     return post({
       url: rootUrl,
       endPoint: '/multiaddr',
       data: onlyShow
         ? merge(data, {
-            onlyShow: (Array.isArray(onlyShow) ? onlyShow : [onlyShow]).join(
-              '|'
-            )
+            onlyShow: (Array.isArray(onlyShow) ? onlyShow : [onlyShow]).join('|'),
           })
-        : data
+        : data,
     })
   }
 
   const obtainSessionToken = () =>
     post({
       url: rootUrl,
-      endPoint: '/wallet/sessions'
-    }).then(data =>
+      endPoint: '/wallet/sessions',
+    }).then((data) =>
       !data.token || !data.token.length
         ? Promise.reject(new Error('INVALID_SESSION_TOKEN'))
         : data.token
     )
 
-  const pollForSessionGUID = sessionToken =>
+  const pollForSessionGUID = (sessionToken) =>
     get({
       url: rootUrl,
       endPoint: '/wallet/poll-for-session-guid',
       data: { format: 'json' },
-      sessionToken
+      sessionToken,
     })
 
-  const generateUUIDs = count =>
+  const generateUUIDs = (count) =>
     get({
       url: rootUrl,
       endPoint: '/uuid-generator',
-      data: { format: 'json', n: count }
-    }).then(data =>
+      data: { format: 'json', n: count },
+    }).then((data) =>
       !data.uuids || data.uuids.length !== count
         ? Promise.reject(new Error('Could not generate uuids'))
         : data.uuids
@@ -109,7 +107,7 @@ export default ({ get, post, rootUrl }) => {
     post({
       url: rootUrl,
       endPoint: '/pin-store',
-      data: { format: 'json', method: 'put', value, pin, key }
+      data: { format: 'json', method: 'put', value, pin, key },
     })
 
   // getPinValue :: HEXString(32Bytes) -> String -> Promise Response
@@ -117,7 +115,7 @@ export default ({ get, post, rootUrl }) => {
     get({
       url: rootUrl,
       endPoint: '/pin-store',
-      data: { format: 'json', method: 'get', pin, key }
+      data: { format: 'json', method: 'get', pin, key },
     })
 
   const resendSmsLoginCode = (guid, sessionToken) =>
@@ -125,7 +123,7 @@ export default ({ get, post, rootUrl }) => {
       url: rootUrl,
       endPoint: `/wallet/${guid}`,
       data: { format: 'json', resend_code: true },
-      sessionToken
+      sessionToken,
     })
 
   const remindGuid = (email, captcha, sessionToken) =>
@@ -133,26 +131,18 @@ export default ({ get, post, rootUrl }) => {
       url: rootUrl,
       endPoint: '/wallet',
       data: { method: 'send-guid-reminder', email, captcha },
-      sessionToken
+      sessionToken,
     })
 
-  const deauthorizeBrowser = sessionToken =>
+  const deauthorizeBrowser = (sessionToken) =>
     get({
       url: rootUrl,
       endPoint: '/wallet/logout',
       data: { format: 'plain' },
-      sessionToken
+      sessionToken,
     })
 
-  const reset2fa = (
-    guid,
-    email,
-    newEmail,
-    secretPhrase,
-    message,
-    code,
-    sessionToken
-  ) =>
+  const reset2fa = (guid, email, newEmail, secretPhrase, message, code, sessionToken) =>
     post({
       url: rootUrl,
       endPoint: '/wallet',
@@ -163,16 +153,16 @@ export default ({ get, post, rootUrl }) => {
         contact_email: newEmail,
         secret_phrase: secretPhrase,
         message,
-        kaptcha: code
+        kaptcha: code,
       },
-      sessionToken
+      sessionToken,
     })
 
-  const getPairingPassword = guid =>
+  const getPairingPassword = (guid) =>
     post({
       url: rootUrl,
       endPoint: '/wallet',
-      data: { method: 'pairing-encryption-password', guid }
+      data: { method: 'pairing-encryption-password', guid },
     })
 
   const authorizeLogin = (token, confirm) =>
@@ -182,39 +172,39 @@ export default ({ get, post, rootUrl }) => {
       data: {
         token: token,
         confirm_approval: confirm,
-        method: 'authorize-approve'
-      }
+        method: 'authorize-approve',
+      },
     })
 
-  const sendSecureChannel = message =>
+  const sendSecureChannel = (message) =>
     post({
       url: rootUrl,
       endPoint: '/wallet',
       data: {
         payload: message,
         length: message.length,
-        method: 'send-secure-channel-browser'
-      }
+        method: 'send-secure-channel-browser',
+      },
     })
 
-  const handle2faReset = token =>
+  const handle2faReset = (token) =>
     post({
       url: rootUrl,
       endPoint: '/wallet',
       data: {
         token: token,
-        method: 'reset-two-factor-token'
-      }
+        method: 'reset-two-factor-token',
+      },
     })
 
-  const verifyEmailToken = token =>
+  const verifyEmailToken = (token) =>
     post({
       url: rootUrl,
       endPoint: '/wallet',
       data: {
         token: token,
-        method: 'verify-email-token'
-      }
+        method: 'verify-email-token',
+      },
     })
 
   return {
@@ -237,6 +227,6 @@ export default ({ get, post, rootUrl }) => {
     resendSmsLoginCode,
     reset2fa,
     savePayload,
-    verifyEmailToken
+    verifyEmailToken,
   }
 }

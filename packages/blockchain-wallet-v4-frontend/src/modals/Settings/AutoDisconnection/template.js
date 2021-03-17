@@ -4,14 +4,7 @@ import PropTypes from 'prop-types'
 import { reduxForm } from 'redux-form'
 import styled from 'styled-components'
 
-import {
-  Button,
-  Icon,
-  Modal,
-  ModalBody,
-  ModalHeader,
-  Text
-} from 'blockchain-info-components'
+import { Button, Icon, Modal, ModalBody, ModalHeader, Text } from 'blockchain-info-components'
 
 const AbsoluteModalHeader = styled(ModalHeader)`
   position: absolute;
@@ -35,20 +28,20 @@ const Header = styled(Text)`
   font-size: 24px;
   font-weight: 600;
   margin-top: 12px;
-  color: ${props => props.theme['grey800']};
+  color: ${(props) => props.theme['grey800']};
 `
 const Copy = styled(Text)`
   margin-top: 14px;
   font-weight: 500;
   line-height: 1.5;
-  color: ${props => props.theme['grey800']};
+  color: ${(props) => props.theme['grey800']};
 `
 const FooterButton = styled(Button)`
   height: 56px;
   font-weight: 600;
   margin-top: 24px;
 `
-const AutoDisconnection = props => {
+const AutoDisconnection = (props) => {
   const { duration, position, total, ...rest } = props
   const { handleCancel } = rest
 
@@ -70,12 +63,7 @@ const AutoDisconnection = props => {
             values={{ duration: duration }}
           />
         </Copy>
-        <FooterButton
-          nature='primary'
-          size='16px'
-          fullwidth
-          onClick={handleCancel}
-        >
+        <FooterButton nature='primary' size='16px' fullwidth onClick={handleCancel}>
           <FormattedMessage
             defaultMessage='Keep Me Logged In'
             id='modals.autodisconnection.keeploggedin'
@@ -90,8 +78,8 @@ AutoDisconnection.propTypes = {
   payload: PropTypes.shape({
     duration: PropTypes.number.isRequired,
     handleCancel: PropTypes.func,
-    handleClick: PropTypes.func
-  })
+    handleClick: PropTypes.func,
+  }),
 }
 
 export default reduxForm({ form: 'autoDisconnection' })(AutoDisconnection)

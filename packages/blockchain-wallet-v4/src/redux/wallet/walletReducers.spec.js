@@ -5,7 +5,7 @@ import * as Actions from './actions'
 import walletReducer from './reducers'
 const walletFixture = require('../../types/__mocks__/wallet.v3')
 
-const wrap = wallet => ({
+const wrap = (wallet) => ({
   sync_pubkeys: false,
   payload_checksum: 'payload_checksum',
   storage_token: 'storage_token',
@@ -14,7 +14,7 @@ const wrap = wallet => ({
   wallet: wallet,
   war_checksum: 'war_checksum',
   password: 'password',
-  pbkdf2_iterations: 5000
+  pbkdf2_iterations: 5000,
 })
 
 describe('reducers', () => {
@@ -22,8 +22,8 @@ describe('reducers', () => {
     const wrapped = Wrapper.fromJS(wrap(walletFixture))
 
     it('should handle SET_WRAPPER', () => {
-      let action = Actions.setWrapper(wrapped)
-      let next = walletReducer(void 0, action)
+      const action = Actions.setWrapper(wrapped)
+      const next = walletReducer(void 0, action)
       expect(next).toEqual(wrapped)
     })
 
@@ -40,12 +40,9 @@ describe('reducers', () => {
     // })
 
     it('should handle SET_LEGACY_ADDRESS_LABEL', () => {
-      let label = 'my new label'
-      let action = Actions.setLegacyAddressLabel(
-        '19XmKRY66VnUn5irHAafyoTfiwFuGLUxKF',
-        label
-      )
-      let next = walletReducer(wrapped, action)
+      const label = 'my new label'
+      const action = Actions.setLegacyAddressLabel('19XmKRY66VnUn5irHAafyoTfiwFuGLUxKF', label)
+      const next = walletReducer(wrapped, action)
       const sa = compose(
         AddressMap.selectAddress('19XmKRY66VnUn5irHAafyoTfiwFuGLUxKF'),
         Wallet.selectAddresses,
@@ -55,22 +52,18 @@ describe('reducers', () => {
     })
 
     it('should handle SET_HD_ADDRESS_LABEL', () => {
-      let label = 'changed_label'
-      let action = Actions.setHdAddressLabel(0, 0, label)
-      let next = walletReducer(wrapped, action)
-      let select = compose(Wallet.toJS, Wrapper.selectWallet)
-      expect(
-        select(next).hd_wallets[0].accounts[0].address_labels[0].label
-      ).toEqual(label)
+      const label = 'changed_label'
+      const action = Actions.setHdAddressLabel(0, 0, label)
+      const next = walletReducer(wrapped, action)
+      const select = compose(Wallet.toJS, Wrapper.selectWallet)
+      expect(select(next).hd_wallets[0].accounts[0].address_labels[0].label).toEqual(label)
     })
 
     it('should handle DELETE_HD_ADDRESS_LABEL', () => {
-      let action = Actions.deleteHdAddressLabel(0, 0)
-      let next = walletReducer(wrapped, action)
-      let select = compose(Wallet.toJS, Wrapper.selectWallet)
-      expect(
-        select(next).hd_wallets[0].accounts[0].address_labels.length
-      ).toEqual(0)
+      const action = Actions.deleteHdAddressLabel(0, 0)
+      const next = walletReducer(wrapped, action)
+      const select = compose(Wallet.toJS, Wrapper.selectWallet)
+      expect(select(next).hd_wallets[0].accounts[0].address_labels).toHaveLength(0)
     })
 
     // TODO :: wallet creation need review

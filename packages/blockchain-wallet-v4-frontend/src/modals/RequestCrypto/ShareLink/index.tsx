@@ -23,11 +23,11 @@ const Wrapper = styled.div`
 `
 const SectionWrapper = styled.div<{ center?: boolean; direction?: string }>`
   display: flex;
-  flex-direction: ${props => props.direction || 'row'};
+  flex-direction: ${(props) => props.direction || 'row'};
   justify-content: space-between;
-  align-items: ${props => (props.center ? 'center' : 'flex-start')};
+  align-items: ${(props) => (props.center ? 'center' : 'flex-start')};
   padding: 16px 40px;
-  border-top: ${props => `1px solid ${props.theme.grey000}`};
+  border-top: ${(props) => `1px solid ${props.theme.grey000}`};
 `
 const LinkDisplay = styled.div`
   display: flex;
@@ -45,7 +45,7 @@ const QRCodeContainer = styled.div`
   align-items: center;
   padding: 24px 0;
   width: 100%;
-  border-top: ${props => `1px solid ${props.theme.grey000}`};
+  border-top: ${(props) => `1px solid ${props.theme.grey000}`};
 `
 const ButtonsWrapper = styled.div`
   display: flex;
@@ -53,25 +53,13 @@ const ButtonsWrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 40px;
-  border-top: ${props => `1px solid ${props.theme.grey000}`};
+  border-top: ${(props) => `1px solid ${props.theme.grey000}`};
 `
 
 class ShareLink extends React.PureComponent<Props> {
   render() {
-    const {
-      formValues,
-      handleClose,
-      rates,
-      setStep,
-      supportedCoins,
-      walletCurrency
-    } = this.props
-    const {
-      currencyDisplay,
-      requestAmount,
-      requestDescription,
-      selectedAccount
-    } = formValues
+    const { formValues, handleClose, rates, setStep, supportedCoins, walletCurrency } = this.props
+    const { currencyDisplay, requestAmount, requestDescription, selectedAccount } = formValues
     const receiveAddress =
       // @ts-ignore
       selectedAccount.nextReceiveAddress || selectedAccount.address
@@ -79,27 +67,17 @@ class ShareLink extends React.PureComponent<Props> {
     const currencySymbol = Exchange.getSymbol(walletCurrency) as string
     const coinAmount =
       currencyDisplay === walletCurrency
-        ? Exchange.convertFiatToCoin(
-            requestAmount,
-            selectedAccount.coin,
-            walletCurrency,
-            rates
-          )
+        ? Exchange.convertFiatToCoin(requestAmount, selectedAccount.coin, walletCurrency, rates)
         : requestAmount
     const fiatAmount =
       currencyDisplay === walletCurrency
         ? requestAmount
-        : Exchange.convertCoinToFiat(
-            requestAmount,
-            selectedAccount.coin,
-            walletCurrency,
-            rates
-          )
+        : Exchange.convertCoinToFiat(requestAmount, selectedAccount.coin, walletCurrency, rates)
 
     const requestLink = `https://blockchain.com/${selectedAccount.coin.toLowerCase()}/payment_request?address=${receiveAddress}&amount=${coinAmount}&message=${requestDescription}`
     const requestLinkBip21 = bip21.encode(receiveAddress, {
       amount: coinAmount,
-      label: requestDescription
+      label: requestDescription,
     })
 
     return (
@@ -130,11 +108,7 @@ class ShareLink extends React.PureComponent<Props> {
           walletCurrency={walletCurrency}
         />
         <QRCodeContainer>
-          <QRCodeWrapper
-            data-e2e='requestLinkQrCode'
-            size={280}
-            value={requestLinkBip21}
-          />
+          <QRCodeWrapper data-e2e='requestLinkQrCode' size={280} value={requestLinkBip21} />
         </QRCodeContainer>
         <SectionWrapper center>
           <LinkDisplay>
@@ -146,11 +120,7 @@ class ShareLink extends React.PureComponent<Props> {
             </Text>
           </LinkDisplay>
           <ClipboardWrapper>
-            <CopyClipboardButton
-              textToCopy={requestLink}
-              color='blue600'
-              size='24px'
-            />
+            <CopyClipboardButton textToCopy={requestLink} color='blue600' size='24px' />
           </ClipboardWrapper>
         </SectionWrapper>
         <SectionWrapper direction='column'>
@@ -169,10 +139,7 @@ class ShareLink extends React.PureComponent<Props> {
         </SectionWrapper>
         <SectionWrapper direction='column'>
           <Text color='grey600' size='14px' lineHeight='21px' weight={500}>
-            <FormattedMessage
-              id='copy.description'
-              defaultMessage='Description'
-            />
+            <FormattedMessage id='copy.description' defaultMessage='Description' />
           </Text>
           <Text color='grey800' size='16px' weight={600} lineHeight='21px'>
             {requestDescription}
@@ -198,11 +165,8 @@ class ShareLink extends React.PureComponent<Props> {
 
 const mapStateToProps = (state, ownProps) => ({
   rates: selectors.core.data.misc
-    .getRatesSelector(
-      ownProps.formValues?.selectedAccount?.coin || 'BTC',
-      state
-    )
-    .getOrFail('Failed to get coin rates')
+    .getRatesSelector(ownProps.formValues?.selectedAccount?.coin || 'BTC', state)
+    .getOrFail('Failed to get coin rates'),
 })
 
 const connector = connect(mapStateToProps)

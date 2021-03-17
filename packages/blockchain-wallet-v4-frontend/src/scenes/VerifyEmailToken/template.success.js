@@ -16,7 +16,7 @@ const LogoWrapper = styled.div`
   align-items: center;
 `
 
-const Success = props => {
+const Success = (props) => {
   const { mobileLinkOut } = props
 
   return (
@@ -24,12 +24,7 @@ const Success = props => {
       <LogoWrapper>
         <Image name='email-success' width='75px' height='75px' />
       </LogoWrapper>
-      <Text
-        size='18px'
-        weight={500}
-        color='marketing-primary'
-        style={{ 'margin-top': '15px' }}
-      >
+      <Text size='18px' weight={500} color='marketing-primary' style={{ 'margin-top': '15px' }}>
         <FormattedMessage
           id='scenes.verifyemailtoken.verified'
           defaultMessage='Your email is verified!'
@@ -37,12 +32,7 @@ const Success = props => {
       </Text>
       {isMobile() ? (
         <Link href={mobileLinkOut}>
-          <Button
-            nature='primary'
-            fullwidth
-            style={{ marginTop: '20px' }}
-            height='50px'
-          >
+          <Button nature='primary' fullwidth style={{ marginTop: '20px' }} height='50px'>
             <FormattedMessage
               id='scenes.verifyemailtoken.mobile.openwallet'
               defaultMessage='Open My Wallet'

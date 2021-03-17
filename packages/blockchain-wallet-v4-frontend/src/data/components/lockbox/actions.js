@@ -1,187 +1,182 @@
 import * as AT from './actionTypes'
 
 // CONNECTIONS
-export const pollForDeviceApp = (
-  appRequested,
-  deviceIndex,
-  deviceType,
-  timeout
-) => ({
+export const pollForDeviceApp = (appRequested, deviceIndex, deviceType, timeout) => ({
   type: AT.POLL_FOR_DEVICE_APP,
-  payload: { appRequested, deviceIndex, deviceType, timeout }
+  payload: { appRequested, deviceIndex, deviceType, timeout },
 })
 export const resetConnectionStatus = () => ({
-  type: AT.RESET_CONNECTION_STATUS
+  type: AT.RESET_CONNECTION_STATUS,
 })
 export const setConnectionInfo = (app, deviceIndex, deviceType, transport) => ({
   type: AT.SET_CONNECTION_INFO,
-  payload: { app, deviceIndex, deviceType, transport }
+  payload: { app, deviceIndex, deviceType, transport },
 })
-export const setConnectionError = error => ({
+export const setConnectionError = (error) => ({
   type: AT.SET_CONNECTION_ERROR,
-  payload: { error }
+  payload: { error },
 })
 export const setConnectionReady = () => ({
-  type: AT.SET_CONNECTION_READY
+  type: AT.SET_CONNECTION_READY,
 })
 export const setConnectionSuccess = () => ({
-  type: AT.SET_CONNECTION_SUCCESS
+  type: AT.SET_CONNECTION_SUCCESS,
 })
-export const setDeviceTargetId = targetId => ({
+export const setDeviceTargetId = (targetId) => ({
   type: AT.SET_DEVICE_TARGET_ID,
-  payload: targetId
+  payload: targetId,
 })
 
 // NEW DEVICE SETUP
 export const initializeNewDeviceSetup = () => ({
-  type: AT.INITIALIZE_NEW_DEVICE_SETUP
+  type: AT.INITIALIZE_NEW_DEVICE_SETUP,
 })
 export const resetNewDeviceSetup = () => ({
-  type: AT.RESET_NEW_DEVICE_SETUP
+  type: AT.RESET_NEW_DEVICE_SETUP,
 })
 export const finalizeNewDeviceSetup = () => ({
-  type: AT.FINALIZE_NEW_DEVICE_SETUP
+  type: AT.FINALIZE_NEW_DEVICE_SETUP,
 })
-export const routeNewDeviceToDashboard = startTour => ({
+export const routeNewDeviceToDashboard = (startTour) => ({
   type: AT.ROUTE_NEW_DEVICE_DASHBOARD,
-  payload: { startTour }
+  payload: { startTour },
 })
 export const changeDeviceSetupStep = (step, done, error) => ({
   type: AT.SET_NEW_DEVICE_SETUP_STEP,
-  payload: { step, done, error }
+  payload: { step, done, error },
 })
-export const setSetupNewOrExisting = type => ({
+export const setSetupNewOrExisting = (type) => ({
   type: AT.SET_SETUP_NEW_OR_EXISTING,
-  payload: type
+  payload: type,
 })
-export const setDeviceSetupType = type => ({
+export const setDeviceSetupType = (type) => ({
   type: AT.SET_SETUP_DEVICE_TYPE,
-  payload: type
+  payload: type,
 })
-export const setNewDeviceShowBtcWarning = showWarning => ({
+export const setNewDeviceShowBtcWarning = (showWarning) => ({
   type: AT.SET_NEW_DEVICE_SHOW_BTC_WARNING,
-  payload: showWarning
+  payload: showWarning,
 })
-export const setNewDeviceInfo = deviceInfo => ({
+export const setNewDeviceInfo = (deviceInfo) => ({
   type: AT.SET_NEW_DEVICE_INFO,
-  payload: { deviceInfo }
+  payload: { deviceInfo },
 })
-export const saveNewDeviceKvStore = deviceName => ({
+export const saveNewDeviceKvStore = (deviceName) => ({
   type: AT.SAVE_NEW_DEVICE_KVSTORE,
-  payload: { deviceName }
+  payload: { deviceName },
 })
 export const saveNewDeviceKvStoreLoading = () => ({
-  type: AT.SAVE_NEW_DEVICE_KVSTORE_LOADING
+  type: AT.SAVE_NEW_DEVICE_KVSTORE_LOADING,
 })
 export const saveNewDeviceKvStoreSuccess = () => ({
-  type: AT.SAVE_NEW_DEVICE_KVSTORE_SUCCESS
+  type: AT.SAVE_NEW_DEVICE_KVSTORE_SUCCESS,
 })
-export const saveNewDeviceKvStoreFailure = payload => ({
+export const saveNewDeviceKvStoreFailure = (payload) => ({
   type: AT.SAVE_NEW_DEVICE_KVSTORE_FAILURE,
-  payload
+  payload,
 })
 
 // UPDATE
 export const updateDeviceName = (deviceIndex, deviceName) => ({
   type: AT.UPDATE_DEVICE_NAME,
-  payload: { deviceIndex, deviceName }
+  payload: { deviceIndex, deviceName },
 })
 export const updateDeviceNameLoading = () => ({
-  type: AT.UPDATE_DEVICE_NAME_LOADING
+  type: AT.UPDATE_DEVICE_NAME_LOADING,
 })
 export const updateDeviceNameSuccess = () => ({
-  type: AT.UPDATE_DEVICE_NAME_SUCCESS
+  type: AT.UPDATE_DEVICE_NAME_SUCCESS,
 })
-export const updateDeviceNameFailure = payload => ({
+export const updateDeviceNameFailure = (payload) => ({
   type: AT.UPDATE_DEVICE_NAME_FAILURE,
-  payload
+  payload,
 })
 
 // FIRMWARE
 export const changeFirmwareUpdateStep = (step, status) => ({
   type: AT.SET_FIRMWARE_UPDATE_STEP,
-  payload: { step, status }
+  payload: { step, status },
 })
 export const resetFirmwareInfo = () => ({
-  type: AT.RESET_FIRMWARE_INFO
+  type: AT.RESET_FIRMWARE_INFO,
 })
-export const updateDeviceFirmware = deviceIndex => ({
+export const updateDeviceFirmware = (deviceIndex) => ({
   type: AT.UPDATE_DEVICE_FIRMWARE,
-  payload: { deviceIndex }
+  payload: { deviceIndex },
 })
 
 // DELETE
-export const deleteDevice = deviceIndex => ({
+export const deleteDevice = (deviceIndex) => ({
   type: AT.DELETE_DEVICE,
-  payload: { deviceIndex }
+  payload: { deviceIndex },
 })
 export const deleteDeviceLoading = () => ({ type: AT.DELETE_DEVICE_LOADING })
 export const deleteDeviceSuccess = () => ({ type: AT.DELETE_DEVICE_SUCCESS })
-export const deleteDeviceFailure = payload => ({
+export const deleteDeviceFailure = (payload) => ({
   type: AT.DELETE_DEVICE_FAILURE,
-  payload
+  payload,
 })
 
 // DASHBOARD
-export const initializeDashboard = deviceIndex => ({
+export const initializeDashboard = (deviceIndex) => ({
   type: AT.INITIALIZE_DASHBOARD,
-  payload: { deviceIndex, reset: true }
+  payload: { deviceIndex, reset: true },
 })
-export const updateTransactionList = deviceIndex => ({
+export const updateTransactionList = (deviceIndex) => ({
   type: AT.UPDATE_TRANSACTION_LIST,
-  payload: { deviceIndex }
+  payload: { deviceIndex },
 })
 
 // APPLICATIONS
-export const initializeAppManager = deviceIndex => ({
+export const initializeAppManager = (deviceIndex) => ({
   type: AT.INITIALIZE_APP_MANAGER,
-  payload: { deviceIndex }
+  payload: { deviceIndex },
 })
 export const setLatestAppInfosLoading = () => ({
-  type: AT.SET_LATEST_APP_INFOS_LOADING
+  type: AT.SET_LATEST_APP_INFOS_LOADING,
 })
 export const setLatestAppInfosFailure = () => ({
-  type: AT.SET_LATEST_APP_INFOS_FAILURE
+  type: AT.SET_LATEST_APP_INFOS_FAILURE,
 })
-export const setLatestAppInfosSuccess = appInfos => ({
+export const setLatestAppInfosSuccess = (appInfos) => ({
   type: AT.SET_LATEST_APP_INFOS_SUCCESS,
-  payload: appInfos
+  payload: appInfos,
 })
-export const installApplication = appName => ({
+export const installApplication = (appName) => ({
   type: AT.INSTALL_APPLICATION,
-  payload: { appName }
+  payload: { appName },
 })
-export const uninstallApplication = appName => ({
+export const uninstallApplication = (appName) => ({
   type: AT.UNINSTALL_APPLICATION,
-  payload: { appName }
+  payload: { appName },
 })
 export const appChangeLoading = () => ({
-  type: AT.APP_CHANGE_LOADING
+  type: AT.APP_CHANGE_LOADING,
 })
 export const appChangeSuccess = (appName, changeType) => ({
   type: AT.APP_CHANGE_SUCCESS,
-  payload: { appName, changeType }
+  payload: { appName, changeType },
 })
 export const appChangeFailure = (appName, changeType, error) => ({
   type: AT.APP_CHANGE_FAILURE,
-  payload: { appName, changeType, error }
+  payload: { appName, changeType, error },
 })
 export const resetAppChangeStatus = () => ({
-  type: AT.RESET_APP_CHANGE_STATUS
+  type: AT.RESET_APP_CHANGE_STATUS,
 })
 
 // MISC
 export const determineLockboxRoute = () => ({
-  type: AT.DETERMINE_LOCKBOX_ROUTE
+  type: AT.DETERMINE_LOCKBOX_ROUTE,
 })
 export const saveCoinMD = (deviceIndex, coin) => ({
   type: AT.SAVE_COIN_MD,
-  payload: { deviceIndex, coin }
+  payload: { deviceIndex, coin },
 })
 export const lockboxModalClose = () => ({
-  type: AT.LOCKBOX_MODAL_CLOSE
+  type: AT.LOCKBOX_MODAL_CLOSE,
 })
-export const setProductTourVisibility = visibility => ({
+export const setProductTourVisibility = (visibility) => ({
   type: AT.SET_PRODUCT_TOUR_VISIBILITY,
-  payload: visibility
+  payload: visibility,
 })

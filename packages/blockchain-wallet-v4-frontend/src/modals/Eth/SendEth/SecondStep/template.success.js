@@ -10,7 +10,7 @@ import {
   ExchangeAmounts,
   LargeTableRow,
   SubExchangeAmount,
-  Wrapper
+  Wrapper,
 } from 'components/Exchange'
 
 const ConfirmWrapper = styled(Wrapper)`
@@ -40,7 +40,7 @@ const Footer = styled.div`
   }
 `
 
-const Success = props => {
+const Success = (props) => {
   const {
     amount,
     coin,
@@ -53,7 +53,7 @@ const Success = props => {
     submitting,
     toAddress,
     totalCrypto,
-    totalFiat
+    totalFiat,
   } = props
 
   return (
@@ -69,10 +69,7 @@ const Success = props => {
         </LargeTableRow>
         <LargeTableRow>
           <Text size='16px' weight={500}>
-            <FormattedMessage
-              id='modals.sendeth.secondstep.to'
-              defaultMessage='To:'
-            />
+            <FormattedMessage id='modals.sendeth.secondstep.to' defaultMessage='To:' />
           </Text>
           <TextTo size='14px' weight={400} data-e2e={`${coin}ToAddress`}>
             {toAddress}
@@ -81,10 +78,7 @@ const Success = props => {
         {description && (
           <LargeTableRow>
             <Text size='16px' weight={500}>
-              <FormattedMessage
-                id='modals.sendeth.secondstep.note'
-                defaultMessage='Note:'
-              />
+              <FormattedMessage id='modals.sendeth.secondstep.note' defaultMessage='Note:' />
             </Text>
             <Text size='16px' weight={400} data-e2e={`${coin}SendDescription`}>
               {description}
@@ -93,10 +87,7 @@ const Success = props => {
         )}
         <LargeTableRow>
           <Text size='16px' weight={500}>
-            <FormattedMessage
-              id='modals.sendeth.secondstep.amount'
-              defaultMessage='Amount:'
-            />
+            <FormattedMessage id='modals.sendeth.secondstep.amount' defaultMessage='Amount:' />
           </Text>
           <ExchangeAmounts>
             <SummaryExchangeAmount>
@@ -113,10 +104,7 @@ const Success = props => {
         </LargeTableRow>
         <LargeTableRow>
           <Text size='16px' weight={500}>
-            <FormattedMessage
-              id='modals.sendeth.secondstep.fee'
-              defaultMessage='Fee:'
-            />
+            <FormattedMessage id='modals.sendeth.secondstep.fee' defaultMessage='Fee:' />
           </Text>
           <ExchangeAmounts>
             <SummaryExchangeAmount>
@@ -133,10 +121,7 @@ const Success = props => {
         </LargeTableRow>
         <LargeTableRow>
           <Text size='16px' weight={500}>
-            <FormattedMessage
-              id='modals.sendeth.secondstep.total'
-              defaultMessage='Total'
-            />
+            <FormattedMessage id='modals.sendeth.secondstep.total' defaultMessage='Total' />
           </Text>
           <ExchangeAmounts>
             {coin === 'ETH' ? (
@@ -145,12 +130,7 @@ const Success = props => {
                   {totalFiat}
                 </SummaryExchangeAmount>
                 <SummarySubExchangeAmount>
-                  <CoinDisplay
-                    coin={coin}
-                    size='14px'
-                    weight={300}
-                    data-e2e={`ETHSendTotal`}
-                  >
+                  <CoinDisplay coin={coin} size='14px' weight={300} data-e2e={`ETHSendTotal`}>
                     {totalCrypto}
                   </CoinDisplay>
                 </SummarySubExchangeAmount>

@@ -61,12 +61,9 @@ class ExchangePromo extends PureComponent<Props> {
   onSignup = () => {
     this.props.modalActions.closeAllModals()
     this.props.modalActions.showModal('LinkToExchangeAccount', {
-      origin: 'SendExchangePromo'
+      origin: 'SendExchangePromo',
     })
-    this.props.analyticsActions.logEvent([
-      ...EXCHANGE_EVENTS.PROMO,
-      'connect_modal_promo_clicked'
-    ])
+    this.props.analyticsActions.logEvent([...EXCHANGE_EVENTS.PROMO, 'connect_modal_promo_clicked'])
   }
 
   render() {
@@ -100,40 +97,24 @@ class ExchangePromo extends PureComponent<Props> {
               onClick={() =>
                 this.props.analyticsActions.logEvent([
                   ...EXCHANGE_EVENTS.PROMO,
-                  'go_to_exchange_promo_clicked'
+                  'go_to_exchange_promo_clicked',
                 ])
               }
             >
               <Text color='blue600' size='14px' weight={600}>
-                <FormattedMessage
-                  id='exchangepromo.trade'
-                  defaultMessage='Trade'
-                />
+                <FormattedMessage id='exchangepromo.trade' defaultMessage='Trade' />
               </Text>
-              <Icon
-                name='chevron-right'
-                color='blue600'
-                size='22px'
-                weight={500}
-              />
+              <Icon name='chevron-right' color='blue600' size='22px' weight={500} />
             </LinkCustom>
           ) : (
-            <ConnectContainer
-              data-e2e='connectExchange'
-              onClick={this.onSignup}
-            >
+            <ConnectContainer data-e2e='connectExchange' onClick={this.onSignup}>
               <Text color='blue600' size='14px' weight={600}>
                 <FormattedMessage
                   id='scenes.exchange.getstarted.status.getstarted.button'
                   defaultMessage='Get Started'
                 />
               </Text>
-              <Icon
-                name='chevron-right'
-                color='blue600'
-                size='20px'
-                weight={500}
-              />
+              <Icon name='chevron-right' color='blue600' size='20px' weight={500} />
             </ConnectContainer>
           )
         ) : (
@@ -142,10 +123,10 @@ class ExchangePromo extends PureComponent<Props> {
             onClick={() => {
               this.props.analyticsActions.logEvent([
                 ...EXCHANGE_EVENTS.PROMO,
-                'verify_account_promo_clicked'
+                'verify_account_promo_clicked',
               ])
               this.props.modalActions.showModal('TRADING_LIMITS', {
-                origin: 'TradingLimits'
+                origin: 'TradingLimits',
               })
             }}
           >
@@ -156,12 +137,7 @@ class ExchangePromo extends PureComponent<Props> {
                   defaultMessage='Upgrade'
                 />
               </Text>
-              <Icon
-                name='chevron-right'
-                color='blue600'
-                size='20px'
-                weight={500}
-              />
+              <Icon name='chevron-right' color='blue600' size='20px' weight={500} />
             </GetStartedContainer>
           </ConnectContainer>
         )}
@@ -172,18 +148,16 @@ class ExchangePromo extends PureComponent<Props> {
 
 const mapStateToProps = (state: RootState) => ({
   domains: selectors.core.walletOptions.getDomains(state).getOrElse({
-    exchange: 'https://exchange.blockchain.com'
+    exchange: 'https://exchange.blockchain.com',
   } as WalletOptionsType['domains']),
-  isExchangeLinked: selectors.modules.profile
-    .isExchangeAccountLinked(state)
-    .getOrElse(false),
-  isGoldVerified: equals(selectors.modules.profile.getCurrentTier(state), 2)
+  isExchangeLinked: selectors.modules.profile.isExchangeAccountLinked(state).getOrElse(false),
+  isGoldVerified: equals(selectors.modules.profile.getCurrentTier(state), 2),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch): LinkDispatchPropsType => ({
   analyticsActions: bindActionCreators(actions.analytics, dispatch),
   modalActions: bindActionCreators(actions.modals, dispatch),
-  profileActions: bindActionCreators(actions.modules.profile, dispatch)
+  profileActions: bindActionCreators(actions.modules.profile, dispatch),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExchangePromo)

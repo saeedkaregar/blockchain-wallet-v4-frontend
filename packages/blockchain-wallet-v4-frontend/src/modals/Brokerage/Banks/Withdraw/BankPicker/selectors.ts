@@ -8,9 +8,7 @@ import { RootState } from 'data/rootReducer'
 import { OwnProps } from '.'
 
 export const getData = (state: RootState, ownProps: OwnProps) => {
-  let bankTransferAccountsR = selectors.components.brokerage.getBankTransferAccounts(
-    state
-  )
+  let bankTransferAccountsR = selectors.components.brokerage.getBankTransferAccounts(state)
   let defaultMethodR = selectors.components.brokerage.getAccount(state)
   // TODO: Remove this when ach deposits withdrawals gets rolled out hundo P
   const invitationsR = selectors.core.settings.getInvitations(state)
@@ -32,11 +30,9 @@ export const getData = (state: RootState, ownProps: OwnProps) => {
       defaultBeneficiary: ExtractSuccess<typeof defaultBeneficiaryR>
     ) => ({
       bankTransferAccounts,
-      beneficiaries: beneficiaries.filter(
-        value => value.currency === ownProps.fiatCurrency
-      ),
+      beneficiaries: beneficiaries.filter((value) => value.currency === ownProps.fiatCurrency),
       defaultBeneficiary,
-      defaultMethod: defaultMethodR
+      defaultMethod: defaultMethodR,
     })
   )(bankTransferAccountsR, beneficiariesR, defaultBeneficiaryR)
 }

@@ -20,7 +20,7 @@ const BackupCopy = styled.div`
   display: inline;
 `
 const BackupLink = styled.span`
-  color: ${props => props.theme.blue600};
+  color: ${(props) => props.theme.blue600};
   text-decoration: underline;
   cursor: pointer;
 `
@@ -28,28 +28,20 @@ const BackupLink = styled.span`
 class MnemonicRequiredForCustodySend extends React.PureComponent<Props> {
   handleClick = () => {
     this.props.modalActions.showModal('RECOVERY_PHRASE_MODAL', {
-      origin: 'Send'
+      origin: 'Send',
     })
   }
   render() {
     return (
       <CustomBlueCartridge>
-        <Icon
-          name='alert-filled'
-          color='blue600'
-          size='24px'
-          style={{ marginRight: '12px' }}
-        />
+        <Icon name='alert-filled' color='blue600' size='24px' style={{ marginRight: '12px' }} />
         <BackupCopy>
           <FormattedMessage
             id='modals.send.firststep.fromcustody2'
             defaultMessage='Please backup your Wallet before before sending crypto to it.'
           />{' '}
           <BackupLink onClick={this.handleClick} data-e2e='withdrawBackupLink'>
-            <FormattedMessage
-              id='modals.send.firststep.backupnow'
-              defaultMessage='Backup now.'
-            />
+            <FormattedMessage id='modals.send.firststep.backupnow' defaultMessage='Backup now.' />
           </BackupLink>
         </BackupCopy>
       </CustomBlueCartridge>
@@ -58,7 +50,7 @@ class MnemonicRequiredForCustodySend extends React.PureComponent<Props> {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  modalActions: bindActionCreators(actions.modals, dispatch)
+  modalActions: bindActionCreators(actions.modals, dispatch),
 })
 
 const connector = connect(null, mapDispatchToProps)

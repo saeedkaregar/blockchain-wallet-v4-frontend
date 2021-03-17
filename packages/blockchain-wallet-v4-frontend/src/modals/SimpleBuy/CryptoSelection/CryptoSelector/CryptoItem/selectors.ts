@@ -20,7 +20,7 @@ export const getData = (state: RootState, ownProps: OwnProps) => {
       fiatCurrency,
       balances,
       rates,
-      supportedCoins
+      supportedCoins,
     })
   )(ratesR, supportedCoinsR)
 }

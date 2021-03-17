@@ -8,92 +8,89 @@ const INITIAL_STATE: BorrowState = {
   coin: 'BTC',
   limits: {
     maxFiat: 0,
-    minFiat: 0
+    minFiat: 0,
   },
   offer: undefined,
   loan: undefined,
   loanTransactions: Remote.NotAsked,
   offers: Remote.NotAsked,
   payment: Remote.NotAsked,
-  step: 'CHECKOUT'
+  step: 'CHECKOUT',
 }
 
-export function borrowReducer(
-  state = INITIAL_STATE,
-  action: BorrowActionTypes
-): BorrowState {
+export function borrowReducer(state = INITIAL_STATE, action: BorrowActionTypes): BorrowState {
   switch (action.type) {
     case AT.FETCH_BORROW_OFFERS_LOADING:
       return {
         ...state,
-        offers: Remote.Loading
+        offers: Remote.Loading,
       }
     case AT.FETCH_BORROW_OFFERS_FAILURE:
       return {
         ...state,
-        offers: Remote.Failure(action.payload.error)
+        offers: Remote.Failure(action.payload.error),
       }
     case AT.FETCH_BORROW_OFFERS_SUCCESS:
       return {
         ...state,
-        offers: Remote.Success(action.payload.offers)
+        offers: Remote.Success(action.payload.offers),
       }
     case AT.FETCH_LOAN_TRANSACTIONS_LOADING:
       return {
         ...state,
-        loanTransactions: Remote.Loading
+        loanTransactions: Remote.Loading,
       }
     case AT.FETCH_LOAN_TRANSACTIONS_FAILURE:
       return {
         ...state,
-        loanTransactions: Remote.Failure(action.payload.error)
+        loanTransactions: Remote.Failure(action.payload.error),
       }
     case AT.FETCH_LOAN_TRANSACTIONS_SUCCESS:
       return {
         ...state,
-        loanTransactions: Remote.Success(action.payload.transactions)
+        loanTransactions: Remote.Success(action.payload.transactions),
       }
     case AT.FETCH_USER_BORROW_HISTORY_LOADING:
       return {
         ...state,
-        borrowHistory: Remote.Loading
+        borrowHistory: Remote.Loading,
       }
     case AT.FETCH_USER_BORROW_HISTORY_FAILURE:
       return {
         ...state,
-        borrowHistory: Remote.Failure(action.payload.error)
+        borrowHistory: Remote.Failure(action.payload.error),
       }
     case AT.FETCH_USER_BORROW_HISTORY_SUCCESS:
       return {
         ...state,
-        borrowHistory: Remote.Success(action.payload.borrowHistory)
+        borrowHistory: Remote.Success(action.payload.borrowHistory),
       }
     case AT.INITIALIZE_BORROW:
     case AT.INITIALIZE_REPAY_LOAN:
     case AT.SET_COIN:
       return {
         ...state,
-        coin: action.payload.coin
+        coin: action.payload.coin,
       }
     case AT.SET_LIMITS:
       return {
         ...state,
-        limits: action.payload.limits
+        limits: action.payload.limits,
       }
     case AT.SET_PAYMENT_FAILURE:
       return {
         ...state,
-        payment: Remote.Failure(action.payload.error)
+        payment: Remote.Failure(action.payload.error),
       }
     case AT.SET_PAYMENT_LOADING:
       return {
         ...state,
-        payment: Remote.Loading
+        payment: Remote.Loading,
       }
     case AT.SET_PAYMENT_SUCCESS:
       return {
         ...state,
-        payment: Remote.Success(action.payload.payment)
+        payment: Remote.Success(action.payload.payment),
       }
     case AT.SET_STEP:
       switch (action.payload.step) {
@@ -102,7 +99,7 @@ export function borrowReducer(
           return {
             ...state,
             step: action.payload.step,
-            offer: action.payload.offer
+            offer: action.payload.offer,
           }
         }
         default: {
@@ -110,7 +107,7 @@ export function borrowReducer(
             ...state,
             offer: action.payload.offer,
             loan: action.payload.loan,
-            step: action.payload.step
+            step: action.payload.step,
           }
         }
       }

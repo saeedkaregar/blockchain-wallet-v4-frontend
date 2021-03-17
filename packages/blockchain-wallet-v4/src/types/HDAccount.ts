@@ -14,7 +14,7 @@ import {
   not,
   pipe,
   split,
-  values
+  values,
 } from 'ramda'
 import { over, traverseOf, view } from 'ramda-lens'
 
@@ -58,7 +58,7 @@ export const getAddress = (account, path, network) => {
   const [, chain, index] = split('/', path)
   const i = parseInt(index)
   const c = parseInt(chain)
-  const derive = acc => Cache.getAddress(selectCache(acc), c, i, network)
+  const derive = (acc) => Cache.getAddress(selectCache(acc), c, i, network)
   // @ts-ignore
   return pipe(HDAccount.guard, derive)(account)
 }
@@ -77,14 +77,13 @@ export const fromJS = (x, i) => {
   if (is(HDAccount, x)) {
     return x
   }
-  const accountCons = a => {
+  const accountCons = (a) => {
     const xpub = selectXpub(a)
     const node =
       isEmpty(xpub) || isNil(xpub)
         ? null
         : Bitcoin.HDNode.fromBase58(xpub, values(Bitcoin.networks))
-    const cacheCons = c =>
-      c || isNil(node) ? Cache.fromJS(c) : Cache.fromJS(Cache.js(node))
+    const cacheCons = (c) => (c || isNil(node) ? Cache.fromJS(c) : Cache.fromJS(Cache.js(node)))
     return compose(
       over(addressLabels, AddressLabelMap.fromJS),
       over(cache, cacheCons)
@@ -95,18 +94,15 @@ export const fromJS = (x, i) => {
   return accountCons(new HDAccount(assoc('index', i, x)))
 }
 
-export const toJSwithIndex = pipe(HDAccount.guard, acc => {
-  const accountDecons = compose(
-    over(addressLabels, AddressLabelMap.toJS),
-    over(cache, Cache.toJS)
-  )
+export const toJSwithIndex = pipe(HDAccount.guard, (acc) => {
+  const accountDecons = compose(over(addressLabels, AddressLabelMap.toJS), over(cache, Cache.toJS))
   // @ts-ignore
   return accountDecons(acc).toJS()
 })
 
 export const toJS = compose(dissoc('index'), toJSwithIndex)
 
-export const reviver = jsObject => {
+export const reviver = (jsObject) => {
   // @ts-ignore
   return new HDAccount(jsObject)
 }
@@ -117,7 +113,7 @@ export const js = (label, node, xpub) => ({
   xpriv: node ? node.toBase58() : '',
   xpub: node ? node.neutered().toBase58() : xpub,
   address_labels: [],
-  cache: node ? Cache.js(node, null) : Cache.js(null, xpub)
+  cache: node ? Cache.js(node, null) : Cache.js(null, xpub),
 })
 
 // encrypt :: Number -> String -> String -> Account -> Task Error Account

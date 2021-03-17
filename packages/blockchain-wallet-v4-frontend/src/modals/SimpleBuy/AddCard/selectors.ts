@@ -6,16 +6,10 @@ import { RootState } from 'data/rootReducer'
 import { SBAddCardFormValuesType } from 'data/types'
 
 export const getData = (state: RootState) => {
-  const formValues = selectors.form.getFormValues('addCCForm')(
-    state
-  ) as SBAddCardFormValuesType
+  const formValues = selectors.form.getFormValues('addCCForm')(state) as SBAddCardFormValuesType
   const order = selectors.components.simpleBuy.getSBOrder(state)
-  const paymentMethodsR = selectors.components.simpleBuy.getSBPaymentMethods(
-    state
-  )
-  const supportedCountriesR = selectors.components.identityVerification.getSupportedCountries(
-    state
-  )
+  const paymentMethodsR = selectors.components.simpleBuy.getSBPaymentMethods(state)
+  const supportedCountriesR = selectors.components.identityVerification.getSupportedCountries(state)
   const userDataR = selectors.modules.profile.getUserData(state)
 
   return lift(
@@ -28,7 +22,7 @@ export const getData = (state: RootState) => {
       order,
       paymentMethods,
       supportedCountries,
-      userData
+      userData,
     })
   )(paymentMethodsR, supportedCountriesR, userDataR)
 }

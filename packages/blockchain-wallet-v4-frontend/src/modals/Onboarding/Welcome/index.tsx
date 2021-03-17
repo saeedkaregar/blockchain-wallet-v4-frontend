@@ -59,7 +59,7 @@ const IconBackground = styled.div`
   width: 48px;
   height: 48px;
   min-width: 48px;
-  background-color: ${props => props.theme.blue000};
+  background-color: ${(props) => props.theme.blue000};
   border-radius: 48px;
 `
 
@@ -165,10 +165,7 @@ class WelcomeContainer extends React.PureComponent<Props> {
               onClick={this.handleClose}
               size='16px'
             >
-              <FormattedMessage
-                id='modals.wallet.welcome.sb.skip'
-                defaultMessage='Skip'
-              />
+              <FormattedMessage id='modals.wallet.welcome.sb.skip' defaultMessage='Skip' />
             </Button>
           </ButtonWrapper>
         </CustomFlyoutWrapper>
@@ -178,11 +175,8 @@ class WelcomeContainer extends React.PureComponent<Props> {
 }
 
 const mapDispatchToProps = (dispatch): LinkDispatchPropsType => ({
-  onboardingActions: bindActionCreators(
-    actions.components.onboarding,
-    dispatch
-  ),
-  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch)
+  onboardingActions: bindActionCreators(actions.components.onboarding, dispatch),
+  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
 })
 
 const enhance = compose<any>(

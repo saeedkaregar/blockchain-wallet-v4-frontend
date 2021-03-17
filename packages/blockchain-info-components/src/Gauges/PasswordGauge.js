@@ -17,10 +17,10 @@ const Bar = styled.div`
   width: 20%;
   height: 100%;
   box-sizing: border-box;
-  background-color: ${props => props.theme[props.color]};
+  background-color: ${(props) => props.theme[props.color]};
 `
 
-const selectColor = score => {
+const selectColor = (score) => {
   switch (score) {
     case 1:
       return 'error'
@@ -37,7 +37,7 @@ const selectColor = score => {
   }
 }
 
-const PasswordGauge = props => {
+const PasswordGauge = (props) => {
   const { score } = props
   const color = selectColor(score)
 
@@ -53,11 +53,11 @@ const PasswordGauge = props => {
 }
 
 PasswordGauge.propTypes = {
-  score: PropTypes.oneOf([0, 1, 2, 3, 4, 5]).isRequired
+  score: PropTypes.oneOf([0, 1, 2, 3, 4, 5]).isRequired,
 }
 
 PasswordGauge.defaultProps = {
-  score: 0
+  score: 0,
 }
 
 export default PasswordGauge

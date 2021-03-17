@@ -12,7 +12,7 @@ import {
   TableCell,
   TableHeader,
   TableRow,
-  Text
+  Text,
 } from 'blockchain-info-components'
 import SwitchableDisplay from 'components/Display/SwitchableDisplay'
 import { SettingDescription, SettingHeader } from 'components/Setting'
@@ -80,7 +80,7 @@ const Success = ({
   onClickImport,
   onUnarchive,
   search,
-  wallets
+  wallets,
 }: {
   failure?: any
   message?: any
@@ -90,11 +90,10 @@ const Success = ({
   search: any
   wallets: Array<any>
 }) => {
-  const isMatch = wallet =>
-    !search || wallet.label.toLowerCase().indexOf(search) > -1
+  const isMatch = (wallet) => !search || wallet.label.toLowerCase().indexOf(search) > -1
   const matchedWallets = filter(isMatch, take(wallets.length, wallets))
 
-  const walletTableRows = matchedWallets.map(wallet => {
+  const walletTableRows = matchedWallets.map((wallet) => {
     return (
       <TableRow key={wallet.index} data-e2e='btcWalletRow'>
         <WalletTableCell width='50%'>
@@ -110,11 +109,7 @@ const Success = ({
             </Banner>
           )}
           {wallet.archived && (
-            <Banner
-              label={'true'}
-              type='informational'
-              data-e2e='btcArchivedWalletBadge'
-            >
+            <Banner label={'true'} type='informational' data-e2e='btcArchivedWalletBadge'>
               <FormattedMessage
                 id='scenes.settings.addresses.btc.wallets.archivedlabel'
                 defaultMessage='Archived'
@@ -129,10 +124,7 @@ const Success = ({
             </SwitchableDisplay>
           )}
         </TableCell>
-        <TableCell
-          width='20%'
-          style={{ display: 'flex', justifyContent: 'flex-end' }}
-        >
+        <TableCell width='20%' style={{ display: 'flex', justifyContent: 'flex-end' }}>
           {wallet.archived ? (
             <Link
               weight={500}
@@ -187,7 +179,7 @@ const Success = ({
                         </Link>{' '}
                         for help resolving the problem
                       </span>
-                    )
+                    ),
                   }}
                 />
               </ErrorMessageText>
@@ -252,10 +244,7 @@ const Success = ({
               <FormattedMessage id='copy.balance' defaultMessage='Balance' />
             </Text>
           </TableCell>
-          <TableCell
-            width='20%'
-            style={{ display: 'flex', justifyContent: 'flex-end' }}
-          >
+          <TableCell width='20%' style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Text color='grey900' size='14px' weight={500}>
               <FormattedMessage
                 id='scenes.settings.addresses.btc.wallets.actions'

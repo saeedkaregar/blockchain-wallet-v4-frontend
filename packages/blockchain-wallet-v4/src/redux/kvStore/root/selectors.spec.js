@@ -5,14 +5,14 @@ describe('kvstore root selectors', () => {
   const rootMetadata = {
     value: {
       mdid: 'mdid value',
-      metadata: 'my xpriv'
-    }
+      metadata: 'my xpriv',
+    },
   }
 
   const successState = {
     kvStorePath: {
-      root: Remote.Success(rootMetadata)
-    }
+      root: Remote.Success(rootMetadata),
+    },
   }
 
   it('getMetadataXpriv should return success of metadata xpriv in success state', () => {
@@ -22,8 +22,8 @@ describe('kvstore root selectors', () => {
 
   const loadingState = {
     kvStorePath: {
-      root: Remote.Loading
-    }
+      root: Remote.Loading,
+    },
   }
 
   it('getMetadataXpriv should return null in loading state', () => {
@@ -33,8 +33,8 @@ describe('kvstore root selectors', () => {
 
   const failureState = {
     kvStorePath: {
-      root: Remote.Failure('Error loading root metadata')
-    }
+      root: Remote.Failure('Error loading root metadata'),
+    },
   }
 
   it('getMetadataXpriv should return null in failure state', () => {

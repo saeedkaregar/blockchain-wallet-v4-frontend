@@ -9,7 +9,7 @@ import { languages, loadLocaleData } from 'services/locales'
 class TranslationsProvider extends React.Component {
   state = {
     locale: 'en',
-    messages: {}
+    messages: {},
   }
 
   // ⚠️ HACK ALERT ⚠️
@@ -31,10 +31,8 @@ class TranslationsProvider extends React.Component {
   }
 
   initLocale = () => {
-    const locale = any(propOr('en', this.props.locale), languages)
-      ? this.props.locale
-      : 'en'
-    loadLocaleData(locale, messages => {
+    const locale = any(propOr('en', this.props.locale), languages) ? this.props.locale : 'en'
+    loadLocaleData(locale, (messages) => {
       this.setState({ messages, locale })
     })
   }
@@ -49,8 +47,8 @@ class TranslationsProvider extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  locale: selectors.preferences.getLanguage(state)
+const mapStateToProps = (state) => ({
+  locale: selectors.preferences.getLanguage(state),
 })
 
 export default connect(mapStateToProps)(TranslationsProvider)

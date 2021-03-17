@@ -8,7 +8,7 @@ import {
   CoinType,
   RatesType,
   SupportedCoinType,
-  SupportedWalletCurrenciesType
+  SupportedWalletCurrenciesType,
 } from 'blockchain-wallet-v4/src/types'
 import CoinDisplay from 'components/Display/CoinDisplay'
 import FiatDisplay from 'components/Display/FiatDisplay'
@@ -24,9 +24,9 @@ const DisplayContainer = styled.div<{
   width: 100%;
   align-items: center;
   box-sizing: border-box;
-  padding: ${props => (props.isItem ? '0px 6px' : '16px 12px')};
+  padding: ${(props) => (props.isItem ? '0px 6px' : '16px 12px')};
   > span {
-    color: ${props => props.theme[props.coinType.colorCode]} !important;
+    color: ${(props) => props.theme[props.coinType.colorCode]} !important;
   }
 `
 const AccountContainer = styled.div`
@@ -53,10 +53,10 @@ const AmountContainer = styled.div`
 const FiatContainer = styled.div`
   display: flex;
   font-size: 12px;
-  color: ${props => props.theme.grey400};
+  color: ${(props) => props.theme.grey400};
 `
 export class CoinBalanceDropdown extends PureComponent<Props> {
-  coinBalance = selectProps => {
+  coinBalance = (selectProps) => {
     if (selectProps.value) {
       // Account balance
       if (selectProps.value.balance) {
@@ -70,7 +70,7 @@ export class CoinBalanceDropdown extends PureComponent<Props> {
     }
   }
 
-  accountLabel = selectProps => {
+  accountLabel = (selectProps) => {
     if (selectProps.value) {
       // Account/Custodial label
       return selectProps.value.label || selectProps.label
@@ -79,10 +79,7 @@ export class CoinBalanceDropdown extends PureComponent<Props> {
     }
   }
 
-  renderDisplay = (
-    props: { selectProps: { options: Array<any> }; value },
-    children
-  ) => {
+  renderDisplay = (props: { selectProps: { options: Array<any> }; value }, children) => {
     const coinType = this.props.supportedCoins[this.props.coin]
     const color = coinType.colorCode
     const balance = this.coinBalance(props)
@@ -128,7 +125,7 @@ export class CoinBalanceDropdown extends PureComponent<Props> {
 
   render() {
     return this.props.data.cata({
-      Success: values => {
+      Success: (values) => {
         const { addressData } = values
         const options = addressData.data
         return (
@@ -146,20 +143,17 @@ export class CoinBalanceDropdown extends PureComponent<Props> {
           />
         )
       },
-      Failure: e => (
-        <Text>
-          {' '}
-          {typeof e === 'string' ? e : typeof e === 'object' ? e.message : e}
-        </Text>
+      Failure: (e) => (
+        <Text> {typeof e === 'string' ? e : typeof e === 'object' ? e.message : e}</Text>
       ),
       Loading: () => <Text size='24px'>...</Text>,
-      NotAsked: () => <Text size='24px'>...</Text>
+      NotAsked: () => <Text size='24px'>...</Text>,
     })
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  data: getData(state, ownProps)
+  data: getData(state, ownProps),
 })
 
 const connector = connect(mapStateToProps)
@@ -168,11 +162,7 @@ export type OwnProps = {
   coin: CoinType
   fiatCurrency?: string
   includeCustodial: boolean
-  name:
-    | 'collateral'
-    | 'interestDepositAccount'
-    | 'interestWithdrawalAccount'
-    | 'repay-principal'
+  name: 'collateral' | 'interestDepositAccount' | 'interestWithdrawalAccount' | 'repay-principal'
   rates: RatesType
   supportedCoins: SupportedWalletCurrenciesType
 }

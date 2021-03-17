@@ -8,37 +8,28 @@ import { Link, Text } from 'blockchain-info-components'
 import { Exchange } from 'blockchain-wallet-v4/src'
 import { model, selectors } from 'data'
 
-import {
-  WarningLeftColumn,
-  WarningRightColumn,
-  WarningWrapper
-} from '../Components'
+import { WarningLeftColumn, WarningRightColumn, WarningWrapper } from '../Components'
 
-const LowBalanceWarning = props => {
+const LowBalanceWarning = (props) => {
   const { amount, ethRates, totalBalance } = props
   const totalEthValue = Exchange.convertEthToFiat({
     value: totalBalance,
     toCurrency: 'USD',
     fromUnit: 'WEI',
-    rates: ethRates
+    rates: ethRates,
   }).value
   const totalSendValue = Exchange.convertEthToFiat({
     value: propOr(0, 'coin', amount),
     toCurrency: 'USD',
     fromUnit: 'ETH',
-    rates: ethRates
+    rates: ethRates,
   }).value
 
   return (
     lt(totalEthValue - totalSendValue, 1) && (
       <WarningWrapper>
         <WarningLeftColumn>
-          <Text
-            size='14px'
-            weight={500}
-            color='orange600'
-            data-e2e='runningLowMessage'
-          >
+          <Text size='14px' weight={500} color='orange600' data-e2e='runningLowMessage'>
             <FormattedMessage
               id='modals.sendeth.lowbalancewarning.title'
               defaultMessage='Running low!'
@@ -58,10 +49,7 @@ const LowBalanceWarning = props => {
             href='https://support.blockchain.com/hc/en-us/articles/360027492092-Why-do-I-need-ETH-to-send-USD-Digital-previously-USD-PAX-'
             target='_blank'
           >
-            <FormattedMessage
-              id='buttons.learn_more'
-              defaultMessage='Learn More'
-            />
+            <FormattedMessage id='buttons.learn_more' defaultMessage='Learn More' />
           </Link>
         </WarningRightColumn>
       </WarningWrapper>
@@ -69,9 +57,9 @@ const LowBalanceWarning = props => {
   )
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   amount: formValueSelector(model.components.sendEth.FORM)(state, 'amount'),
-  ethRates: selectors.core.data.eth.getRates(state).getOrFail()
+  ethRates: selectors.core.data.eth.getRates(state).getOrFail(),
 })
 
 export default connect(mapStateToProps, null)(LowBalanceWarning)

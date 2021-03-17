@@ -13,9 +13,7 @@ const ethFromLabel = curry((payment, state) => {
   const from = payment.from
   switch (from.type) {
     case ADDRESS_TYPES.ACCOUNT:
-      return selectors.core.kvStore.eth
-        .getAccountLabel(state, from.address)
-        .getOrElse(from.address)
+      return selectors.core.kvStore.eth.getAccountLabel(state, from.address).getOrElse(from.address)
     case ADDRESS_TYPES.LOCKBOX:
       return selectors.core.kvStore.lockbox
         .getLockboxEthAccount(state, from.address)
@@ -43,9 +41,7 @@ export const getData = (state, coin) => {
   const paymentR = selectors.components.sendEth.getPayment(state)
   const ethRatesR = selectors.core.data.eth.getRates(state)
   const currencyR = selectors.core.settings.getCurrency(state)
-  const erc20Rates = selectors.core.data.eth
-    .getErc20Rates(state, toLower(coin))
-    .getOrElse({})
+  const erc20Rates = selectors.core.data.eth.getErc20Rates(state, toLower(coin)).getOrElse({})
 
   const transform = (payment, ethRates, currency: FiatType) => {
     const rates = isErc20 ? erc20Rates : ethRates
@@ -53,35 +49,23 @@ export const getData = (state, coin) => {
     const { value: amountStandard } = Exchange.convertCoinToCoin({
       value: payment.amount,
       coin: coin,
-      baseToStandard: true
+      baseToStandard: true,
     })
     // Convert WEI to base for fee (ETH)
     const { value: feeStandard } = Exchange.convertCoinToCoin({
       value: payment.fee,
       coin: 'ETH',
-      baseToStandard: true
+      baseToStandard: true,
     })
     // Convert ETH or ERC20 amount to Fiat
-    const amount = Exchange.convertCoinToFiat(
-      amountStandard,
-      coin,
-      currency,
-      rates
-    )
+    const amount = Exchange.convertCoinToFiat(amountStandard, coin, currency, rates)
     // Fee for ETH or ERC20 txs should always be in ETH
-    const fee = Exchange.convertCoinToFiat(
-      feeStandard,
-      'ETH',
-      currency,
-      ethRates
-    )
+    const fee = Exchange.convertCoinToFiat(feeStandard, 'ETH', currency, ethRates)
     const totalFiat = fiatToString({
       value: Number(amount) + Number(fee),
-      unit: currency
+      unit: currency,
     })
-    const fromLabel = isErc20
-      ? erc20FromLabel(coin, payment, state)
-      : ethFromLabel(payment, state)
+    const fromLabel = isErc20 ? erc20FromLabel(coin, payment, state) : ethFromLabel(payment, state)
 
     return {
       submitting: isSubmitting(state),
@@ -92,7 +76,7 @@ export const getData = (state, coin) => {
       fee: payment.fee,
       // @ts-ignore
       totalCrypto: new BigNumber.sum(payment.amount, payment.fee).toString(),
-      totalFiat
+      totalFiat,
     }
   }
 

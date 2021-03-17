@@ -8,13 +8,13 @@ export default {
       rate: '1',
       symbol: '¢₹',
       decimal_digits: 0,
-      currency: 'INR'
+      currency: 'INR',
     },
     INR: {
       rate: '100',
       symbol: '₹',
       decimal_digits: 2,
-      currency: 'INR'
-    }
-  }
+      currency: 'INR',
+    },
+  },
 }

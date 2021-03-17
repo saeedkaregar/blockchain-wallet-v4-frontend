@@ -9,7 +9,7 @@ import { media } from 'services/styles'
 interface Props {}
 
 const Wrapper = styled.div`
-  background-color: ${props => props.theme.grey900};
+  background-color: ${(props) => props.theme.grey900};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -42,12 +42,7 @@ const PublicLoading: React.FC<Props> = () => {
       <Header />
       <LoaderContainer>
         <SpinningLoader width='36px' height='36px' />
-        <Text
-          size='18px'
-          weight={600}
-          color='white'
-          style={{ marginTop: '16px' }}
-        >
+        <Text size='18px' weight={600} color='white' style={{ marginTop: '16px' }}>
           <FormattedMessage id='copy.loading' defaultMessage='Loading...' />
         </Text>
       </LoaderContainer>

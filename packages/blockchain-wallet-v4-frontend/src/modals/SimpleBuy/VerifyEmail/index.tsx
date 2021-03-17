@@ -34,7 +34,7 @@ class VerifyEmail extends PureComponent<Props> {
         orderType: this.props.orderType,
         cryptoCurrency: this.props.cryptoCurrency,
         fiatCurrency: this.props.fiatCurrency,
-        pair: this.props.pair
+        pair: this.props.pair,
       })
     }
   }
@@ -44,7 +44,7 @@ class VerifyEmail extends PureComponent<Props> {
       formValues,
       identityVerificationActions,
       securityCenterActions,
-      settingsActions
+      settingsActions,
     } = this.props
     if (formValues) {
       identityVerificationActions.updateEmail(formValues.email)
@@ -60,36 +60,34 @@ class VerifyEmail extends PureComponent<Props> {
 
   render() {
     return this.props.data.cata({
-      Success: val => (
+      Success: (val) => (
         <Success
           {...this.props}
           {...val}
           resendEmail={this.onResendEmail}
           onSubmit={this.handleSubmit}
           initialValues={{
-            email: val.email
+            email: val.email,
           }}
         />
       ),
       Failure: () => null,
       Loading: () => <Loading />,
-      NotAsked: () => <Loading />
+      NotAsked: () => <Loading />,
     })
   }
 }
 
 const mapStateToProps = (state: RootState) => ({
   data: getData(state),
-  isEmailVerified: selectors.core.settings
-    .getEmailVerified(state)
-    .getOrElse(false),
+  isEmailVerified: selectors.core.settings.getEmailVerified(state).getOrElse(false),
   formValues: selectors.form.getFormValues(SB_CHANGE_EMAIL_FORM)(state) as
     | SBVerifyEmailFormValuesType
     | undefined,
   fiatCurrency: selectors.components.simpleBuy.getFiatCurrency(state),
   cryptoCurrency: selectors.components.simpleBuy.getCryptoCurrency(state),
   orderType: selectors.components.simpleBuy.getOrderType(state),
-  pair: selectors.components.simpleBuy.getSBPair(state)
+  pair: selectors.components.simpleBuy.getSBPair(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -98,13 +96,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     actions.components.identityVerification,
     dispatch
   ),
-  securityCenterActions: bindActionCreators(
-    actions.modules.securityCenter,
-    dispatch
-  ),
+  securityCenterActions: bindActionCreators(actions.modules.securityCenter, dispatch),
   settingsActions: bindActionCreators(actions.core.settings, dispatch),
   profileActions: bindActionCreators(actions.modules.profile, dispatch),
-  formActions: bindActionCreators(actions.form, dispatch)
+  formActions: bindActionCreators(actions.form, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

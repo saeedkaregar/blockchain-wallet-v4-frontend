@@ -12,7 +12,7 @@ export const getData = createDeepEqualSelector(
     selectors.router.getPathname,
     selectors.core.kvStore.lockbox.getDevices,
     selectors.core.settings.getCountryCode,
-    selectors.core.walletOptions.getDomains
+    selectors.core.walletOptions.getDomains,
   ],
   (
     menuOpened: boolean,
@@ -36,7 +36,7 @@ export const getData = createDeepEqualSelector(
         firstLogin,
         lockboxDevices,
         menuOpened,
-        pathname
+        pathname,
       }
     }
 

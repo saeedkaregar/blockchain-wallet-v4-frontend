@@ -7,7 +7,7 @@ const INITIAL_STATE: GoalsState = {
   goals: [],
   initialModals: {},
   initialRedirect: '',
-  initialModalDisplayed: false
+  initialModalDisplayed: false,
 }
 
 export function goalsReducer(state = INITIAL_STATE, action): GoalsState {
@@ -19,7 +19,7 @@ export function goalsReducer(state = INITIAL_STATE, action): GoalsState {
       const { id } = action.payload
       return assoc(
         'goals',
-        filter(a => a.id !== id, state.goals),
+        filter((a) => a.id !== id, state.goals),
         state
       )
     }
@@ -28,20 +28,20 @@ export function goalsReducer(state = INITIAL_STATE, action): GoalsState {
         ...state,
         initialModals: {
           ...state.initialModals,
-          [action.payload.key]: action.payload
-        }
+          [action.payload.key]: action.payload,
+        },
       }
     }
     case AT.ADD_INITIAL_REDIRECT: {
       return {
         ...state,
-        initialRedirect: action.payload.path
+        initialRedirect: action.payload.path,
       }
     }
     case AT.INITIAL_MODAL_DISPLAYED: {
       return {
         ...state,
-        initialModalDisplayed: true
+        initialModalDisplayed: true,
       }
     }
     default:

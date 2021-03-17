@@ -15,14 +15,14 @@ const Wrapper = styled.div`
   border-radius: 8px;
   padding: 24px;
   padding-bottom: 0px;
-  border: 1px solid ${props => props.theme.grey000};
+  border: 1px solid ${(props) => props.theme.grey000};
 
   ${media.mobile`
     padding: 12px;
   `}
 `
 
-const BalancesTable = props => {
+const BalancesTable = (props) => {
   const { currentTab } = props
   return (
     <Wrapper>

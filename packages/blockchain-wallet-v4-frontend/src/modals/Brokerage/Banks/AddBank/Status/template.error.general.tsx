@@ -43,11 +43,7 @@ const Subcontent = styled(Text)`
   text-align: center;
 `
 
-const BankLinkError: React.FC<Props> = ({
-  bankStatus,
-  brokerageActions,
-  handleClose
-}) => {
+const BankLinkError: React.FC<Props> = ({ bankStatus, brokerageActions, handleClose }) => {
   return (
     <Top>
       <CloseIcon
@@ -91,10 +87,7 @@ const BankLinkError: React.FC<Props> = ({
                 target='_blank'
                 href='https://support.blockchain.com/hc/en-us/requests/new?ticket_form_id=360000190032'
               >
-                <FormattedMessage
-                  id='copy.contact_us'
-                  defaultMessage='contact us'
-                />
+                <FormattedMessage id='copy.contact_us' defaultMessage='contact us' />
               </Link>{' '}
               <FormattedMessage
                 id='copy.bank_linked_error_alreadylinked2'
@@ -113,10 +106,7 @@ const BankLinkError: React.FC<Props> = ({
                 target='_blank'
                 href='https://support.blockchain.com/hc/en-us/'
               >
-                <FormattedMessage
-                  id='buttons.learn_more_arrow'
-                  defaultMessage='Learn more ->'
-                />
+                <FormattedMessage id='buttons.learn_more_arrow' defaultMessage='Learn more ->' />
               </Link>
             </>
           ) : (
@@ -131,10 +121,7 @@ const BankLinkError: React.FC<Props> = ({
                 target='_blank'
                 href='https://support.blockchain.com/hc/en-us/'
               >
-                <FormattedMessage
-                  id='buttons.contact_support'
-                  defaultMessage='Contact Support'
-                />
+                <FormattedMessage id='buttons.contact_support' defaultMessage='Contact Support' />
               </Link>
               {'.'}
             </>
@@ -147,7 +134,7 @@ const BankLinkError: React.FC<Props> = ({
           nature='primary'
           onClick={() =>
             brokerageActions.setAddBankStep({
-              addBankStep: AddBankStepType.ADD_BANK
+              addBankStep: AddBankStepType.ADD_BANK,
             })
           }
           fullwidth
@@ -163,10 +150,7 @@ const BankLinkError: React.FC<Props> = ({
           onClick={handleClose}
           fullwidth
         >
-          <FormattedMessage
-            id='buttons.cancel_goback'
-            defaultMessage='Cancel & Go Back'
-          />
+          <FormattedMessage id='buttons.cancel_goback' defaultMessage='Cancel & Go Back' />
         </Button>
       </Container>
     </Top>

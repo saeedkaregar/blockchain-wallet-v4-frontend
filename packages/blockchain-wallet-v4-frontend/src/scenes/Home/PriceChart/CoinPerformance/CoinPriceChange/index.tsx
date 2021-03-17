@@ -14,16 +14,16 @@ class CoinPriceChange extends PureComponent<Props> {
 
   render() {
     return this.props.data.cata({
-      Success: val => <Success {...val} {...this.props} />,
+      Success: (val) => <Success {...val} {...this.props} />,
       NotAsked: () => <Loading />,
       Loading: () => <Loading />,
-      Failure: () => null
+      Failure: () => null,
     })
   }
 }
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
-  data: getData(state, ownProps)
+  data: getData(state, ownProps),
 })
 
 const connector = connect(mapStateToProps)

@@ -23,14 +23,14 @@ const HeaderWrapper = styled.div`
   }
 `
 const ItemIcon = styled(Icon)`
-  color: ${props => props.theme[props.color]} !important;
+  color: ${(props) => props.theme[props.color]} !important;
   * {
-    color: ${props => props.theme[props.color]} !important;
+    color: ${(props) => props.theme[props.color]} !important;
   }
 `
 
 class SelectBoxCoin extends React.PureComponent {
-  renderItem = props => {
+  renderItem = (props) => {
     const { supportedCoins } = this.props
     const { text, value, ...rest } = props
     return (
@@ -49,9 +49,7 @@ class SelectBoxCoin extends React.PureComponent {
   renderDisplay = (props, children) => {
     const { supportedCoins } = this.props
     const { value, ...rest } = props
-    const e2eTag = value
-      ? value.toLowerCase() + 'CurrencyOption'
-      : 'currencyOption'
+    const e2eTag = value ? value.toLowerCase() + 'CurrencyOption' : 'currencyOption'
     return (
       <HeaderWrapper {...rest}>
         <ItemIcon
@@ -66,17 +64,9 @@ class SelectBoxCoin extends React.PureComponent {
     )
   }
   render() {
-    const {
-      additionalOptions = [],
-      coins,
-      limitTo = [],
-      supportedCoins,
-      ...rest
-    } = this.props
+    const { additionalOptions = [], coins, limitTo = [], supportedCoins, ...rest } = this.props
     const items =
-      limitTo.length > 0
-        ? [...additionalOptions, ...limitTo]
-        : [...additionalOptions, ...coins]
+      limitTo.length > 0 ? [...additionalOptions, ...limitTo] : [...additionalOptions, ...coins]
 
     return (
       <SelectBox
@@ -93,9 +83,7 @@ class SelectBoxCoin extends React.PureComponent {
 
 const mapStateToProps = (state, ownProps) => ({
   coins: getCoins(state, ownProps),
-  supportedCoins: selectors.core.walletOptions
-    .getSupportedCoins(state)
-    .getOrFail()
+  supportedCoins: selectors.core.walletOptions.getSupportedCoins(state).getOrFail(),
 })
 
 export default connect(mapStateToProps)(SelectBoxCoin)

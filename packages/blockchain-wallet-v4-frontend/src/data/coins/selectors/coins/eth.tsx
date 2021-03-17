@@ -27,21 +27,17 @@ export const getAccounts = createDeepEqualSelector(
     coreSelectors.data.eth.getAddresses, // non-custodial accounts
     coreSelectors.kvStore.eth.getAccounts, // non-custodial metadata
     (state, { coin }) => getTradingBalance(coin, state), // custodial accounts
-    (state, ownProps) => ownProps // selector config
+    (state, ownProps) => ownProps, // selector config
   ],
   (ethDataR, ethMetadataR, sbBalanceR, ownProps) => {
-    const transform = (
-      ethData,
-      ethMetadata,
-      sbBalance: ExtractSuccess<typeof sbBalanceR>
-    ) => {
+    const transform = (ethData, ethMetadata, sbBalance: ExtractSuccess<typeof sbBalanceR>) => {
       const { coin } = ownProps
       let accounts = []
 
       // add non-custodial accounts if requested
       if (ownProps?.nonCustodialAccounts) {
         accounts = accounts.concat(
-          ethMetadata.map(acc => {
+          ethMetadata.map((acc) => {
             const address = prop('addr', acc)
             const data = prop(address, ethData)
 
@@ -51,7 +47,7 @@ export const getAccounts = createDeepEqualSelector(
               label: prop('label', acc) || address,
               address,
               balance: prop('balance', data),
-              type: ADDRESS_TYPES.ACCOUNT
+              type: ADDRESS_TYPES.ACCOUNT,
             }
           })
         )

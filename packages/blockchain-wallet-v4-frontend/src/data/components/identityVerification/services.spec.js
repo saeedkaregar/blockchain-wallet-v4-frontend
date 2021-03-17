@@ -9,12 +9,12 @@ const { TIERS } = model.profile
 const options = {
   tiers: {
     selected: 2,
-    next: 1
+    next: 1,
   },
   mobileVerified: false,
   smsVerified: false,
   currentStep: 'infoAndResidential',
-  needMoreInfo: false
+  needMoreInfo: false,
 }
 
 const setSelectedTier = assocPath(['tiers', 'selected'])
@@ -26,21 +26,19 @@ describe('steps selector', () => {
       'infoAndResidential',
       'additionalInfo',
       'verify',
-      'submitted'
+      'submitted',
     ])
   })
 
   it('should select infoAndResidential step for next 1 and selected 1', () => {
-    expect(computeSteps(setSelectedTier(TIERS[1], options))).toEqual([
-      'infoAndResidential'
-    ])
+    expect(computeSteps(setSelectedTier(TIERS[1], options))).toEqual(['infoAndResidential'])
   })
 
   it('should select mobile and verify step for next 2 and selected 2', () => {
     expect(computeSteps(setNextTier(TIERS[2], options))).toEqual([
       'additionalInfo',
       'verify',
-      'submitted'
+      'submitted',
     ])
   })
 
@@ -50,16 +48,14 @@ describe('steps selector', () => {
       'infoAndResidential',
       'additionalInfo',
       'verify',
-      'submitted'
+      'submitted',
     ])
-    expect(computeSteps(setSelectedTier(TIERS[1], moreInfoOptions))).toEqual([
-      'infoAndResidential'
-    ])
+    expect(computeSteps(setSelectedTier(TIERS[1], moreInfoOptions))).toEqual(['infoAndResidential'])
     expect(computeSteps(setNextTier(TIERS[2], moreInfoOptions))).toEqual([
       'moreInfo',
       'additionalInfo',
       'verify',
-      'submitted'
+      'submitted',
     ])
   })
 })

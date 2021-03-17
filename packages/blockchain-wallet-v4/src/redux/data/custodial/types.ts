@@ -5,7 +5,7 @@ import {
   SBOrderType,
   SBTransactionStateType,
   SBTransactionType,
-  WalletCurrencyType
+  WalletCurrencyType,
 } from 'core/types'
 
 import * as AT from './actionTypes'

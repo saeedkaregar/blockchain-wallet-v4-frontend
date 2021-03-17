@@ -78,13 +78,13 @@ class Banners extends React.PureComponent<Props> {
 const mapStateToProps = (state: RootState) => ({
   fiatCurrency: selectors.core.settings.getCurrency(state).getOrElse('USD'),
   userData: selectors.modules.profile.getUserData(state).getOrElse({
-    tiers: { current: 0 }
+    tiers: { current: 0 },
   } as UserDataType),
-  data: getData(state)
+  data: getData(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch)
+  simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

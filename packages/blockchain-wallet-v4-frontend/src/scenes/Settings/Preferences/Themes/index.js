@@ -6,7 +6,7 @@ import {
   SettingContainer,
   SettingDescription,
   SettingHeader,
-  SettingSummary
+  SettingSummary,
 } from 'components/Setting'
 
 import Settings from './Settings'
@@ -16,10 +16,7 @@ const Themes = () => {
     <SettingContainer>
       <SettingSummary>
         <SettingHeader>
-          <FormattedMessage
-            id='scenes.settings.preferences.themes.title'
-            defaultMessage='Themes'
-          />
+          <FormattedMessage id='scenes.settings.preferences.themes.title' defaultMessage='Themes' />
         </SettingHeader>
         <SettingDescription>
           <FormattedMessage

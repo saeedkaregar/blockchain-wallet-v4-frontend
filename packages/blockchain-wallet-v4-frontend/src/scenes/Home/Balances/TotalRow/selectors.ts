@@ -6,10 +6,10 @@ import { RootState } from 'data/rootReducer'
 
 export const getData = createDeepEqualSelector(
   [
-    state => lockboxBalance(state as RootState),
-    state => totalBalance(state as RootState),
-    state => walletBalance(state as RootState),
-    (state, { currentTab }) => currentTab
+    (state) => lockboxBalance(state as RootState),
+    (state) => totalBalance(state as RootState),
+    (state) => walletBalance(state as RootState),
+    (state, { currentTab }) => currentTab,
   ],
   (lockboxBalanceR, totalBalanceR, walletBalanceR, currentTab) => {
     if (currentTab === 'wallet') {

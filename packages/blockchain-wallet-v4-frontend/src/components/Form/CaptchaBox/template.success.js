@@ -45,11 +45,11 @@ const RefreshIcon = styled(Icon)`
     cursor: pointer;
   }
 `
-const getErrorState = meta => {
+const getErrorState = (meta) => {
   return meta.touched && meta.invalid ? 'invalid' : 'initial'
 }
 
-const CaptchaBox = field => {
+const CaptchaBox = (field) => {
   const { bgColor, borderNone, meta } = field
   const { invalid, touched } = meta
   const errorState = getErrorState(field.meta)
@@ -69,9 +69,7 @@ const CaptchaBox = field => {
       <Container>
         <TextInput
           bgColor={bgColor}
-          borderNone={
-            borderNone ? (invalid && touched ? null : borderNone) : null
-          }
+          borderNone={borderNone ? (invalid && touched ? null : borderNone) : null}
           {...field.input}
           errorState={errorState}
         />

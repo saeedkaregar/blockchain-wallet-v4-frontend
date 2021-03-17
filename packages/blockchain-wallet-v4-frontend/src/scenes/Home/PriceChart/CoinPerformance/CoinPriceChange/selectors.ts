@@ -14,12 +14,12 @@ export const getData = createDeepEqualSelector(
         ownProps.priceChart.coin || 'BTC',
         ownProps.priceChart.time || 'month',
         state
-      )
+      ),
   ],
-  priceChangeR => {
+  (priceChangeR) => {
     const transform = (priceChange: ExtractSuccess<typeof priceChangeR>) => {
       return {
-        priceChange
+        priceChange,
       }
     }
 

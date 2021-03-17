@@ -13,9 +13,7 @@ const Wrapper = styled.div`
   margin-top: 16px;
 `
 
-class CoinSelectBox extends React.PureComponent<
-  InjectedFormProps<{}, Props> & Props
-> {
+class CoinSelectBox extends React.PureComponent<InjectedFormProps<{}, Props> & Props> {
   componentDidMount() {
     const { priceChart } = this.props
     this.props.initialize({ coin: propOr('BTC', 'coin', priceChart) })
@@ -39,14 +37,14 @@ class CoinSelectBox extends React.PureComponent<
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    priceChart: selectors.preferences.getPriceChart(state)
+    priceChart: selectors.preferences.getPriceChart(state),
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions.components.priceChart, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions.components.priceChart, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

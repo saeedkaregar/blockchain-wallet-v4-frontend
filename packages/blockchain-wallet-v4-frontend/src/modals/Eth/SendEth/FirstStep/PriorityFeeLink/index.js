@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux'
 import { Link } from 'blockchain-info-components'
 import { actions } from 'data'
 
-const PriorityFeeLink = props => (
+const PriorityFeeLink = (props) => (
   <Link
     size='12px'
     weight={400}
@@ -23,11 +23,11 @@ const PriorityFeeLink = props => (
 )
 
 PriorityFeeLink.propTypes = {
-  fee: PropTypes.number.isRequired
+  fee: PropTypes.number.isRequired,
 }
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions.components.sendEth, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions.components.sendEth, dispatch),
 })
 
 export default connect(undefined, mapDispatchToProps)(PriorityFeeLink)

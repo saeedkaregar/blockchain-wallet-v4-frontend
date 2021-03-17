@@ -1,7 +1,7 @@
 import {
   CoinType,
   PriceChangeTimeRangeType,
-  SBOrderActionType
+  SBOrderActionType,
 } from 'blockchain-wallet-v4/src/types'
 import { SBFixType } from 'data/components/types'
 

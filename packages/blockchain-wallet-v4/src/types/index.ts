@@ -1,7 +1,4 @@
-import {
-  Erc20CurrenciesType,
-  FiatCurrenciesType
-} from 'core/exchange/currencies'
+import { Erc20CurrenciesType, FiatCurrenciesType } from 'core/exchange/currencies'
 
 import * as Address from './Address'
 import * as AddressBook from './AddressBook'
@@ -40,7 +37,7 @@ export {
   TXNames,
   TXNotes,
   Wallet,
-  Wrapper
+  Wrapper,
 }
 
 export enum CoinTypeEnum {
@@ -51,7 +48,7 @@ export enum CoinTypeEnum {
   ALGO,
   PAX,
   USDT,
-  WDGLD
+  WDGLD,
 }
 export enum FiatTypeEnum {
   EUR,
@@ -75,16 +72,16 @@ export enum FiatTypeEnum {
   SEK,
   SGD,
   THB,
-  TWD
+  TWD,
 }
 export enum WalletFiatEnum {
   EUR,
   GBP,
-  USD
+  USD,
 }
 export const WalletCurrencyEnum = {
   ...CoinTypeEnum,
-  ...WalletFiatEnum
+  ...WalletFiatEnum,
 }
 export type CoinType = keyof typeof CoinTypeEnum
 export type Erc20CoinType = keyof Erc20CurrenciesType

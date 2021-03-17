@@ -2,7 +2,7 @@ import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import {
   CollateralAmt,
-  Status
+  Status,
 } from 'blockchain-wallet-v4-frontend/src/scenes/Borrow/BorrowHistory/model'
 import styled from 'styled-components'
 
@@ -13,7 +13,7 @@ import { model } from 'data'
 import {
   isLastTxStatus,
   showBorrowSummary,
-  showCollateralizationStatus
+  showCollateralizationStatus,
 } from 'data/components/borrow/model'
 
 import { TableRow, Title, Value } from '../../components'
@@ -25,12 +25,9 @@ const Table = styled.div`
   margin-top: 16px;
 `
 
-const {
-  getCollateralizationColor,
-  getCollateralizationDisplayName
-} = model.components.borrow
+const { getCollateralizationColor, getCollateralizationDisplayName } = model.components.borrow
 
-const Summary: React.FC<Props> = props => {
+const Summary: React.FC<Props> = (props) => {
   const currentCollateralStatus = getCollateralizationDisplayName(
     props.loan.collateralisationRatio,
     props.offer
@@ -60,10 +57,7 @@ const Summary: React.FC<Props> = props => {
         )}
         <TableRow>
           <Title>
-            <FormattedMessage
-              id='modals.borrow.status'
-              defaultMessage='Status'
-            />
+            <FormattedMessage id='modals.borrow.status' defaultMessage='Status' />
           </Title>
           <Value>
             <Status {...props.loan} />
@@ -71,10 +65,7 @@ const Summary: React.FC<Props> = props => {
         </TableRow>
         <TableRow>
           <Title>
-            <FormattedMessage
-              id='modals.borrow.borrowamount'
-              defaultMessage='Borrow Amount'
-            />
+            <FormattedMessage id='modals.borrow.borrowamount' defaultMessage='Borrow Amount' />
           </Title>
           <Value>
             <CoinDisplay
@@ -89,10 +80,7 @@ const Summary: React.FC<Props> = props => {
         </TableRow>
         <TableRow>
           <Title>
-            <FormattedMessage
-              id='modals.borrow.collateral'
-              defaultMessage='Collateral'
-            />
+            <FormattedMessage id='modals.borrow.collateral' defaultMessage='Collateral' />
           </Title>
           <Value>
             <CollateralAmt {...props} />
@@ -113,14 +101,9 @@ const Summary: React.FC<Props> = props => {
         )}
         <TableRow>
           <Title>
-            <FormattedMessage
-              id='modals.borrow.interestrate'
-              defaultMessage='Interest Rate'
-            />
+            <FormattedMessage id='modals.borrow.interestrate' defaultMessage='Interest Rate' />
           </Title>
-          <Value>
-            {Number(props.offer.terms.interestRate * 100).toFixed(1) + '%'}
-          </Value>
+          <Value>{Number(props.offer.terms.interestRate * 100).toFixed(1) + '%'}</Value>
         </TableRow>
       </Table>
     </div>

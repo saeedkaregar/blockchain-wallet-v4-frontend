@@ -29,10 +29,7 @@ const stepMap = {
     />
   ),
   [STEPS.moreInfo]: (
-    <FormattedMessage
-      id='modals.identityverification.steps.more_info'
-      defaultMessage='Info'
-    />
+    <FormattedMessage id='modals.identityverification.steps.more_info' defaultMessage='Info' />
   ),
   [STEPS.additionalInfo]: (
     <FormattedMessage
@@ -41,17 +38,11 @@ const stepMap = {
     />
   ),
   [STEPS.verify]: (
-    <FormattedMessage
-      id='modals.identityverification.steps.verify'
-      defaultMessage='Verify'
-    />
+    <FormattedMessage id='modals.identityverification.steps.verify' defaultMessage='Verify' />
   ),
   [STEPS.submitted]: (
-    <FormattedMessage
-      id='modals.identityverification.steps.submitted'
-      defaultMessage='Submitted'
-    />
-  )
+    <FormattedMessage id='modals.identityverification.steps.submitted' defaultMessage='Submitted' />
+  ),
 }
 
 type OwnProps = {
@@ -84,7 +75,7 @@ class IdentityVerification extends React.PureComponent<Props, State> {
     this.initializeVerification()
   }
 
-  getSteps = steps => pickBy((_, step) => includes(step, steps), stepMap)
+  getSteps = (steps) => pickBy((_, step) => includes(step, steps), stepMap)
 
   handleClose = () => {
     this.setState({ show: false })
@@ -137,9 +128,7 @@ class IdentityVerification extends React.PureComponent<Props, State> {
           direction={this.state.direction}
           data-e2e='identityVerificationModal'
         >
-          <FlyoutChild>
-            {this.getStepComponent(emailVerified, step)}
-          </FlyoutChild>
+          <FlyoutChild>{this.getStepComponent(emailVerified, step)}</FlyoutChild>
         </Flyout>
       ),
       Loading: () => (
@@ -166,7 +155,7 @@ class IdentityVerification extends React.PureComponent<Props, State> {
           <Loading />
         </Flyout>
       ),
-      Failure: error => (
+      Failure: (error) => (
         <Flyout
           {...this.props}
           onClose={this.handleClose}
@@ -176,18 +165,18 @@ class IdentityVerification extends React.PureComponent<Props, State> {
         >
           <DataError onClick={this.initializeVerification} message={error} />
         </Flyout>
-      )
+      ),
     })
   }
 }
 
 // @ts-ignore
 IdentityVerification.defaultProps = {
-  step: STEPS.infoAndResidential
+  step: STEPS.infoAndResidential,
 }
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions.components.identityVerification, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions.components.identityVerification, dispatch),
 })
 
 const enhance = compose(

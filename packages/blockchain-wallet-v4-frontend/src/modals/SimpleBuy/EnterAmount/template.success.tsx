@@ -4,18 +4,18 @@ import { LinkStatePropsType, Props as OwnProps, SuccessStateType } from '.'
 import Checkout from './Checkout'
 import Unsupported from './template.unsupported'
 
-const Success: React.FC<Props> = props => {
+const Success: React.FC<Props> = (props) => {
   const isUserEligible =
     props.paymentMethods.methods.length &&
-    props.paymentMethods.methods.find(method => method.limits.max !== '0')
+    props.paymentMethods.methods.find((method) => method.limits.max !== '0')
 
   useEffect(() => {
     props.analyticsActions.logEvent([
       'IS_USER_SB_ELIGIBLE',
       JSON.stringify({
         paymentMethods: props.paymentMethods,
-        doesWalletConsiderUserEligible: !!isUserEligible
-      })
+        doesWalletConsiderUserEligible: !!isUserEligible,
+      }),
     ])
   }, [])
 
@@ -25,8 +25,8 @@ const Success: React.FC<Props> = props => {
     props.orderType === 'BUY' ||
     (props.orderType === 'SELL' &&
       props.paymentMethods.methods
-        .filter(method => method.type === 'FUNDS')
-        .map(method => method.currency)
+        .filter((method) => method.type === 'FUNDS')
+        .map((method) => method.currency)
         .includes(props.walletCurrency))
 
   return isUserEligible && sellCurrencyAvailable ? (

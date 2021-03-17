@@ -12,7 +12,7 @@ export default ({ apiUrl, get, post, rootUrl }) => {
       endPoint: '/kaptcha.jpg',
       responseType: 'blob',
       data: { timestamp },
-      sessionToken
+      sessionToken,
     })
 
   const getTransactionHistory = (coin, active, currency, start, end) => {
@@ -21,7 +21,7 @@ export default ({ apiUrl, get, post, rootUrl }) => {
     return post({
       url: isBCH ? apiUrl : rootUrl,
       endPoint: isBCH ? '/bch' + endpoint : endpoint,
-      data: { active, currency: toUpper(currency), start, end }
+      data: { active, currency: toUpper(currency), start, end },
     })
   }
 
@@ -29,25 +29,21 @@ export default ({ apiUrl, get, post, rootUrl }) => {
     post({
       url: rootUrl,
       endPoint: '/wallet',
-      data: { guid, sharedKey, method: 'list-logs', format: 'json' }
+      data: { guid, sharedKey, method: 'list-logs', format: 'json' },
     })
 
-  const getPriceIndex = (
-    base: CoinType,
-    quote: FiatType,
-    time: Moment
-  ): PriceIndexResponseType =>
+  const getPriceIndex = (base: CoinType, quote: FiatType, time: Moment): PriceIndexResponseType =>
     get({
       url: apiUrl,
       endPoint: '/price/index',
-      data: { base, quote, time: time.unix() }
+      data: { base, quote, time: time.unix() },
     })
 
   const getPriceIndexSeries = (coin, currency, start, scale) =>
     get({
       url: apiUrl,
       endPoint: '/price/index-series',
-      data: { base: coin, quote: currency, start: start, scale: scale }
+      data: { base: coin, quote: currency, start: start, scale: scale },
     })
 
   const getPriceTimestampSeries = (coin, currency, txTimestampList) =>
@@ -56,21 +52,21 @@ export default ({ apiUrl, get, post, rootUrl }) => {
       endPoint: `/price/index-series?base=${coin}&quote=${currency}`,
       contentType: 'application/json',
       removeDefaultPostData: true,
-      data: txTimestampList
+      data: txTimestampList,
     })
 
   const getRandomBytes = (bytes, format) =>
     get({
       url: apiUrl,
       endPoint: '/v2/randombytes',
-      data: { bytes, format }
+      data: { bytes, format },
     })
 
   const getWalletNUsers = () =>
     get({
       url: apiUrl,
       ignoreQueryParams: true,
-      endPoint: '/charts/my-wallet-n-users?cors=true'
+      endPoint: '/charts/my-wallet-n-users?cors=true',
     })
 
   return {
@@ -81,6 +77,6 @@ export default ({ apiUrl, get, post, rootUrl }) => {
     getPriceIndexSeries,
     getPriceTimestampSeries,
     getRandomBytes,
-    getWalletNUsers
+    getWalletNUsers,
   }
 }

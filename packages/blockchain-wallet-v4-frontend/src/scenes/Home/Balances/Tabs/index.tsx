@@ -12,7 +12,7 @@ const CustomTabMenu = styled(TabMenu)`
 `
 
 class TabsContainer extends React.PureComponent<Props> {
-  handleClick = tab => {
+  handleClick = (tab) => {
     this.props.layoutActions.setBalancesTableTab(tab)
   }
 
@@ -34,10 +34,7 @@ class TabsContainer extends React.PureComponent<Props> {
           selected={currentTab === 'wallet'}
           onClick={() => this.handleClick('wallet')}
         >
-          <FormattedMessage
-            id='scenes.home.balance.wallet'
-            defaultMessage='Wallet'
-          />
+          <FormattedMessage id='scenes.home.balance.wallet' defaultMessage='Wallet' />
         </TabMenuItem>
         <TabMenuItem
           width='33%'
@@ -45,18 +42,15 @@ class TabsContainer extends React.PureComponent<Props> {
           selected={currentTab === 'lockbox'}
           onClick={() => this.handleClick('lockbox')}
         >
-          <FormattedMessage
-            id='scenes.home.balance.hardware'
-            defaultMessage='Hardware'
-          />
+          <FormattedMessage id='scenes.home.balance.hardware' defaultMessage='Hardware' />
         </TabMenuItem>
       </CustomTabMenu>
     )
   }
 }
 
-export const mapDispatchToProps = dispatch => ({
-  layoutActions: bindActionCreators(actions.components.layoutWallet, dispatch)
+export const mapDispatchToProps = (dispatch) => ({
+  layoutActions: bindActionCreators(actions.components.layoutWallet, dispatch),
 })
 
 const connector = connect(null, mapDispatchToProps)

@@ -8,7 +8,7 @@ import { Remote } from 'blockchain-wallet-v4/src'
 import {
   CoinType,
   RemoteDataType,
-  SupportedWalletCurrenciesType
+  SupportedWalletCurrenciesType,
 } from 'blockchain-wallet-v4/src/types'
 import ComboDisplay from 'components/Display/ComboDisplay'
 import { actions, selectors } from 'data'
@@ -29,13 +29,10 @@ class TransactionFee extends React.PureComponent<Props> {
     return (
       <React.Fragment>
         <RowHeader>
-          <FormattedMessage
-            id='copy.transaction_fee'
-            defaultMessage='Transaction Fee'
-          />
+          <FormattedMessage id='copy.transaction_fee' defaultMessage='Transaction Fee' />
         </RowHeader>
         {feeR.cata({
-          Success: value => (
+          Success: (value) => (
             <ComboDisplay
               coin={supportedCoins[coin].contractAddress ? 'ETH' : coin}
               size='14px'
@@ -54,21 +51,21 @@ class TransactionFee extends React.PureComponent<Props> {
             </Text>
           ),
           Loading: () => <FlatLoader width='60px' height='16px' />,
-          NotAsked: () => <FlatLoader width='60px' height='16px' />
+          NotAsked: () => <FlatLoader width='60px' height='16px' />,
         })}
       </React.Fragment>
     )
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   supportedCoins: selectors.core.walletOptions
     .getSupportedCoins(state)
-    .getOrElse({} as SupportedWalletCurrenciesType)
+    .getOrElse({} as SupportedWalletCurrenciesType),
 })
 
-const mapDispatchToProps = dispatch => ({
-  ethActions: bindActionCreators(actions.core.data.eth, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  ethActions: bindActionCreators(actions.core.data.eth, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

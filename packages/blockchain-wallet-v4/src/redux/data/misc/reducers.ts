@@ -14,18 +14,15 @@ const INITIAL_STATE: MiscStateType = {
     day: initialPriceChange,
     week: initialPriceChange,
     month: initialPriceChange,
-    year: initialPriceChange
+    year: initialPriceChange,
   },
   price_index_series: Remote.NotAsked,
   verify_email_token: Remote.NotAsked,
   handle_2fa_reset: Remote.NotAsked,
-  authorize_login: Remote.NotAsked
+  authorize_login: Remote.NotAsked,
 }
 
-export const miscReducer = (
-  state = INITIAL_STATE,
-  action: MiscActionTypes
-): MiscStateType => {
+export const miscReducer = (state = INITIAL_STATE, action: MiscActionTypes): MiscStateType => {
   switch (action.type) {
     case AT.FETCH_CAPTCHA_FAILURE: {
       return assoc('captcha', Remote.Failure(action.payload), state)
@@ -43,9 +40,9 @@ export const miscReducer = (
           ...state.price_change,
           [action.payload.range]: {
             ...state.price_change[action.payload.range],
-            [action.payload.base]: Remote.Loading
-          }
-        }
+            [action.payload.base]: Remote.Loading,
+          },
+        },
       }
     }
     case AT.FETCH_PRICE_CHANGE_SUCCESS: {
@@ -55,9 +52,9 @@ export const miscReducer = (
           ...state.price_change,
           [action.payload.range]: {
             ...state.price_change[action.payload.range],
-            [action.payload.base]: Remote.Success(action.payload)
-          }
-        }
+            [action.payload.base]: Remote.Success(action.payload),
+          },
+        },
       }
     }
     case AT.FETCH_PRICE_CHANGE_FAILURE: {
@@ -67,9 +64,9 @@ export const miscReducer = (
           ...state.price_change,
           [action.payload.range]: {
             ...state.price_change[action.payload.range],
-            [action.payload.base]: Remote.Failure(action.payload.error)
-          }
-        }
+            [action.payload.base]: Remote.Failure(action.payload.error),
+          },
+        },
       }
     }
     case AT.FETCH_PRICE_INDEX_SERIES_LOADING: {

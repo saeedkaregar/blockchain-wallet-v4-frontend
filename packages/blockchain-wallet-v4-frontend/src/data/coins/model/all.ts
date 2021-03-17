@@ -5,5 +5,5 @@ export const ALL_ACCOUNTS_SELECTOR: CoinAccountSelectorType = {
   importedAddresses: true,
   tradingAccounts: true,
   interestAccounts: true,
-  nonCustodialAccounts: true
+  nonCustodialAccounts: true,
 }

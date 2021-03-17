@@ -8,13 +8,13 @@ export default {
       rate: '1',
       symbol: '¢‎NT$',
       decimal_digits: 0,
-      currency: 'TWD'
+      currency: 'TWD',
     },
     TWD: {
       rate: '100',
       symbol: '‎NT$',
       decimal_digits: 2,
-      currency: 'TWD'
-    }
-  }
+      currency: 'TWD',
+    },
+  },
 }

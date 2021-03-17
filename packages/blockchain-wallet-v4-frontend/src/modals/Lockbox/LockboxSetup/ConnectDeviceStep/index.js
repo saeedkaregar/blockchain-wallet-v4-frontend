@@ -59,21 +59,18 @@ class ConnectDeviceStepContainer extends React.PureComponent {
 }
 
 ConnectDeviceStepContainer.propTypes = {
-  supportLink: PropTypes.string.isRequired
+  supportLink: PropTypes.string.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   connection: selectors.components.lockbox.getCurrentConnection(state),
   setupType: selectors.components.lockbox.getNewDeviceSetupType(state),
-  deviceType: selectors.components.lockbox.getNewDeviceType(state)
+  deviceType: selectors.components.lockbox.getNewDeviceType(state),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   analyticsActions: bindActionCreators(actions.analytics, dispatch),
-  lockboxActions: bindActionCreators(actions.components.lockbox, dispatch)
+  lockboxActions: bindActionCreators(actions.components.lockbox, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ConnectDeviceStepContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(ConnectDeviceStepContainer)

@@ -38,9 +38,7 @@ class SendEthContainer extends React.PureComponent {
         coin={coin.coinCode}
       >
         {step === 1 && <FirstStep coin={coin.coinCode} />}
-        {step === 2 && (
-          <SecondStep coin={coin.coinCode} coinDisplayName={coin.displayName} />
-        )}
+        {step === 2 && <SecondStep coin={coin.coinCode} coinDisplayName={coin.displayName} />}
       </SendEth>
     )
   }
@@ -51,18 +49,16 @@ SendEthContainer.propTypes = {
   step: PropTypes.number.isRequired,
   position: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
-  closeAll: PropTypes.func.isRequired
+  closeAll: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   step: selectors.components.sendEth.getStep(state),
-  supportedCoins: selectors.core.walletOptions
-    .getSupportedCoins(state)
-    .getOrFail()
+  supportedCoins: selectors.core.walletOptions.getSupportedCoins(state).getOrFail(),
 })
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions.components.sendEth, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions.components.sendEth, dispatch),
 })
 
 const enhance = compose(

@@ -3,14 +3,14 @@ export default ({ post, rootUrl }) => {
     post({
       url: rootUrl,
       endPoint: '/wallet',
-      data: { guid, sharedKey, method: 'get-info', format: 'json' }
+      data: { guid, sharedKey, method: 'get-info', format: 'json' },
     })
 
   const updateSettings = (guid, sharedKey, method, payload, querystring = '') =>
     post({
       url: rootUrl,
       endPoint: querystring ? `/wallet?${querystring}` : '/wallet',
-      data: { guid, sharedKey, method, payload, length: (payload + '').length }
+      data: { guid, sharedKey, method, payload, length: (payload + '').length },
     })
 
   const updateEmail = (guid, sharedKey, email) =>
@@ -62,12 +62,7 @@ export default ({ post, rootUrl }) => {
     updateSettings(guid, sharedKey, 'update-auth-type', authType)
 
   const updateAuthTypeNeverSave = (guid, sharedKey, authTypeNeverSave) =>
-    updateSettings(
-      guid,
-      sharedKey,
-      'update-never-save-auth-type',
-      authTypeNeverSave
-    )
+    updateSettings(guid, sharedKey, 'update-never-save-auth-type', authTypeNeverSave)
 
   const getGoogleAuthenticatorSecretUrl = (guid, sharedKey) =>
     updateSettings(guid, sharedKey, 'generate-google-secret', '')
@@ -107,6 +102,6 @@ export default ({ post, rootUrl }) => {
     enableYubikey,
     sendConfirmationCodeEmail,
     enableNotifications,
-    updateNotificationsType
+    updateNotificationsType,
   }
 }

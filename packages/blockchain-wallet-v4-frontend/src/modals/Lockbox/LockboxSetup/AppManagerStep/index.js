@@ -26,9 +26,7 @@ class AppManagerStepContainer extends React.PureComponent {
       <Wrapper>
         <AppManager
           newDevice
-          mainButtonText={
-            <FormattedMessage id='buttons.continue' defaultMessage='Continue' />
-          }
+          mainButtonText={<FormattedMessage id='buttons.continue' defaultMessage='Continue' />}
           onClose={this.onStepChange}
         />
       </Wrapper>
@@ -36,9 +34,9 @@ class AppManagerStepContainer extends React.PureComponent {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   analyticsActions: bindActionCreators(actions.analytics, dispatch),
-  lockboxActions: bindActionCreators(actions.components.lockbox, dispatch)
+  lockboxActions: bindActionCreators(actions.components.lockbox, dispatch),
 })
 
 export default connect(null, mapDispatchToProps)(AppManagerStepContainer)

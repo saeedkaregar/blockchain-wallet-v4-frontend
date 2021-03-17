@@ -4,17 +4,17 @@ import { changeChain, fromJS, getAddress, receiveChain } from './Cache'
 
 jest.mock('bitcoinjs-lib', () => ({
   HDNode: {
-    fromBase58: jest.fn()
-  }
+    fromBase58: jest.fn(),
+  },
 }))
 
 const deriveMock = jest.fn(() => ({
-  getAddress: jest.fn(() => 'addr')
+  getAddress: jest.fn(() => 'addr'),
 }))
 
 const { fromBase58 } = HDNode
 fromBase58.mockReturnValue({
-  derive: deriveMock
+  derive: deriveMock,
 })
 
 describe('getAddress', () => {
@@ -22,7 +22,7 @@ describe('getAddress', () => {
   const changeAccount = '456'
   const cache = fromJS({
     receiveAccount,
-    changeAccount
+    changeAccount,
   })
   const network = 'network'
   afterEach(() => {

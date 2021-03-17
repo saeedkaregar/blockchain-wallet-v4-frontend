@@ -8,13 +8,13 @@ export default {
       rate: '1',
       symbol: 'STROOP',
       decimal_digits: 0,
-      currency: 'XLM'
+      currency: 'XLM',
     },
     XLM: {
       rate: '10000000',
       symbol: 'XLM',
       decimal_digits: 7,
-      currency: 'XLM'
-    }
-  }
+      currency: 'XLM',
+    },
+  },
 }

@@ -1,12 +1,7 @@
 import Remote from 'blockchain-wallet-v4/src/remote/remote'
 
 import * as AT from './actionTypes'
-import {
-  AddBankStepType,
-  BankDWStepType,
-  BrokerageActionTypes,
-  BrokerageState
-} from './types'
+import { AddBankStepType, BankDWStepType, BrokerageActionTypes, BrokerageState } from './types'
 
 const INITIAL_STATE: BrokerageState = {
   bankTransferAccounts: Remote.NotAsked,
@@ -17,7 +12,7 @@ const INITIAL_STATE: BrokerageState = {
   redirectBackToStep: false,
   addNew: false, // TODO: Put this stuff in redux-form
   bankStatus: Remote.NotAsked,
-  fiatCurrency: undefined
+  fiatCurrency: undefined,
 }
 
 export function brokerageReducer(
@@ -28,42 +23,42 @@ export function brokerageReducer(
     case AT.FETCH_BANK_TRANSFER_ACCOUNTS_LOADING:
       return {
         ...state,
-        bankTransferAccounts: Remote.Loading
+        bankTransferAccounts: Remote.Loading,
       }
     case AT.FETCH_BANK_TRANSFER_ACCOUNTS_SUCCESS:
       const accounts = action.payload.accounts.filter(
-        a => a.state !== 'PENDING' && a.state !== 'BLOCKED'
+        (a) => a.state !== 'PENDING' && a.state !== 'BLOCKED'
       )
       return {
         ...state,
-        bankTransferAccounts: Remote.Success(accounts)
+        bankTransferAccounts: Remote.Success(accounts),
       }
     case AT.FETCH_BANK_TRANSFER_ACCOUNTS_ERROR: {
       return {
         ...state,
-        bankTransferAccounts: Remote.Failure(action.payload.error)
+        bankTransferAccounts: Remote.Failure(action.payload.error),
       }
     }
     case AT.FETCH_BANK_TRANSFER_UPDATE_LOADING:
       return {
         ...state,
-        fastLink: Remote.Loading
+        fastLink: Remote.Loading,
       }
     case AT.SET_FAST_LINK:
       return {
         ...state,
-        fastLink: Remote.Success(action.payload.fastLink)
+        fastLink: Remote.Success(action.payload.fastLink),
       }
     case AT.SET_BANK_DETAILS:
       return {
         ...state,
         account: action.payload.account,
-        redirectBackToStep: action.payload.redirectBackToStep || false
+        redirectBackToStep: action.payload.redirectBackToStep || false,
       }
     case AT.HANDLE_DEPOSIT_FIAT_CLICK:
       return {
         ...state,
-        fiatCurrency: action.payload.fiatCurrency
+        fiatCurrency: action.payload.fiatCurrency,
       }
     case AT.SET_ADD_BANK_STEP:
       switch (action.payload.addBankStep) {
@@ -71,12 +66,12 @@ export function brokerageReducer(
           return {
             ...state,
             bankStatus: Remote.Success(action.payload.bankStatus),
-            addBankStep: action.payload.addBankStep
+            addBankStep: action.payload.addBankStep,
           }
         default: {
           return {
             ...state,
-            addBankStep: action.payload.addBankStep
+            addBankStep: action.payload.addBankStep,
           }
         }
       }
@@ -86,12 +81,12 @@ export function brokerageReducer(
           return {
             ...state,
             dwStep: action.payload.dwStep,
-            addNew: action.payload.addNew || false
+            addNew: action.payload.addNew || false,
           }
         default:
           return {
             ...state,
-            dwStep: action.payload.dwStep
+            dwStep: action.payload.dwStep,
           }
       }
     default:

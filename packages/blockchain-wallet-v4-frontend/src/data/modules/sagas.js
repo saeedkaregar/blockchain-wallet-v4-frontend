@@ -11,5 +11,5 @@ export default ({ api, coreSagas, networks }) => ({
   rates: rates({ api }),
   settings: settings({ api, coreSagas }),
   securityCenter: securityCenter({ coreSagas }),
-  transferEth: transferEth({ coreSagas, networks })
+  transferEth: transferEth({ coreSagas, networks }),
 })

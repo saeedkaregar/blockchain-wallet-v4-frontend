@@ -8,7 +8,7 @@ import {
   SecurityContainer,
   SecurityDescription,
   SecurityHeader,
-  SecuritySummary
+  SecuritySummary,
 } from '../../components'
 
 const EmailAddress = () => {

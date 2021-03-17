@@ -18,7 +18,7 @@ const kvStoreReducer = combineReducers({
   [C.LOCKBOX]: lockbox,
   [C.USER_CREDENTIALS]: userCredentials,
   [C.XLM]: xlm,
-  [C.WALLET_CREDENTIALS]: walletCredentials
+  [C.WALLET_CREDENTIALS]: walletCredentials,
 })
 
 export default kvStoreReducer

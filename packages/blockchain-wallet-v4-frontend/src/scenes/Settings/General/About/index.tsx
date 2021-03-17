@@ -7,7 +7,7 @@ import {
   SettingContainer,
   SettingDescription,
   SettingHeader,
-  SettingSummary
+  SettingSummary,
 } from 'components/Setting'
 
 const About = () => {
@@ -15,10 +15,7 @@ const About = () => {
     <SettingContainer>
       <SettingSummary>
         <SettingHeader>
-          <FormattedMessage
-            id='scenes.settings.general.about.title'
-            defaultMessage='About'
-          />
+          <FormattedMessage id='scenes.settings.general.about.title' defaultMessage='About' />
         </SettingHeader>
         <SettingDescription>
           <FormattedMessage

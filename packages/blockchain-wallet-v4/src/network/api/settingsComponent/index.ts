@@ -4,10 +4,10 @@ export default ({ authorizedGet, nabuUrl }) => {
   const getProductsEligiblity = (): ProductEligibility[] =>
     authorizedGet({
       url: nabuUrl,
-      endPoint: '/eligible/products'
+      endPoint: '/eligible/products',
     })
 
   return {
-    getProductsEligiblity
+    getProductsEligiblity,
   }
 }

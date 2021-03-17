@@ -14,13 +14,13 @@ import XlmLockboxBalance from './XlmLockboxBalance'
 const Title = styled(Text)`
   display: flex;
   flex-direction: row;
-  color: ${props => props.theme.grey800};
+  color: ${(props) => props.theme.grey800};
   font-weight: 600;
   font-size: 16px;
   line-height: 150%;
 `
 
-const Template = props => (
+const Template = (props) => (
   <Wrapper>
     <Header onClick={props.handleToggle} data-e2e='balanceDropdown-lockbox'>
       <Title>
@@ -35,12 +35,7 @@ const Template = props => (
           defaultMessage='Hardware'
         />
       </Title>
-      <Icon
-        color='grey600'
-        name='caret'
-        size='10px'
-        className={props.isActive ? 'active' : ''}
-      />
+      <Icon color='grey600' name='caret' size='10px' className={props.isActive ? 'active' : ''} />
     </Header>
     <BalancesWrapper className={props.isActive ? 'active' : ''}>
       <BtcLockboxBalance />

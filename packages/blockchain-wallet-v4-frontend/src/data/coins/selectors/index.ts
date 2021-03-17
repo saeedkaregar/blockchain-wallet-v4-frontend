@@ -1,11 +1,7 @@
 import { any, isEmpty, isNil, map, values } from 'ramda'
 
 import { Remote } from 'blockchain-wallet-v4/src'
-import {
-  CoinType,
-  Erc20CoinsEnum,
-  RemoteDataType
-} from 'blockchain-wallet-v4/src/types'
+import { CoinType, Erc20CoinsEnum, RemoteDataType } from 'blockchain-wallet-v4/src/types'
 import { selectors } from 'data'
 import { SUPPORTED_COINS } from 'data/coins/model/swap'
 import { CoinAccountSelectorType } from 'data/coins/types'
@@ -32,35 +28,28 @@ const coinSelectors = {
   EUR,
   GBP,
   USD,
-  XLM
+  XLM,
 }
 
 // retrieves introduction text for coin on its transaction page
-export const getIntroductionText = coin => {
-  return coinSelectors[
-    coin in Erc20CoinsEnum ? 'ERC20' : coin
-  ]?.getTransactionPageHeaderText(coin)
+export const getIntroductionText = (coin) => {
+  return coinSelectors[coin in Erc20CoinsEnum ? 'ERC20' : coin]?.getTransactionPageHeaderText(coin)
 }
 
 // retrieves custodial account balances
 export const getTradingBalance = (coin: CoinType, state) => {
-  return selectors.components.simpleBuy.getSBBalances(state).map(x => x[coin])
+  return selectors.components.simpleBuy.getSBBalances(state).map((x) => x[coin])
 }
 
 // retrieves custodial account balances
 export const getInterestBalance = (coin: CoinType, state) => {
-  return selectors.components.interest
-    .getInterestAccountBalance(state)
-    .map(x => x[coin])
+  return selectors.components.interest.getInterestAccountBalance(state).map((x) => x[coin])
 }
 
 // generic selector that should be used by all features to request their desired
 // account types for their coins
-export const getCoinAccounts = (
-  state: RootState,
-  ownProps: CoinAccountSelectorType
-) => {
-  const getCoinAccountsR = state => {
+export const getCoinAccounts = (state: RootState, ownProps: CoinAccountSelectorType) => {
+  const getCoinAccountsR = (state) => {
     const coinList = ownProps?.coins
 
     // dynamically create account selectors via passed in coin list
@@ -75,16 +64,12 @@ export const getCoinAccounts = (
             return accounts
           }, {})
 
-    const isNotLoaded = coinAccounts => Remote.Loading.is(coinAccounts)
+    const isNotLoaded = (coinAccounts) => Remote.Loading.is(coinAccounts)
     if (any(isNotLoaded, values(accounts))) return Remote.Loading
 
     // @ts-ignore
     return Remote.of(
-      map(
-        coinAccounts =>
-          (isEmpty(coinAccounts) && []) || coinAccounts.getOrElse([]),
-        accounts
-      )
+      map((coinAccounts) => (isEmpty(coinAccounts) && []) || coinAccounts.getOrElse([]), accounts)
     )
   }
 

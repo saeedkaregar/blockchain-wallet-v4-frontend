@@ -4,7 +4,7 @@ import { css } from 'styled-components'
 
 const types = {
   m: 'margin',
-  p: 'padding'
+  p: 'padding',
 }
 
 const templates = {
@@ -14,27 +14,27 @@ const templates = {
   t: (type, size) => ({ [`${type}Top`]: size }),
   r: (type, size) => ({ [`${type}Right`]: size }),
   b: (type, size) => ({ [`${type}Bottom`]: size }),
-  l: (type, size) => ({ [`${type}Left`]: size })
+  l: (type, size) => ({ [`${type}Left`]: size }),
 }
 
-export const spacing = value =>
+export const spacing = (value) =>
   mergeAll(
-    value.split(' ').map(statement => {
-      let [rule, size] = statement.split('-')
-      let [type, tmpl] = rule.split('')
-      let valid = types[type] && templates[tmpl] && size % 5 === 0
+    value.split(' ').map((statement) => {
+      const [rule, size] = statement.split('-')
+      const [type, tmpl] = rule.split('')
+      const valid = types[type] && templates[tmpl] && size % 5 === 0
       return valid ? templates[tmpl](types[type], parseInt(size)) : {}
     })
   )
 
 const flexDirections = {
   row: 'row',
-  col: 'column'
+  col: 'column',
 }
 
 const flexProperties = {
   align: 'alignItems',
-  justify: 'justifyContent'
+  justify: 'justifyContent',
 }
 
 const flexRules = {
@@ -44,18 +44,18 @@ const flexRules = {
   base: 'baseline',
   around: 'space-around',
   between: 'space-between',
-  evenly: 'space-evenly'
+  evenly: 'space-evenly',
 }
 
-export const flex = value => {
+export const flex = (value) => {
   const [directions, ...params] = value.split(' ')
   const base = {
     display: 'flex',
-    flexDirection: flexDirections[directions]
+    flexDirection: flexDirections[directions],
   }
   return mergeAll(
     [base].concat(
-      params.map(p => {
+      params.map((p) => {
         const [property, rule] = p.split('/')
         return { [flexProperties[property]]: flexRules[rule] }
       })
@@ -72,12 +72,12 @@ export const sizes = {
   laptop: 1023,
   laptopM: 1279,
   laptopL: 1439,
-  desktop: 2560
+  desktop: 2560,
 }
 
 export const heights = {
   small: 600,
-  big: 800
+  big: 800,
 }
 
 export type SizesTypes = typeof sizes
@@ -114,9 +114,7 @@ export const media = Object.keys(sizes).reduce((acc, label) => {
       ${css(...args)};
     }
   `
-  acc['atLeast' + label[0].toUpperCase() + label.slice(1, label.length)] = (
-    ...args
-  ) => css`
+  acc['atLeast' + label[0].toUpperCase() + label.slice(1, label.length)] = (...args) => css`
     @media (min-width: ${sizes[label] + 1}px) {
       // @ts-ignore
       ${css(...args)};

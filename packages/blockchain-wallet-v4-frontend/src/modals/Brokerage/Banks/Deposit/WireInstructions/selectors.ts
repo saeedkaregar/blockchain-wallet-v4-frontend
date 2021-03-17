@@ -11,8 +11,5 @@ export const getData = (state: RootState) => {
   const invitationsR = selectors.core.settings.getInvitations(state)
   const isInvited = invitationsR.data.achDepositWithdrawal
 
-  return lift((account, userData) => ({ account, userData, isInvited }))(
-    accountR,
-    userDataR
-  )
+  return lift((account, userData) => ({ account, userData, isInvited }))(accountR, userDataR)
 }

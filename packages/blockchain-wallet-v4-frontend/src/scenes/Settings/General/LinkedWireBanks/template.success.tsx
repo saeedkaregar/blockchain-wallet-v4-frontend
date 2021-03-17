@@ -5,11 +5,7 @@ import styled from 'styled-components'
 
 import { Icon, Text } from 'blockchain-info-components'
 import { fiatToString } from 'blockchain-wallet-v4/src/exchange/currency'
-import {
-  SBPaymentMethodType,
-  WalletFiatEnum,
-  WalletFiatType
-} from 'blockchain-wallet-v4/src/types'
+import { SBPaymentMethodType, WalletFiatEnum, WalletFiatType } from 'blockchain-wallet-v4/src/types'
 import { SettingContainer, SettingSummary } from 'components/Setting'
 import { convertBaseToStandard } from 'data/components/exchange/services'
 
@@ -28,18 +24,16 @@ const getAvailableAmountForCurrency = (
   methods: SBPaymentMethodType[],
   currency: WalletFiatType
 ) => {
-  const method = methods.find(
-    method => method.type === 'FUNDS' && method.currency === currency
-  )
+  const method = methods.find((method) => method.type === 'FUNDS' && method.currency === currency)
   if (method) {
     return Number(method.limits.max)
   }
   return null
 }
 
-const Success: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
+const Success: React.FC<InjectedFormProps<{}, Props> & Props> = (props) => {
   const walletBeneficiaries = props.beneficiaries.filter(
-    beneficiary => beneficiary.currency in WalletFiatEnum
+    (beneficiary) => beneficiary.currency in WalletFiatEnum
   )
 
   return (
@@ -69,13 +63,9 @@ const Success: React.FC<InjectedFormProps<{}, Props> & Props> = props => {
                           defaultMessage='{amount} Daily Limit'
                           values={{
                             amount: fiatToString({
-                              value: convertBaseToStandard(
-                                'FIAT',
-                                availableAmount
-                              ),
-                              unit: (beneficiary.currency ||
-                                'EUR') as WalletFiatType
-                            })
+                              value: convertBaseToStandard('FIAT', availableAmount),
+                              unit: (beneficiary.currency || 'EUR') as WalletFiatType,
+                            }),
                           }}
                         />
                       </Text>

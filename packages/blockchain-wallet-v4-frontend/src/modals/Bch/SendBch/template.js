@@ -10,17 +10,14 @@ const SendHeader = styled(ModalHeader)`
   border-bottom: 0;
   padding-bottom: 8px;
   > div:first-child * {
-    color: ${props => props.theme.blue900};
+    color: ${(props) => props.theme.blue900};
   }
 `
 
-const SendBch = props => (
+const SendBch = (props) => (
   <Modal size='medium' position={props.position} total={props.total}>
     <SendHeader icon='send' onClose={props.closeAll}>
-      <FormattedMessage
-        id='modals.sendbch.title'
-        defaultMessage='Send Bitcoin Cash'
-      />
+      <FormattedMessage id='modals.sendbch.title' defaultMessage='Send Bitcoin Cash' />
     </SendHeader>
     <Announcements type='service' alertArea='send' currentCoin='BCH' />
     <ModalBody>{props.children}</ModalBody>
@@ -30,7 +27,7 @@ const SendBch = props => (
 SendBch.propTypes = {
   position: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
-  closeAll: PropTypes.func.isRequired
+  closeAll: PropTypes.func.isRequired,
 }
 
 export default SendBch

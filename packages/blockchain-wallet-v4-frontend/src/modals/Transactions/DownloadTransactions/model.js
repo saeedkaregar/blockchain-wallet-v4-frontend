@@ -8,7 +8,7 @@ const reportHeaders = [
   'value_now',
   'exchange_rate_then',
   'tx',
-  'note'
+  'note',
 ]
 
 const formatTxData = (d, coin) => [
@@ -21,7 +21,7 @@ const formatTxData = (d, coin) => [
   d.value_now,
   d.exchange_rate_then,
   d.hash || d.tx,
-  d.description || d.note
+  d.description || d.note,
 ]
 
 export { formatTxData, reportHeaders }

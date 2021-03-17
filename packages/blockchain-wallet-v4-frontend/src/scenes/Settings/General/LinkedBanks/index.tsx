@@ -6,7 +6,7 @@ import {
   BankTransferAccountType,
   ExtractSuccess,
   RemoteDataType,
-  WalletFiatType
+  WalletFiatType,
 } from 'blockchain-wallet-v4/src/types'
 import { actions, selectors } from 'data'
 import { RootState } from 'data/rootReducer'
@@ -23,38 +23,29 @@ class LinkedBanks extends PureComponent<Props> {
   }
 
   handleBankClick = () => {
-    this.props.brokerageActions.showModal(
-      BrokerageModalOriginType.ADD_BANK,
-      'ADD_BANK_MODAL'
-    )
+    this.props.brokerageActions.showModal(BrokerageModalOriginType.ADD_BANK, 'ADD_BANK_MODAL')
     this.props.brokerageActions.setAddBankStep({
-      addBankStep: AddBankStepType.ADD_BANK
+      addBankStep: AddBankStepType.ADD_BANK,
     })
   }
 
   handleShowBankClick = (account: BankTransferAccountType) => {
-    this.props.brokerageActions.showModal(
-      BrokerageModalOriginType.BANK,
-      'BANK_DETAILS_MODAL'
-    )
+    this.props.brokerageActions.showModal(BrokerageModalOriginType.BANK, 'BANK_DETAILS_MODAL')
     this.props.brokerageActions.setBankDetails({
-      account
+      account,
     })
   }
 
   handleDeleteBank = (account: BankTransferAccountType) => {
-    this.props.brokerageActions.showModal(
-      BrokerageModalOriginType.BANK,
-      'REMOVE_BANK_MODAL'
-    )
+    this.props.brokerageActions.showModal(BrokerageModalOriginType.BANK, 'REMOVE_BANK_MODAL')
     this.props.brokerageActions.setBankDetails({
-      account
+      account,
     })
   }
 
   render() {
     return this.props.data.cata({
-      Success: val => (
+      Success: (val) => (
         <Success
           {...this.props}
           {...val}
@@ -65,21 +56,21 @@ class LinkedBanks extends PureComponent<Props> {
       ),
       Loading: () => <Loading />,
       Failure: () => null,
-      NotAsked: () => null
+      NotAsked: () => null,
     })
   }
 }
 
 const mapStateToProps = (state: RootState): LinkStatePropsType => ({
   data: getData(state),
-  fiatCurrency: selectors.components.withdraw.getFiatCurrency(state)
+  fiatCurrency: selectors.components.withdraw.getFiatCurrency(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   custodialActions: bindActionCreators(actions.custodial, dispatch),
   simpleBuyActions: bindActionCreators(actions.components.simpleBuy, dispatch),
   brokerageActions: bindActionCreators(actions.components.brokerage, dispatch),
-  withdrawActions: bindActionCreators(actions.components.withdraw, dispatch)
+  withdrawActions: bindActionCreators(actions.components.withdraw, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

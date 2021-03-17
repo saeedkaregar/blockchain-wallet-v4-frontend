@@ -9,15 +9,13 @@ import {
   SettingContainer,
   SettingDescription,
   SettingHeader,
-  SettingSummary
+  SettingSummary,
 } from 'components/Setting'
 import { actions, selectors } from 'data'
 
 class TakeTourContainer extends React.PureComponent {
   onStartTour = () => {
-    this.props.routerActions.push(
-      `/lockbox/dashboard/${this.props.deviceIndex}`
-    )
+    this.props.routerActions.push(`/lockbox/dashboard/${this.props.deviceIndex}`)
     this.props.lockboxActions.setProductTourVisibility(true)
   }
 
@@ -52,14 +50,12 @@ class TakeTourContainer extends React.PureComponent {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  deviceName: selectors.core.kvStore.lockbox
-    .getDeviceName(state, ownProps.deviceIndex)
-    .getOrFail()
+  deviceName: selectors.core.kvStore.lockbox.getDeviceName(state, ownProps.deviceIndex).getOrFail(),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   lockboxActions: bindActionCreators(actions.components.lockbox, dispatch),
-  routerActions: bindActionCreators(actions.router, dispatch)
+  routerActions: bindActionCreators(actions.router, dispatch),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TakeTourContainer)

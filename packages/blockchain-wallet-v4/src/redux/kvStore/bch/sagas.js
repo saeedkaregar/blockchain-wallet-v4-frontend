@@ -1,14 +1,4 @@
-import {
-  concat,
-  gt,
-  isEmpty,
-  isNil,
-  length,
-  map,
-  pathOr,
-  propOr,
-  range
-} from 'ramda'
+import { concat, gt, isEmpty, isNil, length, map, pathOr, propOr, range } from 'ramda'
 import { set } from 'ramda-lens'
 import { call, put, select } from 'redux-saga/effects'
 
@@ -21,10 +11,10 @@ import { getMetadataXpriv } from '../root/selectors'
 import * as A from './actions'
 
 export default ({ api, networks }) => {
-  const createBch = function * (kv, hdAccounts, bchAccounts) {
-    const createAccountEntry = x => ({
+  const createBch = function* (kv, hdAccounts, bchAccounts) {
+    const createAccountEntry = (x) => ({
       label: `My Bitcoin Cash Wallet${x > 0 ? ` ${x + 1}` : ''}`,
-      archived: pathOr(false, [x, 'archived'], hdAccounts)
+      archived: pathOr(false, [x, 'archived'], hdAccounts),
     })
 
     const newBchEntry = {
@@ -33,7 +23,7 @@ export default ({ api, networks }) => {
         bchAccounts,
         map(createAccountEntry, range(length(bchAccounts), hdAccounts.length))
       ),
-      addresses: {}
+      addresses: {},
     }
 
     const newkv = set(KVStoreEntry.value, newBchEntry, kv)
@@ -41,28 +31,23 @@ export default ({ api, networks }) => {
     yield put(bchActions.fetchData())
   }
 
-  const createBchAddresses = function * (kv) {
+  const createBchAddresses = function* (kv) {
     const newBchEntry = {
       ...kv.value,
-      addresses: {}
+      addresses: {},
     }
     const newkv = set(KVStoreEntry.value, newBchEntry, kv)
     yield put(A.createMetadataBch(newkv))
   }
 
-  const importLegacyAddress = function * (action) {
+  const importLegacyAddress = function* (action) {
     const { payload } = action
     const { key, label } = payload
-    const addr = Address.importAddress(
-      key,
-      new Date(),
-      label,
-      networks.bch
-    ).toJS()
+    const addr = Address.importAddress(key, new Date(), label, networks.bch).toJS()
     yield put(A.setLegacyAddress(addr))
   }
 
-  const fetchMetadataBch = function * () {
+  const fetchMetadataBch = function* () {
     try {
       const typeId = derivationMap[BCH]
       const mxpriv = yield select(getMetadataXpriv)
@@ -89,6 +74,6 @@ export default ({ api, networks }) => {
   return {
     createBch,
     fetchMetadataBch,
-    importLegacyAddress
+    importLegacyAddress,
   }
 }

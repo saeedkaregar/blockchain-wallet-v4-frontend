@@ -4,17 +4,14 @@ import { connect, ConnectedProps } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 
 import { Icon } from 'blockchain-info-components'
-import {
-  NabuApiErrorType,
-  RemoteDataType
-} from 'blockchain-wallet-v4/src/types'
+import { NabuApiErrorType, RemoteDataType } from 'blockchain-wallet-v4/src/types'
 import { Container } from 'components/Box'
 import {
   IconBackground,
   SceneHeader,
   SceneHeaderText,
   SceneSubHeaderText,
-  SceneWrapper
+  SceneWrapper,
 } from 'components/Layout'
 import { actions, selectors } from 'data'
 import { RootState } from 'data/rootReducer'
@@ -43,7 +40,7 @@ class Borrow extends PureComponent<Props, State> {
 
   checkUserData = () => {
     const userData = this.props.userDataR.getOrElse({
-      tiers: { current: 0 }
+      tiers: { current: 0 },
     } as UserDataType)
     const tier = userData.tiers ? userData.tiers.current : 0
     const isDisabled = tier < 2
@@ -62,10 +59,7 @@ class Borrow extends PureComponent<Props, State> {
             <Icon name='borrow' color='blue600' size='24px' />
           </IconBackground>
           <SceneHeaderText>
-            <FormattedMessage
-              id='scenes.borrow.blockchain'
-              defaultMessage='Borrow'
-            />
+            <FormattedMessage id='scenes.borrow.blockchain' defaultMessage='Borrow' />
           </SceneHeaderText>
         </SceneHeader>
         <SceneSubHeaderText>
@@ -85,7 +79,7 @@ class Borrow extends PureComponent<Props, State> {
 }
 
 const mapStateToProps = (state: RootState): LinkStatePropsType => ({
-  userDataR: selectors.modules.profile.getUserData(state)
+  userDataR: selectors.modules.profile.getUserData(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -94,7 +88,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     actions.components.identityVerification,
     dispatch
   ),
-  routerActions: bindActionCreators(actions.router, dispatch)
+  routerActions: bindActionCreators(actions.router, dispatch),
 })
 
 const connector = connect(mapStateToProps, mapDispatchToProps)

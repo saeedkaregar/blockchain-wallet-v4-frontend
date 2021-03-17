@@ -4,7 +4,7 @@ export default ({ apiUrl, get, post }) => {
   const fetchBchData = (
     context,
     { n = 50, offset = 0, onlyShow = false } = {},
-    filter?: Number
+    filter?: number
   ) => {
     const data = {
       active: (Array.isArray(context) ? context : [context]).join('|'),
@@ -15,18 +15,16 @@ export default ({ apiUrl, get, post }) => {
       n: n,
       language: 'en',
       no_buttons: true,
-      filter: filter
+      filter: filter,
     }
     return post({
       url: apiUrl,
       endPoint: '/bch/multiaddr',
       data: onlyShow
         ? merge(data, {
-            onlyShow: (Array.isArray(onlyShow) ? onlyShow : [onlyShow]).join(
-              '|'
-            )
+            onlyShow: (Array.isArray(onlyShow) ? onlyShow : [onlyShow]).join('|'),
           })
-        : data
+        : data,
     })
   }
 
@@ -34,7 +32,7 @@ export default ({ apiUrl, get, post }) => {
     get({
       url: apiUrl,
       endPoint: '/ticker',
-      data: { base: 'BCH' }
+      data: { base: 'BCH' },
     })
 
   const getBchUnspents = (fromAddresses, confirmations = 0) =>
@@ -44,37 +42,37 @@ export default ({ apiUrl, get, post }) => {
       data: {
         active: fromAddresses.join('|'),
         confirmations: Math.max(confirmations, -1),
-        format: 'json'
-      }
+        format: 'json',
+      },
     })
 
   const pushBchTx = (tx, lock_secret) =>
     post({
       url: apiUrl,
       endPoint: '/bch/pushtx',
-      data: { tx, lock_secret, format: 'plain' }
+      data: { tx, lock_secret, format: 'plain' },
     })
 
-  const getBchRawTx = txHex =>
+  const getBchRawTx = (txHex) =>
     get({
       url: apiUrl,
       endPoint: '/bch/rawtx/' + txHex,
       data: {
         format: 'hex',
-        cors: 'true'
-      }
+        cors: 'true',
+      },
     })
 
   const getBchDust = () =>
     get({
       url: apiUrl,
-      endPoint: '/bch/dust'
+      endPoint: '/bch/dust',
     })
 
   const getBchFees = () =>
     get({
       url: apiUrl,
-      endPoint: '/mempool/fees/bch'
+      endPoint: '/mempool/fees/bch',
     })
 
   return {
@@ -84,6 +82,6 @@ export default ({ apiUrl, get, post }) => {
     getBchRawTx,
     getBchTicker,
     getBchUnspents,
-    pushBchTx
+    pushBchTx,
   }
 }
